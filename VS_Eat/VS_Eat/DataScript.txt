@@ -1,0 +1,62 @@
+﻿﻿/** SQL SCRIPT THAT FILLS OUR DIFFERENT TABLES **/
+
+
+/** DELETE ALL THE DATA 
+TRUNCATE TABLE [dbo].[LoginType]
+TRUNCATE TABLE [dbo].[Location]
+TRUNCATE TABLE [dbo].[Login]
+TRUNCATE TABLE [dbo].[User]
+TRUNCATE TABLE [dbo].[Restaurant]
+TRUNCATE TABLE [dbo].[ProductType]
+TRUNCATE TABLE [dbo].[Product]
+TRUNCATE TABLE [dbo].[DeliveryStaff]
+TRUNCATE TABLE [dbo].[Order]
+TRUNCATE TABLE [dbo].[OrderDetails]
+**/
+
+/** INSERT NEW VALUES **/
+INSERT [dbo].[LoginType] (LoginType) VALUES
+('Administrator'),
+('User'),
+('Restaurant'),
+('DeliveryStaff');
+
+INSERT [dbo].[Location] (PostCode, City) VALUES
+('3960', 'Sierre'),
+('1950', 'Sion'),
+('1895', 'Vionnaz'),
+('1945', 'Liddes');
+
+INSERT [dbo].[Login] (Login, Password, IdLoginType) VALUES
+('benjamin.morel@students.hevs.ch', 1234, '1'),
+('hugo.vouillamoz@students.hevs.ch', 4567, '1'),
+('daniel.coimbra@students.hevs.ch', 6969, '2');
+
+INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, EmailAddress, IdLogin, IdLocation) VALUES
+('Thomas', 'Cheseaux', '0792839183', 'thomas.cheseaux@students.hevs.ch', NULL, NULL),
+('Nicolas', 'Devanthéry', '0793943812', 'nicolas.devanthery@students.hevs.ch', NULL, NULL);
+
+INSERT [dbo].[Restaurant] (RestaurantName, RestaurantAddress) VALUES
+('StarKebab', 'Chemin du kebab 12'),
+('Pizza Express', 'Chemin de la pizza 93');
+
+INSERT [dbo].[ProductType] (ProductType) VALUES
+('Petit'),
+('Moyen'),
+('Grand'),
+('Famille');
+
+INSERT [dbo].[Product] (ProductName, Description, Price, Picture, Disponibility) VALUES
+('CheeseBurger', 'Burger avec fromage', '15.00', 'cheeseBurger.png', 1),
+('Pizza Margarita', 'tomate, mozzarella', '10.00', 'margarita.png', 1);
+
+INSERT [dbo].[DeliveryStaff] (FirstNameDeliveryStaff, NameDeliveryStaff) VALUES
+('Eric', 'Gallati'),
+('Doriane', 'Papilloud');
+
+INSERT [dbo].[Order] (OrderNumber, OrderDate, Freight, DeliveryAddress, Free, Finished, Archived) VALUES
+('123', DEFAULT, '2.00', 'Rue de la faim 3', DEFAULT, DEFAULT, DEFAULT);
+
+INSERT [dbo].[OrderDetails] (UnitPrice, Quantity) VALUES
+('10.50', '2'),
+('15.90', '5');

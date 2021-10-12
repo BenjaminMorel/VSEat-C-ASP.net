@@ -1,0 +1,107 @@
+﻿/** SQL SCRIPT THAT CREATE OUR DIFFERENT TABLES **/
+
+
+/** DELETE ALL EXISTING TABLES IF EXISTING **/
+DROP TABLE [dbo].[OrderDetails]
+DROP TABLE [dbo].[Order]
+DROP TABLE [dbo].[DeliveryStaff]
+DROP TABLE [dbo].[Product]
+DROP TABLE [dbo].[ProductType]
+DROP TABLE [dbo].[Restaurant]
+DROP TABLE [dbo].[User]
+DROP TABLE [dbo].[Login]
+DROP TABLE [dbo].[Location]
+DROP TABLE [dbo].[LoginType]
+
+
+/** CREATE NEW TABLES **/
+CREATE TABLE [dbo].[LoginType] (
+    [IdLoginType] INT   IDENTITY(1,1) PRIMARY KEY,
+    [LoginType]   NVARCHAR (50) NULL,
+);
+
+CREATE TABLE [dbo].[Location] (
+    [IdLocation] INT    IDENTITY(1,1) PRIMARY KEY,
+    [PostCode]      NVARCHAR (50) NULL,
+    [City]       NVARCHAR (50) NULL,
+);
+
+CREATE TABLE [dbo].[Login] (
+    [IdLogin]  INT           IDENTITY (1, 1)    PRIMARY KEY,
+    [Login] NVARCHAR (50) NULL,
+    [Password] NVARCHAR (50) NULL,
+    [IdLoginType] INT NULL, 
+	CONSTRAINT [FK_Login_IdLoginType] FOREIGN KEY ([IdLoginType]) REFERENCES [LoginType]([IdLoginType])
+);
+
+CREATE TABLE [dbo].[User] (
+    [IdUser]      INT           IDENTITY (1, 1)    PRIMARY KEY,
+    [FirstName]    NVARCHAR (50) NULL,
+    [LastName]     NVARCHAR (50) NULL,
+    [PhoneNumber]  NCHAR (10)    NULL,
+    [EmailAddress] NVARCHAR (50) NULL,
+    [IdLogin] INT NULL,
+    [IdLocation] INT NULL,
+    CONSTRAINT [FK_User_IdLogin] FOREIGN KEY ([IdLogin]) REFERENCES [Login]([IdLogin]),
+	CONSTRAINT [FK_User_IdLocation] FOREIGN KEY ([IdLocation]) REFERENCES [Location]([IdLocation])
+);
+
+CREATE TABLE [dbo].[Restaurant] (
+    [IdRestaurant]      INT           IDENTITY (1, 1)   PRIMARY KEY,
+    [RestaurantName]    NVARCHAR (50) NULL,
+    [RestaurantAddress] NVARCHAR (50) NULL,
+    [IdLogin] INT NULL,
+    [IdLocation] INT NULL,
+	CONSTRAINT [FK_Restaurant_IdLogin] FOREIGN KEY ([IdLogin]) REFERENCES [Login]([IdLogin]),
+	CONSTRAINT [FK_Restaurant_IdLocation] FOREIGN KEY ([IdLocation]) REFERENCES [Location]([IdLocation])
+);
+
+CREATE TABLE [dbo].[ProductType] (
+    [IdProductType] INT     IDENTITY(1,1) PRIMARY KEY,
+    [ProductType]   NVARCHAR (50) NULL,
+);
+
+CREATE TABLE [dbo].[Product] (
+    [IdProduct]     INT           IDENTITY (1, 1)  PRIMARY KEY,
+    [ProductName]   NVARCHAR (50) NULL,
+    [Description]   NVARCHAR (50) NULL,
+    [Price]         MONEY  NULL,
+    [Picture]       NVARCHAR (50) NULL,
+    [Disponibility] BIT           NULL,
+    [IdRestaurant] INT NULL,
+    [IdProductType] INT NULL,
+	CONSTRAINT [FK_Product_IdRestaurant] FOREIGN KEY ([IdRestaurant]) REFERENCES [Restaurant]([IdRestaurant]),
+	CONSTRAINT [FK_Product_IdProductType] FOREIGN KEY ([IdProductType]) REFERENCES [ProductType]([IdProductType])
+);
+
+CREATE TABLE [dbo].[DeliveryStaff] (
+    [IdDeliveryStaff]        INT           IDENTITY (1, 1)  PRIMARY KEY,
+    [FirstNameDeliveryStaff] NVARCHAR (50) NULL,
+    [NameDeliveryStaff]      NVARCHAR (50) NULL,
+    [IdLogin] INT NULL, 
+	CONSTRAINT [FK_DeliveryStaff_IdLogin] FOREIGN KEY ([IdLogin]) REFERENCES [Login]([IdLogin])
+);
+
+CREATE TABLE [dbo].[Order] (
+    [IdOrder]         INT           IDENTITY(1,1) PRIMARY KEY,
+    [OrderNumber]     NVARCHAR (50) NULL,
+    [OrderDate]       DATE          DEFAULT GETDATE(),
+    [Freight]         MONEY  NULL,
+    [DeliveryAddress] NVARCHAR (50) NULL,
+    [Free]            BIT           NOT NULL    DEFAULT 0,
+    [Finished]        BIT           NOT NULL    DEFAULT 0,
+    [Archived]        BIT           NOT NULL    DEFAULT 0, 
+    [IdUser] INT NULL, 
+    [IdDeliveryStaff] INT NULL, 
+    CONSTRAINT [FK_Order_IdUser] FOREIGN KEY ([IdUser]) REFERENCES [User]([IdUser]),
+	CONSTRAINT [FK_Order_IdDeliveryStaff] FOREIGN KEY ([IdDeliveryStaff]) REFERENCES [DeliveryStaff]([IdDeliveryStaff])
+);
+
+CREATE TABLE [dbo].[OrderDetails] (
+    [UnitPrice] MONEY NULL,
+    [Quantity]  INT NULL, 
+    [IdProduct] INT NULL,
+    [IdOrder] INT NULL,
+    CONSTRAINT [FK_OrderDetail_IdProduct] FOREIGN KEY ([IdProduct]) REFERENCES [Product]([IdProduct]),
+	CONSTRAINT [FK_OrderDetail_IdOrder] FOREIGN KEY ([IdOrder]) REFERENCES [Order]([IdOrder])
+);
