@@ -15,7 +15,7 @@ namespace DAL
         {
             Configuration = configuration;
         }
-        public void ShowUser()
+        public void ShowAllUser()
         {       
              string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
@@ -58,6 +58,64 @@ namespace DAL
                 Console.Write(e.Source);
                 Console.Write("ERROR\n");
             }
+        }
+
+        public User GetUserByID(string Email, string Password)
+        {
+
+            var LoginDB = new LoginDB(Configuration);
+            int IdLogin = LoginDB.GetLogin(Email, Password); 
+            User MyUser = null;
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+
+                    string query = "Select * from [dbo].[User] WHERE IdLogin=@IdLogin";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdLogin", IdLogin);
+
+                    connection.Open();
+
+                
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+               
+                            MyUser = new User();
+
+                  //          Console.WriteLine(dataReader["IdUser"] + " firstname :" + dataReader["FirstName"] + " lastname : " + dataReader["LastName"]);
+                       //     MyUser.IdUser = (int)dataReader["IdUser"];
+                            MyUser.FirstName = (string)dataReader["FirstName"];
+                            MyUser.LastName = (string)dataReader["LastName"];
+                            MyUser.PhoneNumber = (string)dataReader["PhoneNumber"];
+                            MyUser.EmailAddress = (string)dataReader["EmailAddress"];
+                           if (dataReader["IdLogin"] != null)
+                            {
+                    //            MyUser.IdLogin = (int)dataReader["IdLogin"];
+                            }
+                            if (dataReader["Idlocation"] != null)
+                            {
+                  //              MyUser.IdLocation = (int)dataReader["IdLocation"];
+                            }
+                     
+                     
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN GET USER BY ID\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyUser;
         }
     }
 }

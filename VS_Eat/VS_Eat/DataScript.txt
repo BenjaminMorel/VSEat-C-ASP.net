@@ -1,4 +1,4 @@
-﻿﻿/** SQL SCRIPT THAT FILLS OUR DIFFERENT TABLES **/
+﻿/** SQL SCRIPT THAT FILLS OUR DIFFERENT TABLES **/
 
 
 /** DELETE ALL THE DATA 
@@ -27,13 +27,14 @@ INSERT [dbo].[Location] (PostCode, City) VALUES
 ('1895', 'Vionnaz'),
 ('1945', 'Liddes');
 
-INSERT [dbo].[Login] (Login, Password, IdLoginType) VALUES
+INSERT [dbo].[Login] (Username, Password, IdLoginType) VALUES
 ('benjamin.morel@students.hevs.ch', 1234, '1'),
 ('hugo.vouillamoz@students.hevs.ch', 4567, '1'),
 ('daniel.coimbra@students.hevs.ch', 6969, '2');
 
 INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, EmailAddress, IdLogin, IdLocation) VALUES
 ('Thomas', 'Cheseaux', '0792839183', 'thomas.cheseaux@students.hevs.ch', NULL, NULL),
+('Hugo', 'Vouillamoz' ,'0782545262','hugo@test.ch', 2, NULL),
 ('Nicolas', 'Devanthéry', '0793943812', 'nicolas.devanthery@students.hevs.ch', NULL, NULL);
 
 INSERT [dbo].[Restaurant] (RestaurantName, RestaurantAddress) VALUES

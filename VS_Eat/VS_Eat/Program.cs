@@ -13,24 +13,24 @@ namespace VS_Eat
            .Build();
         static void Main(string[] args)
         {
-            var user1 = new UserDB(Configuration);
-            var restaurant1 = new RestaurantDB(Configuration);
-            var login1 = new LoginDB(Configuration);
-            var order1 = new OrderDB(Configuration);
+            var UserDB = new UserDB(Configuration);
+            var LoginDB = new LoginDB(Configuration);
 
-            Console.Write("RESTAURANT\n");
-            user1.ShowUser();
+            User myUser = null;
 
-            Console.Write("USER\n");
-            restaurant1.ShowRestaurant();
+           myUser = UserDB.GetUserByID("hugo.vouillamoz@students.hevs.ch", "4567");
 
-            Console.Write("LOGIN\n");
-            login1.ShowLogin();
+            if(myUser != null)
+            {
+                Console.WriteLine(myUser.ToString()); ;
+            }
+            else
+            {
+                Console.WriteLine("Email or Password incorrect");
+            }
 
-            Console.Write("Order\n");
-            order1.ShowOrder();
 
-            Console.Write("END OF THE PROGRAM");
+           
         }
     
     }

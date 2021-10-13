@@ -1,4 +1,6 @@
-﻿/** SQL SCRIPT THAT CREATE OUR DIFFERENT TABLES **/
+﻿
+﻿
+/** SQL SCRIPT THAT CREATE OUR DIFFERENT TABLES **/
 
 
 /** DELETE ALL EXISTING TABLES IF EXISTING **/
@@ -28,7 +30,7 @@ CREATE TABLE [dbo].[Location] (
 
 CREATE TABLE [dbo].[Login] (
     [IdLogin]  INT           IDENTITY (1, 1)    PRIMARY KEY,
-    [Login] NVARCHAR (50) NULL,
+    [Username] NVARCHAR (50) NULL,
     [Password] NVARCHAR (50) NULL,
     [IdLoginType] INT NULL, 
 	CONSTRAINT [FK_Login_IdLoginType] FOREIGN KEY ([IdLoginType]) REFERENCES [LoginType]([IdLoginType])
