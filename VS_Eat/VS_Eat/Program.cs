@@ -15,9 +15,8 @@ namespace VS_Eat
         {
             var UserDB = new UserDB(Configuration);
             var LoginDB = new LoginDB(Configuration);
-
             User myUser = null;
-
+           
            myUser = UserDB.GetUserByID("hugo.vouillamoz@students.hevs.ch", "4567");
 
             if(myUser != null)
@@ -29,6 +28,13 @@ namespace VS_Eat
                 Console.WriteLine("Email or Password incorrect");
             }
 
+
+            var ProductDB = new ProductDB(Configuration);
+            var allProducts = ProductDB.GetAllProductsFromRestaurant(2);
+            foreach (var product in allProducts)
+            {
+                Console.WriteLine(product.ToString());
+            }
 
            
         }
