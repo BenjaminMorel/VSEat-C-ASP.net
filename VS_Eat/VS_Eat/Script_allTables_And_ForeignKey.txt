@@ -4,6 +4,7 @@
 
 
 /** DELETE ALL EXISTING TABLES IF EXISTING **/
+DROP TABLE [dbo].[OrderStatus]
 DROP TABLE [dbo].[OrderDetails]
 DROP TABLE [dbo].[Order]
 DROP TABLE [dbo].[DeliveryStaff]
@@ -106,4 +107,10 @@ CREATE TABLE [dbo].[OrderDetails] (
     [IdOrder] INT NULL,
     CONSTRAINT [FK_OrderDetail_IdProduct] FOREIGN KEY ([IdProduct]) REFERENCES [Product]([IdProduct]),
 	CONSTRAINT [FK_OrderDetail_IdOrder] FOREIGN KEY ([IdOrder]) REFERENCES [Order]([IdOrder])
+);
+
+CREATE TABLE [dbo].[OrderStatus] (
+    [IdOrder] INT NOT NULL,
+    [Status] INT NOT NULL DEFAULT 1
+    CONSTRAINT [FK_Order_IdOrder] FOREIGN KEY ([IdOrder]) REFERENCES [Order]([IdOrder])
 );
