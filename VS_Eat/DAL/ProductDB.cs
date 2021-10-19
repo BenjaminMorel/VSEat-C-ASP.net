@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DAL.Interfaces;
+using DTO;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class ProductDB
+    public class ProductDB : IProductDB
     {
         private IConfiguration Configuration { get; }
         public ProductDB(IConfiguration configuration)

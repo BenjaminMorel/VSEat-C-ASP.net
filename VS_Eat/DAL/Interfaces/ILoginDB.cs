@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace DAL.Interfaces
 {
-    class ILoginDB
-    {
+    public interface ILoginDB
+    { 
+        void ShowAllLogin();
+
+        int GetLogin(string Email, string Password); 
     }
 }

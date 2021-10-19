@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using DAL.Interfaces;
+using DTO;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Configuration;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class OrderDB
+    public class OrderDB : IOrderDB
     {
         private IConfiguration Configuration { get; }
 

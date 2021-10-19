@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DAL;
+using DAL.Interfaces;
+using DTO;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +12,16 @@ namespace BLL
 {
     class ProductManager
     {
+        private IProductDB ProductDb { get;  }
+
+        public ProductManager(IConfiguration configuration)
+        {
+            ProductDb = new ProductDB(configuration); 
+        }
+
+        public List<Product> GetAllProductsFromRestaurant(int IdRestaurant)
+        {
+            return ProductDb.GetAllProductsFromRestaurant(IdRestaurant); 
+        }
     }
 }

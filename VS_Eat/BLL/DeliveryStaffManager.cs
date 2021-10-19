@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DAL;
+using DAL.Interfaces; 
+using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
-    class DeliveryStaffManager
+    public class DeliveryStaffManager
     {
+        private IDeliveryStaffDB DeliveryStaffDb { get; }
+
+        public DeliveryStaffManager(IConfiguration configuration)
+        {
+               DeliveryStaffDb = new DeliveryStaffDB(configuration);
+        }
 
     }
 }

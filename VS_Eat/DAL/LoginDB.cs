@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using DAL.Interfaces;
+using DTO;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class LoginDB
+    public class LoginDB : ILoginDB
     {
         private IConfiguration Configuration { get; }
         public LoginDB(IConfiguration configuration)
@@ -17,7 +18,7 @@ namespace DAL
             Configuration = configuration;
         }
 
-        public void ShowALLLogin()
+        public void ShowAllLogin()
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 

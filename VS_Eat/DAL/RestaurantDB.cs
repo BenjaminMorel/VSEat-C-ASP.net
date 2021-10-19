@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using DAL.Interfaces;
+using DTO;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class RestaurantDB
+    public class RestaurantDB : IRestaurantDB
     {
         private IConfiguration Configuration { get; }
         public RestaurantDB(IConfiguration configuration)

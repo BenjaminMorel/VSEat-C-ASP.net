@@ -1,16 +1,12 @@
 ﻿using DAL.Interfaces;
+using DAL; 
 using DTO;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DAL
 {
-    public class DeliveryStaffDB
+    public class DeliveryStaffDB : IDeliveryStaffDB
     {
         private IConfiguration Configuration { get; }
         public DeliveryStaffDB(IConfiguration configuration)

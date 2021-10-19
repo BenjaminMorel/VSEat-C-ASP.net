@@ -1,12 +1,11 @@
-﻿using System;
+﻿
+using DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    class IProductDB
+    public interface IProductDB
     {
+        public List<Product> GetAllProductsFromRestaurant(int IdRestaurant); 
     }
 }
