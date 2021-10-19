@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    class LocationDB
+    class LocationDB 
     {
         private IConfiguration Configuration { get; }
         public LocationDB(IConfiguration configuration)

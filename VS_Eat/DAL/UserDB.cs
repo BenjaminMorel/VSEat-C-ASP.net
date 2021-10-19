@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DAL.Interfaces;
+using DTO;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class UserDB
+    public class UserDB : IUserDB
     {
         private IConfiguration Configuration { get; }
         public UserDB(IConfiguration configuration)
@@ -88,18 +90,19 @@ namespace DAL
                             MyUser = new User();
 
                   //          Console.WriteLine(dataReader["IdUser"] + " firstname :" + dataReader["FirstName"] + " lastname : " + dataReader["LastName"]);
-                       //     MyUser.IdUser = (int)dataReader["IdUser"];
+                            MyUser.IdUser = (int)dataReader["IdUser"];
                             MyUser.FirstName = (string)dataReader["FirstName"];
                             MyUser.LastName = (string)dataReader["LastName"];
                             MyUser.PhoneNumber = (string)dataReader["PhoneNumber"];
                             MyUser.EmailAddress = (string)dataReader["EmailAddress"];
                            if (dataReader["IdLogin"] != null)
                             {
-                    //            MyUser.IdLogin = (int)dataReader["IdLogin"];
+                                MyUser.IdLogin = (int)dataReader["IdLogin"];
                             }
-                            if (dataReader["Idlocation"] != null)
+                            if (dataReader["IdLocation"] != null)
                             {
-                  //              MyUser.IdLocation = (int)dataReader["IdLocation"];
+                  
+                                MyUser.IdLocation = (int)dataReader["IdLocation"];
                             }
                      
                      
