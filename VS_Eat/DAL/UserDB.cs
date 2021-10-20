@@ -89,7 +89,6 @@ namespace DAL
                
                             MyUser = new User();
 
-                  //          Console.WriteLine(dataReader["IdUser"] + " firstname :" + dataReader["FirstName"] + " lastname : " + dataReader["LastName"]);
                             MyUser.IdUser = (int)dataReader["IdUser"];
                             MyUser.FirstName = (string)dataReader["FirstName"];
                             MyUser.LastName = (string)dataReader["LastName"];
@@ -120,5 +119,7 @@ namespace DAL
             }
             return MyUser;
         }
+
+        //TODO add methode to create a new user and isert it into the user and login table 
     }
 }
