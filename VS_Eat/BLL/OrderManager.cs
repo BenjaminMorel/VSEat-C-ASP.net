@@ -1,5 +1,6 @@
 ﻿using DAL;
 using DAL.Interfaces;
+using DTO;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,11 @@ namespace BLL
         public void ShowOrder()
         {
             OrderDb.ShowOrder(); 
+        }
+
+        public List<Order> GetOrderByUser(int IdUser)
+        {
+            return OrderDb.GetOrderByUser(IdUser); 
         }
     }
 }
