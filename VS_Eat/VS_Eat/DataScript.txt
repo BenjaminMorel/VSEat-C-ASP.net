@@ -21,6 +21,7 @@ INSERT [dbo].[LoginType] (LoginType) VALUES
 ('Restaurant'),
 ('DeliveryStaff');
 
+
 INSERT [dbo].[Location] (PostCode, City) VALUES
 ('3960', 'Sierre'),
 ('1950', 'Sion'),

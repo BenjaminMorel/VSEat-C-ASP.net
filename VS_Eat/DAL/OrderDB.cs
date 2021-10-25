@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-     //TODO: update database and change the correct data (free,archived) and add the idLocation foreign key
+     //TODO[BENJI]: update database and change the correct data (free,archived) and add the idLocation foreign key
     public class OrderDB : IOrderDB
     {
         private IConfiguration Configuration { get; }
@@ -95,7 +95,7 @@ namespace DAL
         }
 
 
-        //TODO: add a methode to be able to add an order in the database with all foreign key 
+        //TODO[HUGO]: add a methode to be able to add an order in the database with all foreign key 
     }
 
  
