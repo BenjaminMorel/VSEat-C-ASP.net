@@ -115,11 +115,17 @@ namespace DAL
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
-                Console.Write("ERROR\n");
+                Console.Write("ERROR\n"); 
             }
             return MyUser;
         }
 
-        //TODO add methode to create a new user and isert it into the user and login table 
+        //TODO[HUGO] finish the methode to addNewUser call the methode getidLocation and call the methode that create a new user
+
+        public void addNewUser(string FirstName, string LastName, string PhoneNumber, string Email, string Password,
+            string Address, int PostCode, string City)
+        {
+
+        }
     }
 }

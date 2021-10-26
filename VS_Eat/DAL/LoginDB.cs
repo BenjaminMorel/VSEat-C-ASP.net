@@ -103,5 +103,10 @@ namespace DAL
             return 0; 
            
         }
+
+        //TODO[BENJI] create a methode to add a new password entry. the password is encrypted before being stock in the database
+
+
+        //TODO[BENJI] create a methode that take a string as argument, hash it and then compare it to the good password hash link with the same username
     }
 }
