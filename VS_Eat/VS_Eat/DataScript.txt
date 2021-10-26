@@ -222,13 +222,13 @@ INSERT [dbo].[Location] (PostCode, City) VALUES
 
 
 INSERT [dbo].[Login] (Username, Password, IdLoginType) VALUES
-('benjamin.morel@students.hevs.ch', 1234, '1'),
-('hugo.vouillamoz@students.hevs.ch', 4567, '1'),
+('benjamin.morel@students.hevs.ch', '1234', '1'),
+('hugo.vouillamoz@students.hevs.ch', '4567', '1'),
 ('Star@kebab.gmail.com', 'pizza', '2'),
 ('Pizza@express.gmail.com', 'express', '2'),
 ('nicolas.devanthery@students.hevs.ch', 'ggggg', '3'),
 ('doriane.papilloud@gmail.com', 'eeee', '3'),
-('daniel.coimbra@students.hevs.ch', 6969, '4'),
+('daniel.coimbra@students.hevs.ch', '6969', '4'),
 ('thomas.cheseaux@students.hevs.ch', 'ffff', '4');
 
 INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, EmailAddress, Address, IdLogin, IdLocation) VALUES
@@ -256,8 +256,8 @@ INSERT [dbo].[DeliveryStaff] (FirstName, Name, IdLogin, IdLocation) VALUES
 ('Doriane', 'Papilloud', '6', '59');
 
 INSERT [dbo].[Order] (OrderNumber, OrderDate, DeliveryAddress, Freight, TotalPrice, IdUser, IdDeliveryStaff, IdLocation) VALUES
-('111', DEFAULT, 'Rue de la faim 3', '4.00', '30.00', '7', '1', '40'),
-('222', DEFAULT, 'Rue de la faim 12', '8.00', '60.00', '8', '2', '88');
+('111', DEFAULT, 'Rue de la faim 3', '4.00', '30.00', '3', '1', '40'),
+('222', DEFAULT, 'Rue de la faim 12', '8.00', '60.00', '4', '2', '88');
 
 INSERT [dbo].[OrderDetails] (UnitPrice, Quantity, IdProduct, IdOrder) VALUES
 ('15.00', '2', '1', '1'),
