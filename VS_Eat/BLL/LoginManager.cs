@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    class LoginManager
+    public class LoginManager
     {
         private ILoginDB LoginDb { get;  }
 
@@ -26,6 +26,11 @@ namespace BLL
         public int GetLogin(string Email, string Password)
         {
             return GetLogin(Email, Password); 
+        }
+
+        public bool EmailVerification(string Email)
+        {
+            return LoginDb.EmailVerification(Email); 
         }
     }
 }

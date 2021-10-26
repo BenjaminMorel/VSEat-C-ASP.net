@@ -15,6 +15,7 @@ namespace VS_Eat
            .Build();
         static void Main(string[] args)
         {
+     
             /**
             var UserDB = new UserDB(Configuration);
             var LoginDB = new LoginDB(Configuration);
@@ -40,17 +41,15 @@ namespace VS_Eat
             }
             **/
 
-            var userManager = new UserManager(Configuration);
+            var loginManager = new LoginManager(Configuration);
+            Console.WriteLine(loginManager.EmailVerification("hugo.vouillamoz@students.hevs.ch"));
+         /**   var userManager = new UserManager(Configuration);
             User myUser;  
 
             myUser = userManager.GetUserByID("hugo.vouillamoz@students.hevs.ch", "4567");
 
-            Console.WriteLine(myUser.ToString());
+            Console.WriteLine(myUser.ToString());**/
             // userManager.ShowAllUser(); 
-
-
-
-
 
         }
     

@@ -108,5 +108,41 @@ namespace DAL
 
 
         //TODO[BENJI] create a methode that take a string as argument, hash it and then compare it to the good password hash link with the same username
+
+
+        
+
+        //TODO[HUGO]: vérifier si ça marche (return set correctement)
+        public bool EmailVerification(string Email)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Select * from Login WHERE Username=@Email";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Email", Email); 
+                    connection.Open();
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.HasRows)
+                        {
+                            return true; 
+                        }
+                        return false; 
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN GET LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return true; 
+        }
     }
 }

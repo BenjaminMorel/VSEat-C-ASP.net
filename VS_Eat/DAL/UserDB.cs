@@ -125,7 +125,23 @@ namespace DAL
         public void addNewUser(string FirstName, string LastName, string PhoneNumber, string Email, string Password,
             string Address, int PostCode, string City)
         {
+            // We call the method EmailVerification to check if the email is already taken, if it return true we stop the method here but if the result is false we can continue
+            var LoginDB = new LoginDB(Configuration);
+            if (LoginDB.EmailVerification(Email))
+            {
+                Console.WriteLine("ERROR THIS EMAIL IS ALREADY TAKEN");
+                return;
+            }
 
+            //trouver l'Id location en utilisant le postcode et la city 
+
+
+
+            //créer une nouvelle entrée dans login 
+
+            //récupérer l'id login pour le mettre dans la foreign key 
+
+            //entrée les informations dans la table user 
         }
     }
 }
