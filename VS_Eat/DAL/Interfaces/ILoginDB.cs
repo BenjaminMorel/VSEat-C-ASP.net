@@ -6,6 +6,8 @@ namespace DAL.Interfaces
     { 
         void ShowAllLogin();
 
-        int GetLogin(string Email, string Password); 
+        int GetLogin(string Email, string Password);
+
+        bool EmailVerification(string Email); 
     }
 }

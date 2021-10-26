@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    class ProductManager
+    public class ProductManager
     {
         private IProductDB ProductDb { get;  }
 
