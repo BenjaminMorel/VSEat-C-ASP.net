@@ -15,41 +15,9 @@ namespace VS_Eat
            .Build();
         static void Main(string[] args)
         {
-     
-            /**
-            var UserDB = new UserDB(Configuration);
-            var LoginDB = new LoginDB(Configuration);
-            User myUser = null;
-           
-           myUser = UserDB.GetUserByID("hugo.vouillamoz@students.hevs.ch", "4567");
 
-            if(myUser != null)
-            {
-                Console.WriteLine(myUser.ToString()); ;
-            }
-            else
-            {
-                Console.WriteLine("Email or Password incorrect");
-            }
-
-
-            var ProductDB = new ProductDB(Configuration);
-            var allProducts = ProductDB.GetAllProductsFromRestaurant(2);
-            foreach (var product in allProducts)
-            {
-                Console.WriteLine(product.ToString());
-            }
-            **/
-
-            var loginManager = new LoginManager(Configuration);
-            Console.WriteLine(loginManager.EmailVerification("hugo.vouillamoz@students.hevs.ch"));
-         /**   var userManager = new UserManager(Configuration);
-            User myUser;  
-
-            myUser = userManager.GetUserByID("hugo.vouillamoz@students.hevs.ch", "4567");
-
-            Console.WriteLine(myUser.ToString());**/
-            // userManager.ShowAllUser(); 
+            var UserManager = new UserManager(Configuration); 
+            UserManager.addNewUser("Hugo","Vouillamoz","05805","Test@test4","password","rue du chateau", 1945,"Liddes");
 
         }
     

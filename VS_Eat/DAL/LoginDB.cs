@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace DAL
@@ -55,6 +56,7 @@ namespace DAL
             }
         }
 
+        //TODO[BENJI] create a methode that take a string as argument, hash it and then compare it to the good password hash link with the same username
 
         public int GetLogin(string Email, string Password)
         {
@@ -104,15 +106,35 @@ namespace DAL
            
         }
 
-        //TODO[BENJI] create a methode to add a new password entry. the password is encrypted before being stock in the database
+        public int AddNewLogin(Login NewLogin)
+        {
+            int IdLogin = -1; 
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Insert into Login(Username,Password,IdLoginType) values(@Username,@Password,@IdLoginType); SELECT SCOPE_IDENTITY()";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Username",NewLogin.Username);
+                    command.Parameters.AddWithValue("@Password",NewLogin.Password);
+                    command.Parameters.AddWithValue("@IdLoginType",NewLogin.IdLoginType);
+                    connection.Open();
+                    IdLogin = Convert.ToInt32(command.ExecuteScalar()); 
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN ADD NEW LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
 
+            return IdLogin; 
+        }
 
-        //TODO[BENJI] create a methode that take a string as argument, hash it and then compare it to the good password hash link with the same username
-
-
-        
-
-        //TODO[HUGO]: vérifier si ça marche (return set correctement)
         public bool EmailVerification(string Email)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -120,7 +142,7 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Select * from Login WHERE Username=@Email";
+                    string query = "Select * from [dbo].[Login] WHERE Username=@Email";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@Email", Email); 
                     connection.Open();

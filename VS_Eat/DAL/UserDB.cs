@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace DAL
 {
@@ -133,15 +134,51 @@ namespace DAL
                 return;
             }
 
-            //trouver l'Id location en utilisant le postcode et la city 
+            //We call the methode GetLocationId to find the Id location 
 
-
+            var LocationDB = new LocationDB(Configuration);
+            int IdLocation = LocationDB.GetLocationId(PostCode, City); 
 
             //créer une nouvelle entrée dans login 
 
-            //récupérer l'id login pour le mettre dans la foreign key 
+            var NewLogin = new Login();
+            NewLogin.Username = Email;
+            //Faire appel à la methode de hash 
+            NewLogin.Password = Password;
+            NewLogin.IdLoginType = 4;
+            int IdLogin = LoginDB.AddNewLogin(NewLogin);
+            if (IdLogin == -1)
+            {
+                Console.WriteLine("ERROR DURING THE CREATION OF THE NEW LOGIN");
+            }
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            //entrée les informations dans la table user 
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Insert into User(FirstName,LastName,PhoneNumber,Address,IdLogin,IdLoginType) values(@FirstName,@LastName,@PhoneNumber,@Address,@IdLogin,@Location); SELECT SCOPE_IDENTITY()";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@FirstName",FirstName);
+                    command.Parameters.AddWithValue("@LastName",LastName);
+                    command.Parameters.AddWithValue("@PhoneNumber",PhoneNumber);
+                    command.Parameters.AddWithValue("@Address",Address);
+                    command.Parameters.AddWithValue("@IdLogin",IdLogin);
+                    command.Parameters.AddWithValue("@IdLocation",IdLocation);
+
+                    connection.Open(); 
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN ADD USER\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+
+            Console.WriteLine("User enter correctly");
         }
     }
 }

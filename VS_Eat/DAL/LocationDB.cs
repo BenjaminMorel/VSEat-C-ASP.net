@@ -22,25 +22,29 @@ namespace DAL
         public int GetLocationId(int PostCode, string City)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-
+            int IdLocation = -1; 
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
+                   
                     string query = "SELECT * FROM [dbo].[Location] WHERE PostCode=@PostCode AND City=@City";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@PostCode", PostCode);
                     command.Parameters.AddWithValue("@City", City);
                     connection.Open();
-
+                 
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
-                        if (dataReader != null)
+                
+                        if (dataReader.Read())
                         {
-                            return (int) dataReader["IdLocation"]; 
+                            
+                            IdLocation = (int) dataReader["IdLocation"]; 
+                         
                         }
 
-                        return -1; 
+                    
                     }
                 }
             }
@@ -53,7 +57,7 @@ namespace DAL
                 Console.Write("ERROR\n");
             }
 
-            return -1; 
+            return IdLocation; 
 
         }
 
