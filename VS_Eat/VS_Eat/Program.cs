@@ -13,13 +13,17 @@ namespace VS_Eat
            .SetBasePath(Directory.GetCurrentDirectory())
            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
            .Build();
+
         static void Main(string[] args)
         {
 
-            var UserManager = new UserManager(Configuration); 
-            UserManager.addNewUser("Hugo","Vouillamoz","05805","Test@test4","password","rue du chateau", 1945,"Liddes");
+            var UserManager = new UserManager(Configuration);
+          //  UserManager.addNewUser("Hugo", "Vouillamoz", "05805", "Test@test12", "password", "rue du chateau", 1945,
+          //      "Liddes");
+          var DeliveryManager = new DeliveryStaffManager(Configuration);
+          Console.WriteLine(DeliveryManager.CountOpenOrderByStaffID(1));
 
         }
-    
+
     }
 }

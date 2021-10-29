@@ -42,7 +42,6 @@ CREATE TABLE [dbo].[User] (
     [FirstName]    NVARCHAR (50) NULL,
     [LastName]     NVARCHAR (50) NULL,
     [PhoneNumber]  NCHAR (10)    NULL,
-    [EmailAddress] NVARCHAR (50) NULL,
     [Address]      NVARCHAR (50) NULL,
     [IdLogin]      INT           NOT NULL,
     [IdLocation]   INT           NOT NULL,

@@ -137,9 +137,7 @@ namespace DAL
             //We call the methode GetLocationId to find the Id location 
 
             var LocationDB = new LocationDB(Configuration);
-            int IdLocation = LocationDB.GetLocationId(PostCode, City); 
-
-            //créer une nouvelle entrée dans login 
+            int IdLocation = LocationDB.GetLocationId(PostCode, City);
 
             var NewLogin = new Login();
             NewLogin.Username = Email;
@@ -151,19 +149,23 @@ namespace DAL
             {
                 Console.WriteLine("ERROR DURING THE CREATION OF THE NEW LOGIN");
             }
-            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Insert into User(FirstName,LastName,PhoneNumber,Address,IdLogin,IdLoginType) values(@FirstName,@LastName,@PhoneNumber,@Address,@IdLogin,@Location); SELECT SCOPE_IDENTITY()";
+                    //TODO[HUGO]
+                    //BUG la base de donnée ne se met pas à jour, aucune donnée n'est ajoutées 
+
+                    string query =  "INSERT [dbo].[User](FirstName,LastName,PhoneNumber,Address,IdLogin,IdLocation) VALUES(@FirstName,@LastName,@PhoneNumber,@Address,@IdLogin,@IdLocation);";
+                 //  string query = "Insert into User(FirstName,LastName,PhoneNumber,Address,IdLogin,IdLocation) values(@FirstName,@LastName,@PhoneNumber,@Address,@IdLogin,@IdLocation);";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@FirstName",FirstName);
                     command.Parameters.AddWithValue("@LastName",LastName);
                     command.Parameters.AddWithValue("@PhoneNumber",PhoneNumber);
                     command.Parameters.AddWithValue("@Address",Address);
-                    command.Parameters.AddWithValue("@IdLogin",IdLogin);
+                    command.Parameters.AddWithValue("@IdLogin",IdLogin); 
                     command.Parameters.AddWithValue("@IdLocation",IdLocation);
 
                     connection.Open(); 
