@@ -21,7 +21,7 @@ namespace DAL
             Configuration = configuration;
         }
 
-        public void ShowOrder()
+        public void ShowAllOrders()
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
