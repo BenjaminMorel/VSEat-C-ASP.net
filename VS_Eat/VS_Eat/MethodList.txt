@@ -1,0 +1,39 @@
+﻿[Delivery Staff]
+CountNumberOfOpenOrder() A FAIRE 
+AddNewStaff() A FAIRE 
+
+[Location]
+GetLocationID() OK
+
+
+[Login]
+ShowAllLogin() OK UTILE ? 
+AddNewLogin() OK
+EmailVerification() OK 
+
+
+[LoginType]
+
+
+[Order]
+GetOrderByUser() OK
+AddNewOrder() A FAIRE 
+
+
+[OrderDetails]
+
+
+[Product] 
+GetAllProductsFromRestaurant() OK 
+AddNewProduct() A FAIRE ?
+
+
+[Restaurant]
+AddNewRestaurant() A FAIRE ? 
+GetAllRestaurant() A FAIRE
+
+
+[User]
+ShowAllUser() OK UTILE ? 
+GetUserByID() OK
+AddNewUser() A FINIR
