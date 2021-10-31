@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    class DeliveryStaff
+    public class DeliveryStaff
     {
         public int IdDeliveryStaff { get; set; }
         public string FirstNameDeliveryStaff { get; set; }
         public string NameDeliveryStaff { get; set; }
-        public string IdLogin { get; set; }
+        public int IdLogin { get; set; }
+
+        public int IdLocation { get; set; }
 
         public override string ToString()
         {

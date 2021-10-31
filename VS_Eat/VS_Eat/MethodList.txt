@@ -1,6 +1,6 @@
 ﻿[Delivery Staff]
-CountNumberOfOpenOrder() A FAIRE 
-AddNewStaff() A FAIRE 
+CountNumberOfOpenOrder() OK (AJOUTER ENCORE LA CONDITION DES 30MIN)
+AddNewStaff() OK
 
 [Location]
 GetLocationID() OK
