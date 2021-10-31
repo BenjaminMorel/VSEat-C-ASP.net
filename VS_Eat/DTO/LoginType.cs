@@ -13,8 +13,9 @@ namespace DTO
         public override string ToString()
         {
             return "\n__________________________\n" +
-                "\nIdLoginType : " + IdLoginType +
-                "\nLoginType : " + LoginTypeStr;
+                   "\nIdLoginType: " + IdLoginType +
+                   "\nLoginType: " + LoginTypeStr +
+                   "\n__________________________\n";
         }
     }
 }

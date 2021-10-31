@@ -9,13 +9,14 @@ namespace DTO
     class OrderStatus
     {
         public int IdOrder { get; set; }
-        public int Status { get; set; }
+        public string Status { get; set; }
 
         public override string ToString()
         {
             return "\n__________________________\n" +
-                   "\nIdOrder : " + IdOrder +
-                   "\nStatus : " + Status;
+                   "\nIdOrder: " + IdOrder +
+                   "\nStatus: " + Status +
+                   "\n__________________________\n";
         }
 
     }
