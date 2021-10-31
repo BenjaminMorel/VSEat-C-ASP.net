@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    class LoginType
+    class OrderStatus
     {
-        public int IdLoginType { get; set; }
-        public string LoginTypeStr { get; set; }
+        public int IdOrder { get; set; }
+        public string Status { get; set; }
+
         public override string ToString()
         {
             return "\n__________________________\n" +
-                   "\nIdLoginType: " + IdLoginType +
-                   "\nLoginType: " + LoginTypeStr +
+                   "\nIdOrder: " + IdOrder +
+                   "\nStatus: " + Status +
                    "\n__________________________\n";
         }
+
     }
+
 }

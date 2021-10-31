@@ -23,6 +23,10 @@ AddNewOrder() A FAIRE
 [OrderDetails]
 
 
+[OrderStatus]
+
+
+
 [Product] 
 GetAllProductsFromRestaurant() OK 
 AddNewProduct() A FAIRE ?

@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-     //TODO[BENJI]: update database and change the correct data (free,archived) and add the idLocation foreign key
     public class OrderDB : IOrderDB
     {
         private IConfiguration Configuration { get; }
@@ -21,7 +20,10 @@ namespace DAL
             Configuration = configuration;
         }
 
-        public void ShowOrder()
+        /// <summary>
+        /// Method which displays the list of all the commands of the table in the console
+        /// </summary>
+        public void ShowAllOrders()
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
@@ -38,11 +40,15 @@ namespace DAL
                         {
                             Order MyOrder = new Order();
 
-                            MyOrder.IdOrder = (int)dataReader["IdOrder"]; 
+                            MyOrder.IdOrder = (int)dataReader["IdOrder"];
+                            MyOrder.OrderDate = (string)dataReader["OrderDate"];
+                            MyOrder.DeliveryAddress = (string)dataReader["DeliveryAddress"];
+                            MyOrder.Freight = (float)dataReader["Freight"];
+                            MyOrder.TotalPrice = (float)dataReader["TotalPrice"];
                         }
                     }
                 }
-            }catch (Exception e)
+            } catch (Exception e)
             {
                 Console.Write("ERROR\n");
                 Console.Write(e.Message);
@@ -52,6 +58,11 @@ namespace DAL
             }
         }
 
+        /// <summary>
+        /// Method which returns the list of commands by user identifier
+        /// </summary>
+        /// <param name="IdUser"> User number</param>
+        /// <returns>List of commands</returns>
         public List<Order> GetOrderByUser(int IdUser)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -72,11 +83,12 @@ namespace DAL
                             Order MyOrder = new Order();
 
                             MyOrder.IdOrder = (int)dataReader["IdOrder"];
-                            MyOrder.OrderNumber = (string)dataReader["OrderNumber"];
                             MyOrder.OrderDate = (string)dataReader["OrderDate"];
-                            MyOrder.Freight = (float)dataReader["Freight"];
                             MyOrder.DeliveryAddress = (string)dataReader["DeliveryAddress"];
+                            MyOrder.Freight = (float)dataReader["Freight"];
+                            MyOrder.TotalPrice = (float) dataReader["TotalPrice"];
 
+                            // Add the order to the list
                             AllOrder.Add(MyOrder); 
                         }
                     }

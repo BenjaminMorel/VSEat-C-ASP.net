@@ -87,16 +87,22 @@ CREATE TABLE [dbo].[DeliveryStaff] (
     CONSTRAINT [FK_DeliveryStaff_IdLocation] FOREIGN KEY ([IdLocation]) REFERENCES [Location]([IdLocation])
 );
 
+CREATE TABLE [dbo].[OrderStatus] (
+    [IdOrderStatus]   INT     IDENTITY(1,1) PRIMARY KEY,
+    [Status]    NVARCHAR (30)     NOT NULL    DEFAULT 1
+);
+
 CREATE TABLE [dbo].[Order] (
     [IdOrder]         INT           IDENTITY(1,1) PRIMARY KEY,
-    [OrderNumber]     NVARCHAR (50) NULL,
     [OrderDate]       DATE          DEFAULT GETDATE(),
     [DeliveryAddress] NVARCHAR (50) NULL,
     [Freight]         MONEY         NULL,
     [TotalPrice]      MONEY         NULL,
+    [IdOrderStatus]   INT           NOT NULL,
     [IdUser]          INT           NOT NULL, 
     [IdDeliveryStaff] INT           NOT NULL, 
     [IdLocation]      INT           NOT NULL,
+    CONSTRAINT [FK_Order_IdOrderStatus] FOREIGN KEY ([IdOrderStatus]) REFERENCES [OrderStatus]([IdOrderStatus]),
     CONSTRAINT [FK_Order_IdUser] FOREIGN KEY ([IdUser]) REFERENCES [User]([IdUser]),
 	CONSTRAINT [FK_Order_IdDeliveryStaff] FOREIGN KEY ([IdDeliveryStaff]) REFERENCES [DeliveryStaff]([IdDeliveryStaff]),
     CONSTRAINT [FK_Order_IdLocation] FOREIGN KEY ([IdLocation]) REFERENCES [Location]([IdLocation])
@@ -109,10 +115,4 @@ CREATE TABLE [dbo].[OrderDetails] (
     [IdOrder]       INT     NOT NULL,
     CONSTRAINT [FK_OrderDetail_IdProduct] FOREIGN KEY ([IdProduct]) REFERENCES [Product]([IdProduct]),
 	CONSTRAINT [FK_OrderDetail_IdOrder] FOREIGN KEY ([IdOrder]) REFERENCES [Order]([IdOrder])
-);
-
-CREATE TABLE [dbo].[OrderStatus] (
-    [IdOrder]   INT     NOT NULL,
-    [Status]    INT     NOT NULL    DEFAULT 1
-    CONSTRAINT [FK_Order_IdOrder] FOREIGN KEY ([IdOrder]) REFERENCES [Order]([IdOrder])
 );
