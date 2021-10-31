@@ -19,6 +19,9 @@ namespace DAL
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Method which displays the list of all the logins of the table in the console
+        /// </summary>
         public void ShowAllLogin()
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -40,6 +43,7 @@ namespace DAL
                             MyLogin.IdLogin = (int)dataReader["IdLogin"];
                             MyLogin.Username = (string)dataReader["Login"];
                             MyLogin.Password = (string)dataReader["Password"];
+                            MyLogin.IdLoginType = (int)dataReader["IdLoginType"];
 
                             Console.Write(MyLogin.ToString()); 
                         }
@@ -56,8 +60,13 @@ namespace DAL
             }
         }
 
-        //TODO[BENJI] create a methode that take a string as argument, hash it and then compare it to the good password hash link with the same username
-
+        // TODO[BENJI] create a methode that take a string as argument, hash it and then compare it to the good password hash link with the same username
+        /// <summary>
+        /// Method that allows you to find a login by passing an email and a password
+        /// </summary>
+        /// <param name="Email"> Email of the login we want to find </param>
+        /// <param name="Password"> Password of the login we want to find </param>
+        /// <returns> Returns an integer, the id of the corresponding login </returns>
         public int GetLogin(string Email, string Password)
         {
             Login MyLogin = null;
@@ -67,7 +76,7 @@ namespace DAL
               
                 using(SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Select * from Login WHERE Username=@Email AND Password=@Password";
+                    string query = "Select * from [dbo].[Login] WHERE Username=@Email AND Password=@Password";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@Email", Email);
                     command.Parameters.AddWithValue("@Password", Password);
@@ -77,15 +86,12 @@ namespace DAL
                     {
                         if (dataReader.Read())
                         {
-
-                  
-                           MyLogin = new Login();
+                            MyLogin = new Login();
 
                             MyLogin.IdLogin = (int)dataReader["IdLogin"];
                             MyLogin.Username = (string)dataReader["Username"];
                             MyLogin.Password = (string)dataReader["Password"];
                             MyLogin.IdLoginType = (int)dataReader["IdLoginType"];
-
                         }
                     }
                 }
@@ -98,14 +104,18 @@ namespace DAL
                 Console.Write(e.Source);
                 Console.Write("ERROR\n");
             }
-            if(MyLogin  != null)
+            if (MyLogin  != null)
             {
                 return MyLogin.IdLogin;
             }
-            return 0; 
-           
+            return 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="NewLogin"></param>
+        /// <returns></returns>
         public int AddNewLogin(Login NewLogin)
         {
             int IdLogin = -1; 
@@ -135,6 +145,11 @@ namespace DAL
             return IdLogin; 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Email"></param>
+        /// <returns></returns>
         public bool EmailVerification(string Email)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
