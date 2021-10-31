@@ -15,7 +15,7 @@ namespace DTO
 
         public string PhoneNumber { get; set; }
 
-        public string EmailAddress { get; set; }
+        public string Address { get; set; }
 
         public int IdLogin { get; set; }
         public int IdLocation { get; set; }
@@ -27,7 +27,7 @@ namespace DTO
                 "\nFirstname : " + FirstName +
                 "\nLastname : " + LastName +
                 "\nPhoneNumber : " + PhoneNumber +
-                "\nEmailAddress : " + EmailAddress +
+                "\nEmailAddress : " + Address +
                 "\nID Login : " + IdLogin +
                 "\nID Location : " + IdLocation + "\n__________________________\n"; 
         }

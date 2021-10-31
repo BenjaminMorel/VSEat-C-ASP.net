@@ -24,11 +24,9 @@ namespace BLL
             return UserDb.GetUserByID(Email, Password); 
         }
 
-        public void addNewUser(string FirstName, string LastName, string PhoneNumber, string Email,
-            string Password,
-            string Address, int PostCode, string City)
-        {
-            UserDb.addNewUser(FirstName,LastName,PhoneNumber,Email,Password,Address,PostCode,City);
+        public void CreateNewUser(string FirstName, string LastName, string PhoneNumber, string Address, string Email, string Password,
+             int PostCode, string City)
+        { UserDb.CreateNewUser(FirstName,LastName,PhoneNumber, Address, Email,Password,PostCode,City);
         }
     }
 }

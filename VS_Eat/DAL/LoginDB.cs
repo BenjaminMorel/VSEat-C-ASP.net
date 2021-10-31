@@ -38,8 +38,9 @@ namespace DAL
                             Login MyLogin = new Login();
 
                             MyLogin.IdLogin = (int)dataReader["IdLogin"];
-                            MyLogin.Username = (string)dataReader["Login"];
+                            MyLogin.Username = (string)dataReader["Username"];
                             MyLogin.Password = (string)dataReader["Password"];
+                            MyLogin.IdLoginType = (int) dataReader["IdLoginType"]; 
 
                             Console.Write(MyLogin.ToString()); 
                         }
@@ -48,7 +49,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("ERROR\n");
+                Console.Write("ERROR DURING SHOW ALL LOGIN\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
@@ -106,10 +107,12 @@ namespace DAL
            
         }
 
-        public int AddNewLogin(Login NewLogin)
+
+        
+        public int AddNewLogin(Login NewLogin, String connectionString)
         {
             int IdLogin = -1; 
-            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+       
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -134,6 +137,7 @@ namespace DAL
 
             return IdLogin; 
         }
+        
 
         public bool EmailVerification(string Email)
         {

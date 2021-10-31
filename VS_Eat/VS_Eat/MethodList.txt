@@ -36,4 +36,4 @@ GetAllRestaurant() A FAIRE
 [User]
 ShowAllUser() OK UTILE ? 
 GetUserByID() OK
-AddNewUser() A FINIR
+AddNewUser() OK

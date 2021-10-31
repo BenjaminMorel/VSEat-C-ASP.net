@@ -17,11 +17,16 @@ namespace VS_Eat
         static void Main(string[] args)
         {
 
+            var LoginManager = new LoginManager(Configuration);
+            var OrderManager = new OrderManager(Configuration);
             var UserManager = new UserManager(Configuration);
-          //  UserManager.addNewUser("Hugo", "Vouillamoz", "05805", "Test@test12", "password", "rue du chateau", 1945,
-          //      "Liddes");
-          var DeliveryManager = new DeliveryStaffManager(Configuration);
-          Console.WriteLine(DeliveryManager.CountOpenOrderByStaffID(1));
+       //     UserManager.CreateNewUser("Hugo", "Vouillamoz", "959595", "test@test3", "password", "Rue chateau", 1945,
+           //     "Liddes"); 
+
+            //   UserManager.ShowAllUser();
+            //   LoginManager.ShowAllLogin();
+            //   var DeliveryManager = new DeliveryStaffManager(Configuration);
+            //    Console.WriteLine(DeliveryManager.CountOpenOrderByStaffID(1));
 
         }
 
