@@ -245,15 +245,23 @@ INSERT [dbo].[Login] (Username, Password, IdLoginType) VALUES
 ('daniel.coimbra@students.hevs.ch', '6969', '4'),
 ('thomas.cheseaux@students.hevs.ch', 'ffff', '4');
 
-INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, Address, IdLogin, IdLocation) VALUES
-('Benjamin', 'Morel', '0799811254', 'chemin de vionn 12', '1', '110'),
-('Hugo', 'Vouillamoz', '0799872542', 'route du flipreset 7', '2', '59'),
-('Daniel', 'Coimbra', '0791565814', 'avenue du scex 27', '7', '40'),
-('Thomas', 'Cheseaux', '0792839183', 'chemin du comptoir 5', '8', '88');
+INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, Address, FavoriteRestaurant, FavoriteProduct, IdLogin, IdLocation) VALUES
+('Benjamin', 'Morel', '0799811254', 'chemin de vionn 12', '', '', '1', '110'),
+('Hugo', 'Vouillamoz', '0799872542', 'route du flipreset 7', '', '', '2', '59'),
+('Daniel', 'Coimbra', '0791565814', 'avenue du scex 27', '', '', '7', '40'),
+('Thomas', 'Cheseaux', '0792839183', 'chemin du comptoir 5', '', '', '8', '88');
 
-INSERT [dbo].[Restaurant] (RestaurantName, RestaurantAddress, IdLogin, IdLocation) VALUES
-('StarKebab', 'Chemin du kebab 12', '3', '142'),
-('Pizza Express', 'Chemin de la pizza 93', '4', '12');
+INSERT [dbo].[RestaurantType] (NomRestaurantType) VALUES 
+('FastFood'),
+('Pizza'),
+('Tacos'),
+('Kebab'),
+('Asiatique'),
+('Autre'); 
+
+INSERT [dbo].[Restaurant] (RestaurantName, RestaurantAddress, IdLogin, IdLocation, IdRestaurantType) VALUES
+('StarKebab', 'Chemin du kebab 12', '3', '142', '4'),
+('Pizza Express', 'Chemin de la pizza 93', '4', '12', '2');
 
 INSERT [dbo].[ProductType] (ProductType) VALUES
 ('Petit'),
@@ -270,6 +278,7 @@ INSERT [dbo].[DeliveryStaff] (FirstName, LastName, PhoneNumber,  IdLogin, IdLoca
 ('Doriane', 'Papilloud', '0783695412', '6', '59');
 
 INSERT [dbo].[OrderStatus] (Status) VALUES
+('InPreparation'),
 ('Ready'),
 ('Out for delivery'),
 ('Delivered'),

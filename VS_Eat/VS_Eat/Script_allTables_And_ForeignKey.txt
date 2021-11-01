@@ -11,6 +11,7 @@ DROP TABLE [dbo].[DeliveryStaff]
 DROP TABLE [dbo].[Product]
 DROP TABLE [dbo].[ProductType]
 DROP TABLE [dbo].[Restaurant]
+DROP TABLE [dbo].[RestaurantType]
 DROP TABLE [dbo].[User]
 DROP TABLE [dbo].[Login]
 DROP TABLE [dbo].[Location]
@@ -51,20 +52,30 @@ CREATE TABLE [dbo].[User] (
     [LastName]     NVARCHAR (50) NULL,
     [PhoneNumber]  NCHAR (10)    NULL,
     [Address]      NVARCHAR (50) NULL,
+    [FavoriteRestaurant] NVARCHAR (250) NULL,
+    [FavoriteProduct] NVARCHAR (250) NULL,
     [IdLogin]      INT           NOT NULL,
     [IdLocation]   INT           NOT NULL,
     CONSTRAINT [FK_User_IdLogin] FOREIGN KEY ([IdLogin]) REFERENCES [Login]([IdLogin]),
 	CONSTRAINT [FK_User_IdLocation] FOREIGN KEY ([IdLocation]) REFERENCES [Location]([IdLocation])
 );
 
+CREATE TABLE [dbo].[RestaurantType](
+    [IdRestaurantType]      INT                 IDENTITY (1,1)      PRIMARY KEY,
+    [NomRestaurantType]     NVARCHAR    (50)    NULL,
+)
+
 CREATE TABLE [dbo].[Restaurant] (
     [IdRestaurant]      INT           IDENTITY (1, 1)   PRIMARY KEY,
     [RestaurantName]    NVARCHAR (50) NULL,
     [RestaurantAddress] NVARCHAR (50) NULL,
+    [Picture]           NVARCHAR (50) NULL,
     [IdLogin]           INT           NOT NULL,
     [IdLocation]        INT           NOT NULL,
+    [IdRestaurantType]  INT           NOT NULL, 
 	CONSTRAINT [FK_Restaurant_IdLogin] FOREIGN KEY ([IdLogin]) REFERENCES [Login]([IdLogin]),
-	CONSTRAINT [FK_Restaurant_IdLocation] FOREIGN KEY ([IdLocation]) REFERENCES [Location]([IdLocation])
+	CONSTRAINT [FK_Restaurant_IdLocation] FOREIGN KEY ([IdLocation]) REFERENCES [Location]([IdLocation]),
+    CONSTRAINT [FK_Restaurant_IdRestaurantType] FOREIGN KEY ([IdRestaurantType]) REFERENCES [RestaurantType]([IdRestaurantType])
 );
 
 CREATE TABLE [dbo].[ProductType] (
@@ -79,6 +90,7 @@ CREATE TABLE [dbo].[Product] (
     [Price]         MONEY         NULL,
     [Picture]       NVARCHAR (50) NULL,
     [Disponibility] BIT           NULL,
+    [Vegetarian]    BIT           NULL,
     [IdRestaurant]  INT           NOT NULL,
     [IdProductType] INT           NOT NULL,
 	CONSTRAINT [FK_Product_IdRestaurant] FOREIGN KEY ([IdRestaurant]) REFERENCES [Restaurant]([IdRestaurant]),

@@ -204,6 +204,10 @@ namespace DAL
             return; 
         }
 
+        //TODO[HUGO] resortir les id des products et restaurant favoris via boucle for et parseInt 
+
+        //TODO [HUGO] ajouter un restaurant ou un produit à la liste des favoris 
+
       
     }
 }

@@ -20,7 +20,7 @@ namespace DAL
 
         public List<Product> GetAllProductsFromRestaurant(int IdRestaurant)
         {
-            List<Product> products = null;
+            List<Product> products = new List<Product>();
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
@@ -39,8 +39,6 @@ namespace DAL
                     {
                         while (dataReader.Read())
                         {
-                            if (products == null)
-                                products = new List<Product>();
 
                             Product product = new Product();
 
