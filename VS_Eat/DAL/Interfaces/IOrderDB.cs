@@ -7,7 +7,7 @@ namespace DAL.Interfaces
 {
     public interface IOrderDB
     {
-        void ShowAllOrders();
+        List<Order> GetAllOrders();
 
         List<Order> GetOrderByUser(int IdUser); 
     }

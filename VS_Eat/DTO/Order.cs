@@ -9,19 +9,27 @@ namespace DTO
     public class Order
     {
         public int IdOrder { get; set; }
+
         public string OrderDate { get; set; }
+
         public string DeliveryAddress { get; set; }
+
         public float Freight { get; set; }
+
         public float TotalPrice { get; set; }
+
         public int IdOrderStatus { get; set; }
+
         public int IdUser { get; set; }
+
         public int IdDeliveryStaff { get; set; }
+
         public int IdLocation { get; set; }
 
         public override string ToString()
         {
-            return "\n__________________________\n" +
-                   "\nID Order: " + IdOrder +
+            return "__________________________" +
+                   "\nId Order: " + IdOrder +
                    "\nOrder Date: " + OrderDate +
                    "\nDelivery Address: " + DeliveryAddress +
                    "\nFreight: " + Freight +
@@ -30,7 +38,7 @@ namespace DTO
                    "\nIdUser: " + IdUser +
                    "\nIdDelivery Staff: " + IdDeliveryStaff +
                    "\nIdLocation: " + IdLocation +
-                   "\n__________________________\n";
+                   "\n__________________________";
         }
     }
 }

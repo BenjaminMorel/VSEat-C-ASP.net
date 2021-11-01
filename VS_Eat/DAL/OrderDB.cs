@@ -21,11 +21,13 @@ namespace DAL
         }
 
         /// <summary>
-        /// Method which displays the list of all the commands of the table in the console
+        /// Method which returns the list of all the commands of the table
         /// </summary>
-        public void ShowAllOrders()
+        public List<Order> GetAllOrders()
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            List<Order> allOrders = new List<Order>();
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -40,22 +42,31 @@ namespace DAL
                         {
                             Order MyOrder = new Order();
 
-                            MyOrder.IdOrder = (int)dataReader["IdOrder"];
-                            MyOrder.OrderDate = (string)dataReader["OrderDate"];
-                            MyOrder.DeliveryAddress = (string)dataReader["DeliveryAddress"];
-                            MyOrder.Freight = (float)dataReader["Freight"];
-                            MyOrder.TotalPrice = (float)dataReader["TotalPrice"];
+                            MyOrder.IdOrder = (int) dataReader["IdOrder"];
+                            //MyOrder.OrderDate = (string) dataReader["OrderDate"];
+                            MyOrder.DeliveryAddress = (string) dataReader["DeliveryAddress"];
+                            //MyOrder.Freight = (float) dataReader["Freight"];
+                            //MyOrder.TotalPrice = (float) dataReader["TotalPrice"];
+                            MyOrder.IdOrderStatus = (int) dataReader["IdOrderStatus"];
+                            MyOrder.IdUser = (int) dataReader["IdUser"];
+                            MyOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
+                            MyOrder.IdLocation = (int) dataReader["IdLocation"];
+
+                            // Add the restaurant to the list
+                            allOrders.Add(MyOrder);
+
                         }
                     }
                 }
             } catch (Exception e)
             {
-                Console.Write("ERROR\n");
+                Console.Write("Error while getting all orders\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
-                Console.Write("ERROR\n");
             }
+
+            return allOrders;
         }
 
         /// <summary>
