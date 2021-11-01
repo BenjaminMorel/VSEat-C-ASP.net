@@ -79,10 +79,11 @@ CREATE TABLE [dbo].[Product] (
 
 CREATE TABLE [dbo].[DeliveryStaff] (
     [IdDeliveryStaff]        INT           IDENTITY (1, 1)  PRIMARY KEY,
-    [FirstName]     NVARCHAR (50) NULL,
-    [Name]          NVARCHAR (50) NULL,
-    [IdLogin]       INT           NOT NULL, 
-    [IdLocation]    INT           NOT NULL,
+    [FirstName]         NVARCHAR (50) NULL,
+    [LastName]          NVARCHAR (50) NULL,
+    [PhoneNumber]       NVARCHAR (50) NULL,
+    [IdLogin]           INT           NOT NULL, 
+    [IdLocation]        INT           NOT NULL,
 	CONSTRAINT [FK_DeliveryStaff_IdLogin] FOREIGN KEY ([IdLogin]) REFERENCES [Login]([IdLogin]),
     CONSTRAINT [FK_DeliveryStaff_IdLocation] FOREIGN KEY ([IdLocation]) REFERENCES [Location]([IdLocation])
 );
