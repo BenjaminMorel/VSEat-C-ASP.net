@@ -14,6 +14,7 @@ DROP TABLE [dbo].[Restaurant]
 DROP TABLE [dbo].[User]
 DROP TABLE [dbo].[Login]
 DROP TABLE [dbo].[Location]
+DROP TABLE [dbo].[Region]
 DROP TABLE [dbo].[LoginType]
 
 
@@ -23,10 +24,17 @@ CREATE TABLE [dbo].[LoginType] (
     [LoginType]   NVARCHAR (50) NOT NULL DEFAULT 4,
 );
 
+CREATE TABLE [dbo].[Region] (
+    [IdRegion]      INT             IDENTITY(1,1) PRIMARY KEY,
+    [RegionName]    NVARCHAR (30)   NULL,
+);
+
 CREATE TABLE [dbo].[Location] (
     [IdLocation]    INT           IDENTITY(1,1) PRIMARY KEY,
     [PostCode]      NVARCHAR (50) NULL,
     [City]          NVARCHAR (50) NULL,
+    [IdRegion]      INT           NOT NULL,
+    CONSTRAINT [FK_Login_IdRegion] FOREIGN KEY ([IdRegion]) REFERENCES [Region]([IdRegion])
 );
 
 CREATE TABLE [dbo].[Login] (
