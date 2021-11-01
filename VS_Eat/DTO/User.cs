@@ -8,9 +8,10 @@ namespace DTO
 {
     public class User
     {
-
         public int IdUser { get; set; }
+
         public string FirstName { get; set; }
+
         public string LastName { get; set;  }
 
         public string PhoneNumber { get; set; }
@@ -18,18 +19,20 @@ namespace DTO
         public string Address { get; set; }
 
         public int IdLogin { get; set; }
+
         public int IdLocation { get; set; }
 
         public override string ToString()
         {
-            return "\n__________________________\n\n" +
-                "ID User : " + IdUser +
-                "\nFirstname : " + FirstName +
-                "\nLastname : " + LastName +
-                "\nPhoneNumber : " + PhoneNumber +
-                "\nEmailAddress : " + Address +
-                "\nID Login : " + IdLogin +
-                "\nID Location : " + IdLocation + "\n__________________________\n"; 
+            return "__________________________" +
+                   "\nId User: " + IdUser +
+                   "\nFirstname: " + FirstName +
+                   "\nLastname: " + LastName +
+                   "\nPhoneNumber: " + PhoneNumber +
+                   "\nEmailAddress: " + Address +
+                   "\nId Login: " + IdLogin +
+                   "\nId Location: " + IdLocation +
+                   "\n__________________________";
         }
 
     }

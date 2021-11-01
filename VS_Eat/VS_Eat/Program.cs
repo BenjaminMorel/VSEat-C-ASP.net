@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Channels;
 
 namespace VS_Eat
 {
@@ -25,19 +26,31 @@ namespace VS_Eat
             var UserManager = new UserManager(Configuration);
             
 
-            /** Get all restaurants **/
+            /** Get all restaurants 
             Console.WriteLine("______________________________________________");
             Console.WriteLine("All restaurants:");
             List<Restaurant> allRestaurants = RestaurantManager.GetAllRestaurants();
             foreach (var Restaurant in allRestaurants)
                 Console.WriteLine(Restaurant.ToString());
+            **/
 
-            /** Get all orders **/
+
+            /** Get all orders
             Console.WriteLine("______________________________________________");
             Console.WriteLine("All orders:");
             List<Order> allOrders = OrderManager.GetAllOrders();
             foreach (var Order in allOrders)
                 Console.WriteLine(Order.ToString());
+            **/
+
+            /** Get all orders from a restaurant **/
+            Console.WriteLine("______________________________________________");
+            var RestaurantId = 1;
+            Console.WriteLine("All products for restaurant: " + RestaurantId);
+            List<Product> productsFromRestaurant = ProductManager.GetAllProductsFromRestaurant(RestaurantId);
+            foreach (var Product in productsFromRestaurant)
+                Console.WriteLine(Product.ToString());
+                
 
 
         }
