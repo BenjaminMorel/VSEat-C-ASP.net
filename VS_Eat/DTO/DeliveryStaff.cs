@@ -12,7 +12,6 @@ namespace DTO
         public string FirstNameDeliveryStaff { get; set; }
         public string NameDeliveryStaff { get; set; }
         public int IdLogin { get; set; }
-
         public int IdLocation { get; set; }
 
         public override string ToString()
