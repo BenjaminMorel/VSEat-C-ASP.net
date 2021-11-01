@@ -265,9 +265,9 @@ INSERT [dbo].[Product] (ProductName, Description, Price, Picture, Disponibility,
 ('CheeseBurger', 'Burger avec fromage', '15.00', 'cheeseBurger.png', '1', '1', '3'),
 ('Pizza Margarita', 'tomate, mozzarella', '10.00', 'margarita.png', '1', '1', '2');
 
-INSERT [dbo].[DeliveryStaff] (FirstName, Name, IdLogin, IdLocation) VALUES
-('Nicolas', 'Devanthéry', '5', '24'),
-('Doriane', 'Papilloud', '6', '59');
+INSERT [dbo].[DeliveryStaff] (FirstName, LastName, PhoneNumber,  IdLogin, IdLocation) VALUES
+('Nicolas', 'Devanthéry', '0785842426', '5', '24'),
+('Doriane', 'Papilloud', '0783695412', '6', '59');
 
 INSERT [dbo].[OrderStatus] (Status) VALUES
 ('Ready'),
