@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO;
 
 namespace BLL
 {
@@ -18,9 +19,9 @@ namespace BLL
             RestaurantDb = new RestaurantDB(configuration); 
         }
 
-        public void ShowRestaurant()
+        public List<Restaurant> GetAllRestaurants()
         {
-           RestaurantDb.ShowRestaurant(); 
+           return RestaurantDb.GetAllRestaurants(); 
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿
+using System.Collections.Generic;
+using DTO;
+
 namespace DAL.Interfaces
 {
     public interface IRestaurantDB
     {
-
-        void ShowRestaurant(); 
+        List<Restaurant> GetAllRestaurants(); 
     }
 }

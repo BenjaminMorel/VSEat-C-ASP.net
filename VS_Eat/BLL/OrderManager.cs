@@ -19,9 +19,9 @@ namespace BLL
             OrderDb = new OrderDB(configuration); 
         }
 
-        public void ShowAllOrders()
+        public List<Order> GetAllOrders()
         {
-            OrderDb.ShowAllOrders(); 
+            return OrderDb.GetAllOrders(); 
         }
 
         public List<Order> GetOrderByUser(int IdUser)
