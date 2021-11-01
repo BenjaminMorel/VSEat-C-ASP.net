@@ -167,8 +167,6 @@ namespace DAL
             //création du nouveau user dans la base de donnée via la méthode addUser()
             AddUser(myUser,connectionString);
 
-            Console.WriteLine("New user created correctly");
-
         }
         
         //Méthode qui va venir ajouter le nouveau user dans la base de donnée via la query INSERT 

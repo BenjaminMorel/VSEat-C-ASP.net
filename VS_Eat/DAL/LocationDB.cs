@@ -17,7 +17,6 @@ namespace DAL
             Configuration = configuration;
         }
 
-        //TODO[HUGO]:  try to use the methode getLocationById
         // Methode to find the IDLocation by giving it a PostCode and a city name and the methode return a simple int that correspond to the ID 
         public int GetLocationId(int PostCode, string City)
         {

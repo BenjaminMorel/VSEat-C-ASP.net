@@ -245,7 +245,7 @@ INSERT [dbo].[Login] (Username, Password, IdLoginType) VALUES
 ('daniel.coimbra@students.hevs.ch', '6969', '4'),
 ('thomas.cheseaux@students.hevs.ch', 'ffff', '4');
 
-INSERT [dbo].[User] (FirstName, LastName, PhoneNumber,Address, IdLogin, IdLocation) VALUES
+INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, Address, IdLogin, IdLocation) VALUES
 ('Benjamin', 'Morel', '0799811254', 'chemin de vionn 12', '1', '110'),
 ('Hugo', 'Vouillamoz', '0799872542', 'route du flipreset 7', '2', '59'),
 ('Daniel', 'Coimbra', '0791565814', 'avenue du scex 27', '7', '40'),
