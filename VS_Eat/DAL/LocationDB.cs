@@ -1,10 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DTO;
+using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace DAL
@@ -18,10 +15,11 @@ namespace DAL
         }
 
         // Methode to find the IDLocation by giving it a PostCode and a city name and the methode return a simple int that correspond to the ID 
-        public int GetLocationId(int PostCode, string City)
+        public Location GetLocation(int PostCode, string City)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            int IdLocation = -1; 
+            Location myLocation = new Location();
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -35,29 +33,25 @@ namespace DAL
                  
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
-                
+
                         if (dataReader.Read())
                         {
-                            
-                            IdLocation = (int) dataReader["IdLocation"]; 
-                         
+                            myLocation.IdLocation = (int) dataReader["IdLocation"];
+                            myLocation.PostCode = (int) dataReader["PostCode"];
+                            myLocation.City = (string) dataReader["City"];
+                            myLocation.IdRegion = (int) dataReader["IdRegion"];
                         }
-
-                    
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.Write("ERROR IN GetLocationById\n");
+                Console.Write("Error while getting LocationById\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
-                Console.Write("ERROR\n");
             }
-
-            return IdLocation; 
-
+            return myLocation;
         }
 
 
