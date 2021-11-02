@@ -24,7 +24,7 @@ namespace VS_Eat
             var ProductManager = new ProductManager(Configuration);
             var RestaurantManager = new RestaurantManager(Configuration);
             var UserManager = new UserManager(Configuration);
-            
+
 
             /** Get all restaurants 
             Console.WriteLine("______________________________________________");
@@ -43,15 +43,22 @@ namespace VS_Eat
                 Console.WriteLine(Order.ToString());
             **/
 
-            /** Get all orders from a restaurant **/
+            /** Get all orders from a restaurant
             Console.WriteLine("______________________________________________");
             var RestaurantId = 1;
             Console.WriteLine("All products for restaurant: " + RestaurantId);
             List<Product> productsFromRestaurant = ProductManager.GetAllProductsFromRestaurant(RestaurantId);
             foreach (var Product in productsFromRestaurant)
                 Console.WriteLine(Product.ToString());
-                
+            **/
 
+            /** Get all users 
+            Console.WriteLine("______________________________________________");
+            Console.WriteLine("All users: ");
+            List<User> allUsers = UserManager.GetAllUsers();
+            foreach (var User in allUsers)
+                Console.WriteLine(User.ToString());
+            **/
 
         }
 

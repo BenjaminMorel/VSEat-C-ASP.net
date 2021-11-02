@@ -10,9 +10,11 @@ namespace DTO
     {
         public int IdDeliveryStaff { get; set; }
 
-        public string FirstNameDeliveryStaff { get; set; }
+        public string FirstName { get; set; }
 
-        public string NameDeliveryStaff { get; set; }
+        public string LastName { get; set; }
+
+        public string PhoneNumber { get; set; }
 
         public int IdLogin { get; set; }
 
@@ -22,8 +24,8 @@ namespace DTO
         {
             return "\n__________________________" +
                     "\nIdDeliveryStaff: " + IdDeliveryStaff +
-                    "\nFirstName: " + FirstNameDeliveryStaff +
-                    "\nLastName: " + NameDeliveryStaff +
+                    "\nFirstName: " + FirstName +
+                    "\nLastName: " + LastName +
                     "\nIdLogin: " + IdLogin +
                     "\nIdLocation:"  + IdLocation +
                     "\n__________________________";

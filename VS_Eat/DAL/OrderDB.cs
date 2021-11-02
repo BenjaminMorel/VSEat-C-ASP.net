@@ -117,10 +117,13 @@ namespace DAL
             return AllOrder; 
         }
 
+        //TODO [BENJI] methode pour afficher toute les openorder d'une region qui ont un statut ready
+
+
 
         //TODO[HUGO]: add a methode to be able to add an order in the database with all foreign key 
     }
 
- 
-    
+
+
 }

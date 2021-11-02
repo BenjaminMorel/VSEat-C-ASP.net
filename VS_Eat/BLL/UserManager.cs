@@ -1,4 +1,5 @@
-﻿using DAL;
+﻿using System.Collections.Generic;
+using DAL;
 using DAL.Interfaces;
 using DTO;
 using Microsoft.Extensions.Configuration;
@@ -15,9 +16,9 @@ namespace BLL
             UserDb = new UserDB(configuration); 
         }
 
-        public void ShowAllUser()
+        public List<User> GetAllUsers()
         {
-            UserDb.ShowAllUser();
+            return UserDb.GetAllUsers();
         }
         public User GetUserByID(string Email, string Password)
         {
