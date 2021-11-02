@@ -9,6 +9,11 @@ namespace DAL.Interfaces
     {
         List<Order> GetAllOrders();
 
-        List<Order> GetOrderByUser(int IdUser); 
+        List<Order> GetOrderByUser(int IdUser);
+
+        List<Order> GetOpenOrdersFromRegion(int IdRegion);
+
+        //TODO: add a method to be able to add an order in the database with all foreign key 
+
     }
 }

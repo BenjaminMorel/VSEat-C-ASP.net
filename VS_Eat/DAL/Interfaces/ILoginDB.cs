@@ -7,11 +7,14 @@ namespace DAL.Interfaces
 {
     public interface ILoginDB
     {
-        List<Login> GetAllLogin(); 
+        List<Login> GetAllLogins(); 
 
-        Login GetLoginWithCredential(string Email, string Password);
+        Login GetLoginWithCredentials(string Email, string Password);
 
         Login AddNewLogin(Login myLogin); 
+
         Login EmailVerification(string Email); 
+
+        //TODO UpdateLogin
     }
 }

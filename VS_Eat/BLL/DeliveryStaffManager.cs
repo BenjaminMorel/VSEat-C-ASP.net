@@ -19,7 +19,7 @@ namespace BLL
 
         public List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff)
         {
-            return DeliveryStaffDb.CountOpenOrderByStaffID(IdDeliveryStaff); 
+            return DeliveryStaffDb.CountOpenOrderByStaffId(IdDeliveryStaff); 
         }
 
         //TODO [Modifier le retour et la structur de la methode DAL/BLL

@@ -176,7 +176,6 @@ namespace DAL
         }
 
 
-        //TODO[HUGO]: add a methode to be able to add an order in the database with all foreign key 
         }
 
 

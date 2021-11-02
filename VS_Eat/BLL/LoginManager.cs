@@ -22,12 +22,12 @@ namespace BLL
 
         public List<Login> GetAllLogin()
         {
-            return LoginDb.GetAllLogin(); 
+            return LoginDb.GetAllLogins(); 
         }
 
         public Login GetLoginWithCredential(string Email, string Password)
         {
-            return LoginDb.GetLoginWithCredential(Email, Password); 
+            return LoginDb.GetLoginWithCredentials(Email, Password); 
         }
 
         public bool EmailVerification(string Email)
