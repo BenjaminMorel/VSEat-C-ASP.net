@@ -8,7 +8,7 @@ using System;
 
 namespace DAL
 {
-    class RegionDB
+    public class RegionDB : IRegionDB
     {
         private IConfiguration Configuration { get; }
 

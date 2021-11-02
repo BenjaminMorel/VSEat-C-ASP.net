@@ -8,21 +8,23 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
-    public class UserManager
+    public class UserManager : IUserManager
     {
         private IUserDB UserDb { get; }
         private ILoginDB LoginDB { get; }
 
         private ILoginManager LoginManager { get; }
 
-     //   private ILocationDB
+        private ILocationDB LocationDB { get;  }
 
         public UserManager(IConfiguration configuration)
         {
             UserDb = new UserDB(configuration);
             LoginDB = new LoginDB(configuration);
+            LocationDB = new LocationDB(configuration);
+
             LoginManager = new LoginManager(configuration);
-     //       LocationDB = new LocationDB(configuration); 
+
         }
 
         public List<User> GetAllUsers()
@@ -36,7 +38,7 @@ namespace BLL
         }
 
 
-        public void CreateNewUser(string FirstName, string LastName, string PhoneNumber, string Address, string Email, string Password,
+        public User CreateNewUser(string FirstName, string LastName, string PhoneNumber, string Address, string Email, string Password,
              int PostCode, string City)
         {
             // We call the method EmailVerification to check if the email is already taken, if it return true we stop the method here but if the result is false we can continue
@@ -47,8 +49,8 @@ namespace BLL
             }
             //TODO ajouter la partie qui va récuperer les informations de location 
 
-        //    var LocationDB = new LocationDB(Configuration);
-       //     int IdLocation = LocationDB.GetLocationId(PostCode, City);
+            var Location = new Location();
+            Location = LocationDB.GetLocation(PostCode, City); 
 
             var MyLogin = new Login();
             MyLogin.Password = Password;
@@ -61,16 +63,16 @@ namespace BLL
 
             var MyUser = new User();
 
-            MyUser.IdLogin = MyLogin.IdLogin; 
-       //     MyUser.IdLocation
+            MyUser.IdLogin = MyLogin.IdLogin;
+            MyUser.IdLocation = Location.IdLocation; 
             MyUser.FirstName = FirstName;
             MyUser.LastName = LastName;
             MyUser.PhoneNumber = PhoneNumber;
             MyUser.Address = Address;
 
-            UserDb.AddUser(MyUser); 
+            MyUser = UserDb.AddUser(MyUser);
 
-
+            return MyUser; 
         }
     }
 }

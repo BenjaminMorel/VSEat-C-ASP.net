@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Interfaces;
 
 
 namespace DAL
 {
-    class LoginTypeDB
+    public class LoginTypeDB : ILoginTypeDB
     {
         private IConfiguration Configuration { get; }
         public LoginTypeDB(IConfiguration configuration)

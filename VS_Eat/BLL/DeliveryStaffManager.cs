@@ -1,11 +1,14 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using BLL.Interfaces;
 using DAL;
-using DAL.Interfaces; 
+using DAL.Interfaces;
+using DTO;
 using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
-    public class DeliveryStaffManager
+    public class DeliveryStaffManager : IDeliveryStaffManager
     {
         private IDeliveryStaffDB DeliveryStaffDb { get; }
 
@@ -14,11 +17,12 @@ namespace BLL
             DeliveryStaffDb = new DeliveryStaffDB(configuration);
         }
 
-        public int CountOpenOrderByStaffID(int IdDeliveryStaff)
+        public List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff)
         {
             return DeliveryStaffDb.CountOpenOrderByStaffID(IdDeliveryStaff); 
         }
 
+        //TODO [Modifier le retour et la structur de la methode DAL/BLL
         public void CreateNewStaff(string FirstName, string Name, int PostCode, string City, string Email,
             string Password)
         {

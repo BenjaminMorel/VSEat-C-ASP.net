@@ -2,11 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Data.SqlClient;
+using DAL.Interfaces;
 
 
 namespace DAL
 {
-    public class LocationDB 
+    public class LocationDB : ILocationDB
     {
         private IConfiguration Configuration { get; }
         public LocationDB(IConfiguration configuration)

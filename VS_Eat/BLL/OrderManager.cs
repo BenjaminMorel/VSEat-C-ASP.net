@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BLL.Interfaces;
 
 namespace BLL
 {
-    public class OrderManager
+    public class OrderManager : IOrderManager
     {
         private IOrderDB OrderDb { get; }
 

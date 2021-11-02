@@ -10,7 +10,6 @@ namespace DAL.Interfaces
 
         User GetUserByID(int IdUser);
 
-
         User AddUser(User myUser); 
     }
 }
