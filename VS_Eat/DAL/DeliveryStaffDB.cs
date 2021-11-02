@@ -84,11 +84,10 @@ namespace DAL
                 return;
             }
 
-            //TODO [HUGO ] la variable name s'appele LastName dans user faire pareil dans les deux class
             var DeliveryStaff = new DeliveryStaff();
             DeliveryStaff.IdLogin = IdLogin;
-            DeliveryStaff.FirstNameDeliveryStaff = FirstName;
-            DeliveryStaff.NameDeliveryStaff = Name;
+            DeliveryStaff.FirstName = FirstName;
+            DeliveryStaff.LastName = Name;
             DeliveryStaff.IdLocation = IdLocation; 
 
             AddStaff(DeliveryStaff, connectionString);
@@ -101,10 +100,11 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Insert into [dbo].[DeliveryStaff](FirstName,Name,IdLogin,IdLocation) values(@FirstName,@Name,IdLogin,@IdLocation);";
+                    string query = "Insert into [dbo].[DeliveryStaff](FirstName, Name, PhoneNumber, IdLogin,IdLocation) values(@FirstName, @Name, @PhoneNumber, IdLogin,@IdLocation);";
                     SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@FirstName", MyStaff.FirstNameDeliveryStaff);
-                    command.Parameters.AddWithValue("@LastName", MyStaff.NameDeliveryStaff);
+                    command.Parameters.AddWithValue("@FirstName", MyStaff.FirstName);
+                    command.Parameters.AddWithValue("@LastName", MyStaff.LastName);
+                    command.Parameters.AddWithValue("@PhoneNumber", MyStaff.PhoneNumber);
                     command.Parameters.AddWithValue("@IdLogin", MyStaff.IdLogin);
                     command.Parameters.AddWithValue("@IdLocation", MyStaff.IdLocation);
 
@@ -116,17 +116,16 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("ERROR IN ADD NEW STAFF\n");
+                Console.Write("Error while adding new staff\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
-                Console.Write("ERROR\n");
             }
 
             return;
         }
 
 
-        //TODO [?] method pour afficher toute les openorder d'une region
+
     }
 }

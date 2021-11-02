@@ -4,9 +4,9 @@
 
 
 /** DELETE ALL EXISTING TABLES IF EXISTING **/
-DROP TABLE [dbo].[OrderStatus]
 DROP TABLE [dbo].[OrderDetails]
 DROP TABLE [dbo].[Order]
+DROP TABLE [dbo].[OrderStatus]
 DROP TABLE [dbo].[DeliveryStaff]
 DROP TABLE [dbo].[Product]
 DROP TABLE [dbo].[ProductType]

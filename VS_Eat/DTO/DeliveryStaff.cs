@@ -9,18 +9,26 @@ namespace DTO
     public class DeliveryStaff
     {
         public int IdDeliveryStaff { get; set; }
-        public string FirstNameDeliveryStaff { get; set; }
-        public string NameDeliveryStaff { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string PhoneNumber { get; set; }
+
         public int IdLogin { get; set; }
+
         public int IdLocation { get; set; }
 
         public override string ToString()
         {
-            return "\n__________________________\n" +
-                "\nIdDevlieryStaff : " + IdDeliveryStaff +
-                "\nFirstNameDeliveryStaff : " + FirstNameDeliveryStaff +
-                "\nNameDeliveryStaff : " + NameDeliveryStaff +
-                "\nIdLogin : " + IdLogin;
+            return "\n__________________________" +
+                    "\nIdDeliveryStaff: " + IdDeliveryStaff +
+                    "\nFirstName: " + FirstName +
+                    "\nLastName: " + LastName +
+                    "\nIdLogin: " + IdLogin +
+                    "\nIdLocation:"  + IdLocation +
+                    "\n__________________________";
         }
     }
 }

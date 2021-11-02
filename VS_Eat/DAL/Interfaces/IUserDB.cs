@@ -1,11 +1,12 @@
 ﻿
+using System.Collections.Generic;
 using DTO;
 
 namespace DAL.Interfaces
 {
     public interface IUserDB
     {
-        void ShowAllUser();
+        List<User> GetAllUsers();
 
         User GetUserByID(int IdUser);
 

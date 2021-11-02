@@ -246,10 +246,10 @@ INSERT [dbo].[Login] (Username, Password, IdLoginType) VALUES
 ('thomas.cheseaux@students.hevs.ch', 'ffff', '4');
 
 INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, Address, FavoriteRestaurant, FavoriteProduct, IdLogin, IdLocation) VALUES
-('Benjamin', 'Morel', '0799811254', 'chemin de vionn 12', '', '', '1', '110'),
-('Hugo', 'Vouillamoz', '0799872542', 'route du flipreset 7', '', '', '2', '59'),
-('Daniel', 'Coimbra', '0791565814', 'avenue du scex 27', '', '', '7', '40'),
-('Thomas', 'Cheseaux', '0792839183', 'chemin du comptoir 5', '', '', '8', '88');
+('Benjamin', 'Morel', '0799811254', 'chemin de vionn 12', NULL, NULL, '1', '110'),
+('Hugo', 'Vouillamoz', '0799872542', 'route du flipreset 7', '1', '1', '2', '59'),
+('Daniel', 'Coimbra', '0791565814', 'avenue du scex 27', '1,2', '2', '7', '40'),
+('Thomas', 'Cheseaux', '0792839183', 'chemin du comptoir 5', '1', '1,2', '8', '88');
 
 INSERT [dbo].[RestaurantType] (NomRestaurantType) VALUES 
 ('FastFood'),
@@ -273,12 +273,12 @@ INSERT [dbo].[Product] (ProductName, Description, Price, Picture, Disponibility,
 ('CheeseBurger', 'Burger avec fromage', '15.00', 'cheeseBurger.png', '1', '1', '3'),
 ('Pizza Margarita', 'tomate, mozzarella', '10.00', 'margarita.png', '1', '1', '2');
 
-INSERT [dbo].[DeliveryStaff] (FirstName, LastName, PhoneNumber,  IdLogin, IdLocation) VALUES
+INSERT [dbo].[DeliveryStaff] (FirstName, LastName, PhoneNumber, IdLogin, IdLocation) VALUES
 ('Nicolas', 'Devanthéry', '0785842426', '5', '24'),
 ('Doriane', 'Papilloud', '0783695412', '6', '59');
 
 INSERT [dbo].[OrderStatus] (Status) VALUES
-('InPreparation'),
+('In preparation'),
 ('Ready'),
 ('Out for delivery'),
 ('Delivered'),

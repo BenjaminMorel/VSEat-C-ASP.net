@@ -2,6 +2,7 @@
 using DTO;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
@@ -18,43 +19,50 @@ namespace DAL
         {
             Configuration = configuration;
         }
-        public void ShowAllUser()
+        /// <summary>
+        /// Method which returns the list of all the users of the table
+        /// </summary>
+        public List<User> GetAllUsers()
         {       
-             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-             try
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            List<User> allUsers = new List<User>();
+
+            try
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM [dbo].[User]";
-                    SqlCommand cmd = new SqlCommand(query, cn);
+                    SqlCommand command = new SqlCommand(query, cn);
                     cn.Open();
 
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (SqlDataReader dataReader = command.ExecuteReader())
                     {
-                        while (dr.Read())
+                        while (dataReader.Read())
                         {
                             User MyUser = new User();
 
-                            MyUser.IdUser = (int)dr["IdUser"];
-                            MyUser.FirstName = (string)dr["FirstName"];
-                            MyUser.LastName = (string)dr["LastName"];
-                            MyUser.PhoneNumber = (string)dr["PhoneNumber"];
-                            MyUser.Address = (string)dr["Address"];
+                            MyUser.IdUser = (int) dataReader["IdUser"];
+                            MyUser.FirstName = (string) dataReader["FirstName"];
+                            MyUser.LastName = (string) dataReader["LastName"];
+                            MyUser.PhoneNumber = (string) dataReader["PhoneNumber"];
+                            MyUser.Address = (string) dataReader["Address"];
+                            MyUser.FavoriteRestaurant = (string) dataReader["FavoriteRestaurant"];
+                            MyUser.FavoriteProduct = (string) dataReader["FavoriteProduct"];
 
-
-                            Console.Write(MyUser.ToString());
+                            // Add the user to the list
+                            allUsers.Add(MyUser);
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.Write("ERROR\n");
+                Console.Write("Error while getting all users\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
-                Console.Write("ERROR\n");
             }
+            return allUsers;
         }
 
         public User GetUserByID(int IdLogin)
@@ -95,8 +103,6 @@ namespace DAL
                   
                                 MyUser.IdLocation = (int)dataReader["IdLocation"];
                             }
-                     
-                     
                         }
                     }
                 }
