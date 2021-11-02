@@ -8,5 +8,7 @@ namespace DAL.Interfaces
 {
     public interface IOrderStatusDB
     {
+
+        //TODO GetAllOrderStatus
     }
 }

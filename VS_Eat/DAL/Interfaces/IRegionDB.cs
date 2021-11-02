@@ -8,5 +8,7 @@ namespace DAL.Interfaces
 {
     public interface IRegionDB
     {
+
+        //TODO GetAllRegion
     }
 }

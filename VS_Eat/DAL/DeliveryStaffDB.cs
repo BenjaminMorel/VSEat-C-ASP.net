@@ -17,7 +17,7 @@ namespace DAL
             Configuration = configuration;
         }
 
-        public List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff)
+        public List<Order> CountOpenOrderByStaffId(int IdDeliveryStaff)
         {
             List<Order> numberOfOpenOrders = new List<Order>();
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -56,7 +56,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("Error while getting CountOpenOrderByStaffID\n");
+                Console.Write("Error while getting CountOpenOrderByStaffId\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);

@@ -33,7 +33,7 @@ namespace BLL
         }
         public User GetUserByID(string Email, string Password)
         {
-            Login myLogin = LoginDB.GetLoginWithCredential(Email, Password);
+            Login myLogin = LoginDB.GetLoginWithCredentials(Email, Password);
             return UserDb.GetUserByID(myLogin.IdLogin); 
         }
 

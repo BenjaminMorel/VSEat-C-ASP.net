@@ -22,7 +22,7 @@ namespace DAL
         /// <summary>
         /// Method which displays the list of all the logins of the table in the console
         /// </summary>
-        public List<Login> GetAllLogin()
+        public List<Login> GetAllLogins()
         {
             List<Login> AllLogin = new List<Login>(); 
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -70,7 +70,7 @@ namespace DAL
         /// <param name="Email"> Email of the login we want to find </param>
         /// <param name="Password"> Password of the login we want to find </param>
         /// <returns> Returns an integer, the id of the corresponding login </returns>
-        public Login GetLoginWithCredential(string Email, string Password)
+        public Login GetLoginWithCredentials(string Email, string Password)
         {
             Login MyLogin = null;
             string connectionString = Configuration.GetConnectionString("DefaultConnection");

@@ -6,10 +6,11 @@ namespace DAL.Interfaces
 {
     public interface IDeliveryStaffDB
     {
-        List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff);
+        List<Order> CountOpenOrderByStaffId(int IdDeliveryStaff);
 
-        void CreateNewStaff(string FirstName, string Name, int PostCode, string City, string Email,
-            string Password);
+        //void CreateNewStaff(string FirstName, string Name, int PostCode, string City, string Email, string Password);
+
+        //DeliveryStaff AddDeliveryStaff(DeliveryStaff myDeliveryStaff);
 
     }
 }
