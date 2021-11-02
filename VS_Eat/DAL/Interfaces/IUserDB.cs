@@ -10,6 +10,8 @@ namespace DAL.Interfaces
 
         User GetUserByID(int IdUser);
 
-        void CreateNewUser(string FirstName, string LastName, string PhoneNumber, string Address, string Email, string Password, int PostCode, string City);
+
+        User AddUser(User myUser); 
     }
 }
+

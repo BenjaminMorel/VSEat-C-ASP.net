@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    class Location
+    public class Location
     {
         public int IdLocation { get; set; }
 

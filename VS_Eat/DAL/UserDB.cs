@@ -118,55 +118,9 @@ namespace DAL
             return MyUser;
         }
 
-        public void CreateNewUser(string FirstName, string LastName, string PhoneNumber, string Email, string Password,
-            string Address, int PostCode, string City)
-        {
-        
-            // We call the method EmailVerification to check if the email is already taken, if it return true we stop the method here but if the result is false we can continue
-            var LoginDB = new LoginDB(Configuration);
-            if (LoginDB.EmailVerification(Email))
-            {
-                Console.WriteLine("ERROR THIS EMAIL IS ALREADY TAKEN\nDO YOU WANT TO CONNECT ?");
-                return;
-            }
-
-            //We call the methode GetLocationId to find the Id location 
-            var LocationDB = new LocationDB(Configuration);
-            int IdLocation = LocationDB.GetLocationId(PostCode, City);
-
-            var NewLogin = new Login();
-            NewLogin.Username = Email;
-            //Faire appel à la methode de hash 
-            NewLogin.Password = Password;
-            NewLogin.IdLoginType = 4;
-
-        
-            //appelle de la méthode AddNewLogin pour ajouter une entrée login dans la base de donnée, la méthode prend un objet login et la string de connection créée plus haut
-            int IdLogin = LoginDB.AddNewLogin(NewLogin);
-       
-            if (IdLogin == -1)
-            {
-                Console.WriteLine("ERROR DURING THE CREATION OF THE NEW LOGIN");
-                return;
-            }
-
-            //création d'une variable user qu'on va ensuite envoyé dans la signiature de la méthode addUser()
-            var myUser = new User();
-            myUser.IdLogin = IdLogin;
-            myUser.IdLocation = IdLocation;
-            myUser.FirstName = FirstName;
-            myUser.LastName = LastName;
-            myUser.PhoneNumber = PhoneNumber;
-            myUser.Address = Address;
-
-            //création du nouveau user dans la base de donnée via la méthode addUser()
-            AddUser(myUser);
-
-        }
-        
         //Méthode qui va venir ajouter le nouveau user dans la base de donnée via la query INSERT 
         //la méthode est private car elle sera seulement appéler via la methode createNewUser() qui elle est publique 
-        private void AddUser(User myUser)
+        public User AddUser(User myUser)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
@@ -184,8 +138,7 @@ namespace DAL
 
                     connection.Open();
 
-                    command.ExecuteScalar(); 
-                    
+                    myUser.IdLogin = Convert.ToInt32(command.ExecuteScalar());
                 }
             }
             catch (Exception e)
@@ -196,9 +149,10 @@ namespace DAL
                 Console.Write(e.Source);
                 Console.Write("ERROR\n");
             }
-
-            return; 
+            return myUser; 
         }
+        
+        
         //TODO [?] update les informations du user
         //TODO[HUGO] resortir les id des products et restaurant favoris via boucle for et parseInt 
 

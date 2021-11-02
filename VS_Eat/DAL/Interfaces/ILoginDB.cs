@@ -1,15 +1,17 @@
 ﻿
 
+using System.Collections.Generic;
 using DTO;
 
 namespace DAL.Interfaces
 {
     public interface ILoginDB
-    { 
-        void ShowAllLogin();
-        
-        Login GetLogin(string Email, string Password);
+    {
+        List<Login> GetAllLogin(); 
 
-        bool EmailVerification(string Email); 
+        Login GetLoginWithCredential(string Email, string Password);
+
+        Login AddNewLogin(Login myLogin); 
+        Login EmailVerification(string Email); 
     }
 }
