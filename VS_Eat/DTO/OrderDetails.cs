@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    class OrderDetails
+    public class OrderDetails
     {
         public float UnitPrice { get; set; }
 

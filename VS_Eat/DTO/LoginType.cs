@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    class LoginType
+    public class LoginType
     {
         public int IdLoginType { get; set; }
 

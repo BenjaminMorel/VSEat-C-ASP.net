@@ -40,20 +40,20 @@ namespace DAL
                     {
                         while (dataReader.Read())
                         {
-                            Order MyOrder = new Order();
+                            Order myOrder = new Order();
 
-                            MyOrder.IdOrder = (int) dataReader["IdOrder"];
-                            //MyOrder.OrderDate = (string) dataReader["OrderDate"];
-                            MyOrder.DeliveryAddress = (string) dataReader["DeliveryAddress"];
-                            //MyOrder.Freight = (float) dataReader["Freight"];
-                            //MyOrder.TotalPrice = (float) dataReader["TotalPrice"];
-                            MyOrder.IdOrderStatus = (int) dataReader["IdOrderStatus"];
-                            MyOrder.IdUser = (int) dataReader["IdUser"];
-                            MyOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
-                            MyOrder.IdLocation = (int) dataReader["IdLocation"];
+                            myOrder.IdOrder = (int) dataReader["IdOrder"];
+                            //myOrder.OrderDate = (string) dataReader["OrderDate"];
+                            myOrder.DeliveryAddress = (string) dataReader["DeliveryAddress"];
+                            //myOrder.Freight = (float) dataReader["Freight"];
+                            //myOrder.TotalPrice = (float) dataReader["TotalPrice"];
+                            myOrder.IdOrderStatus = (int) dataReader["IdOrderStatus"];
+                            myOrder.IdUser = (int) dataReader["IdUser"];
+                            myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
+                            myOrder.IdLocation = (int) dataReader["IdLocation"];
 
                             // Add the restaurant to the list
-                            allOrders.Add(MyOrder);
+                            allOrders.Add(myOrder);
 
                         }
                     }
@@ -78,6 +78,7 @@ namespace DAL
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             List<Order> AllOrder = null; 
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -91,38 +92,92 @@ namespace DAL
                     {
                         while (dataReader.Read())
                         {
-                            Order MyOrder = new Order();
+                            Order myOrder = new Order();
 
-                            MyOrder.IdOrder = (int)dataReader["IdOrder"];
-                            MyOrder.OrderDate = (string)dataReader["OrderDate"];
-                            MyOrder.DeliveryAddress = (string)dataReader["DeliveryAddress"];
-                            MyOrder.Freight = (float)dataReader["Freight"];
-                            MyOrder.TotalPrice = (float) dataReader["TotalPrice"];
-
+                            myOrder.IdOrder = (int) dataReader["IdOrder"];
+                            //myOrder.OrderDate = (string) dataReader["OrderDate"];
+                            myOrder.DeliveryAddress = (string) dataReader["DeliveryAddress"];
+                            //myOrder.Freight = (float) dataReader["Freight"];
+                            //myOrder.TotalPrice = (float) dataReader["TotalPrice"];
+                            myOrder.IdOrderStatus = (int) dataReader["IdOrderStatus"];
+                            myOrder.IdUser = (int) dataReader["IdUser"];
+                            myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
+                            myOrder.IdLocation = (int) dataReader["IdLocation"];
+                            
                             // Add the order to the list
-                            AllOrder.Add(MyOrder); 
+                            AllOrder.Add(myOrder); 
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.Write("ERROR\n");
+                Console.Write("Error while getting OrderByUser\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
-                Console.Write("ERROR\n");
             }
-
             return AllOrder; 
         }
 
-        //TODO [BENJI] methode pour afficher toute les openorder d'une region qui ont un statut ready
+        /// <summary>
+        /// Method which returns a list of orders that are with status 'ready' 
+        /// </summary>
+        /// <param name="IdRegion"></param>
+        /// <returns></returns>
+        public List<Order> GetOpenOrdersFromRegion(int IdRegion)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            List<Order> AllOpenOrders = new List<Order>();
 
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * " +
+                                   "FROM [dbo].[Order] O, Location L" +
+                                   "WHERE IdOrderStatus = 2" +
+                                   "AND IdRegion=@IdRegion" +
+                                   "AND L.IdLocation = O.IdLocation";
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            Order myOrder = new Order();
+
+                            myOrder.IdOrder = (int)dataReader["IdOrder"];
+                            //myOrder.OrderDate = (string) dataReader["OrderDate"];
+                            myOrder.DeliveryAddress = (string)dataReader["DeliveryAddress"];
+                            //myOrder.Freight = (float) dataReader["Freight"];
+                            //myOrder.TotalPrice = (float) dataReader["TotalPrice"];
+                            myOrder.IdOrderStatus = (int)dataReader["IdOrderStatus"];
+                            myOrder.IdUser = (int)dataReader["IdUser"];
+                            myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                            myOrder.IdLocation = (int)dataReader["IdLocation"];
+
+                            // Add the order to the list
+                            AllOpenOrders.Add(myOrder);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting all open orders from region\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return AllOpenOrders;
+        }
 
 
         //TODO[HUGO]: add a methode to be able to add an order in the database with all foreign key 
-    }
+        }
 
 
 
