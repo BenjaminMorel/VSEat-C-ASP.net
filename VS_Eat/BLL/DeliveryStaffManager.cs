@@ -19,5 +19,11 @@ namespace BLL
             return DeliveryStaffDb.CountOpenOrderByStaffID(IdDeliveryStaff); 
         }
 
+        public void CreateNewStaff(string FirstName, string Name, int PostCode, string City, string Email,
+            string Password)
+        {
+            DeliveryStaffDb.CreateNewStaff(FirstName,Name,PostCode,City,Email,Password);
+        }
+
     }
 }

@@ -21,11 +21,8 @@ namespace DAL
         public void ShowAllUser()
         {       
              string connectionString = Configuration.GetConnectionString("DefaultConnection");
-
-
-            try
+             try
             {
-                
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM [dbo].[User]";
@@ -48,9 +45,6 @@ namespace DAL
                             Console.Write(MyUser.ToString());
                         }
                     }
-
-                
-
                 }
             }
             catch (Exception e)
@@ -63,11 +57,8 @@ namespace DAL
             }
         }
 
-        public User GetUserByID(string Email, string Password)
+        public User GetUserByID(int IdLogin)
         {
-
-            var LoginDB = new LoginDB(Configuration);
-            int IdLogin = LoginDB.GetLogin(Email, Password); 
             User MyUser = null;
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
@@ -124,9 +115,7 @@ namespace DAL
         public void CreateNewUser(string FirstName, string LastName, string PhoneNumber, string Email, string Password,
             string Address, int PostCode, string City)
         {
-            //création de la string de connection qui va être utiliser dans la signature de addUser et addLogin
-            string connectionString = Configuration.GetConnectionString("DefaultConnection");
-
+        
             // We call the method EmailVerification to check if the email is already taken, if it return true we stop the method here but if the result is false we can continue
             var LoginDB = new LoginDB(Configuration);
             if (LoginDB.EmailVerification(Email))
@@ -147,7 +136,7 @@ namespace DAL
 
         
             //appelle de la méthode AddNewLogin pour ajouter une entrée login dans la base de donnée, la méthode prend un objet login et la string de connection créée plus haut
-            int IdLogin = LoginDB.AddNewLogin(NewLogin,connectionString);
+            int IdLogin = LoginDB.AddNewLogin(NewLogin);
        
             if (IdLogin == -1)
             {
@@ -165,14 +154,15 @@ namespace DAL
             myUser.Address = Address;
 
             //création du nouveau user dans la base de donnée via la méthode addUser()
-            AddUser(myUser,connectionString);
+            AddUser(myUser);
 
         }
         
         //Méthode qui va venir ajouter le nouveau user dans la base de donnée via la query INSERT 
         //la méthode est private car elle sera seulement appéler via la methode createNewUser() qui elle est publique 
-        private void AddUser(User myUser,string connectionString)
+        private void AddUser(User myUser)
         {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -203,7 +193,7 @@ namespace DAL
 
             return; 
         }
-
+        //TODO [?] update les informations du user
         //TODO[HUGO] resortir les id des products et restaurant favoris via boucle for et parseInt 
 
         //TODO [HUGO] ajouter un restaurant ou un produit à la liste des favoris 

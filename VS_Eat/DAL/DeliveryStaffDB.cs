@@ -52,7 +52,7 @@ namespace DAL
         }
 
 
-        public void CreateNewStaff(String FirstName, string Name, int PostCode, string City, string Email,
+        public void CreateNewStaff(string FirstName, string Name, int PostCode, string City, string Email,
             string Password)
         {
             //création de la string de connection qui va être utiliser dans la signature de addUser et addLogin

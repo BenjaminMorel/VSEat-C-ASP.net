@@ -67,13 +67,12 @@ namespace DAL
         /// <param name="Email"> Email of the login we want to find </param>
         /// <param name="Password"> Password of the login we want to find </param>
         /// <returns> Returns an integer, the id of the corresponding login </returns>
-        public int GetLogin(string Email, string Password)
+        public Login GetLogin(string Email, string Password)
         {
             Login MyLogin = null;
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
             {
-              
                 using(SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = "Select * from [dbo].[Login] WHERE Username=@Email AND Password=@Password";
@@ -104,17 +103,15 @@ namespace DAL
                 Console.Write(e.Source);
                 Console.Write("ERROR\n");
             }
-            if (MyLogin  != null)
-            {
-                return MyLogin.IdLogin;
-            }
-            return 0;
+
+            return MyLogin; 
         }
 
 
         
-        public int AddNewLogin(Login NewLogin, String connectionString)
+        public int AddNewLogin(Login NewLogin)
         {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
             int IdLogin = -1; 
        
             try

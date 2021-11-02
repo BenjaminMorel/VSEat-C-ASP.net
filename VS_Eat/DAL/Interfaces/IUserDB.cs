@@ -7,7 +7,7 @@ namespace DAL.Interfaces
     {
         void ShowAllUser();
 
-        User GetUserByID(string Email, string Password);
+        User GetUserByID(int IdUser);
 
         void CreateNewUser(string FirstName, string LastName, string PhoneNumber, string Address, string Email, string Password, int PostCode, string City);
     }
