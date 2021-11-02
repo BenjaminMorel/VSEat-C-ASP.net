@@ -11,6 +11,10 @@ namespace VS_Eat
 {
     class Program
     {
+
+        // TODO vérifier et compléter tout les IManager 
+
+        //TODO corriger getter setter DTO money /date 
         public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
            .SetBasePath(Directory.GetCurrentDirectory())
            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)

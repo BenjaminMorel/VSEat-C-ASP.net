@@ -20,7 +20,7 @@ namespace DTO
 
         public bool Disponibility { get; set; }
 
-        public bool Vegetarian { get; set; }
+        public bool Vegetarian { get; set;  }
 
         public int IdRestaurant { get; set; }
 
@@ -35,6 +35,7 @@ namespace DTO
                    "\nPrice: " + Price +
                    "\nPicture: " + Picture +
                    "\nDisponibility: " + Disponibility +
+                   "\nVegetarian " + Vegetarian +
                    "\nIdRestaurant: " + IdRestaurant +
                    "\nIdProductType: " + IdProductType +
                    "\n__________________________";

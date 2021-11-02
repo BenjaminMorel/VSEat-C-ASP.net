@@ -47,7 +47,6 @@ namespace BLL
             {
                 Console.WriteLine("THIS EMAIL IS ALREADY USE BY AN OTHER ACCOUNT\nPLEASE CONNECT HERE");
             }
-            //TODO ajouter la partie qui va récuperer les informations de location 
 
             var Location = new Location();
             Location = LocationDB.GetLocation(PostCode, City); 
@@ -75,4 +74,7 @@ namespace BLL
             return MyUser; 
         }
     }
+    //TODO[HUGO] resortir les id des products et restaurant favoris via boucle for et parseInt 
+
+    //TODO [HUGO] ajouter un restaurant ou un produit à la liste des favoris 
 }

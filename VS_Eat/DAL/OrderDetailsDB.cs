@@ -18,7 +18,7 @@ namespace DAL
             Configuration = configuration;
         }
 
-        public List<OrderDetails> GetOrderDetailsWithIdOrder(int IdOrder)
+        public List<OrderDetails> GetOrderDetailsFromOrder(int IdOrder)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             List<OrderDetails> allOrderDetails = new List<OrderDetails>();

@@ -8,9 +8,8 @@ namespace DAL.Interfaces
     {
         List<Order> CountOpenOrderByStaffId(int IdDeliveryStaff);
 
-        //void CreateNewStaff(string FirstName, string Name, int PostCode, string City, string Email, string Password);
-
-        //DeliveryStaff AddDeliveryStaff(DeliveryStaff myDeliveryStaff);
+    
+        DeliveryStaff AddDeliveryStaff(DeliveryStaff myDeliveryStaff);
 
     }
 }
