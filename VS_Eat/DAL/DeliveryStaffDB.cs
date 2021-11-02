@@ -1,10 +1,10 @@
 ﻿using System.Data.SqlClient;
-using System.Reflection.Metadata.Ecma335;
 using DAL.Interfaces;
 using DAL; 
 using DTO;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 
 namespace DAL
 {
@@ -17,38 +17,51 @@ namespace DAL
             Configuration = configuration;
         }
 
-        public int CountOpenOrderByStaffID(int IdDeliveryStaff)
+        public List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff)
         {
-            int NumberOfOrder = 0;
+            List<Order> numberOfOpenOrders = new List<Order>();
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     //TODO[HUGO] ajouter contrainte de 30 min sur le compte des order open
                     string query = "SELECT * FROM [dbo].[Order] WHERE IdDeliveryStaff=@IdDeliveryStaff";
+
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@IdDeliveryStaff", IdDeliveryStaff);
                     connection.Open();
+
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
                         while (dataReader.Read())
                         {
-                            NumberOfOrder++; 
+                            Order myOrder = new Order();
+                            myOrder.IdOrder = (int)dataReader["IdOrder"];
+                            //myOrder.OrderDate = (string) dataReader["OrderDate"];
+                            myOrder.DeliveryAddress = (string)dataReader["DeliveryAddress"];
+                            //myOrder.Freight = (float) dataReader["Freight"];
+                            //myOrder.TotalPrice = (float) dataReader["TotalPrice"];
+                            myOrder.IdOrderStatus = (int)dataReader["IdOrderStatus"];
+                            myOrder.IdUser = (int)dataReader["IdUser"];
+                            myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                            myOrder.IdLocation = (int)dataReader["IdLocation"];
+
+                            // Add the restaurant to the list
+                            numberOfOpenOrders.Add(myOrder);
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.Write("ERROR IN COUNTORDERBYID\n");
+                Console.Write("Error while getting CountOpenOrderByStaffID\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
-                Console.Write("ERROR\n");
             }
-
-            return NumberOfOrder;
+            return numberOfOpenOrders;
         }
 
 
