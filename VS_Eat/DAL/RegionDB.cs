@@ -5,6 +5,7 @@ using DAL;
 using DTO;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 
 namespace DAL
 {
@@ -15,6 +16,44 @@ namespace DAL
         public RegionDB(IConfiguration configuration)
         {
             Configuration = configuration;
+        }
+
+        public List<Region> GetAllRegions()
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            List<Region> allRegions = new List<Region>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM [dbo].[Region]";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            Region myRegion = new Region();
+
+                            myRegion.IdRegion = (int) dataReader["IdRegion"];
+                            myRegion.RegionName = (string) dataReader["RegionName"];
+
+                            // Add the order status to the list
+                            allRegions.Add(myRegion);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting all regions\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return allRegions;
         }
     }
 }

@@ -91,19 +91,20 @@ namespace DAL
                     {
                         while (dataReader.Read())
                         {
-                            Product product = new Product();
+                            Product myProduct = new Product();
 
-                            product.IdProduct = (int) dataReader["IdProduct"];
-                            product.ProductName = (string) dataReader["ProductName"];
-                            product.Description = (string) dataReader["Description"];
+                            myProduct.IdProduct = (int) dataReader["IdProduct"];
+                            myProduct.ProductName = (string) dataReader["ProductName"];
+                            myProduct.Description = (string) dataReader["Description"];
                             //product.Price = (float)dataReader["Price"];
-                            product.Picture = (string) dataReader["Picture"];
-                            product.Disponibility = (bool) dataReader["Disponibility"];
-                            product.IdRestaurant = (int) dataReader["IdRestaurant"];
-                            product.IdProductType = (int) dataReader["IdProductType"];
+                            myProduct.Picture = (string) dataReader["Picture"];
+                            myProduct.Disponibility = (bool) dataReader["Disponibility"];
+                            myProduct.Vegetarian = (bool) dataReader["Vegetarian"];
+                            myProduct.IdRestaurant = (int) dataReader["IdRestaurant"];
+                            myProduct.IdProductType = (int) dataReader["IdProductType"];
 
                             // Add the product to the list
-                            products.Add(product);
+                            products.Add(myProduct);
                         }
                     }
                 }

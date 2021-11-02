@@ -6,11 +6,11 @@ namespace DAL.Interfaces
 {
     public interface IRestaurantDB
     {
-        List<Restaurant> GetAllRestaurants(); 
+        List<Restaurant> GetAllRestaurants();
 
-        //TODO Add new restaurant (return restaurant)
+        Restaurant AddRestaurant(Restaurant restaurant);
 
-        //TODO Update restaurant
+        Restaurant UpdateRestaurant(Restaurant restaurant);
 
     }
 }

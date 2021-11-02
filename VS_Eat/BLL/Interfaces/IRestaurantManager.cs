@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,10 @@ namespace BLL.Interfaces
 {
     public interface IRestaurantManager
     {
+        List<Restaurant> GetAllRestaurants();
+
+        Restaurant AddRestaurant(Restaurant restaurant);
+
+        Restaurant UpdateRestaurant(Restaurant restaurant);
     }
 }

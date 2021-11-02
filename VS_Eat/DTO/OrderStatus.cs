@@ -8,14 +8,14 @@ namespace DTO
 {
     public class OrderStatus
     {
-        public int IdOrder { get; set; }
+        public int IdOrderStatus { get; set; }
 
         public string Status { get; set; }
 
         public override string ToString()
         {
             return "__________________________" +
-                   "\nIdOrder: " + IdOrder +
+                   "\nIdOrder: " + IdOrderStatus +
                    "\nStatus: " + Status +
                    "\n__________________________";
         }

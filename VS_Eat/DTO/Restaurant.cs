@@ -14,9 +14,13 @@ namespace DTO
 
         public string RestaurantAddress { get; set; }
 
+        public string Picture { get; set; }
+
         public int IdLogin { get; set; } 
 
         public int IdLocation { get; set; }
+
+        public int IdRestaurantType { get; set; }
 
         public override string ToString() {
 

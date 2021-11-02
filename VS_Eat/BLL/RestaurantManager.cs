@@ -24,5 +24,15 @@ namespace BLL
         {
            return RestaurantDb.GetAllRestaurants(); 
         }
+
+        public Restaurant AddRestaurant(Restaurant restaurant)
+        {
+            return RestaurantDb.AddRestaurant(restaurant);
+        }
+
+        public Restaurant UpdateRestaurant(Restaurant restaurant)
+        {
+            return RestaurantDb.UpdateRestaurant(restaurant);
+        }
     }
 }
