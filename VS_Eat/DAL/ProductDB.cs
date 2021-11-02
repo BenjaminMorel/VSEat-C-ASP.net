@@ -161,11 +161,11 @@ namespace DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = "Update [dbo].[Product]" +
-                                   "Set ProductName=@ProductName, Description=@Description, Price=@Price, Picture=@Picture, Disponibility=@Disponibility, Vegetarian=@Vegetarian WHERE IdProduct=@IdProduct";
+                                   "Set ProductName=@ProductName, Description=@Description, Picture=@Picture, Disponibility=@Disponibility, Vegetarian=@Vegetarian WHERE IdProduct=@IdProduct";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@ProductName", MyProduct.ProductName);
                     command.Parameters.AddWithValue("@Description", MyProduct.Description);
-                    command.Parameters.AddWithValue("@Price", MyProduct.Price);
+         //           command.Parameters.AddWithValue("@Price", MyProduct.Price);
                     command.Parameters.AddWithValue("@Picture", MyProduct.Picture);
                     command.Parameters.AddWithValue("@Disponibility", MyProduct.Disponibility);
                     command.Parameters.AddWithValue("@Vegetarian", MyProduct.Vegetarian);
@@ -179,7 +179,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("ERROR IN ADD NEW PRODUcT\n");
+                Console.Write("ERROR IN UPDATE PRODUCT\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);

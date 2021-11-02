@@ -29,6 +29,20 @@ namespace VS_Eat
             var RestaurantManager = new RestaurantManager(Configuration);
             var UserManager = new UserManager(Configuration);
 
+            var MyProduct = new Product();
+
+            MyProduct.IdProduct = 1;
+            MyProduct.ProductName = "Cheuger";
+            MyProduct.Description = "Burger LES VEGGGGGIS";
+            MyProduct.Price = 15;
+            MyProduct.Picture = "ceBurge.png";
+            MyProduct.Disponibility = false;
+            MyProduct.Vegetarian = true;
+            MyProduct.IdRestaurant = 1;
+            MyProduct.IdProductType = 3;
+
+            ProductManager.UpdateProduct(MyProduct); 
+
 
             /** Get all restaurants 
             Console.WriteLine("______________________________________________");

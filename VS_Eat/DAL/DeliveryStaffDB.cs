@@ -65,49 +65,9 @@ namespace DAL
         }
 
 
-        public void CreateNewStaff(string FirstName, string Name, int PostCode, string City, string Email,
-            string Password)
-        {
-            //création de la string de connection qui va être utiliser dans la signature de addUser et addLogin
-            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+        
 
-            // We call the method EmailVerification to check if the email is already taken, if it return true we stop the method here but if the result is false we can continue
-            var LoginD{B = new LoginDB(Configuration);}
-            if (LoginDB.EmailVerification(Email))
-            {
-                Console.WriteLine("ERROR THIS EMAIL IS ALREADY TAKEN\nDO YOU WANT TO CONNECT ?");
-                return;
-            }
-            var LocationDB = new LocationDB(Configuration);
-            int IdLocation = LocationDB.GetLocationId(PostCode, City);
-
-            var NewLogin = new Login();
-            NewLogin.Username = Email;
-            //Faire appel à la methode de hash 
-            NewLogin.Password = Password;
-            NewLogin.IdLoginType = 4;
-
-
-            //appelle de la méthode AddNewLogin pour ajouter une entrée login dans la base de donnée, la méthode prend un objet login et la string de connection créée plus haut
-            int IdLogin = LoginDB.AddNewLogin(NewLogin, connectionString);
-
-            if (IdLogin == -1)
-            {
-                Console.WriteLine("ERROR DURING THE CREATION OF THE NEW LOGIN");
-                return;
-            }
-
-            var DeliveryStaff = new DeliveryStaff();
-            DeliveryStaff.IdLogin = IdLogin;
-            DeliveryStaff.FirstName = FirstName;
-            DeliveryStaff.LastName = Name;
-            DeliveryStaff.IdLocation = IdLocation; 
-
-            AddStaff(DeliveryStaff, connectionString);
-
-        }
-
-        private void AddDeliveryStaff(DeliveryStaff MyStaff)
+        public DeliveryStaff AddDeliveryStaff(DeliveryStaff MyStaff)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
@@ -124,7 +84,7 @@ namespace DAL
 
                     connection.Open();
 
-                    command.ExecuteScalar();
+                    MyStaff.IdDeliveryStaff = Convert.ToInt32(command.ExecuteScalar());
 
                 }
             }
@@ -136,7 +96,7 @@ namespace DAL
                 Console.Write(e.Source);
             }
 
-            return;
+            return MyStaff;
         }
 
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BLL.Interfaces;
 using DAL;
 using DAL.Interfaces;
+using DTO;
 using Microsoft.Extensions.Configuration;
 
 namespace BLL
@@ -17,6 +18,11 @@ namespace BLL
         public LoginTypeManager(IConfiguration configuration)
         {
             LoginTypeDB = new LoginTypeDB(configuration); 
+        }
+
+        public List<LoginType> GetAllLoginTypes()
+        {
+            return LoginTypeDB.GetAllLoginTypes(); 
         }
     }
 }
