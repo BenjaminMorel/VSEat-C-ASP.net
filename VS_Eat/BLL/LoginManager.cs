@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BLL.Interfaces;
+using DTO;
 
 namespace BLL
 {
-    public class LoginManager
+    public class LoginManager : ILoginManager
     {
         private ILoginDB LoginDb { get;  }
 
@@ -18,19 +20,25 @@ namespace BLL
             LoginDb = new LoginDB(configuration); 
         }
 
-        public void ShowAllLogin()
+        public List<Login> GetAllLogin()
         {
-            LoginDb.ShowAllLogin();
+            return LoginDb.GetAllLogin(); 
         }
 
-        public int GetLogin(string Email, string Password)
+        public Login GetLoginWithCredential(string Email, string Password)
         {
-            return GetLogin(Email, Password); 
+            return LoginDb.GetLoginWithCredential(Email, Password); 
         }
 
         public bool EmailVerification(string Email)
         {
-            return LoginDb.EmailVerification(Email); 
+            Login MyLogin = LoginDb.EmailVerification(Email);
+            if (MyLogin != null)
+            {
+                return true; 
+            }
+
+            return false; 
         }
     }
 }

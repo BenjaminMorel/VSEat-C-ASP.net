@@ -22,8 +22,9 @@ namespace DAL
         /// <summary>
         /// Method which displays the list of all the logins of the table in the console
         /// </summary>
-        public void ShowAllLogin()
+        public List<Login> GetAllLogin()
         {
+            List<Login> AllLogin = new List<Login>(); 
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
@@ -44,8 +45,8 @@ namespace DAL
                             MyLogin.Username = (string)dataReader["Username"];
                             MyLogin.Password = (string)dataReader["Password"];
                             MyLogin.IdLoginType = (int)dataReader["IdLoginType"];
-
-                            Console.Write(MyLogin.ToString()); 
+                            
+                            AllLogin.Add(MyLogin);
                         }
                     }
                 }
@@ -58,6 +59,8 @@ namespace DAL
                 Console.Write(e.Source);
                 Console.Write("ERROR\n");
             }
+
+            return AllLogin; 
         }
 
         // TODO[BENJI] create a methode that take a string as argument, hash it and then compare it to the good password hash link with the same username
@@ -67,7 +70,7 @@ namespace DAL
         /// <param name="Email"> Email of the login we want to find </param>
         /// <param name="Password"> Password of the login we want to find </param>
         /// <returns> Returns an integer, the id of the corresponding login </returns>
-        public Login GetLogin(string Email, string Password)
+        public Login GetLoginWithCredential(string Email, string Password)
         {
             Login MyLogin = null;
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -103,28 +106,25 @@ namespace DAL
                 Console.Write(e.Source);
                 Console.Write("ERROR\n");
             }
-
             return MyLogin; 
         }
 
 
         
-        public int AddNewLogin(Login NewLogin)
+        public Login AddNewLogin(Login MyLogin)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            int IdLogin = -1; 
-       
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = "Insert into Login(Username,Password,IdLoginType) values(@Username,@Password,@IdLoginType); SELECT SCOPE_IDENTITY()";
                     SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@Username",NewLogin.Username);
-                    command.Parameters.AddWithValue("@Password",NewLogin.Password);
-                    command.Parameters.AddWithValue("@IdLoginType",NewLogin.IdLoginType);
+                    command.Parameters.AddWithValue("@Username",MyLogin.Username);
+                    command.Parameters.AddWithValue("@Password",MyLogin.Password);
+                    command.Parameters.AddWithValue("@IdLoginType",MyLogin.IdLoginType);
                     connection.Open();
-                    IdLogin = Convert.ToInt32(command.ExecuteScalar()); 
+                    MyLogin.IdLogin = Convert.ToInt32(command.ExecuteScalar()); 
                 }
             }
             catch (Exception e)
@@ -135,8 +135,7 @@ namespace DAL
                 Console.Write(e.Source);
                 Console.Write("ERROR\n");
             }
-
-            return IdLogin; 
+            return MyLogin; 
         }
 
         /// <summary>
@@ -144,8 +143,9 @@ namespace DAL
         /// </summary>
         /// <param name="Email"></param>
         /// <returns></returns>
-        public bool EmailVerification(string Email)
+        public Login EmailVerification(string Email)
         {
+            Login MyLogin = null; 
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
             {
@@ -157,11 +157,15 @@ namespace DAL
                     connection.Open();
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
-                        if (dataReader.HasRows)
+                        if (dataReader.Read())
                         {
-                            return true; 
+                            MyLogin = new Login();
+
+                            MyLogin.IdLogin = (int)dataReader["IdLogin"];
+                            MyLogin.Username = (string)dataReader["Username"];
+                            MyLogin.Password = (string)dataReader["Password"];
+                            MyLogin.IdLoginType = (int)dataReader["IdLoginType"];
                         }
-                        return false; 
                     }
                 }
             }
@@ -173,7 +177,7 @@ namespace DAL
                 Console.Write(e.Source);
                 Console.Write("ERROR\n");
             }
-            return true; 
+            return MyLogin; 
         }
     }
 }

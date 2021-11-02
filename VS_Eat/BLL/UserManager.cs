@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using BLL.Interfaces;
 using DAL;
 using DAL.Interfaces;
 using DTO;
 using Microsoft.Extensions.Configuration;
-using System.Configuration;
-using System.Drawing;
 
 namespace BLL
 {
@@ -13,10 +13,16 @@ namespace BLL
         private IUserDB UserDb { get; }
         private ILoginDB LoginDB { get; }
 
+        private ILoginManager LoginManager { get; }
+
+     //   private ILocationDB
+
         public UserManager(IConfiguration configuration)
         {
             UserDb = new UserDB(configuration);
-            LoginDB = new LoginDB(configuration); 
+            LoginDB = new LoginDB(configuration);
+            LoginManager = new LoginManager(configuration);
+     //       LocationDB = new LocationDB(configuration); 
         }
 
         public List<User> GetAllUsers()
@@ -25,7 +31,7 @@ namespace BLL
         }
         public User GetUserByID(string Email, string Password)
         {
-            Login myLogin = LoginDB.GetLogin(Email, Password);
+            Login myLogin = LoginDB.GetLoginWithCredential(Email, Password);
             return UserDb.GetUserByID(myLogin.IdLogin); 
         }
 
@@ -33,7 +39,38 @@ namespace BLL
         public void CreateNewUser(string FirstName, string LastName, string PhoneNumber, string Address, string Email, string Password,
              int PostCode, string City)
         {
-    
+            // We call the method EmailVerification to check if the email is already taken, if it return true we stop the method here but if the result is false we can continue
+
+            if (LoginManager.EmailVerification(Email))
+            {
+                Console.WriteLine("THIS EMAIL IS ALREADY USE BY AN OTHER ACCOUNT\nPLEASE CONNECT HERE");
+            }
+            //TODO ajouter la partie qui va récuperer les informations de location 
+
+        //    var LocationDB = new LocationDB(Configuration);
+       //     int IdLocation = LocationDB.GetLocationId(PostCode, City);
+
+            var MyLogin = new Login();
+            MyLogin.Password = Password;
+            MyLogin.Username = Email; 
+            // the IdLoginType for User will always be 4 
+            MyLogin.IdLoginType = 4;
+
+            //appelle de la méthode AddNewLogin pour ajouter une entrée login dans la base de donnée, la méthode prend un objet login et la string de connection créée plus haut
+            MyLogin = LoginDB.AddNewLogin(MyLogin);
+
+            var MyUser = new User();
+
+            MyUser.IdLogin = MyLogin.IdLogin; 
+       //     MyUser.IdLocation
+            MyUser.FirstName = FirstName;
+            MyUser.LastName = LastName;
+            MyUser.PhoneNumber = PhoneNumber;
+            MyUser.Address = Address;
+
+            UserDb.AddUser(MyUser); 
+
+
         }
     }
 }

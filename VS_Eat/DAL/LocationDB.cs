@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    class LocationDB 
+    public class LocationDB 
     {
         private IConfiguration Configuration { get; }
         public LocationDB(IConfiguration configuration)
