@@ -44,19 +44,20 @@ namespace DAL
                     {
                         while (dataReader.Read())
                         {
-                            Product product = new Product();
+                            Product myProduct = new Product();
 
-                            product.IdProduct = (int) dataReader["IdProduct"];
-                            product.ProductName = (string) dataReader["ProductName"];
-                            product.Description = (string) dataReader["Description"];
+                            myProduct.IdProduct = (int) dataReader["IdProduct"];
+                            myProduct.ProductName = (string) dataReader["ProductName"];
+                            myProduct.Description = (string) dataReader["Description"];
                             //product.Price = (float)dataReader["Price"];
-                            product.Picture = (string) dataReader["Picture"];
-                            product.Disponibility = (bool) dataReader["Disponibility"];
-                            product.IdRestaurant = (int) dataReader["IdRestaurant"];
-                            product.IdProductType = (int) dataReader["IdProductType"];
+                            myProduct.Picture = (string) dataReader["Picture"];
+                            myProduct.Disponibility = (bool) dataReader["Disponibility"];
+                            myProduct.Vegetarian = (bool) dataReader["Vegetarian"];
+                            myProduct.IdRestaurant = (int) dataReader["IdRestaurant"];
+                            myProduct.IdProductType = (int) dataReader["IdProductType"];
 
                             // Add the product to the list
-                            products.Add(product);
+                            products.Add(myProduct);
                         }
                     }
                 }
@@ -69,6 +70,51 @@ namespace DAL
                 Console.Write(e.Source);
             }
             return products;
+        }
+
+        public List<Product> GetAllProducts()
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            List<Product> allProducts = new List<Product>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM [dbo].[Product]";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            Product myProduct = new Product();
+
+                            myProduct.IdProduct = (int) dataReader["IdProduct"];
+                            myProduct.ProductName = (string) dataReader["ProductName"];
+                            myProduct.Description = (string) dataReader["Description"];
+                            //product.Price = (float) dataReader["Price"];
+                            myProduct.Picture = (string) dataReader["Picture"];
+                            myProduct.Disponibility = (bool) dataReader["Disponibility"];
+                            myProduct.Vegetarian = (bool) dataReader["Vegetarian"];
+                            myProduct.IdRestaurant = (int) dataReader["IdRestaurant"];
+                            myProduct.IdProductType = (int) dataReader["IdProductType"];
+
+                            // Add the order status to the list
+                            allProducts.Add(myProduct);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting all products\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return allProducts;
         }
 
 

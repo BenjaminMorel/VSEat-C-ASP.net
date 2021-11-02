@@ -6,9 +6,9 @@ namespace DAL.Interfaces
 {
     public interface IProductDB
     {
-        public List<Product> GetAllProductsFromRestaurant(int IdRestaurant); 
+        public List<Product> GetAllProductsFromRestaurant(int IdRestaurant);
 
-        //TODO GetAllProducts
+        List<Product> GetAllProducts();
 
         //TODO Add new product
 

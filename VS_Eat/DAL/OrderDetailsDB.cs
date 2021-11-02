@@ -18,10 +18,10 @@ namespace DAL
             Configuration = configuration;
         }
 
-        public List<OrderDetails> GetOrderDetails(int IdOrder)
+        public List<OrderDetails> GetOrderDetailsWithIdOrder(int IdOrder)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            List<OrderDetails> myOrderDetails = new List<OrderDetails>();
+            List<OrderDetails> allOrderDetails = new List<OrderDetails>();
 
             try
             {
@@ -35,16 +35,16 @@ namespace DAL
                     {
                         while (dataReader.Read())
                         {
-                            OrderDetails orderDetails = new OrderDetails();
+                            OrderDetails myOrderDetails = new OrderDetails();
 
                             //float ?
-                            orderDetails.IdOrder = (int) dataReader["UnitPrice"];
-                            orderDetails.Quantity = (int) dataReader["Quantity"];
-                            orderDetails.IdProduct = (int) dataReader["IdProduct"];
-                            orderDetails.IdOrder = (int) dataReader["IdOrder"];
+                            myOrderDetails.IdOrder = (int) dataReader["UnitPrice"];
+                            myOrderDetails.Quantity = (int) dataReader["Quantity"];
+                            myOrderDetails.IdProduct = (int) dataReader["IdProduct"];
+                            myOrderDetails.IdOrder = (int) dataReader["IdOrder"];
 
                             //Add the orderDetails to the list
-                            myOrderDetails.Add(orderDetails);
+                            allOrderDetails.Add(myOrderDetails);
 
                         }
                     }
@@ -52,16 +52,53 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("Error while getting all orders\n");
+                Console.Write("Error while getting all order details for order id " + IdOrder + "\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
             }
-            return myOrderDetails;
+            return allOrderDetails;
         }
 
+        public List<OrderDetails> GetAllOrderDetails()
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            List<OrderDetails> allOrderDetails = new List<OrderDetails>();
 
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM [dbo].[OrderDetails]";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
 
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            OrderDetails myOrderDetails = new OrderDetails();
+
+                            //float ?
+                            myOrderDetails.IdOrder = (int) dataReader["UnitPrice"];
+                            myOrderDetails.Quantity = (int) dataReader["Quantity"];
+                            myOrderDetails.IdProduct = (int) dataReader["IdProduct"];
+                            myOrderDetails.IdOrder = (int) dataReader["IdOrder"];
+
+                            // Add the order details to the list
+                            allOrderDetails.Add(myOrderDetails);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting all order details\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return allOrderDetails;
+        }
     }
-
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BLL.Interfaces;
 using DAL;
 using DAL.Interfaces;
+using DTO;
 using Microsoft.Extensions.Configuration;
 
 namespace BLL
@@ -17,5 +18,16 @@ namespace BLL
         {
             OrderDetailsDB = new OrderDetailsDB(configuration); 
         }
+
+        public List<OrderDetails> GetOrderDetailsWithIdOrder(int IdOrder)
+        {
+            return OrderDetailsDB.GetOrderDetailsWithIdOrder(IdOrder);
+        }
+
+        public List<OrderDetails> GetAllOrderDetails()
+        {
+            return OrderDetailsDB.GetAllOrderDetails();
+        }
+
     }
 }

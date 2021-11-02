@@ -20,6 +20,8 @@ namespace DTO
 
         public bool Disponibility { get; set; }
 
+        public bool Vegetarian { get; set; }
+
         public int IdRestaurant { get; set; }
 
         public int IdProductType { get; set; }
