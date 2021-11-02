@@ -72,7 +72,7 @@ namespace DAL
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             // We call the method EmailVerification to check if the email is already taken, if it return true we stop the method here but if the result is false we can continue
-            var LoginDB = new LoginDB(Configuration);
+            var LoginD{B = new LoginDB(Configuration);}
             if (LoginDB.EmailVerification(Email))
             {
                 Console.WriteLine("ERROR THIS EMAIL IS ALREADY TAKEN\nDO YOU WANT TO CONNECT ?");
@@ -107,8 +107,9 @@ namespace DAL
 
         }
 
-        private void AddStaff(DeliveryStaff MyStaff, string connectionString)
+        private void AddDeliveryStaff(DeliveryStaff MyStaff)
         {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

@@ -20,9 +20,23 @@ namespace BLL
             ProductDb = new ProductDB(configuration); 
         }
 
+        public List<Product> GetAllProducts()
+        {
+            return ProductDb.GetAllProducts(); 
+        }
         public List<Product> GetAllProductsFromRestaurant(int IdRestaurant)
         {
             return ProductDb.GetAllProductsFromRestaurant(IdRestaurant); 
+        }
+
+        public Product AddNewProduct(Product MyProduct)
+        {
+            return ProductDb.AddNewProduct(MyProduct); 
+        }
+
+        public Product UpdateProduct(Product MyProduct)
+        {
+            return ProductDb.UpdateProduct(MyProduct); 
         }
     }
 }
