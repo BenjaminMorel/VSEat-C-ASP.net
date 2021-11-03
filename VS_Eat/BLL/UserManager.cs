@@ -73,6 +73,14 @@ namespace BLL
 
             return MyUser; 
         }
+
+        public User UpdateUser(User MyUser, string city, int PostCode)
+        {
+
+            var MyLocation = LocationDB.GetLocation(PostCode, city);
+            MyUser.IdLocation = MyLocation.IdLocation; 
+            return UserDb.UpdateUser(MyUser); 
+        }
     }
     //TODO[HUGO] resortir les id des products et restaurant favoris via boucle for et parseInt 
 

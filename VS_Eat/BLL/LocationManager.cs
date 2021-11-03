@@ -1,8 +1,11 @@
 ﻿
+using System.Collections.Generic;
 using BLL.Interfaces;
 using DAL;
 using DAL.Interfaces;
+using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
+using Location = DTO.Location;
 
 namespace BLL
 {
@@ -12,6 +15,15 @@ namespace BLL
         public LocationManager(IConfiguration configuration)
         {
             LocationDB = new LocationDB(configuration); 
+        }
+
+        public Location GetLocation(string City, int PostCode)
+        {
+            return LocationDB.GetLocation(PostCode, City); 
+        }
+        public List<Location> GetAllLocations()
+        {
+            return LocationDB.GetAllLocations(); 
         }
     }
 }

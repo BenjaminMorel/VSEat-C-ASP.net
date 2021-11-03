@@ -179,5 +179,34 @@ namespace DAL
             }
             return MyLogin; 
         }
+
+        public Login UpdateLogin(Login MyLogin)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Update [dbo].[Login] Set Username=@Username, Password=@Password WHERE IdLogin=@IdLogin";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Username", MyLogin.Username);
+                    command.Parameters.AddWithValue("@Password", MyLogin.Password);
+                    command.Parameters.AddWithValue("@IdLogin",MyLogin.IdLogin);
+                    connection.Open();
+
+                    command.ExecuteScalar(); 
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN ADD UPDATE LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyLogin;
+        }
+
     }
 }

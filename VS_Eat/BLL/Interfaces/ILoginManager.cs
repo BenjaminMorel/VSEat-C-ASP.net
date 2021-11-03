@@ -13,6 +13,8 @@ namespace BLL.Interfaces
 
         Login GetLoginWithCredential(string Email, string Password);
 
-        bool EmailVerification(string Email); 
+        bool EmailVerification(string Email);
+
+        Login UpdateLogin(Login Mylogin); 
     }
 }

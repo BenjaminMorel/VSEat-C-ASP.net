@@ -40,5 +40,10 @@ namespace BLL
 
             return false; 
         }
+
+        public Login UpdateLogin(Login MyLogin)
+        {
+            return LoginDb.UpdateLogin(MyLogin); 
+        }
     }
 }
