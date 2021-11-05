@@ -17,6 +17,47 @@ namespace DAL
             Configuration = configuration;
         }
 
+        public List<DeliveryStaff> GetAllDeliveryStaff()
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            List<DeliveryStaff> allDeliveryStaff = new List<DeliveryStaff>();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM [dbo].[DeliveryStaff]";
+                    SqlCommand command = new SqlCommand(query, cn);
+                    cn.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            DeliveryStaff MyDeliveryStaff = new DeliveryStaff();
+
+                            MyDeliveryStaff.IdLogin = (int)dataReader["IdLogin"];
+                            MyDeliveryStaff.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                            MyDeliveryStaff.FirstName = (string) dataReader["FirstName"];
+                            MyDeliveryStaff.LastName = (string) dataReader["LastName"];
+                            MyDeliveryStaff.PhoneNumber = (string) dataReader["PhoneNumber"];
+                            MyDeliveryStaff.IdLocation = (int) dataReader["IdLocation"];
+
+                            // Add the user to the list
+                            allDeliveryStaff.Add(MyDeliveryStaff);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting all users\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return allDeliveryStaff;
+        }
         public List<Order> CountOpenOrderByStaffId(int IdDeliveryStaff)
         {
             List<Order> numberOfOpenOrders = new List<Order>();
@@ -64,9 +105,6 @@ namespace DAL
             return numberOfOpenOrders;
         }
 
-
-        
-
         public DeliveryStaff AddDeliveryStaff(DeliveryStaff MyStaff)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -100,6 +138,6 @@ namespace DAL
         }
 
 
-
+        
     }
 }

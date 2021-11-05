@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
+	//TODO changer les getter/setteur pour ajouter les 2 string de favoris
 	public class User
 	{
 		public int IdUser { get; set; }

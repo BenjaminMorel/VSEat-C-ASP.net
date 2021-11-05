@@ -63,7 +63,6 @@ namespace DAL
             return AllLogin; 
         }
 
-        // TODO[BENJI] create a methode that take a string as argument, hash it and then compare it to the good password hash link with the same username
         /// <summary>
         /// Method that allows you to find a login by passing an email and a password
         /// </summary>

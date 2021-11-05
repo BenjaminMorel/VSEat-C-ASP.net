@@ -28,6 +28,11 @@ namespace BLL
             LoginManager = new LoginManager(configuration); 
         }
 
+        public List<DeliveryStaff> GetAllDeliveryStaff()
+        {
+            return DeliveryStaffDb.GetAllDeliveryStaff(); 
+        }
+
         public List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff)
         {
             return DeliveryStaffDb.CountOpenOrderByStaffId(IdDeliveryStaff); 
