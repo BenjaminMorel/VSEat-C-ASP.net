@@ -29,7 +29,7 @@ namespace VS_Eat
             var RestaurantManager = new RestaurantManager(Configuration);
             var UserManager = new UserManager(Configuration);
 
-            var MyProduct = new Product();
+            /**var MyProduct = new Product();
 
             MyProduct.IdProduct = 1;
             MyProduct.ProductName = "Cheuger";
@@ -41,7 +41,7 @@ namespace VS_Eat
             MyProduct.IdRestaurant = 1;
             MyProduct.IdProductType = 3;
 
-            ProductManager.UpdateProduct(MyProduct); 
+            ProductManager.UpdateProduct(MyProduct);**/
 
 
             /** Get all restaurants 
@@ -76,6 +76,14 @@ namespace VS_Eat
             List<User> allUsers = UserManager.GetAllUsers();
             foreach (var User in allUsers)
                 Console.WriteLine(User.ToString());
+            **/
+
+            /** Get all products 
+            Console.WriteLine("______________________________________________");
+            Console.WriteLine("All products:");
+            List<Product> allProducts = ProductManager.GetAllProducts();
+            foreach (var product in allProducts)
+                Console.WriteLine(product.ToString());
             **/
 
         }

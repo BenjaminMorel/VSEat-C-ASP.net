@@ -10,7 +10,7 @@ namespace DAL.Interfaces
     public interface IOrderDetailsDB
     {
 
-        List<OrderDetails> GetOrderDetailsWithIdOrder(int IdOrder);
+        List<OrderDetails> GetOrderDetailsFromOrder(int IdOrder);
 
         List<OrderDetails> GetAllOrderDetails();
     }
