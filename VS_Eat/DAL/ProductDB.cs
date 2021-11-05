@@ -43,7 +43,7 @@ namespace DAL
                             product.ProductName = (string)dataReader["ProductName"];
                             product.Description = (string)dataReader["Description"];
                             //TODO regler problème avec le price
-                            //product.Price = (float)dataReader["Price"];
+                            //product.Price = (float) dataReader["Price"];
                             product.Picture = (string)dataReader["Picture"];
                             product.Disponibility = (bool)dataReader["Disponibility"];
                             product.IdRestaurant = (int)dataReader["IdRestaurant"];
