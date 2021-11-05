@@ -10,9 +10,10 @@ namespace DAL.Interfaces
 
         User GetUserByID(int IdUser);
 
-        User AddUser(User myUser); 
+        User AddUser(User MyUser);
 
-        //TODO Create update user (user argument - return user)
+        User UpdateUser(User MyUser);
+
 
     }
 }

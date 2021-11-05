@@ -13,8 +13,8 @@ namespace DAL.Interfaces
 
         Login AddNewLogin(Login myLogin); 
 
-        Login EmailVerification(string Email); 
+        Login EmailVerification(string Email);
 
-        //TODO UpdateLogin
+        Login UpdateLogin(Login myLogin); 
     }
 }

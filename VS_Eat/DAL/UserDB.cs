@@ -120,7 +120,7 @@ namespace DAL
 
         //Méthode qui va venir ajouter le nouveau user dans la base de donnée via la query INSERT 
         //la méthode est private car elle sera seulement appéler via la methode createNewUser() qui elle est publique 
-        public User AddUser(User myUser)
+        public User AddUser(User MyUser)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
@@ -129,16 +129,16 @@ namespace DAL
                 {
                     string query = "Insert into [dbo].[User](FirstName,LastName,PhoneNumber,Address,IdLogin,IdLocation) values(@FirstName,@LastName,@PhoneNumber,@Address,@IdLogin,@IdLocation);";
                     SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@FirstName",myUser.FirstName);
-                    command.Parameters.AddWithValue("@LastName",myUser.LastName);
-                    command.Parameters.AddWithValue("@PhoneNumber",myUser.PhoneNumber);
-                    command.Parameters.AddWithValue("@Address",myUser.Address);
-                    command.Parameters.AddWithValue("@IdLogin",myUser.IdLogin);
-                    command.Parameters.AddWithValue("@IdLocation",myUser.IdLocation);
+                    command.Parameters.AddWithValue("@FirstName",MyUser.FirstName);
+                    command.Parameters.AddWithValue("@LastName",MyUser.LastName);
+                    command.Parameters.AddWithValue("@PhoneNumber",MyUser.PhoneNumber);
+                    command.Parameters.AddWithValue("@Address",MyUser.Address);
+                    command.Parameters.AddWithValue("@IdLogin",MyUser.IdLogin);
+                    command.Parameters.AddWithValue("@IdLocation",MyUser.IdLocation);
 
                     connection.Open();
 
-                    myUser.IdLogin = Convert.ToInt32(command.ExecuteScalar());
+                    MyUser.IdLogin = Convert.ToInt32(command.ExecuteScalar());
                 }
             }
             catch (Exception e)
@@ -149,11 +149,41 @@ namespace DAL
                 Console.Write(e.Source);
                 Console.Write("ERROR\n");
             }
-            return myUser; 
+            return MyUser; 
         }
-        
-        
-     
+
+
+        public User UpdateUser(User MyUser)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Update into [dbo].[User] Set FirstName=@FirstName, LastName=@LastName, PhoneNumber=@PhoneNumber, Address=@Address, IdLocation=@IdLocation WHERE IdLogin=@IdLogin);";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@FirstName", MyUser.FirstName);
+                    command.Parameters.AddWithValue("@LastName", MyUser.LastName);
+                    command.Parameters.AddWithValue("@PhoneNumber", MyUser.PhoneNumber);
+                    command.Parameters.AddWithValue("@Address", MyUser.Address);
+                    command.Parameters.AddWithValue("@IdLogin", MyUser.IdLogin);
+                    command.Parameters.AddWithValue("@IdLocation", MyUser.IdLocation);
+
+                    connection.Open();
+
+                    command.ExecuteScalar(); 
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN ADD NEW USER\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyUser;
+        }
 
       
     }

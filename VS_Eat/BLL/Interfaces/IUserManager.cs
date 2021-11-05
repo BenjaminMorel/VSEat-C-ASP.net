@@ -17,5 +17,6 @@ namespace BLL.Interfaces
             string Password,
             int PostCode, string City);
 
+        User UpdateUser(User MyUser, string City, int PostCode); 
     }
 }

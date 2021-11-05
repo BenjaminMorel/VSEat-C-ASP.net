@@ -1,5 +1,6 @@
 ﻿
 
+using System.Collections.Generic;
 using DTO;
 
 namespace DAL.Interfaces
@@ -8,6 +9,7 @@ namespace DAL.Interfaces
     {
         Location GetLocation(int PostCode, string City);
 
-        //TODO GetAllLocations
+        List<Location> GetAllLocations(); 
+
     }
 }
