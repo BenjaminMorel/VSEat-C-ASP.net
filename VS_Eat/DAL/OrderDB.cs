@@ -175,9 +175,104 @@ namespace DAL
             }
             return AllOpenOrders;
         }
+        
+        //TODO Verifier si AddOrder Fonctionne 
+        public Order AddNewOrder(Order MyOrder)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Insert into [dbo].[Order](DeliveryAddress,Freight,TotalPrice,IdOrderStatus,IdUser,IdDeliveryStaff,IdLocation) " +
+                                   "Values(@DeliveryAddress,@Freight,@TotalPrice,@IdOrderStatus,@IdUser,null,@IdLocation)";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@DeliveryAddress", MyOrder.DeliveryAddress);
+                    command.Parameters.AddWithValue("@Freight", MyOrder.Freight);
+                    command.Parameters.AddWithValue("@TotalPrice", MyOrder.TotalPrice);
+                    command.Parameters.AddWithValue("@IdOrderStatus", MyOrder.IdOrderStatus);
+                    command.Parameters.AddWithValue("@IdUser", MyOrder.IdUser);
+                    command.Parameters.AddWithValue("@IdLocation",MyOrder.IdLocation);
+                    connection.Open();
 
+                    MyOrder.IdOrder = Convert.ToInt32(command.ExecuteScalar());
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while creating a new Order\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return MyOrder;
         }
+
+        //TODO Verifier si CancelOrder fonctionne et si la commande SQL est correcte
+        public Order CancelOrder(Order MyOrder,User MyUser)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Update [dbo].[Order] Set IdOrderStatus=@IdOrderStatus " +
+                                   "FROM [dbo].[Order] O, [dbo].[User] U " +
+                                   "WHERE IdOrder=@IdOrder " +
+                                   "AND LastName=@LastName " +
+                                   "AND FirstName=@FirstName " +
+                                   "AND O.IdUser=U.IdUser";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdOrderStatus", MyOrder.IdOrderStatus);
+                    command.Parameters.AddWithValue("@IdOrder",MyOrder.IdOrder);
+                    command.Parameters.AddWithValue("@Lastname",MyUser.LastName);
+                    command.Parameters.AddWithValue("@FirstName",MyUser.FirstName);
+                    connection.Open();
+
+                    command.ExecuteScalar();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN CANCELLED ORDER\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyOrder;
+        }
+
+
+        public Order UpdateOrderStatus(Order MyOrder)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Update [dbo].[Order] Set IdOrderStatus=@IdOrderStatus " + 
+                                   "WHERE IdOrder=@IdOrder";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdOrderStatus", MyOrder.IdOrderStatus);
+                    command.Parameters.AddWithValue("@IdOrder", MyOrder.IdOrder);
+                    connection.Open();
+
+                    command.ExecuteScalar();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN UPDATE ORDERSTATUS\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyOrder;
+        }
+    }
 
 
 

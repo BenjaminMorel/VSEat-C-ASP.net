@@ -12,5 +12,7 @@ namespace BLL.Interfaces
         List<OrderDetails> GetOrderDetailsFromOrder(int IdOrder);
 
         List<OrderDetails> GetAllOrderDetails();
+
+
     }
 }
