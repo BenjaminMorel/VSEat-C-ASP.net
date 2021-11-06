@@ -53,22 +53,22 @@ namespace VS_Eat
             **/
 
 
-            /** Get all orders
+            /** Get all orders**/
             Console.WriteLine("______________________________________________");
             Console.WriteLine("All orders:");
             List<Order> allOrders = OrderManager.GetAllOrders();
             foreach (var Order in allOrders)
                 Console.WriteLine(Order.ToString());
-            **/
+            
 
-            /** Get all orders from a restaurant  **/
+            /** Get all orders from a restaurant  
             Console.WriteLine("______________________________________________");
             var RestaurantId = 1;
             Console.WriteLine("All products for restaurant: " + RestaurantId);
             List<Product> productsFromRestaurant = ProductManager.GetAllProductsFromRestaurant(RestaurantId);
             foreach (var Product in productsFromRestaurant)
                 Console.WriteLine(Product.ToString());
-            
+            **/
 
             /** Get all users 
             Console.WriteLine("______________________________________________");

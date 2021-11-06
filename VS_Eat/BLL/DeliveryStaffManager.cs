@@ -13,6 +13,7 @@ namespace BLL
     public class DeliveryStaffManager : IDeliveryStaffManager
     {
         private IDeliveryStaffDB DeliveryStaffDb { get; }
+
         private ILoginDB LoginDB { get;  }
         
         private ILocationDB LocationDB { get; }

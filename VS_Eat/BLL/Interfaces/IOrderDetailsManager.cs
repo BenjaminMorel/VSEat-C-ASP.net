@@ -9,7 +9,7 @@ namespace BLL.Interfaces
 {
     public interface IOrderDetailsManager
     {
-        List<OrderDetails> GetOrderDetailsWithIdOrder(int IdOrder);
+        List<OrderDetails> GetOrderDetailsFromOrder(int IdOrder);
 
         List<OrderDetails> GetAllOrderDetails();
     }

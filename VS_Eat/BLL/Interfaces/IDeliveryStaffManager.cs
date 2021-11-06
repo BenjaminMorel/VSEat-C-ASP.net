@@ -10,6 +10,7 @@ namespace BLL.Interfaces
     public interface IDeliveryStaffManager
     {
         List<DeliveryStaff> GetAllDeliveryStaff(); 
+
         List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff);
 
         DeliveryStaff CreateNewStaff(string FirstName, string LastName, string PhoneNumber, int PostCode, string City,
