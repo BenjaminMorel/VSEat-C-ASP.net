@@ -10,6 +10,7 @@ namespace BLL.Interfaces
     public interface IProductManager
     {
         List<Product> GetAllProducts();
+
         List<Product> GetAllProductsFromRestaurant(int IdRestaurant);
 
         Product AddNewProduct(Product MyProduct);

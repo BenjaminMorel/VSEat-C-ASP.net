@@ -72,7 +72,7 @@ namespace VS_Eat
             **/
 
 
-            /** Get all orders
+            /** Get all orders**/
             Console.WriteLine("______________________________________________");
             Console.WriteLine("All orders:");
             List<Order> allOrders = OrderManager.GetAllOrders();
