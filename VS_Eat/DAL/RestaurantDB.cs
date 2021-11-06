@@ -17,8 +17,9 @@ namespace DAL
         }
 
         /// <summary>
-        /// Method which returns the list of all the restaurants of the table
+        /// Method which returns a list of all the restaurants of the database
         /// </summary>
+        /// <returns> Returns a list of restaurant</returns>
         public List<Restaurant> GetAllRestaurants()
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -60,6 +61,11 @@ namespace DAL
             return allRestaurants;
         }
 
+        /// <summary>
+        /// Method which add a new restaurant in the database
+        /// </summary>
+        /// <param name="restaurant"></param>
+        /// <returns> Returns an object restaurant which has been created</returns>
         public Restaurant AddRestaurant(Restaurant restaurant)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -95,6 +101,11 @@ namespace DAL
             return restaurant;
         }
 
+        /// <summary>
+        /// Method which update a restaurant given in parameter
+        /// </summary>
+        /// <param name="restaurant"> Object restaurant to update</param>
+        /// <returns> Returns an object restaurant which has been updated</returns>
         public Restaurant UpdateRestaurant(Restaurant restaurant)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");

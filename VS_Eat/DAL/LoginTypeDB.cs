@@ -18,6 +18,10 @@ namespace DAL
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Method which returns a list of all login types of the database
+        /// </summary>
+        /// <returns> A list of all the login types</returns>
         public List<LoginType> GetAllLoginTypes()
         {
             List<LoginType> AllLoginTypes = new List<LoginType>();
