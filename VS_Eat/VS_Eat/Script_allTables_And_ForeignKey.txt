@@ -87,7 +87,7 @@ CREATE TABLE [dbo].[Product] (
     [IdProduct]     INT           IDENTITY (1, 1)  PRIMARY KEY,
     [ProductName]   NVARCHAR (50) NULL,
     [Description]   NVARCHAR (50) NULL,
-    [Price]         MONEY         NULL,
+    [Price]         FLOAT         NULL,
     [Picture]       NVARCHAR (50) NULL,
     [Disponibility] BIT           NULL,
     [Vegetarian]    BIT           NULL,
@@ -117,8 +117,8 @@ CREATE TABLE [dbo].[Order] (
     [IdOrder]         INT           IDENTITY(1,1) PRIMARY KEY,
     [OrderDate]       DATE          DEFAULT GETDATE(),
     [DeliveryAddress] NVARCHAR (50) NULL,
-    [Freight]         MONEY         NULL,
-    [TotalPrice]      MONEY         NULL,
+    [Freight]         FLOAT         NULL,
+    [TotalPrice]      FLOAT         NULL,
     [IdOrderStatus]   INT           NOT NULL,
     [IdUser]          INT           NOT NULL, 
     [IdDeliveryStaff] INT           NOT NULL, 
@@ -130,10 +130,10 @@ CREATE TABLE [dbo].[Order] (
 );
 
 CREATE TABLE [dbo].[OrderDetails] (
-    [UnitPrice]     MONEY   NULL,
-    [Quantity]      INT     NULL, 
-    [IdProduct]     INT     NOT NULL,
     [IdOrder]       INT     NOT NULL,
+    [IdProduct]     INT     NOT NULL,
+    [UnitPrice]     FLOAT   NULL,
+    [Quantity]      INT     NULL,
     CONSTRAINT [FK_OrderDetail_IdProduct] FOREIGN KEY ([IdProduct]) REFERENCES [Product]([IdProduct]),
 	CONSTRAINT [FK_OrderDetail_IdOrder] FOREIGN KEY ([IdOrder]) REFERENCES [Order]([IdOrder])
 );

@@ -269,9 +269,9 @@ INSERT [dbo].[ProductType] (ProductType) VALUES
 ('Grand'),
 ('Famille');
 
-INSERT [dbo].[Product] (ProductName, Description, Price, Picture, Disponibility, IdRestaurant, IdProductType) VALUES
-('CheeseBurger', 'Burger avec fromage', '15.00', 'cheeseBurger.png', '1', '1', '3'),
-('Pizza Margarita', 'tomate, mozzarella', '10.00', 'margarita.png', '1', '1', '2');
+INSERT [dbo].[Product] (ProductName, Description, Price, Picture, Disponibility, Vegetarian, IdRestaurant, IdProductType) VALUES
+('CheeseBurger', 'Burger avec fromage', '15.00', 'cheeseBurger.png', '1', '0', '1', '3'),
+('Pizza Margarita', 'tomate, mozzarella', '10.00', 'margarita.png', '1', '0', '1', '2');
 
 INSERT [dbo].[DeliveryStaff] (FirstName, LastName, PhoneNumber, IdLogin, IdLocation) VALUES
 ('Nicolas', 'Devanthéry', '0785842426', '5', '24'),

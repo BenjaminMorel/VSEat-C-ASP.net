@@ -37,20 +37,20 @@ namespace DAL
                     {
                         while (dataReader.Read())
                         {
-                            Product product = new Product();
+                            Product myProduct = new Product();
 
-                            product.IdProduct = (int)dataReader["IdProduct"];
-                            product.ProductName = (string)dataReader["ProductName"];
-                            product.Description = (string)dataReader["Description"];
-                            //TODO regler problème avec le price
-                            //product.Price = (float) dataReader["Price"];
-                            product.Picture = (string)dataReader["Picture"];
-                            product.Disponibility = (bool)dataReader["Disponibility"];
-                            product.IdRestaurant = (int)dataReader["IdRestaurant"];
-                            product.IdProductType = (int)dataReader["IdProductType"];
+                            myProduct.IdProduct = (int) dataReader["IdProduct"];
+                            myProduct.ProductName = (string) dataReader["ProductName"];
+                            myProduct.Description = (string) dataReader["Description"];
+                            //myProduct.Price = (float) dataReader["Price"];
+                            myProduct.Picture = (string) dataReader["Picture"];
+                            myProduct.Disponibility = (bool) dataReader["Disponibility"];
+                            myProduct.Vegetarian = (bool) dataReader["Vegetarian"];
+                            myProduct.IdRestaurant = (int) dataReader["IdRestaurant"];
+                            myProduct.IdProductType = (int) dataReader["IdProductType"];
 
                             // Add the product to the list
-                            products.Add(product);
+                            products.Add(myProduct);
                         }
                     }
                 }
@@ -96,7 +96,7 @@ namespace DAL
                             myProduct.IdProduct = (int) dataReader["IdProduct"];
                             myProduct.ProductName = (string) dataReader["ProductName"];
                             myProduct.Description = (string) dataReader["Description"];
-                            //product.Price = (float)dataReader["Price"];
+                            //myProduct.Price = (float) dataReader["Price"];
                             myProduct.Picture = (string) dataReader["Picture"];
                             myProduct.Disponibility = (bool) dataReader["Disponibility"];
                             myProduct.Vegetarian = (bool) dataReader["Vegetarian"];
@@ -145,11 +145,10 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("ERROR IN ADD NEW PRODUcT\n");
+                Console.Write("Error while adding a new product\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
-                Console.Write("ERROR\n");
             }
             return MyProduct;
         }
@@ -166,7 +165,7 @@ namespace DAL
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@ProductName", MyProduct.ProductName);
                     command.Parameters.AddWithValue("@Description", MyProduct.Description);
-         //           command.Parameters.AddWithValue("@Price", MyProduct.Price);
+                    command.Parameters.AddWithValue("@Price", MyProduct.Price);
                     command.Parameters.AddWithValue("@Picture", MyProduct.Picture);
                     command.Parameters.AddWithValue("@Disponibility", MyProduct.Disponibility);
                     command.Parameters.AddWithValue("@Vegetarian", MyProduct.Vegetarian);
@@ -180,11 +179,10 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("ERROR IN UPDATE PRODUCT\n");
+                Console.Write("Error while updating product " + MyProduct + "\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
-                Console.Write("ERROR\n");
             }
             return MyProduct;
         }

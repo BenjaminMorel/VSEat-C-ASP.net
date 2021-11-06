@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-	//TODO changer les getter/setteur pour ajouter les 2 string de favoris
-	public class User
+    public class User
 	{
 		public int IdUser { get; set; }
 
@@ -28,15 +27,17 @@ namespace DTO
 		public string FavoriteProduct { get; set; }
 
 		public override string ToString()
-		{
-			return "__________________________" +
-				   "\nId User: " + IdUser +
-				   "\nFirstname: " + FirstName +
-				   "\nLastname: " + LastName +
-				   "\nPhoneNumber: " + PhoneNumber +
-				   "\nEmailAddress: " + Address +
-				   "\nId Login: " + IdLogin +
-				   "\nId Location: " + IdLocation +
+        {
+            return "__________________________" +
+                   "\nId User: " + IdUser +
+                   "\nFirstname: " + FirstName +
+                   "\nLastname: " + LastName +
+                   "\nPhoneNumber: " + PhoneNumber +
+                   "\nAddress: " + Address +
+                   "\nId Login: " + IdLogin +
+                   "\nId Location: " + IdLocation +
+                   "\nFavorite Restaurant: " + FavoriteRestaurant +
+                   "\nFavorite Product: " + FavoriteProduct +
 				   "\n__________________________";
 		}
 

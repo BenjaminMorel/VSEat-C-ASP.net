@@ -44,7 +44,7 @@ namespace VS_Eat
             ProductManager.UpdateProduct(MyProduct);**/
 
 
-            /** Get all restaurants 
+            /** Get all restaurants
             Console.WriteLine("______________________________________________");
             Console.WriteLine("All restaurants:");
             List<Restaurant> allRestaurants = RestaurantManager.GetAllRestaurants();
@@ -61,14 +61,14 @@ namespace VS_Eat
                 Console.WriteLine(Order.ToString());
             **/
 
-            /** Get all orders from a restaurant
+            /** Get all orders from a restaurant  **/
             Console.WriteLine("______________________________________________");
             var RestaurantId = 1;
             Console.WriteLine("All products for restaurant: " + RestaurantId);
             List<Product> productsFromRestaurant = ProductManager.GetAllProductsFromRestaurant(RestaurantId);
             foreach (var Product in productsFromRestaurant)
                 Console.WriteLine(Product.ToString());
-            **/
+            
 
             /** Get all users 
             Console.WriteLine("______________________________________________");
