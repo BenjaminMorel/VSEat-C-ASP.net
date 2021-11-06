@@ -29,5 +29,25 @@ namespace BLL
         {
             return OrderDb.GetOrderByUser(IdUser); 
         }
+
+        public List<Order> GetOpenOrdersFromRegion(int IdRegion)
+        {
+            return OrderDb.GetOpenOrdersFromRegion(IdRegion); 
+        }
+
+        public Order AddNewOrder(Order MyOrder)
+        {
+            return OrderDb.AddNewOrder(MyOrder); 
+        }
+
+        public Order CancelOrder(Order MyOrder, User MyUser)
+        {
+            return OrderDb.CancelOrder(MyOrder, MyUser); 
+        }
+
+        public Order UpdateOrderStatus(Order MyOrder)
+        {
+            return OrderDb.UpdateOrderStatus(MyOrder); 
+        }
     }
 }

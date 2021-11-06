@@ -13,9 +13,12 @@ namespace DAL.Interfaces
 
         List<Order> GetOpenOrdersFromRegion(int IdRegion);
 
-        //TODO: add a method to be able to add an order in the database with all foreign key 
+        Order AddNewOrder(Order MyOrder);
 
-        //TODO Cancel order
+        //UpdateStatus is used to change the Order Status or to cancelled it 
+        Order CancelOrder(Order MyOrder, User MyUser);
+
+        Order UpdateOrderStatus(Order MyOrder); 
 
     }
 }

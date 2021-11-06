@@ -19,9 +19,9 @@ namespace BLL
             OrderDetailsDB = new OrderDetailsDB(configuration); 
         }
 
-        public List<OrderDetails> GetOrderDetailsWithIdOrder(int IdOrder)
+        public List<OrderDetails> GetOrderDetailsFromOrder(int IdOrder)
         {
-            return OrderDetailsDB.GetOrderDetailsWithIdOrder(IdOrder);
+            return OrderDetailsDB.GetOrderDetailsFromOrder(IdOrder);
         }
 
         public List<OrderDetails> GetAllOrderDetails()
