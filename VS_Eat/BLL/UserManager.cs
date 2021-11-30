@@ -32,7 +32,7 @@ namespace BLL
         }
         public User GetUserByID(string Email, string Password)
         {
-            Login myLogin = LoginDB.GetLoginWithCredentials(Email, Password);
+            Login myLogin = LoginDb.GetLoginWithCredentials(Email, Password);
             return UserDb.GetUserByID(myLogin.IdLogin); 
         }
 
@@ -48,7 +48,7 @@ namespace BLL
             }
 
             var Location = new Location();
-            Location = LocationDB.GetLocation(PostCode, City); 
+            Location = LocationDb.GetLocation(PostCode, City); 
 
             var MyLogin = new Login();
             MyLogin.Password = Password;
@@ -57,7 +57,7 @@ namespace BLL
             MyLogin.IdLoginType = 4;
 
             //appelle de la méthode AddNewLogin pour ajouter une entrée login dans la base de donnée, la méthode prend un objet login et la string de connection créée plus haut
-            MyLogin = LoginDB.AddNewLogin(MyLogin);
+            MyLogin = LoginDb.AddNewLogin(MyLogin);
 
             var MyUser = new User();
 
@@ -76,7 +76,7 @@ namespace BLL
         public User UpdateUser(User MyUser, string city, int PostCode)
         {
 
-            var MyLocation = LocationDB.GetLocation(PostCode, city);
+            var MyLocation = LocationDb.GetLocation(PostCode, city);
             MyUser.IdLocation = MyLocation.IdLocation; 
             return UserDb.UpdateUser(MyUser); 
         }

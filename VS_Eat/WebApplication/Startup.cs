@@ -1,5 +1,7 @@
 using BLL;
 using BLL.Interfaces;
+using DAL;
+using DAL.Interfaces;
 using DTO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,16 +29,39 @@ namespace WebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IDeliveryStaffManager, DeliveryStaffManager>();
+            services.AddScoped<IDeliveryStaffDB, DeliveryStaffDB>(); 
+
             services.AddScoped<ILocationManager, LocationManager>();
+            services.AddScoped<ILocationDB, LocationDB>();
+
             services.AddScoped<ILoginManager, LoginManager>();
+            services.AddScoped<ILoginDB, LoginDB>();
+
             services.AddScoped<ILoginTypeManager, LoginTypeManager>();
+            services.AddScoped<ILoginTypeDB, LoginTypeDB>();
+
             services.AddScoped<IOrderDetailsManager, OrderDetailsManager>();
+            services.AddScoped<IOrderDetailsDB, OrderDetailsDB>();
+
             services.AddScoped<IOrderManager, OrderManager>();
+            services.AddScoped<IOrderDB, OrderDB>();
+
             services.AddScoped<IOrderStatusManager, OrderStatusManager>();
+            services.AddScoped<IOrderStatusDB, OrderStatusDB>();
+
             services.AddScoped<IProductManager, ProductManager>();
-            services.AddScoped<IRegionManager, RegionManager>(); 
+            services.AddScoped<IProductDB, ProductDB>();
+
+            services.AddScoped<IRegionManager, RegionManager>();
+            services.AddScoped<IRegionDB, RegionDB>();
+
             services.AddScoped<IRestaurantManager, RestaurantManager>();
-            services.AddScoped<IUserManager, UserManager>(); 
+            services.AddScoped<IRestaurantDB, RestaurantDB>();
+
+            services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<IUserDB, UserDB>();
+
+            services.AddSession();
 
             services.AddControllersWithViews();
         }
