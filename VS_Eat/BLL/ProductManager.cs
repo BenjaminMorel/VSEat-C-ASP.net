@@ -15,9 +15,9 @@ namespace BLL
     {
         private IProductDB ProductDb { get;  }
 
-        public ProductManager(IConfiguration configuration)
+        public ProductManager(IProductDB productDb)
         {
-            ProductDb = new ProductDB(configuration); 
+            this.ProductDb = productDb;
         }
 
         public List<Product> GetAllProducts()

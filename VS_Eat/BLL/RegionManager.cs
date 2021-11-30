@@ -10,15 +10,16 @@ namespace BLL
 {
     public class RegionManager : IRegionManager
     {
-        private IRegionDB RegionDB { get; }
-        public RegionManager(IConfiguration configuration)
+        private IRegionDB RegionDb { get; }
+
+        public RegionManager(IRegionDB regionDb)
         {
-            RegionDB = new RegionDB(configuration); 
+            this.RegionDb = regionDb;
         }
 
         public List<Region> GetAllRegions()
         {
-            return RegionDB.GetAllRegions();
+            return RegionDb.GetAllRegions();
         }
     }
 }

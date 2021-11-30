@@ -15,9 +15,9 @@ namespace BLL
     {
         private IOrderDB OrderDb { get; }
 
-        public OrderManager(IConfiguration configuration)
+        public OrderManager(IOrderDB orderDb)
         {
-            OrderDb = new OrderDB(configuration); 
+            this.OrderDb = orderDb;
         }
 
         public List<Order> GetAllOrders()

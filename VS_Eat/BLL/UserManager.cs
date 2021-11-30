@@ -11,20 +11,19 @@ namespace BLL
     public class UserManager : IUserManager
     {
         private IUserDB UserDb { get; }
-        private ILoginDB LoginDB { get; }
+
+        private ILoginDB LoginDb { get; }
 
         private ILoginManager LoginManager { get; }
 
-        private ILocationDB LocationDB { get;  }
+        private ILocationDB LocationDb { get;  }
 
-        public UserManager(IConfiguration configuration)
+        public UserManager(IUserDB userDb, ILoginDB loginDb, ILoginManager loginManager, ILocationDB locationDb)
         {
-            UserDb = new UserDB(configuration);
-            LoginDB = new LoginDB(configuration);
-            LocationDB = new LocationDB(configuration);
-
-            LoginManager = new LoginManager(configuration);
-
+            this.UserDb = userDb;
+            this.LoginDb = loginDb;
+            this.LoginManager = loginManager;
+            this.LocationDb = locationDb;
         }
 
         public List<User> GetAllUsers()
