@@ -15,7 +15,7 @@ namespace BLL
     {
         private IRestaurantDB RestaurantDb { get;  }
 
-        public RestaurantManager(IRestaurantDB RestaurantDb)
+        public RestaurantManager(IRestaurantDB iRestaurantDb)
         {
             this.RestaurantDb = RestaurantDb; 
         }

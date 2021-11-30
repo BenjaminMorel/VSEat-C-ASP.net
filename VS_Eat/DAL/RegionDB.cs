@@ -18,6 +18,10 @@ namespace DAL
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Method which returns all the regions of the database
+        /// </summary>
+        /// <returns> Returns a list of regions</returns>
         public List<Region> GetAllRegions()
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");

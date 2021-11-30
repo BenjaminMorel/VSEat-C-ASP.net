@@ -13,10 +13,11 @@ namespace BLL
 {
     public class OrderStatusManager :IOrderStatusManager
     {
-        private IOrderStatusDB OrderStatusDB { get;  }
-        public OrderStatusManager(IConfiguration configuration)
+        private IOrderStatusDB OrderStatusDB { get; }
+
+        public OrderStatusManager(IOrderStatusDB orderStatusDb)
         {
-            OrderStatusDB = new OrderStatusDB(configuration); 
+            this.OrderStatusDB = orderStatusDb;
         }
 
         public List<OrderStatus> GetAllOrderStatus()

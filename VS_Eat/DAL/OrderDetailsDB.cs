@@ -19,6 +19,11 @@ namespace DAL
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Method which returns all order details for the order given in parameter
+        /// </summary>
+        /// <param name="IdOrder"></param>
+        /// <returns> Returns a list of order details</returns>
         public List<OrderDetails> GetOrderDetailsFromOrder(int IdOrder)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -60,6 +65,10 @@ namespace DAL
             return allOrderDetails;
         }
 
+        /// <summary>
+        /// Method which returns all the order details of the database
+        /// </summary>
+        /// <returns> Returns a list of order details</returns>
         public List<OrderDetails> GetAllOrderDetails()
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");

@@ -18,6 +18,10 @@ namespace DAL
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Method which returns a list of all the products of the database
+        /// </summary>
+        /// <returns> Returns a list of all products</returns>
         public List<Product> GetAllProducts()
         {
             List<Product> products = new List<Product>();
@@ -66,10 +70,10 @@ namespace DAL
         }
 
         /// <summary>
-        /// Method which returns a list of products for a specific restaurant
+        /// Method which returns a list of products for a specific restaurant given in parameter
         /// </summary>
-        /// <param name="IdRestaurant"></param>
-        /// <returns></returns>
+        /// <param name="IdRestaurant"> integer of the restaurant we want to get all products</param>
+        /// <returns> Returns a list of products</returns>
         public List<Product> GetAllProductsFromRestaurant(int IdRestaurant)
         {
             List<Product> products = new List<Product>();
@@ -119,6 +123,11 @@ namespace DAL
             return products;
         }
 
+        /// <summary>
+        /// Method which add a new product in the database
+        /// </summary>
+        /// <param name="MyProduct"></param>
+        /// <returns> Return the new product added</returns>
         public Product AddNewProduct(Product MyProduct)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -153,6 +162,11 @@ namespace DAL
             return MyProduct;
         }
 
+        /// <summary>
+        /// Method which update a product with the information given in parameter
+        /// </summary>
+        /// <param name="MyProduct"></param>
+        /// <returns> Returns the product which has been updated</returns>
         public Product UpdateProduct(Product MyProduct)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");

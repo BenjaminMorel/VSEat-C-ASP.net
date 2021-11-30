@@ -21,8 +21,9 @@ namespace DAL
         }
 
         /// <summary>
-        /// Method which returns the list of all the commands of the table
+        /// Method which returns a list of all the commands of the database
         /// </summary>
+        /// <returns> A list of all orders</returns>
         public List<Order> GetAllOrders()
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -70,7 +71,7 @@ namespace DAL
         }
 
         /// <summary>
-        /// Method which returns the list of commands by user identifier
+        /// Method which returns a list of commands by user identifier
         /// </summary>
         /// <param name="IdUser"> User number</param>
         /// <returns>List of commands</returns>
@@ -124,7 +125,7 @@ namespace DAL
         /// Method which returns a list of orders that are with status 'ready' 
         /// </summary>
         /// <param name="IdRegion"></param>
-        /// <returns></returns>
+        /// <returns> Returns a list of orders</returns>
         public List<Order> GetOpenOrdersFromRegion(int IdRegion)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");

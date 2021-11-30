@@ -18,6 +18,10 @@ namespace DAL
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Method which returns a list of all the order status of the database
+        /// </summary>
+        /// <returns> Returns a list of all order status</returns>
         public List<OrderStatus> GetAllOrderStatus()
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");

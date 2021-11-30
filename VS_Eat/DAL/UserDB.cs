@@ -19,9 +19,11 @@ namespace DAL
         {
             Configuration = configuration;
         }
+        
         /// <summary>
-        /// Method which returns the list of all the users of the table
+        /// Method which returns a list of all users of the database
         /// </summary>
+        /// <returns> Returns a list of users</returns>
         public List<User> GetAllUsers()
         {       
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -65,6 +67,11 @@ namespace DAL
             return allUsers;
         }
 
+        /// <summary>
+        /// Method which returns a user according to an id login given in parameter
+        /// </summary>
+        /// <param name="IdLogin"> integer of the user we want to find</param>
+        /// <returns> Returns an object User</returns>
         public User GetUserByID(int IdLogin)
         {
             User MyUser = null;
@@ -120,8 +127,11 @@ namespace DAL
             return MyUser;
         }
 
-        //Méthode qui va venir ajouter le nouveau user dans la base de donnée via la query INSERT 
-        //la méthode est private car elle sera seulement appéler via la methode createNewUser() qui elle est publique 
+        /// <summary>
+        /// Method which add a new user in the database
+        /// </summary>
+        /// <param name="MyUser"></param>
+        /// <returns> Returns an object User which has been added</returns>
         public User AddUser(User MyUser)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -156,7 +166,11 @@ namespace DAL
             return MyUser; 
         }
 
-
+        /// <summary>
+        /// Method which update a user in the database
+        /// </summary>
+        /// <param name="MyUser"></param>
+        /// <returns> Returns an object User which has been updated</returns>
         public User UpdateUser(User MyUser)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");

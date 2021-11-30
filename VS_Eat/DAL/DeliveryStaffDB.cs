@@ -16,7 +16,10 @@ namespace DAL
         {
             Configuration = configuration;
         }
-
+        /// <summary>
+        /// Method which returns a list of all the delivery staff of the database
+        /// </summary>
+        /// <returns>list of all the delivery staff</returns>
         public List<DeliveryStaff> GetAllDeliveryStaff()
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -58,6 +61,12 @@ namespace DAL
             }
             return allDeliveryStaff;
         }
+
+        /// <summary>
+        /// Method which returns a list of open order for a deliver by id
+        /// </summary>
+        /// <param name="IdDeliveryStaff"></param>
+        /// <returns></returns>
         public List<Order> CountOpenOrderByStaffId(int IdDeliveryStaff)
         {
             List<Order> numberOfOpenOrders = new List<Order>();
@@ -105,6 +114,11 @@ namespace DAL
             return numberOfOpenOrders;
         }
 
+        /// <summary>
+        /// Method which add a new delivery staff in the table
+        /// </summary>
+        /// <param name="MyStaff">Object DeliveryStaff</param>
+        /// <returns></returns>
         public DeliveryStaff AddDeliveryStaff(DeliveryStaff MyStaff)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");

@@ -16,6 +16,10 @@ namespace DAL
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Method which returns a list of all the locations of the database
+        /// </summary>
+        /// <returns> list of all locations</returns>
         public List<Location> GetAllLocations()
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -54,7 +58,13 @@ namespace DAL
             }
             return AllLocations;
         }
-        // Methode to find the IDLocation by giving it a PostCode and a city name and the methode return a simple int that correspond to the ID 
+
+        /// <summary>
+        /// Method used find the IDLocation by giving it a PostCode and a city name
+        /// </summary>
+        /// <param name="PostCode"></param>
+        /// <param name="City"></param>
+        /// <returns> Simple int that correspond to the ID </returns>
         public Location GetLocation(int PostCode, string City)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");

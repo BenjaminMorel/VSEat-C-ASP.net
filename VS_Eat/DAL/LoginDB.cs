@@ -20,8 +20,9 @@ namespace DAL
         }
 
         /// <summary>
-        /// Method which displays the list of all the logins of the table in the console
+        /// Method which returns a list of all the logins of the database
         /// </summary>
+        /// <returns> list of all the logins</returns>
         public List<Login> GetAllLogins()
         {
             List<Login> AllLogin = new List<Login>(); 
@@ -109,7 +110,11 @@ namespace DAL
         }
 
 
-        
+        /// <summary>
+        /// Method which add a new Login into the database
+        /// </summary>
+        /// <param name="MyLogin"></param>
+        /// <returns> returns an Object Login</returns>
         public Login AddNewLogin(Login MyLogin)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -138,22 +143,25 @@ namespace DAL
         }
 
         /// <summary>
-        /// 
+        /// Method which verify if the email is already in our database
         /// </summary>
-        /// <param name="Email"></param>
-        /// <returns></returns>
+        /// <param name="Email"> string Email to be verified</param>
+        /// <returns> returns an Object Login if the login already exists</returns>
         public Login EmailVerification(string Email)
         {
             Login MyLogin = null; 
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = "Select * from [dbo].[Login] WHERE Username=@Email";
+
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@Email", Email); 
                     connection.Open();
+
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
                         if (dataReader.Read())
@@ -179,6 +187,11 @@ namespace DAL
             return MyLogin; 
         }
 
+        /// <summary>
+        /// Method which update the details of the login in parameter
+        /// </summary>
+        /// <param name="MyLogin"></param>
+        /// <returns> Returns an Object Login</returns>
         public Login UpdateLogin(Login MyLogin)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
