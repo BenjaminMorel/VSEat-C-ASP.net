@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VS_Eat", "VS_Eat\VS_Eat.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{89688F1A-891E-4AB0-A6AF-A6E465920ACB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{736B224D-64FB-46C7-92B4-A17DD7DCB352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{736B224D-64FB-46C7-92B4-A17DD7DCB352}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{F35BBF34-7F4B-444D-8BF6-DA5AD5D36D4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{F35BBF34-7F4B-444D-8BF6-DA5AD5D36D4E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication", "WebApplication\WebApplication.csproj", "{6217B0D0-1598-4501-AE1F-0CE0C6F98DEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F35BBF34-7F4B-444D-8BF6-DA5AD5D36D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F35BBF34-7F4B-444D-8BF6-DA5AD5D36D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F35BBF34-7F4B-444D-8BF6-DA5AD5D36D4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6217B0D0-1598-4501-AE1F-0CE0C6F98DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6217B0D0-1598-4501-AE1F-0CE0C6F98DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6217B0D0-1598-4501-AE1F-0CE0C6F98DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6217B0D0-1598-4501-AE1F-0CE0C6F98DEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

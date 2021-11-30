@@ -20,18 +20,18 @@ namespace VS_Eat
 
         static void Main(string[] args)
         {
-            var DeliveryStaffManager = new DeliveryStaffManager(Configuration);
-            var LoginManager = new LoginManager(Configuration);
-            var OrderManager = new OrderManager(Configuration);
-            var ProductManager = new ProductManager(Configuration);
-            var RestaurantManager = new RestaurantManager(Configuration);
-            var UserManager = new UserManager(Configuration);
+        //    var DeliveryStaffManager = new DeliveryStaffManager(Configuration);
+         //   var LoginManager = new LoginManager(Configuration);
+       //     var OrderManager = new OrderManager(Configuration);
+      //      var ProductManager = new ProductManager(Configuration);
+    //       var RestaurantManager = new RestaurantManager(Configuration);
+       //     var UserManager = new UserManager(Configuration);
 
             /*
             (DEFAULT, '18:30:00', 'Rue de la faim 3', '4.00', '30.00', '1', '3', '1', '40'),
             (DEFAULT, '17:45:00', 'Rue de la faim 12', '8.00', '60.00', '1', '4', '2', '88');
             */
-
+/*
             Order MyOrder = new Order();
             MyOrder.IdOrder = 4; 
             MyOrder.DeliveryTime = "19:15:00";
@@ -73,12 +73,12 @@ namespace VS_Eat
 
 
             /** Get all orders**/
-            Console.WriteLine("______________________________________________");
+           /** Console.WriteLine("______________________________________________");
             Console.WriteLine("All orders:");
             List<Order> allOrders = OrderManager.GetAllOrders();
             foreach (var Order in allOrders)
                 Console.WriteLine(Order.ToString());
-            **/
+            
 
             /** Get all orders from a restaurant 
             

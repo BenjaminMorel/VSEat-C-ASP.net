@@ -15,9 +15,9 @@ namespace BLL
     {
         private IRestaurantDB RestaurantDb { get;  }
 
-        public RestaurantManager(IConfiguration configuration)
+        public RestaurantManager(IRestaurantDB RestaurantDb)
         {
-            RestaurantDb = new RestaurantDB(configuration); 
+            this.RestaurantDb = RestaurantDb; 
         }
 
         public List<Restaurant> GetAllRestaurants()

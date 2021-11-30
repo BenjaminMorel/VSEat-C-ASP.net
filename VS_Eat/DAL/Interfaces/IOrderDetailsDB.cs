@@ -13,5 +13,8 @@ namespace DAL.Interfaces
         List<OrderDetails> GetOrderDetailsFromOrder(int IdOrder);
 
         List<OrderDetails> GetAllOrderDetails();
+
+        OrderDetails AddOrderDetails(OrderDetails MyOrderDetails);
+
     }
 }

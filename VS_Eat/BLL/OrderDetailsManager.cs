@@ -14,9 +14,9 @@ namespace BLL
     public class OrderDetailsManager : IOrderDetailsManager
     {
         private IOrderDetailsDB OrderDetailsDB { get;  }
-        public OrderDetailsManager(IConfiguration configuration)
+        public OrderDetailsManager(IOrderDetailsDB OrderDetailsDB)
         {
-            OrderDetailsDB = new OrderDetailsDB(configuration); 
+            this.OrderDetailsDB = OrderDetailsDB; 
         }
 
         public List<OrderDetails> GetOrderDetailsFromOrder(int IdOrder)
@@ -28,6 +28,13 @@ namespace BLL
         {
             return OrderDetailsDB.GetAllOrderDetails();
         }
+
+        public OrderDetails AddOrderDetails(OrderDetails MyOrderDetails)
+        {
+            return OrderDetailsDB.AddOrderDetails(MyOrderDetails); 
+        }
+
+
 
     }
 }

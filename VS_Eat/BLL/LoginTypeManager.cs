@@ -15,9 +15,9 @@ namespace BLL
     {
 
         private ILoginTypeDB LoginTypeDB { get;  }
-        public LoginTypeManager(IConfiguration configuration)
+        public LoginTypeManager(ILoginTypeDB LoginTypeDB)
         {
-            LoginTypeDB = new LoginTypeDB(configuration); 
+            this.LoginTypeDB = LoginTypeDB; 
         }
 
         public List<LoginType> GetAllLoginTypes()

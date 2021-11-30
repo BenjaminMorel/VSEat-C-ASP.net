@@ -20,13 +20,12 @@ namespace BLL
 
         private ILoginManager LoginManager { get;  }
 
-        public DeliveryStaffManager(IConfiguration configuration)
+        public DeliveryStaffManager(IDeliveryStaffDB DeliveryStaffDb, ILoginDB LoginDB, ILocationDB LocationDB, ILoginManager LoginManager)
         {
-            DeliveryStaffDb = new DeliveryStaffDB(configuration);
-            LoginDB = new LoginDB(configuration);
-            LocationDB = new LocationDB(configuration); 
-
-            LoginManager = new LoginManager(configuration); 
+            this.DeliveryStaffDb = DeliveryStaffDb;
+            this.LoginDB = LoginDB;
+            this.LocationDB = LocationDB;
+            this.LoginManager = LoginManager; 
         }
 
         public List<DeliveryStaff> GetAllDeliveryStaff()

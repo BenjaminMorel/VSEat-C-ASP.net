@@ -49,5 +49,11 @@ namespace BLL
         {
             return OrderDb.UpdateOrderStatus(MyOrder); 
         }
+        public Order AffectStaffToAnOrder(Order MyOrder)
+        {
+
+            //TODO trouver le staff qui livrera l'order 
+            return OrderDb.AssignStaffToAnOrder(MyOrder); 
+        }
     }
 }

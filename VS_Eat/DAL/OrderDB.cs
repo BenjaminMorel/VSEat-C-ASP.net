@@ -175,7 +175,6 @@ namespace DAL
             return AllOpenOrders;
         }
         
-        //TODO Verifier si AddOrder Fonctionne 
         public Order AddNewOrder(Order MyOrder)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -207,8 +206,6 @@ namespace DAL
             }
             return MyOrder;
         }
-
-        //TODO Verifier si CancelOrder fonctionne et si la commande SQL est correcte
         public Order CancelOrder(Order MyOrder,User MyUser)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -255,6 +252,35 @@ namespace DAL
                                    "WHERE IdOrder=@IdOrder";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@IdOrderStatus", MyOrder.IdOrderStatus);
+                    command.Parameters.AddWithValue("@IdOrder", MyOrder.IdOrder);
+                    connection.Open();
+
+                    command.ExecuteScalar();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN UPDATE ORDERSTATUS\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyOrder;
+        }
+
+        public Order AssignStaffToAnOrder(Order MyOrder)
+        {
+
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Update [dbo].[Order] Set IdDeliveryStaff=@IdDeliveryStaff " +
+                                   "WHERE IdOrder=@IdOrder";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdDeliveryStaff", MyOrder.IdDeliveryStaff);
                     command.Parameters.AddWithValue("@IdOrder", MyOrder.IdOrder);
                     connection.Open();
 

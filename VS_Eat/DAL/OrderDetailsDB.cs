@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.Interfaces;
 using System.Data.SqlClient;
+using System.Reflection.Metadata.Ecma335;
 
 namespace DAL
 {
@@ -98,7 +99,35 @@ namespace DAL
             }
             return allOrderDetails;
         }
-    }
+        public OrderDetails AddOrderDetails(OrderDetails MyOrderDetails)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            List<OrderDetails> allOrderDetails = new List<OrderDetails>();
 
-    //TODO add orderDetail dans la base de donnnée
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query =
+                        "Insert Into [dbo].[OrderDetails](IdOrder,IdProduct,UnitPrice,Quantity) Values(@IdOrder,@IdProduct,@UnitPrice,@Quantity)";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdOrder", MyOrderDetails.IdOrder);
+                    command.Parameters.AddWithValue("@IdProduct", MyOrderDetails.IdProduct);
+                    command.Parameters.AddWithValue("@UnitPrice", MyOrderDetails.UnitPrice);
+                    command.Parameters.AddWithValue("@Quantity", MyOrderDetails.Quantity);
+                    connection.Open();
+
+                    command.ExecuteScalar();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting all order details\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return MyOrderDetails; 
+        }
+    }
 }

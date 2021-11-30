@@ -15,9 +15,9 @@ namespace BLL
     {
         private ILoginDB LoginDb { get;  }
 
-        public LoginManager (IConfiguration configuration)
+        public LoginManager (ILoginDB LoginDb)
         {
-            LoginDb = new LoginDB(configuration); 
+            this.LoginDb = LoginDb; 
         }
 
         public List<Login> GetAllLogin()

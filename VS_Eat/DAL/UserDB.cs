@@ -94,6 +94,8 @@ namespace DAL
                             MyUser.LastName = (string)dataReader["LastName"];
                             MyUser.PhoneNumber = (string)dataReader["PhoneNumber"];
                             MyUser.Address = (string)dataReader["EmailAddress"];
+                            MyUser.FavoriteRestaurant = (string)dataReader["FavoriteRestaurant"]; 
+                            MyUser.FavoriteProduct = (string)dataReader["FavoriteProduct"]; 
                            if (dataReader["IdLogin"] != null)
                             {
                                 MyUser.IdLogin = (int)dataReader["IdLogin"];
@@ -127,12 +129,14 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Insert into [dbo].[User](FirstName,LastName,PhoneNumber,Address,IdLogin,IdLocation) values(@FirstName,@LastName,@PhoneNumber,@Address,@IdLogin,@IdLocation);";
+                    string query = "Insert into [dbo].[User](FirstName,LastName,PhoneNumber,Address,FavoriteRestaurant,FavoriteProduct,IdLogin,IdLocation) values(@FirstName,@LastName,@PhoneNumber,@Address,@FavoriteRestaurant,@FavoriteProduct,@IdLogin,@IdLocation);";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@FirstName",MyUser.FirstName);
                     command.Parameters.AddWithValue("@LastName",MyUser.LastName);
                     command.Parameters.AddWithValue("@PhoneNumber",MyUser.PhoneNumber);
                     command.Parameters.AddWithValue("@Address",MyUser.Address);
+                    command.Parameters.AddWithValue("@FavoriteRestaurant", MyUser.FavoriteRestaurant);
+                    command.Parameters.AddWithValue("@FavoriteProduct", MyUser.FavoriteProduct);
                     command.Parameters.AddWithValue("@IdLogin",MyUser.IdLogin);
                     command.Parameters.AddWithValue("@IdLocation",MyUser.IdLocation);
 
@@ -160,12 +164,14 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Update into [dbo].[User] Set FirstName=@FirstName, LastName=@LastName, PhoneNumber=@PhoneNumber, Address=@Address, IdLocation=@IdLocation WHERE IdLogin=@IdLogin);";
+                    string query = "Update into [dbo].[User] Set FirstName=@FirstName, LastName=@LastName, PhoneNumber=@PhoneNumber, Address=@Address, FavoriteRestaurant=@FavoriteRestaurant, FavoriteProduct=@FavoriteProduct, IdLocation=@IdLocation WHERE IdLogin=@IdLogin);";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@FirstName", MyUser.FirstName);
                     command.Parameters.AddWithValue("@LastName", MyUser.LastName);
                     command.Parameters.AddWithValue("@PhoneNumber", MyUser.PhoneNumber);
                     command.Parameters.AddWithValue("@Address", MyUser.Address);
+                    command.Parameters.AddWithValue("@FavoriteRestaurant", MyUser.FavoriteRestaurant);
+                    command.Parameters.AddWithValue("@FavoriteProduct", MyUser.FavoriteProduct);
                     command.Parameters.AddWithValue("@IdLogin", MyUser.IdLogin);
                     command.Parameters.AddWithValue("@IdLocation", MyUser.IdLocation);
 

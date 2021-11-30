@@ -7,7 +7,7 @@ using DTO;
 
 namespace BLL.Interfaces
 {
-    interface IUserManager
+    public interface IUserManager
     {
         List<User> GetAllUsers();
 

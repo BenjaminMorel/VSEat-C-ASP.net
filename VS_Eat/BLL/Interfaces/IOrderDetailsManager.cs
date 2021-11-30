@@ -13,6 +13,6 @@ namespace BLL.Interfaces
 
         List<OrderDetails> GetAllOrderDetails();
 
-
+        OrderDetails AddOrderDetails(OrderDetails MyOrderDetails); 
     }
 }

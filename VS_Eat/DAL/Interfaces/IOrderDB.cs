@@ -18,7 +18,9 @@ namespace DAL.Interfaces
         //UpdateStatus is used to change the Order Status or to cancelled it 
         Order CancelOrder(Order MyOrder, User MyUser);
 
-        Order UpdateOrderStatus(Order MyOrder); 
+        Order UpdateOrderStatus(Order MyOrder);
+
+        Order AssignStaffToAnOrder(Order MyOrder);
 
     }
 }

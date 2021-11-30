@@ -12,9 +12,9 @@ namespace BLL
     public class LocationManager : ILocationManager
     {
         private ILocationDB LocationDB { get;  }
-        public LocationManager(IConfiguration configuration)
+        public LocationManager(ILocationDB LocationDB)
         {
-            LocationDB = new LocationDB(configuration); 
+            this.LocationDB = LocationDB;
         }
 
         public Location GetLocation(string City, int PostCode)
