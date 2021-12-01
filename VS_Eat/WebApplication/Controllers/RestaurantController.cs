@@ -12,17 +12,19 @@ namespace WebApplication.Controllers
     {
         private IRestaurantManager RestaurantManager { get; }
         private IProductManager ProductManager { get; }
+        private ILocationManager LocationManager { get; }
 
 
-
-        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager)
+        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager )
         {
             this.RestaurantManager = RestaurantManager;
-            this.ProductManager = ProductManager; 
+            this.ProductManager = ProductManager;
+            this.LocationManager = LocationManager;
         }
         public IActionResult Index()
         {
-            var restaurants = RestaurantManager.GetAllRestaurants(); 
+            var restaurants = RestaurantManager.GetAllRestaurants();
+            var locations = LocationManager.GetAllLocations();
             return View(restaurants);
         }
 
