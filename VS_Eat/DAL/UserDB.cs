@@ -139,20 +139,19 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Insert into [dbo].[User](FirstName,LastName,PhoneNumber,Address,FavoriteRestaurant,FavoriteProduct,IdLogin,IdLocation) values(@FirstName,@LastName,@PhoneNumber,@Address,@FavoriteRestaurant,@FavoriteProduct,@IdLogin,@IdLocation);";
+                    string query = "Insert into [dbo].[User](FirstName,LastName,PhoneNumber,Address,IdLogin,IdLocation) values(@FirstName,@LastName,@PhoneNumber,@Address,@IdLogin,@IdLocation);";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@FirstName",MyUser.FirstName);
                     command.Parameters.AddWithValue("@LastName",MyUser.LastName);
                     command.Parameters.AddWithValue("@PhoneNumber",MyUser.PhoneNumber);
                     command.Parameters.AddWithValue("@Address",MyUser.Address);
-                    command.Parameters.AddWithValue("@FavoriteRestaurant", MyUser.FavoriteRestaurant);
-                    command.Parameters.AddWithValue("@FavoriteProduct", MyUser.FavoriteProduct);
                     command.Parameters.AddWithValue("@IdLogin",MyUser.IdLogin);
                     command.Parameters.AddWithValue("@IdLocation",MyUser.IdLocation);
-
+            
                     connection.Open();
 
-                    MyUser.IdLogin = Convert.ToInt32(command.ExecuteScalar());
+                    MyUser.IdUser = Convert.ToInt32(command.ExecuteScalar());
+
                 }
             }
             catch (Exception e)

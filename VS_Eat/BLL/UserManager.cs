@@ -44,7 +44,8 @@ namespace BLL
 
             if (LoginManager.EmailVerification(Email))
             {
-                Console.WriteLine("THIS EMAIL IS ALREADY USE BY AN OTHER ACCOUNT\nPLEASE CONNECT HERE");
+                User user = null;
+                return user; 
             }
 
             var Location = new Location();
@@ -67,6 +68,7 @@ namespace BLL
             MyUser.LastName = LastName;
             MyUser.PhoneNumber = PhoneNumber;
             MyUser.Address = Address;
+
 
             MyUser = UserDb.AddUser(MyUser);
 

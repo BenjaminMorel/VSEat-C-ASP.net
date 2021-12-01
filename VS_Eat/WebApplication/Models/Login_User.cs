@@ -9,11 +9,13 @@ namespace WebApplication.Models
 {
     public class Login_User
     {
+	
 		[Required]
+		[EmailAddress]
 		public string Username { get; set; } // from Login
 
 		[Required]
-		[EmailAddress]
+		[MinLength(6)]
 		public string Password { get; set; } // from Login
 
 		[Required]
