@@ -124,6 +124,57 @@ namespace DAL
         }
 
         /// <summary>
+        /// Method which return a single product
+        /// </summary>
+        /// <param name="IdProduct"> integer that correspond to the id of the product we want</param>
+        /// <returns> Returns a list of products</returns>
+        public Product GetProductByID(int IdProduct)
+        {
+            Product myProduct = new Product();
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * " +
+                                   "FROM [dbo].[Product] " +
+                                   "WHERE IdProduct = @IdProduct";
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdProduct", IdProduct);
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                       if(dataReader != null) {
+
+
+                            myProduct.IdProduct = (int)dataReader["IdProduct"];
+                            myProduct.ProductName = (string)dataReader["ProductName"];
+                            myProduct.Description = (string)dataReader["Description"];
+                            //myProduct.Price = (float) dataReader["Price"];
+                            myProduct.Picture = (string)dataReader["Picture"];
+                            myProduct.Disponibility = (bool)dataReader["Disponibility"];
+                            myProduct.Vegetarian = (bool)dataReader["Vegetarian"];
+                            myProduct.IdRestaurant = (int)dataReader["IdRestaurant"];
+                            myProduct.IdProductType = (int)dataReader["IdProductType"];
+                           
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting product by ID\n ID product that was try : " + IdProduct + "\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return myProduct;
+        }
+
+        /// <summary>
         /// Method which add a new product in the database
         /// </summary>
         /// <param name="MyProduct"></param>

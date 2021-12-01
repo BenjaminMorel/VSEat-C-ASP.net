@@ -29,6 +29,11 @@ namespace BLL
             return ProductDb.GetAllProductsFromRestaurant(IdRestaurant); 
         }
 
+        public Product GetProductByID(int IdProduct)
+        {
+            return ProductDb.GetProductByID(IdProduct); 
+        }
+
         public Product AddNewProduct(Product MyProduct)
         {
             return ProductDb.AddNewProduct(MyProduct); 

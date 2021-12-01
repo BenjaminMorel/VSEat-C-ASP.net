@@ -9,7 +9,9 @@ namespace DAL.Interfaces
         List<Product> GetAllProductsFromRestaurant(int IdRestaurant); 
 
         
-        List<Product> GetAllProducts(); 
+        List<Product> GetAllProducts();
+
+        Product GetProductByID(int IdProduct); 
 
         Product AddNewProduct(Product MyProduct); 
 

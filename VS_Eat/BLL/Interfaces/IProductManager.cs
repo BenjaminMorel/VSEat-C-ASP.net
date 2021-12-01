@@ -13,6 +13,7 @@ namespace BLL.Interfaces
 
         List<Product> GetAllProductsFromRestaurant(int IdRestaurant);
 
+        Product GetProductByID(int IdProduct); 
         Product AddNewProduct(Product MyProduct);
 
         Product UpdateProduct(Product myProduct); 
