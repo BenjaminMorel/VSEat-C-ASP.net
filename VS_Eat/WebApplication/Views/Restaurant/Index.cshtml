@@ -10,34 +10,59 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/css/restaurant.css"/>
 </head>
 <body>
     <header>
         
     </header>
         <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RestaurantName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RestaurantAddress)
-                    </td>
-                    <div>
-                        <img src="/Images/pizza.jpg" width="300" height="300"/>
+        <div class="container">
+            <!-- Column -->
+                @foreach (var item in Model)
+                {
+                    <div class="container__column">
+                        <!-- Cover -->
+                        <div class="containerImage">
+                            <img src="/Images/restaurant.jpg" width="300" height="200" class="restaurantImage"/>
+                            <div class="overlayRestaurantImage">
+                                <div class="textOverlayRestaurantImage">@Html.DisplayFor(modelItem => item.RestaurantName)</div>
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="container__content">
+                            <tr>
+                                <td>
+                                    <h2 class="titleRestaurant">
+                                        @Html.DisplayFor(modelItem => item.RestaurantName)
+                                    </h2>
+                                </td>
+                                <p></p>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RestaurantAddress)
+                                </td>
+
+
+
+                                <p></p>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Picture)
+                                </td>
+                            </tr>
+                            <br/>
+                        </div>
+
+                        <!-- Button sticks to the bottom -->
                     </div>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Picture)
-                    </td>
-                </tr>
-            }
+                    }
+
+                </div>
+
         </tbody>
 
 </body>
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
