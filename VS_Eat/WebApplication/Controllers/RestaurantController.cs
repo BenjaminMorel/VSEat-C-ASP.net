@@ -20,19 +20,19 @@ namespace WebApplication.Controllers
             this.RestaurantManager = RestaurantManager;
             this.ProductManager = ProductManager; 
         }
-        public IActionResult Index()
+        public ActionResult Index()
         {
             var restaurants = RestaurantManager.GetAllRestaurants(); 
             return View(restaurants);
         }
 
-        public IActionResult ShowAllProductFromRestaurant(int id)
+        public ActionResult ShowAllProductFromRestaurant(int id)
         {
             var products = ProductManager.GetAllProductsFromRestaurant(id); 
             return View(products); 
         }
 
-        public IActionResult ProductDetails(int id)
+        public ActionResult ProductDetails(int id)
         {
             var product = ProductManager.GetProductByID(id);
             Console.WriteLine(product.ToString());
