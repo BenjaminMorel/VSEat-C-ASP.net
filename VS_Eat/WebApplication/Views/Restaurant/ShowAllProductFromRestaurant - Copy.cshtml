@@ -1,0 +1,88 @@
+﻿@model IEnumerable<DTO.Product>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/restaurant.css" />
+</head>
+<h1>Details</h1>
+
+<p>
+    <a asp-action="Create">Create New </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Picture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Disponibility)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vegetarian)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdRestaurant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProductType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Picture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disponibility)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vegetarian)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdRestaurant)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProductType)
+            </td>
+            <td>
+                @Html.ActionLink("Show Product Details", "ProductDetails", new {  id=item.IdProduct }) 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

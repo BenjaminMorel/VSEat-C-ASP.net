@@ -261,7 +261,7 @@ INSERT [dbo].[RestaurantType] (NomRestaurantType) VALUES
 
 INSERT [dbo].[Restaurant] (RestaurantName, RestaurantAddress, IdLogin, IdLocation, IdRestaurantType) VALUES
 ('StarKebab', 'Chemin du kebab 12', '3', '142', '4'),
-('Pizza Express', 'Chemin de la pizza 93', '4', '12', '2');
+('Pizza Express', 'Chemin de la pizza 93', '4', '12', '2'),
 
 INSERT [dbo].[ProductType] (ProductType) VALUES
 ('Petit'),

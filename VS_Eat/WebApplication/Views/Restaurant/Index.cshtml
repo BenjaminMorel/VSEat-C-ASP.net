@@ -15,7 +15,6 @@
 </head>
 <body>
     <header>
-        
     </header>
         <tbody>
         <div class="container">
@@ -25,32 +24,32 @@
                     <div class="container__column">
                         <!-- Cover -->
                         <div class="containerImage">
-                            <img src="/Images/restaurant.jpg" width="300" height="200" class="restaurantImage"/>
-                            <div class="overlayRestaurantImage">
-                                <div class="textOverlayRestaurantImage">@Html.DisplayFor(modelItem => item.RestaurantName)</div>
-                            </div>
+                            
+                            <a href=@Url.Action("ShowAllProductFromRestaurant", new { id = item.IdRestaurant })>
+                                <img src="/Images/restaurant.jpg" width="300" height="200" class="restaurantImage" />
+                                <div class="overlayRestaurantImage">
+                                    <div class="textOverlayRestaurantImage">@Html.DisplayFor(modelItem => item.RestaurantName)</div>
+                                </div>
+                            </a>
                         </div>
 
                         <!-- Content -->
                         <div class="container__content">
-                            <tr>
-                                <td>
-                                    <h2 class="titleRestaurant">
-                                        @Html.DisplayFor(modelItem => item.RestaurantName)
-                                    </h2>
-                                </td>
-                                <p></p>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.RestaurantAddress)
-                                </td>
-
-
-
-                                <p></p>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Picture)
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        <h2 class="titleRestaurant">
+                                            @Html.DisplayFor(modelItem => item.RestaurantName)
+                                        </h2>
+                                    </td>
+                                    <p></p>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RestaurantAddress)
+                                    </td>
+                                    <p></p>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Picture)
+                                    </td>                              
+                                </tr>
                             <br/>
                         </div>
 
