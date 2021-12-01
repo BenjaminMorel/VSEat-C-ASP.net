@@ -147,9 +147,8 @@ namespace DAL
 
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
-                       if(dataReader != null) {
-
-
+                        while (dataReader.Read())
+                        {
                             myProduct.IdProduct = (int)dataReader["IdProduct"];
                             myProduct.ProductName = (string)dataReader["ProductName"];
                             myProduct.Description = (string)dataReader["Description"];
@@ -159,14 +158,15 @@ namespace DAL
                             myProduct.Vegetarian = (bool)dataReader["Vegetarian"];
                             myProduct.IdRestaurant = (int)dataReader["IdRestaurant"];
                             myProduct.IdProductType = (int)dataReader["IdProductType"];
-                           
+
+     
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.Write("Error while getting product by ID\n ID product that was try : " + IdProduct + "\n");
+                Console.Write("Error while getting all products for restaurant " + IdProduct + "\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);

@@ -7,6 +7,11 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+.topnav{
+    text-align: center; 
+    float: left; 
+}
+
 .text-link{
     color: cornflowerblue; 
     background-color: aquamarine;
@@ -39,9 +44,16 @@ html {
     font-size: 16px;
   }
 }
+.topnav-left{
+    float: left; 
+}
+
+.topnav-right{
+    float: right; 
+}
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
