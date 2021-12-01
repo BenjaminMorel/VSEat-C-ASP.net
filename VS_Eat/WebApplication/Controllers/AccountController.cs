@@ -12,9 +12,11 @@ namespace WebApplication.Controllers
     public class AccountController : Controller
     {
         private IUserManager UserManager { get;  }
+        private ILoginManager LoginManager { get;  }
 
-        public AccountController(IUserManager UserManager)
+        public AccountController(IUserManager UserManager, ILoginManager LoginManager)
         {
+            this.LoginManager = LoginManager;
             this.UserManager = UserManager; 
         }
         public ActionResult CreateAnAccount()
@@ -38,6 +40,17 @@ namespace WebApplication.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(Login myLogin)
+        {
+            Login mylogin =LoginManager.GetLoginWithCredential(myLogin.Username, myLogin.Password);
+            if (mylogin != null)
+            {
+                return RedirectToAction("Index", "Restaurant");
+            }
+            return View(); 
         }
 
         public ActionResult ShowUserInformation(User myUser)
