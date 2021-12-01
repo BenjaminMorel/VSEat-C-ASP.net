@@ -4,68 +4,68 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/css/restaurant.css"/>
+</head>
+<body>
+    <header>
+        
+    </header>
+        <tbody>
+        <div class="container">
+            <!-- Column -->
+                @foreach (var item in Model)
+                {
+                    <div class="container__column">
+                        <!-- Cover -->
+                        <div class="containerImage">
+                            <img src="/Images/restaurant.jpg" width="300" height="200" class="restaurantImage"/>
+                            <div class="overlayRestaurantImage">
+                                <div class="textOverlayRestaurantImage">@Html.DisplayFor(modelItem => item.RestaurantName)</div>
+                            </div>
+                        </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdRestaurant)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RestaurantName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RestaurantAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Picture)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdLogin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdLocation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdRestaurantType)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdRestaurant)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RestaurantName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RestaurantAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Picture)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdLogin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdRestaurantType)
-            </td>
-            <td>
-      
-                @Html.ActionLink("Show All product", "ShowAllProductFromRestaurant", new { id = item.IdRestaurant }) 
+                        <!-- Content -->
+                        <div class="container__content">
+                            <tr>
+                                <td>
+                                    <h2 class="titleRestaurant">
+                                        @Html.DisplayFor(modelItem => item.RestaurantName)
+                                    </h2>
+                                </td>
+                                <p></p>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RestaurantAddress)
+                                </td>
 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+
+                                <p></p>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Picture)
+                                </td>
+                            </tr>
+                            <br/>
+                        </div>
+
+                        <!-- Button sticks to the bottom -->
+                    </div>
+                    }
+
+                </div>
+
+        </tbody>
+
+</body>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+</html>
