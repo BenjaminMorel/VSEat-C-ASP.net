@@ -62,6 +62,8 @@ namespace WebApplication
             services.AddScoped<IUserDB, UserDB>();
 
             services.AddSession();
+            
+
 
             services.AddControllersWithViews();
         }
@@ -83,7 +85,7 @@ namespace WebApplication
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession(); 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

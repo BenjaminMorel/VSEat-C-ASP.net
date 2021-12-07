@@ -13,6 +13,9 @@ namespace BLL.Interfaces
 
         Login GetLoginWithCredential(string Email, string Password);
 
+        Login GetLoginByID(int IdLogin);
+
+        Login GetLoginByUsername(string Username); 
         bool EmailVerification(string Email);
 
         Login UpdateLogin(Login Mylogin); 

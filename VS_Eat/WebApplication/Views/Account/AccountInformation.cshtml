@@ -1,10 +1,10 @@
 ﻿@model DTO.User
 
 @{
-    ViewData["Title"] = "ShowUserInformation";
+    ViewData["Title"] = "AccountInformation";
 }
 
-<h1>ShowUserInformation</h1>
+<h1>AccountInformation</h1>
 
 <div>
     <h4>User</h4>
@@ -67,5 +67,6 @@
     </dl>
 </div>
 <div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
 </div>

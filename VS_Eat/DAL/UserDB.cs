@@ -118,6 +118,7 @@ namespace DAL
             }
             catch (Exception e)
             {
+                MyUser.IdUser = 999; 
                 Console.Write("ERROR IN GET USER BY ID\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);

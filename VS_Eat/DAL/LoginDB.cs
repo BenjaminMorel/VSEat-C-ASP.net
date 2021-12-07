@@ -109,6 +109,84 @@ namespace DAL
             return MyLogin; 
         }
 
+        public Login GetLoginByID(int IdLogin)
+        {
+            Login MyLogin = null;
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Select * from [dbo].[Login] WHERE IdLogin=@IdLogin";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdLogin", IdLogin);
+        
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            MyLogin = new Login();
+
+                            MyLogin.IdLogin = (int)dataReader["IdLogin"];
+                            MyLogin.Username = (string)dataReader["Username"];
+                            MyLogin.Password = (string)dataReader["Password"];
+                            MyLogin.IdLoginType = (int)dataReader["IdLoginType"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN GET LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyLogin;
+        }
+
+        public Login GetLoginByUsername(string Username)
+        {
+            Login MyLogin = null;
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Select * from [dbo].[Login] WHERE Username=@Username";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Username", Username);
+
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            MyLogin = new Login();
+
+                            MyLogin.IdLogin = (int)dataReader["IdLogin"];
+                            MyLogin.Username = (string)dataReader["Username"];
+                            MyLogin.Password = (string)dataReader["Password"];
+                            MyLogin.IdLoginType = (int)dataReader["IdLoginType"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN GET LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyLogin;
+        }
+
 
         /// <summary>
         /// Method which add a new Login into the database

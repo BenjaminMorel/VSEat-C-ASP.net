@@ -39,8 +39,7 @@
     <br />
     <br />
 
-    <h2>Take-out options available nearby
-    </h2>
+    <h2>Take-out options available nearby</h2>
     <br />
 
     <tbody>
@@ -51,22 +50,30 @@
             {
                 <div class="grid_parent">
                     <!-- Cover -->
-               
+                    <div class="containerImage">
 
-                   <!-- Content -->
-                    <div class="">
                         <a href=@Url.Action("ShowAllProductFromRestaurant", new { id = item.IdRestaurant })>
                             <img src="/Images/restaurant.jpg" width="300" height="200" class="restaurantImage" />
                             <div class="overlayRestaurantImage"></div>
                         </a>
-<tr>
+                    </div>
+
+                    <!-- Content -->
+                    <div>
+                    <tr>
                         <td>
                             <h2 class="titleRestaurant">
                                 @Html.DisplayFor(modelItem => item.RestaurantName)
                             </h2>
                         </td>
                         <p></p>
-               
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RestaurantAddress)
+                        </td>
+                        <p></p>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Picture)
+                        </td>
                     </tr>
                     </div>
 

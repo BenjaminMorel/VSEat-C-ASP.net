@@ -1,16 +1,13 @@
-﻿.container {
+﻿.grid_parent {
     display: flex;
+    flex-wrap: wrap; 
+    margin: 25px; 
+    align-content: center; 
 }
 
-.container__column {
-    flex: 1;
-    /* Space between columns */
-    margin: 0 12px;
-    /* Layout each column */
-    display: flex;
-    flex-direction: column;
+.grid_child{
+    align-content: center; 
 }
-
 .container__content {
     /* Take available height */
     flex: 1;
@@ -18,7 +15,8 @@
 
 
 .titleRestaurant {
-    color: darkorange   
+    color: darkorange   ;
+    align-content:center; 
 }
 
 .overlayRestaurantImage {
@@ -59,3 +57,4 @@
     background-color: #f2f2f2;
     padding: 20px;
 }
+

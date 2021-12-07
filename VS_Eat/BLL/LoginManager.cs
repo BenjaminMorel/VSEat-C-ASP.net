@@ -30,6 +30,15 @@ namespace BLL
             return LoginDb.GetLoginWithCredentials(Email, Password); 
         }
 
+        public Login GetLoginByID(int IdLogin)
+        {
+            return LoginDb.GetLoginByID(IdLogin); 
+        }
+
+        public Login GetLoginByUsername(string Username)
+        {
+            return LoginDb.GetLoginByUsername(Username); 
+        }
         public bool EmailVerification(string Email)
         {
             Login MyLogin = LoginDb.EmailVerification(Email);

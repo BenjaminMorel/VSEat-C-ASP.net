@@ -11,6 +11,9 @@ namespace DAL.Interfaces
 
         Login GetLoginWithCredentials(string Email, string Password);
 
+        Login GetLoginByID(int IdLogin);
+
+        Login GetLoginByUsername(string Username); 
         Login AddNewLogin(Login myLogin); 
 
         Login EmailVerification(string Email);

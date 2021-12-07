@@ -11,7 +11,9 @@ namespace BLL.Interfaces
     {
         List<User> GetAllUsers();
 
-        User GetUserByID(string Email, string Password);
+        User GetUserByCredentials(string Email, string Password);
+
+        User GetUserByID(int IdLogin); 
 
         User CreateNewUser(string FirstName, string LastName, string PhoneNumber, string Address, string Email,
             string Password,

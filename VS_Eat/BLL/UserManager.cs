@@ -30,10 +30,15 @@ namespace BLL
         {
             return UserDb.GetAllUsers();
         }
-        public User GetUserByID(string Email, string Password)
+        public User GetUserByCredentials(string Email, string Password)
         {
             Login myLogin = LoginDb.GetLoginWithCredentials(Email, Password);
             return UserDb.GetUserByID(myLogin.IdLogin); 
+        }
+
+        public User GetUserByID(int IdLogin)
+        {
+            return UserDb.GetUserByID(IdLogin); 
         }
 
 

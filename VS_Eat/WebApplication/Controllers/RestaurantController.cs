@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication.Controllers
 {
@@ -23,9 +24,15 @@ namespace WebApplication.Controllers
         }
         public ActionResult Index()
         {
+            if(HttpContext.Session.GetInt32("IdLogin") == null)
+            {
+                //linge pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account"); 
+            }
             var restaurants = RestaurantManager.GetAllRestaurants();
             var locations = LocationManager.GetAllLocations();
-            return View(restaurants);
+           return View(restaurants);
+
         }
 
         public ActionResult ShowAllProductFromRestaurant(int id)
