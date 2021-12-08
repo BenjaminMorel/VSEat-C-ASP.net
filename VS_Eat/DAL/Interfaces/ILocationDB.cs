@@ -9,7 +9,10 @@ namespace DAL.Interfaces
     {
         Location GetLocation(int PostCode, string City);
 
+        Location GetLocationByID(int IdLocation); 
         List<Location> GetAllLocations(); 
+
+
 
     }
 }

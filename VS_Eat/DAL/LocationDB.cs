@@ -104,6 +104,41 @@ namespace DAL
             return myLocation;
         }
 
+        public Location GetLocationByID(int IdLocation)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            Location myLocation = new Location();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+
+                    string query = "SELECT * FROM [dbo].[Location] WHERE IdLocation=@IdLocation";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdLocation", IdLocation);
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+
+                        if (dataReader.Read())
+                        {
+                            myLocation.IdLocation = (int)dataReader["IdLocation"];
+                            myLocation.PostCode = (int)dataReader["PostCode"];
+                            myLocation.City = (string)dataReader["City"];
+                            myLocation.IdRegion = (int)dataReader["IdRegion"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                myLocation.PostCode = 99999;
+            }
+            return myLocation;
+        }
+
 
     }
 }

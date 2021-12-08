@@ -100,18 +100,12 @@ namespace DAL
                             MyUser.FirstName = (string)dataReader["FirstName"];
                             MyUser.LastName = (string)dataReader["LastName"];
                             MyUser.PhoneNumber = (string)dataReader["PhoneNumber"];
-                            MyUser.Address = (string)dataReader["EmailAddress"];
-                            MyUser.FavoriteRestaurant = (string)dataReader["FavoriteRestaurant"]; 
-                            MyUser.FavoriteProduct = (string)dataReader["FavoriteProduct"]; 
-                           if (dataReader["IdLogin"] != null)
-                            {
-                                MyUser.IdLogin = (int)dataReader["IdLogin"];
-                            }
-                            if (dataReader["IdLocation"] != null)
-                            {
-                  
-                                MyUser.IdLocation = (int)dataReader["IdLocation"];
-                            }
+                            MyUser.Address = (string)dataReader["Address"];                 
+    
+                            MyUser.IdLogin = (int)dataReader["IdLogin"];
+                            
+                            MyUser.IdLocation = (int)dataReader["IdLocation"];
+                            
                         }
                     }
                 }

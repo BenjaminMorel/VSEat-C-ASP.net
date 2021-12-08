@@ -14,73 +14,37 @@
     <link rel="stylesheet" href="~/css/restaurant.css"/>
 </head>
 <body>
-    <header>
-    </header>
-
-    <br />
-    <!--
-    <select id="regionFilter" name="regionFilter" class="contactForm">
-        <option value="Brig">Brig</option>
-        <option value="Conthey">Conthey</option>
-        <option value="Entremont">Entremont</option>
-        <option value="Goms">Goms</option>
-        <option value="Hérens">Hérens</option>
-        <option value="Leuk">Leuk</option>
-        <option value="Martigny">Martigny</option>
-        <option value="Monthey">Monthey</option>
-        <option value="Raron">Raron</option>
-        <option value="Saint-Maurice">Saint-Maurice</option>
-        <option value="Sierre">Sierre</option>
-        <option value="Sion">Sion</option>
-        <option value="Visp">Visp</option>
-    </select>
-            -->
-
-    <br />
-    <br />
-
-    <h2>Take-out options available nearby
-    </h2>
-    <br />
-
-    <tbody>
-
         <div class="grid_parent">
             <!-- Column -->
             @foreach (var item in Model)
             {
-                <div class="grid_parent">
-                    <!-- Cover -->
-               
+            <div class="grid_parent">
+                <!-- Cover -->
+                <!-- Content -->
+            
+                <div class="">
+                    <a href=@Url.Action("ShowAllProductFromRestaurant", new { id = item.IdRestaurant })>
+                   
+                        <img src=@item.Picture width="300" height="200" class="restaurantImage" />
 
-                   <!-- Content -->
-                    <div class="">
-                        <a href=@Url.Action("ShowAllProductFromRestaurant", new { id = item.IdRestaurant })>
-                            <img src="/Images/restaurant.jpg" width="300" height="200" class="restaurantImage" />
-                            <div class="overlayRestaurantImage"></div>
-                        </a>
-<tr>
+                    </a>
+                    <tr>
                         <td>
                             <h2 class="titleRestaurant">
                                 @Html.DisplayFor(modelItem => item.RestaurantName)
                             </h2>
                         </td>
                         <p></p>
-               
+
                     </tr>
-                    </div>
+                </div>
 
-            <!-- Button sticks to the bottom -->
+                <!-- Button sticks to the bottom -->
             </div>
-        }
+            }
 
-            </div>
-
-
-
-        </tbody>
-
-    </body>
+        </div>
+</body>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

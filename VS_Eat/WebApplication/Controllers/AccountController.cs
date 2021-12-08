@@ -53,15 +53,13 @@ namespace WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Login myLogin)
         {
-            Login mylogin = LoginManager.GetLoginWithCredential(myLogin.Username, myLogin.Password);
-            if (mylogin != null)
+            Login myAccount = LoginManager.GetLoginWithCredential(myLogin.Username, myLogin.Password);
+            if (myAccount != null)
             {
-                HttpContext.Session.SetString("UsernameSession", myLogin.Username); 
-                HttpContext.Session.SetInt32("IdLogin", myLogin.IdLogin); 
+                HttpContext.Session.SetInt32("ID", myAccount.IdLogin); 
                 return RedirectToAction("Index", "Restaurant");
             }
 
-            //TODO add error page for wrong login
             return View(); 
         }
 
@@ -72,24 +70,27 @@ namespace WebApplication.Controllers
 
         public ActionResult AccountInformation()
         {     
-            int IdLogin = (int)HttpContext.Session.GetInt32("IdLogin");
+            int IdLogin = (int)HttpContext.Session.GetInt32("ID");
 
-            var myLogin = LoginManager.GetLoginByUsername(HttpContext.Session.GetString("UsernameSession"));
-            var myUser = UserManager.GetUserByID(myLogin.IdLogin);
+            var myLogin = LoginManager.GetLoginByID(IdLogin);
+            var myUser = UserManager.GetUserByID(IdLogin);
 
-            //TODO ajouter methode get location by ID 
-            //   var myLocation = LocationManager.GetLocation()
-                  var myLogin_User = new Login_User();
-                  myLogin_User.Username = myLogin.Username;
-                  myLogin_User.Password = myLogin.Password;
-                  myLogin_User.FirstName = myUser.FirstName;
-                  myLogin_User.LastName = myUser.LastName;
-                  myLogin_User.PhoneNumber = myUser.PhoneNumber;
-            
-            //      myLogin_User.PostCode =
-            //      myLogin_User.City =
-            //   myLogin_User.Address = myUser.Address; 
-            return View(myUser); 
+            var myLocation = LocationManager.GetLocationByID(myUser.IdLocation); 
+       
+            var myLogin_User = new Login_User();
+
+            myLogin_User.Username = myLogin.Username;
+            myLogin_User.Password = myLogin.Password;
+
+            myLogin_User.FirstName = myUser.FirstName;
+            myLogin_User.LastName = myUser.LastName;
+            myLogin_User.PhoneNumber = myUser.PhoneNumber;
+            myLogin_User.Address = myUser.Address;
+
+            myLogin_User.PostCode = myLocation.PostCode;
+            myLogin_User.City = myLocation.City; 
+  
+            return View(myLogin_User); 
         }
     }
 }

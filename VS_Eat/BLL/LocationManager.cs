@@ -21,6 +21,11 @@ namespace BLL
         {
             return LocationDB.GetLocation(PostCode, City); 
         }
+
+        public Location GetLocationByID(int IdLocation)
+        {
+            return LocationDB.GetLocationByID(IdLocation); 
+        }
         public List<Location> GetAllLocations()
         {
             return LocationDB.GetAllLocations(); 

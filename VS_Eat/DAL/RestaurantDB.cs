@@ -44,6 +44,8 @@ namespace DAL
                             myRestaurant.RestaurantAddress = (string) dataReader["RestaurantAddress"];
                             myRestaurant.IdLogin = (int) dataReader["IdLogin"];
                             myRestaurant.IdLocation = (int) dataReader["IdLocation"];
+                     
+                            myRestaurant.Picture = (string)dataReader["Picture"]; 
 
                             // Add the restaurant to the list
                             allRestaurants.Add(myRestaurant);

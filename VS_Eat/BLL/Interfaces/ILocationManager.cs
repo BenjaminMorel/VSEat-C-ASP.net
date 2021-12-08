@@ -12,5 +12,7 @@ namespace BLL.Interfaces
         List<Location> GetAllLocations();
 
         Location GetLocation(string City, int PostCode);
+
+        Location GetLocationByID(int IdLocation); 
     }
 }
