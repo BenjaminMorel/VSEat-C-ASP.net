@@ -56,10 +56,10 @@
                    <!-- Content -->
                     <div class="">
                         <a href=@Url.Action("ShowAllProductFromRestaurant", new { id = item.IdRestaurant })>
-                            <img src="/Images/restaurant.jpg" width="300" height="200" class="restaurantImage" />
-                            <div class="overlayRestaurantImage"></div>
+                            <img src=@item.Picture width="300" height="200" class="restaurantImage"/>
+  
                         </a>
-<tr>
+                        <tr>
                         <td>
                             <h2 class="titleRestaurant">
                                 @Html.DisplayFor(modelItem => item.RestaurantName)
