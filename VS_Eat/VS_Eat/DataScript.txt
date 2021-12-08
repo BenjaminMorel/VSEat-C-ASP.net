@@ -273,11 +273,11 @@ INSERT [dbo].[ProductType] (ProductType) VALUES
 ('Famille');
 
 INSERT [dbo].[Product] (ProductName, Description, Price, Picture, Disponibility, Vegetarian, IdRestaurant, IdProductType) VALUES
-('CheeseBurger', 'Burger avec fromage', '15.00', 'cheeseBurger.png', '1', '0', '5', '3'),
-('Durum', 'Durum poulet ou agneau', '10.00', 'durum.png', '1','0','1','2'), 
-('Pizza Margarita', 'tomate, mozzarella', '10.00', 'margarita.png', '1', '0', '2', '2'),
-('Pizza Margarita', 'tomate, mozzarella', '10.00', 'margarita.png', '1', '0', '3', '2'),
-('Pizza Margarita', 'tomate, mozzarella', '10.00', 'margarita.png', '1', '0', '4', '2'); 
+('CheeseBurger', 'Burger avec fromage', '15.00', '/Images/Products/cheeseburger.jpg', '1', '0', '5', '3'),
+('Durum', 'Durum poulet ou agneau', '10.00', '/Images/Products/durum.jpg', '1','0','1','2'), 
+('Pizza Margarita', 'tomate, mozzarella', '10.00', '/Images/Products/pizza.jpg', '1', '0', '2', '2'),
+('Pizza Margarita', 'tomate, mozzarella', '10.00', '/Images/Products/default.jpg', '1', '0', '3', '2'),
+('Pizza Margarita', 'tomate, mozzarella', '10.00', '/Images/Products/pizza.jpg', '1', '0', '4', '2'); 
 
 INSERT [dbo].[DeliveryStaff] (FirstName, LastName, PhoneNumber, IdLogin, IdLocation) VALUES
 ('Nicolas', 'Devanthéry', '0785842426', '5', '24'),

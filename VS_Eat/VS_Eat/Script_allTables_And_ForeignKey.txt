@@ -88,7 +88,7 @@ CREATE TABLE [dbo].[Product] (
     [ProductName]   NVARCHAR (50) NULL,
     [Description]   NVARCHAR (50) NULL,
     [Price]         FLOAT         NULL,
-    [Picture]       NVARCHAR (50) NULL,
+    [Picture]       NVARCHAR (50) NOT NULL DEFAULT '/Images/Products/default.jpg',
     [Disponibility] BIT           NULL,
     [Vegetarian]    BIT           NULL,
     [IdRestaurant]  INT           NOT NULL,

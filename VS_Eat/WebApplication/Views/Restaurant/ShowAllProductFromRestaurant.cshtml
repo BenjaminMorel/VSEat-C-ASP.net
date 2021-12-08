@@ -26,10 +26,7 @@
                     <div class="containerImage">
 
                         <a href=@Url.Action("ProductDetails", new { id = item.IdProduct })>
-                            <img src="/Images/pizza.jpg" width="300" height="200" class="restaurantImage" />
-                            <div class="overlayRestaurantImage">
-                                <div class="textOverlayRestaurantImage">@Html.DisplayFor(modelItem => item.ProductName)</div>
-                            </div>
+                            <img src="@item.Picture" width="300" height="200" class="restaurantImage"/>
                         </a>
                     </div>
 
