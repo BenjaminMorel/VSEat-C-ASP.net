@@ -172,19 +172,17 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Update into [dbo].[User] Set FirstName=@FirstName, LastName=@LastName, PhoneNumber=@PhoneNumber, Address=@Address, FavoriteRestaurant=@FavoriteRestaurant, FavoriteProduct=@FavoriteProduct, IdLocation=@IdLocation WHERE IdLogin=@IdLogin);";
+                    string query = "Update [dbo].[User] Set FirstName=@FirstName, LastName=@LastName, PhoneNumber=@PhoneNumber, Address=@Address, IdLocation=@IdLocation WHERE IdLogin=@IdLogin;";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@FirstName", MyUser.FirstName);
                     command.Parameters.AddWithValue("@LastName", MyUser.LastName);
                     command.Parameters.AddWithValue("@PhoneNumber", MyUser.PhoneNumber);
                     command.Parameters.AddWithValue("@Address", MyUser.Address);
-                    command.Parameters.AddWithValue("@FavoriteRestaurant", MyUser.FavoriteRestaurant);
-                    command.Parameters.AddWithValue("@FavoriteProduct", MyUser.FavoriteProduct);
                     command.Parameters.AddWithValue("@IdLogin", MyUser.IdLogin);
                     command.Parameters.AddWithValue("@IdLocation", MyUser.IdLocation);
 
                     connection.Open();
-
+  
                     command.ExecuteScalar(); 
                 }
             }

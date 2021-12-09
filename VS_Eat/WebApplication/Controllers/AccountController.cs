@@ -41,7 +41,7 @@ namespace WebApplication.Controllers
                 return RedirectToAction("login", "Account"); 
             }
            
-            return RedirectToAction("ShowUserInformation", "Account",myNewUser); 
+            return RedirectToAction("Login", "Account"); 
         }
 
         public ActionResult Login()
@@ -120,24 +120,31 @@ namespace WebApplication.Controllers
             return View(myLogin_User); 
         }
         
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditAccount(Login_User login_user)
         {
             var myUser = new User();
             var myLogin = new Login();
-            var mylocation = LocationManager.GetLocation(login_user.City,login_user.PostCode);
+            var myLocation = LocationManager.GetLocation(login_user.City, login_user.PostCode); 
 
             myUser.IdUser = (int)HttpContext.Session.GetInt32("ID_USER");
+            myUser.IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
             myUser.FirstName = login_user.FirstName;
             myUser.LastName = login_user.LastName;
             myUser.PhoneNumber = login_user.PhoneNumber;
             myUser.Address = login_user.Address;
-            myUser.IdLocation = mylocation.IdLocation; 
+            myUser.IdLocation = myLocation.IdLocation; 
+
 
             myLogin.IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
             myLogin.Username = login_user.Username;
             myLogin.Password = login_user.Password;
 
-            return RedirectToAction("AccountInformation", "Account", login_user);
+            LoginManager.UpdateLogin(myLogin);
+            UserManager.UpdateUser(myUser);
+
+            return RedirectToAction("AccountInformation", "Account"); 
         }
     
     }

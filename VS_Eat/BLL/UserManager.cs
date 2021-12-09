@@ -80,11 +80,9 @@ namespace BLL
             return MyUser; 
         }
 
-        public User UpdateUser(User MyUser, string city, int PostCode)
+        public User UpdateUser(User MyUser)
         {
 
-            var MyLocation = LocationDb.GetLocation(PostCode, city);
-            MyUser.IdLocation = MyLocation.IdLocation; 
             return UserDb.UpdateUser(MyUser); 
         }
     }
