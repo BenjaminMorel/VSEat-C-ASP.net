@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Microsoft.AspNetCore.Http;
+using DTO;
+using System.Collections.Generic;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
@@ -11,12 +14,18 @@ namespace WebApplication.Controllers
         private IProductManager ProductManager { get; }
         private ILocationManager LocationManager { get; }
 
+        private IUserManager UserManager { get; }
 
-        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager )
+        private IRegionManager RegionManager { get; }
+
+
+        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager)
         {
             this.RestaurantManager = RestaurantManager;
             this.ProductManager = ProductManager;
             this.LocationManager = LocationManager;
+            this.UserManager = UserManager;
+            this.RegionManager = RegionManager; 
         }
         public ActionResult Index()
         {
@@ -49,6 +58,31 @@ namespace WebApplication.Controllers
             var product = ProductManager.GetProductByID(id);
             Console.WriteLine(product.ToString());
             return View(product); 
+        }
+
+        public ActionResult AllRestaurantsByRegion()
+        {
+            var myUser = UserManager.GetUserByID((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+            var User_Location = LocationManager.GetLocationByID(myUser.IdLocation); 
+            var restaurants = RestaurantManager.GetAllRestaurants();
+            var RestaurantsFromMyRegion = new List<Restaurant>();
+            string regionName = RegionManager.GetRegionName(User_Location.IdRegion); 
+            var allData = new RestaurantByRegion();
+
+            foreach (var restaurant in restaurants)
+            {
+                var location = LocationManager.GetLocationByID(restaurant.IdLocation); 
+                if(location.IdRegion == User_Location.IdRegion)
+                {
+                    RestaurantsFromMyRegion.Add(restaurant); 
+                }
+            }
+
+    
+            allData.allRestaurant = RestaurantsFromMyRegion;
+            allData.RegionName = regionName; 
+
+            return View(allData); 
         }
 
     }

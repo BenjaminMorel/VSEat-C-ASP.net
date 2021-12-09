@@ -21,5 +21,10 @@ namespace BLL
         {
             return RegionDb.GetAllRegions();
         }
+
+        public string GetRegionName(int IdRegion)
+        {
+            return RegionDb.GetRegionName(IdRegion); 
+        }
     }
 }

@@ -63,6 +63,7 @@ namespace DAL
             return allRestaurants;
         }
 
+
         /// <summary>
         /// Method which add a new restaurant in the database
         /// </summary>

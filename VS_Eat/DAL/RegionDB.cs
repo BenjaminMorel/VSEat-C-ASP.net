@@ -59,5 +59,38 @@ namespace DAL
             }
             return allRegions;
         }
+
+        public string GetRegionName(int IdRegion)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            string RegionName = null; 
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM [dbo].[Region] WHERE IdRegion=@IdRegion";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdRegion", IdRegion);
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            RegionName = (string)dataReader["RegionName"]; 
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting all regions\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return RegionName;
+        }
     }
 }

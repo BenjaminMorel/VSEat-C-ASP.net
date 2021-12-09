@@ -12,5 +12,7 @@ namespace BLL.Interfaces
 
         List<Region> GetAllRegions();
 
+        string GetRegionName(int IdRegion); 
+
     }
 }
