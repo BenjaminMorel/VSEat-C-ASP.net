@@ -11,39 +11,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/restaurant.css" />
+    <link rel="stylesheet" href="~/css/product.css" />
 </head>
 <body>
     <header>
     </header>
     <tbody>
-        <div class="container">
+        <div class="grid_parent">
             <!-- Column -->
             @foreach (var item in Model)
             {
-                <div class="container__column">
-                    <!-- Cover -->
-                    <div class="containerImage">
+             
+            <div class="grid_parent">
+                <!-- Cover -->
+                <!-- Content -->
 
-                        <a href=@Url.Action("ProductDetails", new { id = item.IdProduct })>
-                            <img src="@item.Picture" width="300" height="200" class="restaurantImage"/>
-                        </a>
-                    </div>
+                <div>
+                    <a href=@Url.Action("ProductDetails", new { id = item.IdProduct })>
 
-                    <!-- Content -->
-                    <div class="container__content">
+                        <img src="@item.Picture" width="300" height="200" class="restaurantImage" />
+
+                    </a>
             <tr>
                 <td>
-                    <h2 class="titleRestaurant">
+                    <h2 class="titleProduct">
                         @Html.DisplayFor(modelItem => item.ProductName)
                     </h2>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price) CHF
                 </td>
-  
+                <p></p>
+
             </tr>
-            <br />
             </div>
 
             <!-- Button sticks to the bottom -->

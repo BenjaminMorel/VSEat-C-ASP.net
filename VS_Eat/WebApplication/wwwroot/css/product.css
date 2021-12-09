@@ -1,0 +1,48 @@
+﻿.grid_parent {
+    display: flex;
+    flex-wrap: wrap; 
+    margin: 25px; 
+    align-content: center; 
+}
+
+.grid_child{
+    align-content: center; 
+}
+.container__content {
+    /* Take available height */
+    flex: 1;
+}
+
+
+.titleProduct {
+    color: darkorange   ;
+    align-content:center; 
+}
+
+
+.containerImage {
+    position: relative;
+    width: 300px;
+    height: 100%;
+}
+
+.containerImage:hover .overlayProductImage {
+    opacity: 0.3;
+}
+
+.textOverlayProductImage {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.regionFilter {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+

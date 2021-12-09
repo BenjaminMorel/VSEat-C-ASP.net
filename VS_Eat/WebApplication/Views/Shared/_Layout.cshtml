@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Valais Eat</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
 </head>
 <body>
     <header>
@@ -21,6 +22,9 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="AccountInformation">Account details</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ShowAllOrders">Mes Commandes</a>
                         </li>
                     </ul>
                 </div>
