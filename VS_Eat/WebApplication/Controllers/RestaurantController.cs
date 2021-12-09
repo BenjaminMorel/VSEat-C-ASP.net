@@ -31,6 +31,13 @@ namespace WebApplication.Controllers
 
         }
 
+        public ActionResult IndexCopy()
+        {
+            var restaurants = RestaurantManager.GetAllRestaurants();
+            var locations = LocationManager.GetAllLocations();
+            return View(restaurants);
+        }
+
         public ActionResult ShowAllProductFromRestaurant(int id)
         {
             var products = ProductManager.GetAllProductsFromRestaurant(id); 
@@ -43,5 +50,6 @@ namespace WebApplication.Controllers
             Console.WriteLine(product.ToString());
             return View(product); 
         }
+
     }
 }
