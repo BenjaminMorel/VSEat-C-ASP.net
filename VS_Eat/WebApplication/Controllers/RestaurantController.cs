@@ -20,11 +20,11 @@ namespace WebApplication.Controllers
         }
         public ActionResult Index()
         {
-          /*  if(HttpContext.Session.GetInt32("ID") == null)
+            if(HttpContext.Session.GetInt32("ID_LOGIN") == null)
             {
                 //linge pour forcer la personne a se loger la première fois 
                 return RedirectToAction("Login", "Account"); 
-            }*/
+            }
             var restaurants = RestaurantManager.GetAllRestaurants();
             var locations = LocationManager.GetAllLocations();
            return View(restaurants);

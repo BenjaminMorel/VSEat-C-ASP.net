@@ -10,9 +10,9 @@ namespace DTO
     {
         public int IdOrder { get; set; }
 
-        public string OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
 
-        public string DeliveryTime { get; set; }
+        public TimeSpan DeliveryTime { get; set; }
         public string DeliveryAddress { get; set; }
 
         public float Freight { get; set; }

@@ -236,20 +236,33 @@ INSERT [dbo].[Location] (PostCode, City, IdRegion) VALUES
 
 
 INSERT [dbo].[Login] (Username, Password, IdLoginType) VALUES
-('benjamin.morel@students.hevs.ch', '1234', '1'),
-('hugo.vouillamoz@students.hevs.ch', '4567', '1'),
-('Star@kebab.gmail.com', 'pizza', '2'),
-('Pizza@express.gmail.com', 'express', '2'),
-('nicolas.devanthery@students.hevs.ch', 'ggggg', '3'),
-('doriane.papilloud@gmail.com', 'eeee', '3'),
-('daniel.coimbra@students.hevs.ch', '6969', '4'),
-('thomas.cheseaux@students.hevs.ch', 'ffff', '4');
+('benjamin@morel.ch',	'password', '1'),
+('hugo@vouillamoz.ch',	'password', '1'),
+('Daniel@Coimbra.ch',	'password', '4'),
+('thomas@cheseaux.ch',	'password', '4'),
+('vouillamoz@hugo.ch',	'password', '4'),
+('theo@choffat.ch',		'password', '4'),
+('nathan@dely.ch',		'password', '4'),
+('megane@solliard.ch',	'password', '4'),
+('doriane@papilloud.ch', 'password', '4'),
+('abdullah@binjos.ch',	'password', '4'),
+('nicolas@devanthery.ch','passowrd', '3'),
+('morel@benjamin.ch',	'password',	'3'),
+('nathan@gaillard',		'password', '3'),
+('carlos@coimbra.ch',	'password',	'3'),
+('simon@beaud.ch',		'password',	'3');
 
 INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, Address, FavoriteRestaurant, FavoriteProduct, IdLogin, IdLocation) VALUES
-('Benjamin', 'Morel', '0799811254', 'chemin de vionn 12', NULL, NULL, '1', '110'),
-('Hugo', 'Vouillamoz', '0799872542', 'route du flipreset 7', '1', '1', '2', '59'),
-('Daniel', 'Coimbra', '0791565814', 'avenue du scex 27', '1,2', '2', '7', '40'),
-('Thomas', 'Cheseaux', '0792839183', 'chemin du comptoir 5', '1', '1,2', '8', '88');
+('Benjamin',	'Morel',		'0799811254', 'chemin de vionn 12',			NULL, NULL,		'1', '110'),
+('Hugo',		'Vouillamoz',	'0799872542', 'route du flipreset 7',		'1', '1',		'2', '59'),
+('Daniel',		'Coimbra',		'0791565814', 'avenue du scex 27',			'1,2', '2',		'3', '40'),
+('Thomas',		'Cheseaux',		'0792839183', 'chemin du comptoir 5',		'1', '1,2',		'4', '88'),
+('Vouillamoz',	'Hugo',			'0792147863', 'Chemin des fontaines 10',	NULL, NULL,		'5', '56'),
+('Theo',		'Choffat',		'0394587425', 'Chemin du Lac 21',			NULL, NULL,		'6','3'),
+('Nathan',		'Dely',			'0745841247', 'Place du village 12',		NULL, NULL,		'7','24'),
+('Mégane',		'Solliard',		'0241454879', 'Rue du pré 12',				NULL, NULL,		'8','54'),
+('Doriane',		'Papilloud',	'0472575458', 'Rue des châteaux 45',		NULL, NULL,		'9', '67'),
+('Abdullah',	'Binjos',		'0264587854', 'Rue des vélo 19',			NULL, NULL,		'10', '78'); 
 
 INSERT [dbo].[RestaurantType] (NomRestaurantType) VALUES 
 ('Burger'),
@@ -259,12 +272,17 @@ INSERT [dbo].[RestaurantType] (NomRestaurantType) VALUES
 ('Asiatique'),
 ('Autre'); 
 
-INSERT [dbo].[Restaurant] (RestaurantName, RestaurantAddress, IdLogin, IdLocation, IdRestaurantType) VALUES
-('StarKebab', 'Chemin du kebab 12', '3', '142', '4'),
-('Pizza Express', 'Chemin de la pizza 93', '4', '12', '2'),
-('Le Bistrot d Italie', 'Rue d Oche 10', '5','2','2'),
-('La Dixence', 'Place du Midi 35', '6','3', '6'),
-('Inglewood', 'Cr de la gare 27', '7', '3','1'); 
+INSERT [dbo].[Restaurant] (RestaurantName, RestaurantAddress,Picture, IdLogin, IdLocation, IdRestaurantType) VALUES
+('StarKebab',				'Chemin du kebab 12',		'/Images/Restaurants/restaurant1.jpg',		'1',	'142',	'4'),
+('Pizza Express',			'Chemin de la pizza 93',	'/Images/Restaurants/restaurant2.jpg',		'1',	'12',	'2'),
+('Le Bistrot d''Italie',	'Rue d''Oche 10',			'/Images/Restaurants/restaurant3.jpg',		'1',	'2',	'2'),
+('La Dixence',				'Place du Midi 35',			'/Images/Restaurants/restaurant4.jpg',		'1',	'3',	'6'),
+('Inglewood',				'Cr de la gare 27',			'/Images/Restaurants/restaurant5.jpg',		'1',	'3',	'1'),
+('StarKebab',				'Chemin du kebab 12',		'/Images/Restaurants/restaurant1.jpg',		'1',	'142',	'4'),
+('Pizza Express',			'Chemin de la pizza 93',	'/Images/Restaurants/restaurant2.jpg',		'1',	'12',	'2'),
+('Le Bistrot d''Italie',	'Rue d''Oche 10',			'/Images/Restaurants/restaurant3.jpg',		'1',	'2',	'2'),
+('La Dixence',				'Place du Midi 35',			'/Images/Restaurants/restaurant4.jpg',		'1',	'3',	'6'),
+('Inglewood',				'Cr de la gare 27',			'/Images/Restaurants/restaurant5.jpg',		'1',	'3',	'1') ;
 
 INSERT [dbo].[ProductType] (ProductType) VALUES
 ('Petit'),
@@ -273,15 +291,55 @@ INSERT [dbo].[ProductType] (ProductType) VALUES
 ('Famille');
 
 INSERT [dbo].[Product] (ProductName, Description, Price, Picture, Disponibility, Vegetarian, IdRestaurant, IdProductType) VALUES
-('CheeseBurger', 'Burger avec fromage', '15.00', '/Images/Products/cheeseburger.jpg', '1', '0', '5', '3'),
-('Durum', 'Durum poulet ou agneau', '10.00', '/Images/Products/durum.jpg', '1','0','1','2'), 
-('Pizza Margarita', 'tomate, mozzarella', '10.00', '/Images/Products/pizza.jpg', '1', '0', '2', '2'),
-('Pizza Margarita', 'tomate, mozzarella', '10.00', '/Images/Products/default.jpg', '1', '0', '3', '2'),
-('Pizza Margarita', 'tomate, mozzarella', '10.00', '/Images/Products/pizza.jpg', '1', '0', '4', '2'); 
+
+('Durum',				'Durum poulet ou agneau',	'10.00', '/Images/Products/durum.jpg',			'1', '0', '1', '2'), 
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '2', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '3', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '4', '2'),
+('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '5', '3'),
+('Durum',				'Durum poulet ou agneau',	'10.00', '/Images/Products/durum.jpg',			'1', '0', '6', '2'), 
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '7', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '8', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '9', '2'),
+('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '10', '3'),
+('Durum',				'Durum poulet ou agneau',	'10.00', '/Images/Products/durum.jpg',			'1', '0', '1', '2'), 
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '2', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '3', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '4', '2'),
+('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '5', '3'),
+('Durum',				'Durum poulet ou agneau',	'10.00', '/Images/Products/durum.jpg',			'1', '0', '6', '2'), 
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '7', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '8', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '9', '2'),
+('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '10', '3'),
+('Durum',				'Durum poulet ou agneau',	'10.00', '/Images/Products/durum.jpg',			'1', '0', '1', '2'), 
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '2', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '3', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '4', '2'),
+('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '5', '3'),
+('Durum',				'Durum poulet ou agneau',	'10.00', '/Images/Products/durum.jpg',			'1', '0', '6', '2'), 
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '7', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '8', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '9', '2'),
+('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '10', '3'),
+('Durum',				'Durum poulet ou agneau',	'10.00', '/Images/Products/durum.jpg',			'1', '0', '1', '2'), 
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '2', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '3', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '4', '2'),
+('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '5', '3'),
+('Durum',				'Durum poulet ou agneau',	'10.00', '/Images/Products/durum.jpg',			'1', '0', '6', '2'), 
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '7', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '8', '2'),
+('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '9', '2'),
+('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '10', '3'); 
 
 INSERT [dbo].[DeliveryStaff] (FirstName, LastName, PhoneNumber, IdLogin, IdLocation) VALUES
-('Nicolas', 'Devanthéry', '0785842426', '5', '24'),
-('Doriane', 'Papilloud', '0783695412', '6', '59');
+('Nicolas',		'Devanthéry',	'0785842426', '11', '24'),
+('Morel',		'Benjamin',		'0783695412', '12', '59'),
+('Nathan',		'Gaillard',		'0247851245', '13', '45'), 
+('Carlos',		'Coimbra',		'0245257512', '14',	'48'),
+('Simon',		'Beaud',		'0245212545', '15', '20');
+
 
 INSERT [dbo].[OrderStatus] (Status) VALUES
 ('In preparation'),
@@ -292,9 +350,10 @@ INSERT [dbo].[OrderStatus] (Status) VALUES
 ('Canceled');
 
 INSERT [dbo].[Order] (OrderDate,DeliveryTime, DeliveryAddress, Freight, TotalPrice, IdOrderStatus, IdUser, IdDeliveryStaff, IdLocation) VALUES
-(DEFAULT,'18:30:00', 'Rue de la faim 3', '4.00', '30.00', '1', '3', '1', '40'),
-(DEFAULT,'17:45:00', 'Rue de la faim 12', '8.00', '60.00', '1', '4', '2', '88');
+(DEFAULT,'18:30:00', 'Rue de la faim 3',	'4.00', '24.00', '5', '2', '1', '40'),
+(DEFAULT,'17:15:00', 'Rue de la faim 12',	'8.00', '68.00', '5', '2', '2', '88');
 
 INSERT [dbo].[OrderDetails] (UnitPrice, Quantity, IdProduct, IdOrder) VALUES
-('15.00', '2', '1', '1'),
-('15.90', '4', '1', '2');
+('10.00', '2', '1', '1'),
+('15.00', '2', '5', '2'),
+('15.00', '2', '10', '2');
