@@ -19,39 +19,70 @@
     <body>
 
 
-    <div id="map" style="width: 500px; height: 400px;"></div>
+    <div id="map">
+        
+        
+        
+
+    </div>
+    
+    <style type="text/css">
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
 
     <script type="text/javascript">
-        var locations = [
-            ['Sion', 46.230568, 7.358741],
-            ['Sierre', 46.294030, 7.533423],
-        ];
+        // Initialize and add the map
+        function initMap() {
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
-            center: new google.maps.LatLng(46.230252, 7.259887),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
+            var sierre = { lat: 46.29397698159258, lng: 7.53312624509403 };
+            var sion = { lat: 46.232702714138945, lng: 7.361639116712104 };
 
-        var infowindow = new google.maps.InfoWindow();
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 11,
+                center: sierre,
+            });
+            //var image = "https://www.flaticon.com/free-icon/placeholder_684908?term=map&page=1&position=9&page=1&position=9&related_id=684908&origin=tag";
 
-        var marker, i;
-
-        for (i = 0; i < locations.length; i++) {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                map: map
+            var markerSierre = new google.maps.Marker({
+                position: sierre,
+                map: map,
+           //     icon: image,
             });
 
-            google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                return function () {
-                    infowindow.setContent(locations[i][0]);
-                    infowindow.open(map, marker);
-                }
-            })(marker, i));
-        }
-    </script>
+            var infoWindow = new google.maps.InfoWindow({
+                content: '<h3>Star Kebab </h3>'
+            });
+            markerSierre.addListener('click',
+                function () {
+                    infoWindow.open(map, markerSierre);
+                });
 
+            var markerSion = new google.maps.Marker({
+                position: sion,
+                map: map,
+            });
+
+            // Animate markers
+            markerSierre.addListener("click", toggleBounce);
+            markerSion.addListener("click", toggleBounce);
+        }
+
+        // Function to animate markers
+        function toggleBounce() {
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+
+    </script>
+    <script async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4W9LS3n0XZDHjvAAAeCmJH0orWYpxNDI&callback=initMap">
+    </script>    
 
 
     <br/>
