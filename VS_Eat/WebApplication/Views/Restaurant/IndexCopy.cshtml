@@ -96,13 +96,13 @@
                 <!-- Cover -->
                 <!-- Content -->
 
-                <div class="">
+                <div>
                     <a href=@Url.Action("ShowAllProductFromRestaurant", new {id=item.IdRestaurant})>
 
-                        <img src="@item.Picture" width="300" height="200" class="restaurantImage" />
+                        <img src="@item.Picture" width="300" height="200"/>
 
                     </a>
-<tr>
+                    <tr>
                         <td>
                             <h2 class="titleRestaurant">
                                 @Html.DisplayFor(modelItem => item.RestaurantName)
