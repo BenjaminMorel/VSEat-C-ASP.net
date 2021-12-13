@@ -31,7 +31,7 @@ namespace WebApplication.Controllers
         {
             if(HttpContext.Session.GetInt32("ID_LOGIN") == null)
             {
-                //linge pour forcer la personne a se loger la première fois 
+                //ligne pour forcer la personne a se loger la première fois 
                 return RedirectToAction("Login", "Account"); 
             }
             var restaurants = RestaurantManager.GetAllRestaurants();
