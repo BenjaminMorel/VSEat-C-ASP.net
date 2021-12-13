@@ -1,4 +1,4 @@
-﻿@model WebApplication.Models.RestaurantByRegion
+﻿@model WebApplication.Models.RestaurantToDisplay
 
 @{
     ViewData["Title"] = "AllRestaurantsByRegion";
@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="~/css/restaurant.css" />
 </head>
 <body>
-    <h1>Restaurant for Region : @Html.DisplayFor(modelItem => Model.RegionName) </h1>
+    <h1>Restaurant for Region : @foreach (var item in Model.RegionName) {
+        @Html.DisplayFor(modelItem => item.RegionName)} </h1>
     <div class="grid_parent">
         <!-- Column -->
         @foreach (var item in Model.allRestaurant)

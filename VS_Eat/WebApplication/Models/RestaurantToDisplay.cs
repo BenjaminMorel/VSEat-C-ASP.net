@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Models
 {
-    public class RestaurantByRegion
+    public class RestaurantToDisplay
+
     {
         public List<Restaurant> allRestaurant {get; set;} 
         
-        public string RegionName { get; set;  }
+        public List<Region> RegionName { get; set;}
+
 
     }
 }

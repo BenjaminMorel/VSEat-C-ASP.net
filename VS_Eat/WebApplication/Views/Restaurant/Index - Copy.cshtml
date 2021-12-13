@@ -1,4 +1,4 @@
-﻿@model WebApplication.Models.RestaurantToDisplay; 
+﻿@model IEnumerable<DTO.Restaurant>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,14 +14,9 @@
     <link rel="stylesheet" href="~/css/restaurant.css"/>
 </head>
 <body>
-        <div>
-            @foreach(var region in Model.RegionName){
-                @Html.DisplayFor(modelItem => region.RegionName);  
-            }
-        </div>
         <div class="grid_parent">
             <!-- Column -->
-            @foreach (var item in Model.allRestaurant)
+            @foreach (var item in Model)
             {
             <div class="grid_parent">
                 <!-- Cover -->
