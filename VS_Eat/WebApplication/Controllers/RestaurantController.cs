@@ -18,14 +18,18 @@ namespace WebApplication.Controllers
 
         private IRegionManager RegionManager { get; }
 
+        private IChartDetailsManager ChartDetailsManager { get;  }
 
-        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager)
+
+
+        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,IChartDetailsManager ChartDetailsManager)
         {
             this.RestaurantManager = RestaurantManager;
             this.ProductManager = ProductManager;
             this.LocationManager = LocationManager;
             this.UserManager = UserManager;
-            this.RegionManager = RegionManager; 
+            this.RegionManager = RegionManager;
+            this.ChartDetailsManager = ChartDetailsManager; 
         }
         public ActionResult Index()
         {
@@ -47,8 +51,40 @@ namespace WebApplication.Controllers
 
         public ActionResult ShowAllProductFromRestaurant(int id)
         {
-            var products = ProductManager.GetAllProductsFromRestaurant(id); 
-            return View(products); 
+            var products = ProductManager.GetAllProductsFromRestaurant(id);
+
+            AllProductWithCart myPage =new AllProductWithCart();
+            myPage.myChart = ChartDetailsManager.GetAllChartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+            myPage.products = products;
+            myPage.IdRestaurant = id; 
+
+            return View(myPage); 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ShowAllProductFromRestaurant(int IdProduct, string ProductName, int Quantity, float UnitPrice, int IdRestaurant)
+        {
+            ChartDetails myChartDetails = new ChartDetails();
+            int IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
+            myChartDetails.IdLogin = IdLogin;
+            myChartDetails.IdProduct = IdProduct;
+            myChartDetails.IdRestaurant = IdRestaurant;
+            myChartDetails.ProductName = ProductName;
+            myChartDetails.Quantity = Quantity;
+            myChartDetails.UnitPrice = UnitPrice; 
+
+            //Création d'une nouvelle ligne dans la base de donnée avec la nouvelle information du panier 
+            ChartDetailsManager.AddNewChartDetails(myChartDetails);
+
+            var products = ProductManager.GetAllProductsFromRestaurant(IdRestaurant);
+
+            AllProductWithCart myPage = new AllProductWithCart();
+            myPage.myChart = ChartDetailsManager.GetAllChartDetailsFromLogin(IdLogin);
+            myPage.products = products;
+            myPage.IdRestaurant = IdRestaurant;
+
+            return View(myPage); 
         }
 
         public ActionResult ProductDetails(int id)

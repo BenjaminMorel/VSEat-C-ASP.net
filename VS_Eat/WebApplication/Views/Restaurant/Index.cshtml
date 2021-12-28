@@ -16,16 +16,21 @@
 
 </head>
 <body>
-    
-<div class="form-group">
-    <input type="submit" onclick="Disconnect" asp-area="" asp-controller="Account" asp-action="AccountInformation" value="Disconnect" class="btn btn-primary" />
-</div>
+        <div>
+            <label for="region-name">Chose a region :</label>
+            <select name="region-name">
+                @foreach (var region in Model.RegionName)
+                {
+                    <option> @Html.DisplayFor(modelItem => region.RegionName)</option>
 
-<div class="grid_parent">
-    <!-- Column -->
-
-        @foreach (var item in Model)
-        {
+                }
+            </select>
+        
+        </div>
+        <div class="grid_parent">
+            <!-- Column -->
+            @foreach (var item in Model.allRestaurant)
+            {
             <div class="grid_parent">
                 <!-- Cover -->
                 <!-- Content -->

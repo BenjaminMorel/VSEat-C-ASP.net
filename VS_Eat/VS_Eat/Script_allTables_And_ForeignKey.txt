@@ -4,6 +4,7 @@
 
 
 /** DELETE ALL EXISTING TABLES IF EXISTING **/
+DROP TABLE [dbo].[ChartDetails]
 DROP TABLE [dbo].[OrderDetails]
 DROP TABLE [dbo].[Order]
 DROP TABLE [dbo].[OrderStatus]
@@ -148,4 +149,16 @@ CREATE TABLE [dbo].[OrderDetails] (
     [Quantity]      INT     NULL,
     CONSTRAINT [FK_OrderDetail_IdProduct] FOREIGN KEY ([IdProduct]) REFERENCES [Product]([IdProduct]),
 	CONSTRAINT [FK_OrderDetail_IdOrder] FOREIGN KEY ([IdOrder]) REFERENCES [Order]([IdOrder])
+);
+
+CREATE TABLE [dbo].[ChartDetails] (         
+    [IdLogin]       INT                 NOT NULL,
+    [IdProduct]     INT                 NOT NULL,
+    [IdRestaurant]  INT                 NOT NULL, 
+    [ProductName]   NVARCHAR (50)       NOT NULL,
+    [Quantity]      INT                 NOT NULL,
+    [UnitPrice]     FLOAT               NOT NULL, 
+    CONSTRAINT [FK_ChartDetails_IdLogin] FOREIGN KEY ([IdLogin]) REFERENCES [Login]([IdLogin]),
+    CONSTRAINT [FK_ChartDetails_IdProduct] FOREIGN KEY ([IdProduct]) REFERENCES [Product]([IdProduct]),
+    CONSTRAINT [FK_ChartDetails_IdRestaurant] FOREIGN KEY ([IdRestaurant]) REFERENCES [Restaurant]([IdRestaurant])
 );
