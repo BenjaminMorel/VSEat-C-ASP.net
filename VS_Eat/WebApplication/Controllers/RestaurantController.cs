@@ -35,8 +35,12 @@ namespace WebApplication.Controllers
                 return RedirectToAction("Login", "Account"); 
             }
             var restaurants = RestaurantManager.GetAllRestaurants();
-            var locations = LocationManager.GetAllLocations();
-           return View(restaurants);
+            var regions = RegionManager.GetAllRegions();
+            RestaurantToDisplay allData = new RestaurantToDisplay();
+
+            allData.allRestaurant = restaurants;
+            allData.RegionName = regions;
+            return View(allData);
 
         }
 
@@ -60,8 +64,10 @@ namespace WebApplication.Controllers
             var User_Location = LocationManager.GetLocationByID(myUser.IdLocation); 
             var restaurants = RestaurantManager.GetAllRestaurants();
             var RestaurantsFromMyRegion = new List<Restaurant>();
-            string regionName = RegionManager.GetRegionName(User_Location.IdRegion); 
-            var allData = new RestaurantByRegion();
+            List<Region> region = new List<Region>(); 
+            region.Add(RegionManager.GetRegionName(User_Location.IdRegion)); 
+            
+            var allData = new RestaurantToDisplay();
 
             foreach (var restaurant in restaurants)
             {
@@ -74,7 +80,7 @@ namespace WebApplication.Controllers
 
     
             allData.allRestaurant = RestaurantsFromMyRegion;
-            allData.RegionName = regionName; 
+            allData.RegionName = region; 
 
             return View(allData); 
         }

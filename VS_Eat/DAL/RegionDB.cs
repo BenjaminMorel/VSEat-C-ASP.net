@@ -60,10 +60,10 @@ namespace DAL
             return allRegions;
         }
 
-        public string GetRegionName(int IdRegion)
+        public Region GetRegionName(int IdRegion)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            string RegionName = null; 
+            Region region = new Region(); 
 
             try
             {
@@ -78,7 +78,7 @@ namespace DAL
                     {
                         if (dataReader.Read())
                         {
-                            RegionName = (string)dataReader["RegionName"]; 
+                            region.RegionName = (string)dataReader["RegionName"]; 
                         }
                     }
                 }
@@ -90,7 +90,7 @@ namespace DAL
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
             }
-            return RegionName;
+            return region;
         }
 
         public int GetIdRegion(string RegionName)
