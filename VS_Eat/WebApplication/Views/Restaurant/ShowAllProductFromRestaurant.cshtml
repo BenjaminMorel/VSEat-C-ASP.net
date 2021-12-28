@@ -45,14 +45,15 @@
             </td>
             <td>
             </td>
-            <button onclick="AddToChart(@Html.DisplayFor(modelItem => item.ProductName)">Add</button>
-         <form method="post">
-         <input type="hidden" name="Price" value=  @Html.DisplayFor(modelItem => item.Price) />
-         <input type="hidden" name="ProductName" value=@Html.DisplayFor(modelItem => item.ProductName) />
-         <input type="text" name="Quantity" value="2">
-         <input type="hidden" name="myPage" value=@Model.myChart />
-         <input type="submit" value="Add to chart" />
-     </form>
+           
+            <form method="post">
+                <input type="hidden" name="IdProduct" value=@Html.DisplayFor(modelItem => item.IdProduct) />
+                <input type="hidden" name="IdRestaurant" value=@Html.DisplayFor(modelItem => item.IdRestaurant) />
+                <input type="hidden" name="Price" value=@Html.DisplayFor(modelItem => item.Price) />
+                <input type="hidden" name="ProductName" value=@Html.DisplayFor(modelItem => item.ProductName) />
+                <input type="text" name="Quantity" value="1">
+                <input type="submit" value="Add to chart" />
+            </form>
         </tr>
             </div>
 
@@ -61,19 +62,19 @@
         }
             <div>
                 PANIER
-                @if (Model.myChart != null)
+                @if (Model.myChart != null && Model.myChart.Count > 0)
                 {
-                @foreach (var itemDetails in Model.myChart)
-                {
-                <p>name : </p>  @Html.DisplayFor(modelItem => itemDetails.ProductName)
-                <p> Quantity : </p>    @Html.DisplayFor(modelItem => itemDetails.Quantity)
-                <p>Unit price : </p>  @Html.DisplayFor(modelItem => itemDetails.UnitPrice)
+                    @foreach (var itemDetails in Model.myChart)
+                    {
+                    <p>name : </p>  @Html.DisplayFor(modelItem => itemDetails.ProductName)
+                    <p> Quantity : </p>    @Html.DisplayFor(modelItem => itemDetails.Quantity)
+                    <p>Unit price : </p>  @Html.DisplayFor(modelItem => itemDetails.UnitPrice)
+                    }
                 }
-            }
-            else
-            {
-                <p>Le panier est actuellement vide </p>
-            }
+                else
+                {
+                    <p>Le panier est actuellement vide </p>
+                }
             </div>
 
             </div>

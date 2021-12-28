@@ -12,7 +12,7 @@ namespace BLL.Interfaces
 
         List<Region> GetAllRegions();
 
-        string GetRegionName(int IdRegion);
+        Region GetRegionName(int IdRegion);
 
         int GetIdRegion(string regionName);
 

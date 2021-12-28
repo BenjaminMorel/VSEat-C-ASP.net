@@ -61,6 +61,9 @@ namespace WebApplication
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<IUserDB, UserDB>();
 
+            services.AddScoped<IChartDetailsManager, ChartDetailsManager>();
+            services.AddScoped<IChartDetailsDB, ChartDetailsDB>(); 
+
             services.AddSession();
             
 
