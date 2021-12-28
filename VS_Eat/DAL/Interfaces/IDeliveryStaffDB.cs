@@ -9,7 +9,10 @@ namespace DAL.Interfaces
         List<Order> CountOpenOrderByStaffId(int IdDeliveryStaff);
 
         List<DeliveryStaff> GetAllDeliveryStaff(); 
+
         DeliveryStaff AddStaff(DeliveryStaff myDeliveryStaff);
+
+        DeliveryStaff GetDeliveryStaffByID(int IdLogin);
 
     }
 }

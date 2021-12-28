@@ -13,5 +13,8 @@ namespace BLL.Interfaces
         DeliveryStaff CreateNewStaff(string FirstName, string LastName, string PhoneNumber, string Address,
             int PostCode, string City, string RegionName, string Email,
             string Password);
+
+        DeliveryStaff GetDeliveryStaffByID(int IdLogin);
     }
+
 }
