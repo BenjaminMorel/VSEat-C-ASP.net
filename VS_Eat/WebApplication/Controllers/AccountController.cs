@@ -104,7 +104,7 @@ namespace WebApplication.Controllers
                 {
                     var myDeliveryStaff = DeliveryStaffManager.GetDeliveryStaffByID(myAccount.IdLogin);
                     HttpContext.Session.SetInt32("ID_STAFF", myDeliveryStaff.IdDeliveryStaff);
-                    return RedirectToAction("Index", "Restaurant");
+                    return RedirectToAction("Index", "DeliveryStaff");
                 }
 
                 return View();

@@ -45,7 +45,7 @@ namespace DAL
 
                             myOrderDetails.IdOrder = (int) dataReader["IdOrder"];
                             myOrderDetails.IdProduct = (int) dataReader["IdProduct"];
-                            myOrderDetails.UnitPrice = (float) dataReader["UnitPrice"];
+                            myOrderDetails.UnitPrice = (float) (double) dataReader["UnitPrice"];
                             myOrderDetails.Quantity = (int) dataReader["Quantity"];
 
                             //Add the orderDetails to the list
@@ -90,7 +90,7 @@ namespace DAL
 
                             myOrderDetails.IdOrder = (int) dataReader["IdOrder"];
                             myOrderDetails.IdProduct = (int) dataReader["IdProduct"];
-                            myOrderDetails.UnitPrice = (float) dataReader["UnitPrice"];
+                            myOrderDetails.UnitPrice = (float) (double) dataReader["UnitPrice"];
                             myOrderDetails.Quantity = (int) dataReader["Quantity"];
 
                             // Add the order details to the list

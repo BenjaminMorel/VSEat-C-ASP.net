@@ -172,7 +172,7 @@ namespace DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     //TODO[HUGO] ajouter contrainte de 30 min sur le compte des order open
-                    string query = "SELECT * FROM [dbo].[Order] WHERE IdDeliveryStaff=@IdDeliveryStaff ";
+                    string query = "SELECT * FROM [dbo].[Order] WHERE IdDeliveryStaff=@IdDeliveryStaff";
 
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@IdDeliveryStaff", IdDeliveryStaff);
@@ -228,10 +228,10 @@ namespace DAL
                     command.Parameters.AddWithValue("@LastName", MyStaff.LastName);
                     command.Parameters.AddWithValue("@PhoneNumber", MyStaff.PhoneNumber);
                     command.Parameters.AddWithValue("@Address", MyStaff.Address);
-                    //command.Parameters.AddWithValue("@IdLogin", MyStaff.IdLogin);
-                    //command.Parameters.AddWithValue("@IdLocation", MyStaff.IdLocation);
-                    //command.Parameters.AddWithValue("@IdDeliveryStaffType", MyStaff.IdDeliveryStaffType);
-                    //command.Parameters.AddWithValue("@IdWorkingRegion", MyStaff.IdWorkingRegion);
+                    command.Parameters.AddWithValue("@IdLogin", MyStaff.IdLogin);
+                    command.Parameters.AddWithValue("@IdLocation", MyStaff.IdLocation);
+                    command.Parameters.AddWithValue("@IdDeliveryStaffType", MyStaff.IdDeliveryStaffType);
+                    command.Parameters.AddWithValue("@IdWorkingRegion", MyStaff.IdWorkingRegion);
 
                     connection.Open();
                     MyStaff.IdDeliveryStaff = Convert.ToInt32(command.ExecuteScalar());

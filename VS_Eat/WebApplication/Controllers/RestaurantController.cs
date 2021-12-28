@@ -63,7 +63,7 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ShowAllProductFromRestaurant(int IdProduct, string ProductName, int Quantity, float UnitPrice, int IdRestaurant)
+        public ActionResult ShowAllProductFromRestaurant(int IdProduct, string ProductName, int Quantity, double UnitPrice, int IdRestaurant)
         {
             ChartDetails myChartDetails = new ChartDetails();
             int IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
@@ -72,7 +72,7 @@ namespace WebApplication.Controllers
             myChartDetails.IdRestaurant = IdRestaurant;
             myChartDetails.ProductName = ProductName;
             myChartDetails.Quantity = Quantity;
-            myChartDetails.UnitPrice = UnitPrice; 
+            myChartDetails.UnitPrice = (float) UnitPrice; 
 
             //Création d'une nouvelle ligne dans la base de donnée avec la nouvelle information du panier 
             ChartDetailsManager.AddNewChartDetails(myChartDetails);

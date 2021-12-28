@@ -47,8 +47,8 @@ namespace DAL
                             myOrder.OrderDate = (DateTime) dataReader["OrderDate"];
                             myOrder.DeliveryTime = (TimeSpan)dataReader["DeliveryTime"]; 
                             myOrder.DeliveryAddress = (string) dataReader["DeliveryAddress"];
-                            myOrder.Freight = (float) dataReader["Freight"];
-                            myOrder.TotalPrice = (float) dataReader["TotalPrice"];
+                            myOrder.Freight = (float) (double) dataReader["Freight"];
+                            myOrder.TotalPrice = (float) (double) dataReader["TotalPrice"];
                             myOrder.IdOrderStatus = (int) dataReader["IdOrderStatus"];
                             myOrder.IdUser = (int) dataReader["IdUser"];
                             myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
@@ -99,8 +99,8 @@ namespace DAL
                             myOrder.IdOrder = (int) dataReader["IdOrder"];
                             //myOrder.OrderDate = (string) dataReader["OrderDate"];
                             myOrder.DeliveryAddress = (string) dataReader["DeliveryAddress"];
-                            //myOrder.Freight = (float) dataReader["Freight"];
-                            //myOrder.TotalPrice = (float) dataReader["TotalPrice"];
+                            myOrder.Freight = (float) (double) dataReader["Freight"];
+                            myOrder.TotalPrice = (float) (double) dataReader["TotalPrice"];
                             myOrder.IdOrderStatus = (int) dataReader["IdOrderStatus"];
                             myOrder.IdUser = (int) dataReader["IdUser"];
                             myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
@@ -154,8 +154,8 @@ namespace DAL
                             myOrder.IdOrder = (int)dataReader["IdOrder"];
                             //myOrder.OrderDate = (string) dataReader["OrderDate"];
                             myOrder.DeliveryAddress = (string)dataReader["DeliveryAddress"];
-                            //myOrder.Freight = (float) dataReader["Freight"];
-                            //myOrder.TotalPrice = (float) dataReader["TotalPrice"];
+                            myOrder.Freight = (float) (double) dataReader["Freight"];
+                            myOrder.TotalPrice = (float) (double) dataReader["TotalPrice"];
                             myOrder.IdOrderStatus = (int)dataReader["IdOrderStatus"];
                             myOrder.IdUser = (int)dataReader["IdUser"];
                             myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
