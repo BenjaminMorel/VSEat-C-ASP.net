@@ -15,6 +15,7 @@ namespace WebApplication.Models
 		public string Username { get; set; } // from Login
 
 		[Required]
+        [DataType(DataType.Password)]
 		[MinLength(6)]
 		public string Password { get; set; } // from Login
 
@@ -30,8 +31,7 @@ namespace WebApplication.Models
 		[Required]
 		public int PostCode { get; set; } // from location
 
-
-		[Required]
+        [Required]
 		public string City { get; set; } // from location
 
 		[Required]

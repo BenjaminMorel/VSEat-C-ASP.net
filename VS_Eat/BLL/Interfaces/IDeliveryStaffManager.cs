@@ -10,8 +10,8 @@ namespace BLL.Interfaces
 
         List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff);
 
-        DeliveryStaff CreateNewStaff(string FirstName, string LastName, string PhoneNumber, int PostCode, string City,
-            string Email,
+        DeliveryStaff CreateNewStaff(string FirstName, string LastName, string PhoneNumber, string Address,
+            int PostCode, string City, string RegionName, string Email,
             string Password);
     }
 }

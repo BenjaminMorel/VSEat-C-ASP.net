@@ -19,10 +19,6 @@
     align-content:center; 
 }
 
-#restaurant {
-    border: 1px solid black;
-    overflow: hidden;
-}
 
 #restaurant restaurantImage {
     transition: transform .4s;

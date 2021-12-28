@@ -16,9 +16,15 @@ namespace DTO
 
         public string PhoneNumber { get; set; }
 
+        public string Address { get; set; }
+
         public int IdLogin { get; set; }
 
         public int IdLocation { get; set; }
+
+        public int IdDeliveryStaffType { get; set; }
+
+        public int IdWorkingRegion { get; set; }
 
         public override string ToString()
         {
@@ -28,6 +34,8 @@ namespace DTO
                     "\nLastName: " + LastName +
                     "\nIdLogin: " + IdLogin +
                     "\nIdLocation:"  + IdLocation +
+                    "\nIdDeliveryStaffType:" + IdDeliveryStaffType +
+                    "\nIdWorkingRegion:" + IdWorkingRegion +
                     "\n__________________________";
         }
     }

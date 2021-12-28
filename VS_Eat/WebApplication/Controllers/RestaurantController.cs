@@ -40,12 +40,6 @@ namespace WebApplication.Controllers
 
         }
 
-        public ActionResult IndexCopy()
-        {
-            var restaurants = RestaurantManager.GetAllRestaurants();
-            var locations = LocationManager.GetAllLocations();
-            return View(restaurants);
-        }
 
         public ActionResult ShowAllProductFromRestaurant(int id)
         {
@@ -84,6 +78,7 @@ namespace WebApplication.Controllers
 
             return View(allData); 
         }
+
 
     }
 }

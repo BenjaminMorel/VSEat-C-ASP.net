@@ -2,16 +2,20 @@
 
 
 /** DELETE ALL THE DATA 
-TRUNCATE TABLE [dbo].[LoginType]
-TRUNCATE TABLE [dbo].[Location]
-TRUNCATE TABLE [dbo].[Login]
-TRUNCATE TABLE [dbo].[User]
-TRUNCATE TABLE [dbo].[Restaurant]
-TRUNCATE TABLE [dbo].[ProductType]
-TRUNCATE TABLE [dbo].[Product]
-TRUNCATE TABLE [dbo].[DeliveryStaff]
-TRUNCATE TABLE [dbo].[Order]
 TRUNCATE TABLE [dbo].[OrderDetails]
+TRUNCATE TABLE [dbo].[Order]
+TRUNCATE TABLE [dbo].[OrderStatus]
+TRUNCATE TABLE [dbo].[DeliveryStaff]
+TRUNCATE TABLE [dbo].[DeliveryStaffType]
+TRUNCATE TABLE [dbo].[Product]
+TRUNCATE TABLE [dbo].[ProductType]
+TRUNCATE TABLE [dbo].[Restaurant]
+TRUNCATE TABLE [dbo].[RestaurantType]
+TRUNCATE TABLE [dbo].[User]
+TRUNCATE TABLE [dbo].[Login]
+TRUNCATE TABLE [dbo].[Location]
+TRUNCATE TABLE [dbo].[Region]
+TRUNCATE TABLE [dbo].[LoginType]
 **/
 
 /** INSERT NEW VALUES **/
@@ -234,7 +238,6 @@ INSERT [dbo].[Location] (PostCode, City, IdRegion) VALUES
 ('1992', 'Les Mayens-de-Sion', '12'),
 ('1996', 'Fey (Nendaz)', '2');
 
-
 INSERT [dbo].[Login] (Username, Password, IdLoginType) VALUES
 ('benjamin@morel.ch',	'password', '1'),
 ('hugo@vouillamoz.ch',	'password', '1'),
@@ -250,7 +253,8 @@ INSERT [dbo].[Login] (Username, Password, IdLoginType) VALUES
 ('morel@benjamin.ch',	'password',	'3'),
 ('nathan@gaillard',		'password', '3'),
 ('carlos@coimbra.ch',	'password',	'3'),
-('simon@beaud.ch',		'password',	'3');
+('simon@beaud.ch',		'password',	'3'),
+('Inglewood@gmail.com', 'password', '2');
 
 INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, Address, FavoriteRestaurant, FavoriteProduct, IdLogin, IdLocation) VALUES
 ('Benjamin',	'Morel',		'0799811254', 'chemin de vionn 12',			NULL, NULL,		'1', '110'),
@@ -333,13 +337,17 @@ INSERT [dbo].[Product] (ProductName, Description, Price, Picture, Disponibility,
 ('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '9', '2'),
 ('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '10', '3'); 
 
-INSERT [dbo].[DeliveryStaff] (FirstName, LastName, PhoneNumber, IdLogin, IdLocation) VALUES
-('Nicolas',		'Devanthéry',	'0785842426', '11', '24'),
-('Morel',		'Benjamin',		'0783695412', '12', '59'),
-('Nathan',		'Gaillard',		'0247851245', '13', '45'), 
-('Carlos',		'Coimbra',		'0245257512', '14',	'48'),
-('Simon',		'Beaud',		'0245212545', '15', '20');
+INSERT [dbo].[DeliveryStaffType] (DeliveryStaffType) VALUES
+('Inactive'),
+('Employable'),
+('Former');
 
+INSERT [dbo].[DeliveryStaff] (FirstName, LastName, PhoneNumber, Address, IdLogin, IdLocation, IdDeliveryStaffType, IdWorkingRegion) VALUES
+('Nicolas',		'Devanthéry',	'0785842426', 'chemin de vionn 12', '11', '24', '1', '2'),
+('Morel',		'Benjamin',		'0783695412', 'chemin de vionn 12', '12', '59', '1', '2'),
+('Nathan',		'Gaillard',		'0247851245', 'chemin de vionn 12', '13', '45', '1', '2'), 
+('Carlos',		'Coimbra',		'0245257512', 'chemin de vionn 12', '14', '48', '1', '2'),
+('Simon',		'Beaud',		'0245212545', 'chemin de vionn 12', '15', '20', '1', '2');
 
 INSERT [dbo].[OrderStatus] (Status) VALUES
 ('In preparation'),
@@ -349,11 +357,11 @@ INSERT [dbo].[OrderStatus] (Status) VALUES
 ('Archived'),
 ('Canceled');
 
-INSERT [dbo].[Order] (OrderDate,DeliveryTime, DeliveryAddress, Freight, TotalPrice, IdOrderStatus, IdUser, IdDeliveryStaff, IdLocation) VALUES
-(DEFAULT,'18:30:00', 'Rue de la faim 3',	'4.00', '24.00', '5', '2', '1', '40'),
-(DEFAULT,'17:15:00', 'Rue de la faim 12',	'8.00', '68.00', '5', '2', '2', '88');
+INSERT [dbo].[Order] (OrderDate, DeliveryTime, DeliveryAddress, Freight, TotalPrice, IdOrderStatus, IdUser, IdDeliveryStaff, IdLocation) VALUES
+(DEFAULT,'18:30:00', 'Rue de la faim 3',	'4.00', '24.00', '5', '2', '8', '40'),
+(DEFAULT,'17:15:00', 'Rue de la faim 12',	'8.00', '68.00', '5', '2', '9', '88');
 
 INSERT [dbo].[OrderDetails] (UnitPrice, Quantity, IdProduct, IdOrder) VALUES
-('10.00', '2', '1', '1'),
+('10.00', '2', '1', '2'),
 ('15.00', '2', '5', '2'),
 ('15.00', '2', '10', '2');
