@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+
 }
 
 <!DOCTYPE html>
@@ -10,8 +11,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css"/>
-    <link rel="stylesheet" href="~/css/restaurant.css"/>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/restaurant.css" />
+
 </head>
 <body>
         <div>
@@ -32,11 +34,11 @@
             <div class="grid_parent">
                 <!-- Cover -->
                 <!-- Content -->
-            
-                <div id="restaurant">
-                    <a href=@Url.Action("ShowAllProductFromRestaurant", new { id = item.IdRestaurant })>
-                   
-                        <img id="restaurantImage" src="@item.Picture" width="300" height="200"/>
+
+                <div>
+                    <a href=@Url.Action("ShowAllProductFromRestaurant", new {id=item.IdRestaurant})>
+
+                        <img src="@item.Picture" width="300" height="200" />
 
                     </a>
                     <tr>
@@ -49,16 +51,15 @@
 
                     </tr>
                 </div>
-
                 <!-- Button sticks to the bottom -->
             </div>
-            }
+        }
 
-        </div>
+    </div>
 </body>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
 
 </html>

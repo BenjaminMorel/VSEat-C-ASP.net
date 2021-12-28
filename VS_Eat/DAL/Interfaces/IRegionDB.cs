@@ -12,6 +12,8 @@ namespace DAL.Interfaces
 
         List<Region> GetAllRegions();
 
-        Region GetRegionName(int IdRegion); 
+        string GetRegionName(int IdRegion);
+
+        int GetIdRegion(string regionName);
     }
 }

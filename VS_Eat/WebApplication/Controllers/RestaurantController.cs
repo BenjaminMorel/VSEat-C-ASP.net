@@ -47,16 +47,6 @@ namespace WebApplication.Controllers
 
         }
 
-        public ActionResult IndexCopy()
-        {
-            var restaurants = RestaurantManager.GetAllRestaurants();
-            var regions = RegionManager.GetAllRegions();
-            RestaurantToDisplay allData = new RestaurantToDisplay();
-
-            allData.allRestaurant = restaurants;
-            allData.RegionName = regions; 
-            return View(restaurants);
-        }
 
         public ActionResult ShowAllProductFromRestaurant(int id)
         {
@@ -136,6 +126,7 @@ namespace WebApplication.Controllers
 
             return View(allData); 
         }
+
 
     }
 }

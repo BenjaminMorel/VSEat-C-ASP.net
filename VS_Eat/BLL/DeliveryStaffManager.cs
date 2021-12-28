@@ -18,12 +18,16 @@ namespace BLL
 
         private ILoginManager LoginManager { get;  }
 
-        public DeliveryStaffManager(IDeliveryStaffDB DeliveryStaffDb, ILoginDB LoginDB, ILocationDB LocationDB, ILoginManager LoginManager)
+        private IRegionManager RegionManager { get; }
+
+
+        public DeliveryStaffManager(IDeliveryStaffDB DeliveryStaffDb, ILoginDB LoginDB, ILocationDB LocationDB, ILoginManager LoginManager, IRegionManager RegionManager)
         {
             this.DeliveryStaffDb = DeliveryStaffDb;
             this.LoginDB = LoginDB;
             this.LocationDB = LocationDB;
-            this.LoginManager = LoginManager; 
+            this.LoginManager = LoginManager;
+            this.RegionManager = RegionManager;
         }
 
         public List<DeliveryStaff> GetAllDeliveryStaff()
@@ -36,7 +40,7 @@ namespace BLL
             return DeliveryStaffDb.CountOpenOrderByStaffId(IdDeliveryStaff); 
         }
 
-        public DeliveryStaff CreateNewStaff(string FirstName, string LastName, string PhoneNumber, int PostCode, string City, string Email,
+        public DeliveryStaff CreateNewStaff(string FirstName, string LastName, string PhoneNumber, string Address, int PostCode, string City, string RegionName, string Email,
             string Password)
         {
             if (LoginManager.EmailVerification(Email))
@@ -47,23 +51,24 @@ namespace BLL
             var Location = new Location();
             Location = LocationDB.GetLocation(PostCode, City);
 
+            int region = RegionManager.GetIdRegion(RegionName);
+
             var MyLogin = new Login();
             MyLogin.Password = Password;
             MyLogin.Username = Email;
-            // The idLoginType for Staff will always be 3
-            MyLogin.IdLoginType = 3;
-
+            MyLogin.IdLoginType = 3; // The idLoginType for Staff will always be 3
             MyLogin = LoginDB.AddNewLogin(MyLogin);
 
             var MyDeliveryStaff = new DeliveryStaff();
-
-            MyDeliveryStaff.IdLogin = MyLogin.IdLogin;
-            MyDeliveryStaff.IdLocation = Location.IdLocation;
             MyDeliveryStaff.FirstName = FirstName;
             MyDeliveryStaff.LastName = LastName;
             MyDeliveryStaff.PhoneNumber = PhoneNumber;
-
-            MyDeliveryStaff = DeliveryStaffDb.AddDeliveryStaff(MyDeliveryStaff);
+            MyDeliveryStaff.Address = Address;
+            MyDeliveryStaff.IdLogin = 1;
+            MyDeliveryStaff.IdLocation = 1;
+            MyDeliveryStaff.IdDeliveryStaffType = 1; // For validation
+            MyDeliveryStaff.IdWorkingRegion = 1;
+            MyDeliveryStaff = DeliveryStaffDb.AddStaff(MyDeliveryStaff);
 
             return MyDeliveryStaff; 
 

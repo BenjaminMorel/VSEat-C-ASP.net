@@ -8,6 +8,7 @@ DROP TABLE [dbo].[OrderDetails]
 DROP TABLE [dbo].[Order]
 DROP TABLE [dbo].[OrderStatus]
 DROP TABLE [dbo].[DeliveryStaff]
+DROP TABLE [dbo].[DeliveryStaffType]
 DROP TABLE [dbo].[Product]
 DROP TABLE [dbo].[ProductType]
 DROP TABLE [dbo].[Restaurant]
@@ -88,7 +89,7 @@ CREATE TABLE [dbo].[Product] (
     [ProductName]   NVARCHAR (50) NULL,
     [Description]   NVARCHAR (50) NULL,
     [Price]         FLOAT         NULL,
-    [Picture]       NVARCHAR (50) NOT NULL DEFAULT '/Images/Products/default.jpg',
+    [Picture]       NVARCHAR (50) NOT NULL DEFAULT '~/Images/Products/default.jpg',
     [Disponibility] BIT           NULL,
     [Vegetarian]    BIT           NULL,
     [IdRestaurant]  INT           NOT NULL,
@@ -97,15 +98,25 @@ CREATE TABLE [dbo].[Product] (
 	CONSTRAINT [FK_Product_IdProductType] FOREIGN KEY ([IdProductType]) REFERENCES [ProductType]([IdProductType])
 );
 
+CREATE TABLE [dbo].[DeliveryStaffType] (
+   [IdDeliveryStaffType]    INT             IDENTITY(1,1) PRIMARY KEY,
+   [DeliveryStaffType]      NVARCHAR (50)   NOT NULL DEFAULT 1,
+);
+
 CREATE TABLE [dbo].[DeliveryStaff] (
-    [IdDeliveryStaff]        INT           IDENTITY (1, 1)  PRIMARY KEY,
-    [FirstName]         NVARCHAR (50) NULL,
-    [LastName]          NVARCHAR (50) NULL,
-    [PhoneNumber]       NVARCHAR (50) NULL,
-    [IdLogin]           INT           NOT NULL, 
-    [IdLocation]        INT           NOT NULL,
+    [IdDeliveryStaff]        INT          IDENTITY (1, 1)  PRIMARY KEY,
+    [FirstName]             NVARCHAR (50) NULL,
+    [LastName]              NVARCHAR (50) NULL,
+    [PhoneNumber]           NCHAR (10)    NULL,
+    [Address]               NVARCHAR (50) NULL,
+    [IdLogin]               INT           NOT NULL, 
+    [IdLocation]            INT           NOT NULL,
+    [IdDeliveryStaffType]   INT           NOT NULL,
+    [IdWorkingRegion]       INT           NOT NULL,
 	CONSTRAINT [FK_DeliveryStaff_IdLogin] FOREIGN KEY ([IdLogin]) REFERENCES [Login]([IdLogin]),
-    CONSTRAINT [FK_DeliveryStaff_IdLocation] FOREIGN KEY ([IdLocation]) REFERENCES [Location]([IdLocation])
+    CONSTRAINT [FK_DeliveryStaff_IdLocation] FOREIGN KEY ([IdLocation]) REFERENCES [Location]([IdLocation]),
+    CONSTRAINT [FK_DeliveryStaff_IdDeliveryStaffType] FOREIGN KEY ([IdDeliveryStaffType]) REFERENCES [DeliveryStaffType]([IdDeliveryStaffType]),
+    CONSTRAINT [FK_DeliveryStaff_IdWorkingRegion] FOREIGN KEY ([IdWorkingRegion]) REFERENCES [Region]([IdRegion])
 );
 
 CREATE TABLE [dbo].[OrderStatus] (

@@ -45,6 +45,8 @@ namespace DAL
                             MyDeliveryStaff.LastName = (string) dataReader["LastName"];
                             MyDeliveryStaff.PhoneNumber = (string) dataReader["PhoneNumber"];
                             MyDeliveryStaff.IdLocation = (int) dataReader["IdLocation"];
+                            MyDeliveryStaff.IdDeliveryStaffType = (int) dataReader["IdDeliveryStaffType"];
+                            MyDeliveryStaff.IdWorkingRegion = (int) dataReader["IdWorkingRegion"];
 
                             // Add the user to the list
                             allDeliveryStaff.Add(MyDeliveryStaff);
@@ -60,6 +62,50 @@ namespace DAL
                 Console.Write(e.Source);
             }
             return allDeliveryStaff;
+        }
+
+        public List<DeliveryStaff> GetAllDeliveryStaffByType(int IdDeliveryStaff)
+        {
+            List<DeliveryStaff> listDeliveryStaff = new List<DeliveryStaff>();
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM [dbo].[DeliveryStaff] WHERE IdDeliveryStaffType=@IdDeliveryStaff";
+                    SqlCommand command = new SqlCommand(query, connection);
+
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            DeliveryStaff myDeliveryStaff = new DeliveryStaff();
+
+                            myDeliveryStaff.IdLogin = (int)dataReader["IdLogin"];
+                            myDeliveryStaff.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                            myDeliveryStaff.FirstName = (string)dataReader["FirstName"];
+                            myDeliveryStaff.LastName = (string)dataReader["LastName"];
+                            myDeliveryStaff.PhoneNumber = (string)dataReader["PhoneNumber"];
+                            myDeliveryStaff.IdLocation = (int)dataReader["IdLocation"];
+                            myDeliveryStaff.IdDeliveryStaffType = (int)dataReader["IdDeliveryStaffType"];
+                            myDeliveryStaff.IdWorkingRegion = (int)dataReader["IdWorkingRegion"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN GET LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+
+            return listDeliveryStaff;
         }
 
         /// <summary>
@@ -119,23 +165,26 @@ namespace DAL
         /// </summary>
         /// <param name="MyStaff">Object DeliveryStaff</param>
         /// <returns></returns>
-        public DeliveryStaff AddDeliveryStaff(DeliveryStaff MyStaff)
+        public DeliveryStaff AddStaff(DeliveryStaff MyStaff)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Insert into [dbo].[DeliveryStaff](FirstName, Name, PhoneNumber, IdLogin,IdLocation) values(@FirstName, @Name, @PhoneNumber, IdLogin,@IdLocation);";
+                    string query = "Insert into [dbo].[DeliveryStaff] (FirstName, LastName, PhoneNumber, Address, IdLogin, IdLocation, IdDeliveryStaffType, IdWorkingRegion) values (@FirstName, @LastName, @PhoneNumber, @Address, @IdLogin, @IdLocation, @IdDeliveryStaffType, @IdWorkingRegion)";
                     SqlCommand command = new SqlCommand(query, connection);
+
                     command.Parameters.AddWithValue("@FirstName", MyStaff.FirstName);
                     command.Parameters.AddWithValue("@LastName", MyStaff.LastName);
                     command.Parameters.AddWithValue("@PhoneNumber", MyStaff.PhoneNumber);
-                    command.Parameters.AddWithValue("@IdLogin", MyStaff.IdLogin);
-                    command.Parameters.AddWithValue("@IdLocation", MyStaff.IdLocation);
+                    command.Parameters.AddWithValue("@Address", MyStaff.Address);
+                    //command.Parameters.AddWithValue("@IdLogin", MyStaff.IdLogin);
+                    //command.Parameters.AddWithValue("@IdLocation", MyStaff.IdLocation);
+                    //command.Parameters.AddWithValue("@IdDeliveryStaffType", MyStaff.IdDeliveryStaffType);
+                    //command.Parameters.AddWithValue("@IdWorkingRegion", MyStaff.IdWorkingRegion);
 
                     connection.Open();
-
                     MyStaff.IdDeliveryStaff = Convert.ToInt32(command.ExecuteScalar());
 
                 }

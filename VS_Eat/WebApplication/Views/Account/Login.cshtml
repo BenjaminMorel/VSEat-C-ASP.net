@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
 <head>
@@ -13,7 +14,6 @@
 
 <h1>Login</h1>
 
-<h4>Login</h4>
 <hr />
 <body id="BackgroundImage">
     <div class="row">
@@ -37,13 +37,13 @@
         </div>
     </div>
 
-    <div>
-        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="CreateAnAccount">Create an account</a>
-    </div>
+<div>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="CreateAnAccount">Create an account</a>
+</div>
+<div>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="CreateDeliveryStaff">Become a deliver</a>
+</div>
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
 </body>
 
 @section Scripts {

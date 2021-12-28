@@ -1,0 +1,121 @@
+﻿@model IEnumerable<DTO.Restaurant>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/restaurant.css" />
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyB4W9LS3n0XZDHjvAAAeCmJH0orWYpxNDI" type="text/javascript"></script>
+
+</head>
+<body>
+
+<div id="map">
+
+</div>
+
+<style type="text/css">
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+<script type="text/javascript">
+    // Initialize and add the map
+    function initMap() {
+
+        var sierre = { lat: 46.29397698159258, lng: 7.53312624509403 };
+        var sion = { lat: 46.232702714138945, lng: 7.361639116712104 };
+
+        var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 11,
+            center: sierre,
+        });
+        //var image = "https://www.flaticon.com/free-icon/placeholder_684908?term=map&page=1&position=9&page=1&position=9&related_id=684908&origin=tag";
+
+        var markerSierre = new google.maps.Marker({
+            position: sierre,
+            map: map,
+            //     icon: image,
+        });
+
+        var infoWindow = new google.maps.InfoWindow({
+            content: '<h3>Star Kebab </h3>'
+        });
+        markerSierre.addListener('click',
+            function () {
+                infoWindow.open(map, markerSierre);
+            });
+
+        var markerSion = new google.maps.Marker({
+            position: sion,
+            map: map,
+        });
+
+        // Animate markers
+        markerSierre.addListener("click", toggleBounce);
+        markerSion.addListener("click", toggleBounce);
+    }
+
+    // Function to animate markers
+    function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    }
+
+</script>
+<script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4W9LS3n0XZDHjvAAAeCmJH0orWYpxNDI&callback=initMap">
+</script>
+
+
+<br />
+
+
+<div class="grid_parent">
+
+    @foreach (var item in Model)
+    {
+        <div class="grid_parent">
+            <!-- Cover -->
+            <!-- Content -->
+
+            <div>
+                <a href=@Url.Action("ShowAllProductFromRestaurant", new {id = item.IdRestaurant})>
+
+                    <img src="@item.Picture" width="300" height="200"/>
+
+                </a>
+                <tr>
+                    <td>
+                        <h2 class="titleRestaurant">
+                            @Html.DisplayFor(modelItem => item.RestaurantName)
+                        </h2>
+                    </td>
+                    <p></p>
+
+                </tr>
+            </div>
+            <!-- Button sticks to the bottom -->
+        </div>
+    }
+
+</div>
+</body>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+</html>
