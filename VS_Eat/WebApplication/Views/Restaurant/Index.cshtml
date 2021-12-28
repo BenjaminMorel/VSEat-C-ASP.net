@@ -15,9 +15,15 @@
 </head>
 <body>
         <div>
-            @foreach(var region in Model.RegionName){
-                @Html.DisplayFor(modelItem => region.RegionName);  
-            }
+            <label for="region-name">Chose a region :</label>
+            <select name="region-name">
+                @foreach (var region in Model.RegionName)
+                {
+                    <option> @Html.DisplayFor(modelItem => region.RegionName)</option>
+
+                }
+            </select>
+        
         </div>
         <div class="grid_parent">
             <!-- Column -->

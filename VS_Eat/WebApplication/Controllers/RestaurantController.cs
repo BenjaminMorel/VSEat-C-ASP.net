@@ -18,6 +18,9 @@ namespace WebApplication.Controllers
 
         private IRegionManager RegionManager { get; }
 
+        AllProductWithCart myPage = new AllProductWithCart();
+
+
 
         public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager)
         {
@@ -57,8 +60,47 @@ namespace WebApplication.Controllers
 
         public ActionResult ShowAllProductFromRestaurant(int id)
         {
-            var products = ProductManager.GetAllProductsFromRestaurant(id); 
-            return View(products); 
+            var products = ProductManager.GetAllProductsFromRestaurant(id);
+
+            AllProductWithCart myPage =new AllProductWithCart();
+            myPage.myChart = new List<ChartDetails>(); 
+            myPage.products = products;
+
+            return View(myPage); 
+        }
+
+        [HttpPost]
+        public void AddToChart()
+        {
+            var newProduct = new ChartDetails();
+
+            newProduct.ProductName = "test";
+            newProduct.Quantity = 3;
+            newProduct.UnitPrice = 10;
+
+            myPage.myChart.Add(newProduct); 
+
+      
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ShowAllProductFromRestaurant(string Productname, int quantity, int Price,List<ChartDetails> myChart, int id)
+        {
+  
+
+            var myNewProduct = new ChartDetails();
+            var products = ProductManager.GetAllProductsFromRestaurant(id);
+
+            myNewProduct.ProductName = Productname;
+            myNewProduct.Quantity = quantity;
+            myNewProduct.UnitPrice = Price;
+
+        
+            myChart.Add(myNewProduct);
+
+            myPage.myChart = myChart;
+            myPage.products = products; 
+            return View(myPage);
         }
 
         public ActionResult ProductDetails(int id)
