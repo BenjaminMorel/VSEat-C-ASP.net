@@ -103,7 +103,7 @@ namespace DAL
                             //myOrder.TotalPrice = (float) dataReader["TotalPrice"];
                             myOrder.IdOrderStatus = (int) dataReader["IdOrderStatus"];
                             myOrder.IdUser = (int) dataReader["IdUser"];
-                            myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
+                        //    myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
                             myOrder.IdLocation = (int) dataReader["IdLocation"];
                             
                             // Add the order to the list
@@ -186,7 +186,7 @@ namespace DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = "Insert into [dbo].[Order](DeliveryAddress,Freight,TotalPrice,IdOrderStatus,IdUser,IdDeliveryStaff,IdLocation) " +
-                                   "Values(@DeliveryAddress,@Freight,@TotalPrice,@IdOrderStatus,@IdUser,null,@IdLocation)";
+                                   "Values(@DeliveryAddress,@Freight,@TotalPrice,@IdOrderStatus,@IdUser,null,@IdLocation); SELECT SCOPE_IDENTITY()";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@DeliveryAddress", MyOrder.DeliveryAddress);
                     command.Parameters.AddWithValue("@Freight", MyOrder.Freight);

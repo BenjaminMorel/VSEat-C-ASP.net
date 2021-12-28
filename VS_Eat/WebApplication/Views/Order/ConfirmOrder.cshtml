@@ -1,0 +1,67 @@
+﻿@model IEnumerable<DTO.ChartDetails>
+
+@{
+    ViewData["Title"] = "ConfirmOrder";
+}
+
+<h1>ConfirmOrder</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdLogin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdRestaurant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdLogin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdProduct)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdRestaurant)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+            </tr>
+        }
+        <form method="post">
+            <input type="text" name="city" value="">
+            <input type="number" name="PostCode" value="">
+            <input type="text" name="DeliveryAddress" value="">
+            <input type="submit" value="Confirmer" />
+        </form>
+    </tbody>
+</table>

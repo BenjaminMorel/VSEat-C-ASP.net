@@ -111,8 +111,7 @@ namespace DAL
         public OrderDetails AddOrderDetails(OrderDetails MyOrderDetails)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            List<OrderDetails> allOrderDetails = new List<OrderDetails>();
-
+       
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
