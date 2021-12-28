@@ -44,8 +44,7 @@ namespace DAL
                             MyChartDetails.IdRestaurant = (int)dataReader["IdRestaurant"];
                             MyChartDetails.ProductName = (string)dataReader["ProductName"];
                             MyChartDetails.Quantity = (int)dataReader["Quantity"];
-                            //     MyChartDetails.UnitPrice = (float)dataReader["UnitPrice"];
-                            MyChartDetails.UnitPrice = 10; 
+                            MyChartDetails.UnitPrice = (float) (double) dataReader["UnitPrice"]; 
 
                             // Add the user to the list
                             allChartDetails.Add(MyChartDetails);

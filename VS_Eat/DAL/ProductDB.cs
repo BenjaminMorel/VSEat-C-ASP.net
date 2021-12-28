@@ -46,7 +46,7 @@ namespace DAL
                             myProduct.IdProduct = (int) dataReader["IdProduct"];
                             myProduct.ProductName = (string) dataReader["ProductName"];
                             myProduct.Description = (string) dataReader["Description"];
-                            //myProduct.Price = (float) dataReader["Price"];
+                            myProduct.Price = (float) (double) dataReader["Price"];
                             myProduct.Picture = (string) dataReader["Picture"];
                             myProduct.Disponibility = (bool) dataReader["Disponibility"];
                             myProduct.Vegetarian = (bool) dataReader["Vegetarian"];
@@ -100,7 +100,7 @@ namespace DAL
                             myProduct.IdProduct = (int) dataReader["IdProduct"];
                             myProduct.ProductName = (string) dataReader["ProductName"];
                             myProduct.Description = (string) dataReader["Description"];
-                            //myProduct.Price = (float) dataReader["Price"];
+                            myProduct.Price = (float) (double) dataReader["Price"];
                             myProduct.Picture = (string) dataReader["Picture"];
                             myProduct.Disponibility = (bool) dataReader["Disponibility"];
                             myProduct.Vegetarian = (bool) dataReader["Vegetarian"];
@@ -152,7 +152,7 @@ namespace DAL
                             myProduct.IdProduct = (int)dataReader["IdProduct"];
                             myProduct.ProductName = (string)dataReader["ProductName"];
                             myProduct.Description = (string)dataReader["Description"];
-                            //myProduct.Price = (float) dataReader["Price"];
+                            myProduct.Price = (float) (double)dataReader["Price"];
                             myProduct.Picture = (string)dataReader["Picture"];
                             myProduct.Disponibility = (bool)dataReader["Disponibility"];
                             myProduct.Vegetarian = (bool)dataReader["Vegetarian"];

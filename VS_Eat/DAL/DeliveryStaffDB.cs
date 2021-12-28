@@ -64,6 +64,55 @@ namespace DAL
             return allDeliveryStaff;
         }
 
+        public DeliveryStaff GetDeliveryStaffByID(int IdLogin)
+        {
+            DeliveryStaff myDeliveryStaff = null;
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+
+                    string query = "Select * from [dbo].[DeliveryStaff] WHERE IdLogin=@IdLogin";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdLogin", IdLogin);
+
+                    connection.Open();
+
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            myDeliveryStaff = new DeliveryStaff();
+
+                            myDeliveryStaff.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                            myDeliveryStaff.FirstName = (string)dataReader["FirstName"];
+                            myDeliveryStaff.LastName = (string)dataReader["LastName"];
+                            myDeliveryStaff.PhoneNumber = (string)dataReader["PhoneNumber"];
+                            myDeliveryStaff.Address = (string)dataReader["Address"];
+                            myDeliveryStaff.IdLogin = (int)dataReader["IdLogin"];
+                            myDeliveryStaff.IdLocation = (int)dataReader["IdLocation"];
+                            myDeliveryStaff.IdDeliveryStaffType = (int) dataReader["IdDeliveryStaffType"];
+                            myDeliveryStaff.IdWorkingRegion = (int) dataReader["IdWorkingRegion"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                myDeliveryStaff.IdDeliveryStaffType = 999;
+                Console.Write("ERROR IN GET USER BY ID\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+
+            return myDeliveryStaff;
+        }
+
         public List<DeliveryStaff> GetAllDeliveryStaffByType(int IdDeliveryStaff)
         {
             List<DeliveryStaff> listDeliveryStaff = new List<DeliveryStaff>();
@@ -123,7 +172,7 @@ namespace DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     //TODO[HUGO] ajouter contrainte de 30 min sur le compte des order open
-                    string query = "SELECT * FROM [dbo].[Order] WHERE IdDeliveryStaff=@IdDeliveryStaff ";
+                    string query = "SELECT * FROM [dbo].[Order] WHERE IdDeliveryStaff=@IdDeliveryStaff";
 
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@IdDeliveryStaff", IdDeliveryStaff);
@@ -179,10 +228,10 @@ namespace DAL
                     command.Parameters.AddWithValue("@LastName", MyStaff.LastName);
                     command.Parameters.AddWithValue("@PhoneNumber", MyStaff.PhoneNumber);
                     command.Parameters.AddWithValue("@Address", MyStaff.Address);
-                    //command.Parameters.AddWithValue("@IdLogin", MyStaff.IdLogin);
-                    //command.Parameters.AddWithValue("@IdLocation", MyStaff.IdLocation);
-                    //command.Parameters.AddWithValue("@IdDeliveryStaffType", MyStaff.IdDeliveryStaffType);
-                    //command.Parameters.AddWithValue("@IdWorkingRegion", MyStaff.IdWorkingRegion);
+                    command.Parameters.AddWithValue("@IdLogin", MyStaff.IdLogin);
+                    command.Parameters.AddWithValue("@IdLocation", MyStaff.IdLocation);
+                    command.Parameters.AddWithValue("@IdDeliveryStaffType", MyStaff.IdDeliveryStaffType);
+                    command.Parameters.AddWithValue("@IdWorkingRegion", MyStaff.IdWorkingRegion);
 
                     connection.Open();
                     MyStaff.IdDeliveryStaff = Convert.ToInt32(command.ExecuteScalar());

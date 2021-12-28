@@ -74,5 +74,10 @@ namespace BLL
 
         }
 
+        public DeliveryStaff GetDeliveryStaffByID(int IdLogin)
+        {
+            return DeliveryStaffDb.GetDeliveryStaffByID(IdLogin);
+        }
+
     }
 }

@@ -64,6 +64,9 @@ namespace WebApplication
             services.AddScoped<IChartDetailsManager, ChartDetailsManager>();
             services.AddScoped<IChartDetailsDB, ChartDetailsDB>(); 
 
+            services.AddScoped<IDeliveryStaffTypeManager, DeliveryStaffTypeManager>();
+            services.AddScoped<IDeliveryStaffTypeDB, DeliveryStaffTypeDB>();
+
             services.AddSession();
             
 

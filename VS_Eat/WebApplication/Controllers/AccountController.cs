@@ -88,14 +88,29 @@ namespace WebApplication.Controllers
         public ActionResult Login(Login myLogin)
         {
             Login myAccount = LoginManager.GetLoginWithCredential(myLogin.Username, myLogin.Password);
+
             if (myAccount != null)
             {
                 HttpContext.Session.SetInt32("ID_LOGIN", myAccount.IdLogin);
-                var myUser = UserManager.GetUserByID(myAccount.IdLogin);
-                HttpContext.Session.SetInt32("ID_USER", myUser.IdUser);
-                return RedirectToAction("Index", "Restaurant");
-            }
 
+                if (myAccount.IdLoginType == 4)
+                {
+                    var myUser = UserManager.GetUserByID(myAccount.IdLogin);
+                    HttpContext.Session.SetInt32("ID_USER", myUser.IdUser);
+                    return RedirectToAction("Index", "Restaurant");
+                }
+
+                else if (myAccount.IdLoginType == 3)
+                {
+                    var myDeliveryStaff = DeliveryStaffManager.GetDeliveryStaffByID(myAccount.IdLogin);
+                    HttpContext.Session.SetInt32("ID_STAFF", myDeliveryStaff.IdDeliveryStaff);
+                    return RedirectToAction("Index", "DeliveryStaff");
+                }
+
+                return View();
+
+            }
+            
             return View();
         }
 
