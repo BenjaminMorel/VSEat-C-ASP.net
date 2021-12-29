@@ -6,9 +6,6 @@
 
 <h1>ConfirmOrder</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -30,37 +27,52 @@
             <th>
                 @Html.DisplayNameFor(model => model.UnitPrice)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductImage)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdLogin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdProduct)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdRestaurant)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UnitPrice)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdLogin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdRestaurant)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>     
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                <img src="@item.ProductImage" width="60" height="60" class="restaurantImage" />
+            </td>
+            <td>
+                <input type="submit"   value="DELETE" />
+            </td>
+        </tr>
         }
+    </tbody>
+    <tbody>
         <form method="post">
+            <p>City</p>
             <input type="text" name="city" value="">
+            <p>PostCode</p>
             <input type="number" name="PostCode" value="">
+            <p>Address</p>
             <input type="text" name="DeliveryAddress" value="">
+            <p>Delivery Time </p>
             <input type="submit" value="Confirmer" />
         </form>
     </tbody>

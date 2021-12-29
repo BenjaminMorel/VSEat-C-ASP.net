@@ -43,6 +43,7 @@ namespace DAL
                             MyChartDetails.IdProduct = (int)dataReader["IdProduct"];
                             MyChartDetails.IdRestaurant = (int)dataReader["IdRestaurant"];
                             MyChartDetails.ProductName = (string)dataReader["ProductName"];
+                            MyChartDetails.ProductImage = (string)dataReader["ProductImage"]; 
                             MyChartDetails.Quantity = (int)dataReader["Quantity"];
                             MyChartDetails.UnitPrice = (float) (double) dataReader["UnitPrice"]; 
 
@@ -70,14 +71,15 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Insert into [dbo].[ChartDetails](IdLogin,IdProduct,IdRestaurant,ProductName,Quantity,UnitPrice) values(@IdLogin,@IdProduct,@IdRestaurant,@ProductName,@Quantity,@UnitPrice);";
+                    string query = "Insert into [dbo].[ChartDetails](IdLogin,IdProduct,IdRestaurant,ProductName,ProductImage,Quantity,UnitPrice) values(@IdLogin,@IdProduct,@IdRestaurant,@ProductName,@ProductImage,@Quantity,@UnitPrice);";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@IdLogin", myChartDetails.IdLogin);
                     command.Parameters.AddWithValue("@IdProduct", myChartDetails.IdProduct);
                     command.Parameters.AddWithValue("@IdRestaurant", myChartDetails.IdRestaurant);
                     command.Parameters.AddWithValue("@ProductName", myChartDetails.ProductName);
+                    command.Parameters.AddWithValue("@ProductImage", myChartDetails.ProductImage); 
                     command.Parameters.AddWithValue("@Quantity", myChartDetails.Quantity);
-                    command.Parameters.AddWithValue("@UnitPrice", myChartDetails.UnitPrice);
+                    command.Parameters.AddWithValue("@UnitPrice", (float)(double) myChartDetails.UnitPrice);
 
                     connection.Open();
 

@@ -93,7 +93,7 @@ namespace WebApplication.Controllers
             {
                 HttpContext.Session.SetInt32("ID_LOGIN", myAccount.IdLogin);
 
-                if (myAccount.IdLoginType == 4)
+                if (myAccount.IdLoginType == 4 || myAccount.IdLoginType == 1)
                 {
                     var myUser = UserManager.GetUserByID(myAccount.IdLogin);
                     HttpContext.Session.SetInt32("ID_USER", myUser.IdUser);

@@ -3,6 +3,7 @@ using DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 
 namespace WebApplication.Controllers
@@ -53,8 +54,8 @@ namespace WebApplication.Controllers
             {
                 totalPrice += (chartDetail.UnitPrice * chartDetail.Quantity);
             }
-            myOrder.OrderDate = DateAndTime.Today;
-            myOrder.DeliveryTime = System.TimeSpan.Zero;
+            myOrder.OrderDate = DateTime.Now;
+            myOrder.DeliveryTime = DateTime.Now.AddMinutes(30); 
             myOrder.DeliveryAddress = DeliveryAddress;
             myOrder.Freight = 10;
             myOrder.TotalPrice = totalPrice;

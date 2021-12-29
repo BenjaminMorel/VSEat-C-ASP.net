@@ -53,7 +53,7 @@ namespace WebApplication.Controllers
         {
             var products = ProductManager.GetAllProductsFromRestaurant(id);
 
-            AllProductWithCart myPage =new AllProductWithCart();
+            AllProductWithCart myPage = new AllProductWithCart();
             myPage.myChart = ChartDetailsManager.GetAllChartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
             myPage.products = products;
             myPage.IdRestaurant = id; 
@@ -63,7 +63,7 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ShowAllProductFromRestaurant(int IdProduct, string ProductName, int Quantity, double UnitPrice, int IdRestaurant)
+        public ActionResult ShowAllProductFromRestaurant(int IdProduct, string ProductName,string ProductImage, int Quantity, double UnitPrice, int IdRestaurant)
         {
             ChartDetails myChartDetails = new ChartDetails();
             int IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
@@ -71,6 +71,7 @@ namespace WebApplication.Controllers
             myChartDetails.IdProduct = IdProduct;
             myChartDetails.IdRestaurant = IdRestaurant;
             myChartDetails.ProductName = ProductName;
+            myChartDetails.ProductImage = ProductImage; 
             myChartDetails.Quantity = Quantity;
             myChartDetails.UnitPrice = (float) UnitPrice; 
 

@@ -12,7 +12,7 @@ namespace DTO
 
         public DateTime OrderDate { get; set; }
 
-        public TimeSpan DeliveryTime { get; set; }
+        public DateTime DeliveryTime { get; set; }
         public string DeliveryAddress { get; set; }
 
         public float Freight { get; set; }
