@@ -33,8 +33,9 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT * FROM [dbo].[OrderDetails] WHERE IdOrder=@IdOrder";
+                    string query = "SELECT * FROM [dbo].[OrderDetails] WHERE IdOrder=@IdOrder";        
                     SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdOrder", IdOrder); 
                     connection.Open();
 
                     using (SqlDataReader dataReader = command.ExecuteReader())

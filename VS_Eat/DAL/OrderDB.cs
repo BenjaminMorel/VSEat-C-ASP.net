@@ -45,7 +45,7 @@ namespace DAL
                             
                             myOrder.IdOrder = (int) dataReader["IdOrder"];
                             myOrder.OrderDate = (DateTime) dataReader["OrderDate"];
-                            myOrder.DeliveryTime = (TimeSpan)dataReader["DeliveryTime"]; 
+                            myOrder.DeliveryTime = (DateTime)dataReader["DeliveryTime"]; 
                             myOrder.DeliveryAddress = (string) dataReader["DeliveryAddress"];
                             myOrder.Freight = (float) (double) dataReader["Freight"];
                             myOrder.TotalPrice = (float) (double) dataReader["TotalPrice"];
@@ -97,7 +97,8 @@ namespace DAL
                             Order myOrder = new Order();
 
                             myOrder.IdOrder = (int) dataReader["IdOrder"];
-                            //myOrder.OrderDate = (string) dataReader["OrderDate"];
+                            myOrder.OrderDate = (DateTime) dataReader["OrderDate"];
+                            myOrder.DeliveryTime = (DateTime) dataReader["DeliveryTime"]; 
                             myOrder.DeliveryAddress = (string) dataReader["DeliveryAddress"];
                             myOrder.Freight = (float) (double) dataReader["Freight"];
                             myOrder.TotalPrice = (float) (double) dataReader["TotalPrice"];
@@ -185,9 +186,11 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Insert into [dbo].[Order](DeliveryAddress,Freight,TotalPrice,IdOrderStatus,IdUser,IdDeliveryStaff,IdLocation) " +
-                                   "Values(@DeliveryAddress,@Freight,@TotalPrice,@IdOrderStatus,@IdUser,null,@IdLocation); SELECT SCOPE_IDENTITY()";
+                    string query = "Insert into [dbo].[Order](OrderDate,DeliveryTime,DeliveryAddress,Freight,TotalPrice,IdOrderStatus,IdUser,IdDeliveryStaff,IdLocation) " +
+                                   "Values(@OrderDate,@DeliveryTime,@DeliveryAddress,@Freight,@TotalPrice,@IdOrderStatus,@IdUser,null,@IdLocation); SELECT SCOPE_IDENTITY()";
                     SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@OrderDate", MyOrder.OrderDate);
+                    command.Parameters.AddWithValue("@DeliveryTime", MyOrder.DeliveryTime); 
                     command.Parameters.AddWithValue("@DeliveryAddress", MyOrder.DeliveryAddress);
                     command.Parameters.AddWithValue("@Freight", MyOrder.Freight);
                     command.Parameters.AddWithValue("@TotalPrice", MyOrder.TotalPrice);

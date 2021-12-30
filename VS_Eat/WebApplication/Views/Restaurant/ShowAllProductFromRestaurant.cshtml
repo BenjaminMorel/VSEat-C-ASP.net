@@ -51,6 +51,7 @@
                 <input type="hidden" name="IdRestaurant" value=@Html.DisplayFor(modelItem => item.IdRestaurant) />
                 <input type="hidden" name="Price" value=@Html.DisplayFor(modelItem => item.Price) />
                 <input type="hidden" name="ProductName" value=@Html.DisplayFor(modelItem => item.ProductName) />
+                <input type="hidden" name="ProductImage" value=@Html.DisplayFor(modelItem => item.Picture) />
                 <input type="text" name="Quantity" value="1">
                 <input type="submit" value="Add to chart" />
             </form>
@@ -64,20 +65,31 @@
         PANIER
         @if (Model.myChart != null && Model.myChart.Count > 0)
         {
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Image</th>
+            </tr>
             @foreach (var itemDetails in Model.myChart)
             {
-                <p>name : </p> @Html.DisplayFor(modelItem => itemDetails.ProductName)
-                <p> Quantity : </p> @Html.DisplayFor(modelItem => itemDetails.Quantity)
-                <p>Unit price : </p> @Html.DisplayFor(modelItem => itemDetails.UnitPrice)
+            <tr>
+                <th>  @Html.DisplayFor(modelItem => itemDetails.ProductName)  </th>
+                <th>  @Html.DisplayFor(modelItem => itemDetails.Quantity)  </th>
+                <th>  @Html.DisplayFor(modelItem => itemDetails.UnitPrice)  </th>
+                <th> <img src="@itemDetails.ProductImage" width="50" height="50" class="restaurantImage" /> </th>                 
+            </tr>
             }
+        </table>
 
-            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ConfirmOrder">Confirmer commande</a>
-        }
-        else
-        {
-            <p>Le panier est actuellement vide </p>
-        }
-    </div>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ConfirmOrder">Confirmer commande</a>
+                }
+                else
+                {
+                <p>Le panier est actuellement vide </p>
+                }
+            </div>
 
             </div>
 
