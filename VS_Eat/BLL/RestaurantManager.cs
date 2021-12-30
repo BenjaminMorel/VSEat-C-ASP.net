@@ -31,6 +31,11 @@ namespace BLL
             return RestaurantDb.GetRestaurantByID(IdRestaurant); 
         }
 
+        public Restaurant GetRestaurantByIDLogin(int IdLogin)
+        {
+            return RestaurantDb.GetRestaurantByIDLogin(IdLogin); 
+        }
+
         public Restaurant AddRestaurant(Restaurant restaurant)
         {
             return RestaurantDb.AddRestaurant(restaurant);

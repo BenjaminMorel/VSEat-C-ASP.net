@@ -136,10 +136,12 @@ CREATE TABLE [dbo].[Order] (
     [IdUser]          INT           NOT NULL, 
     [IdDeliveryStaff] INT           NULL, 
     [IdLocation]      INT           NOT NULL,
+    [IdRestaurant]    INT           NOT NULL,
     CONSTRAINT [FK_Order_IdOrderStatus] FOREIGN KEY ([IdOrderStatus]) REFERENCES [OrderStatus]([IdOrderStatus]),
     CONSTRAINT [FK_Order_IdUser] FOREIGN KEY ([IdUser]) REFERENCES [User]([IdUser]),
 	CONSTRAINT [FK_Order_IdDeliveryStaff] FOREIGN KEY ([IdDeliveryStaff]) REFERENCES [DeliveryStaff]([IdDeliveryStaff]),
-    CONSTRAINT [FK_Order_IdLocation] FOREIGN KEY ([IdLocation]) REFERENCES [Location]([IdLocation])
+    CONSTRAINT [FK_Order_IdLocation] FOREIGN KEY ([IdLocation]) REFERENCES [Location]([IdLocation]),
+    CONSTRAINT [FK_Order_IdRestaurant] FOREIGN KEY ([IdRestaurant]) REFERENCES [Restaurant]([IdRestaurant])
 );
 
 CREATE TABLE [dbo].[OrderDetails] (

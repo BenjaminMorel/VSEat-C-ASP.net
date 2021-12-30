@@ -10,6 +10,7 @@ namespace DAL.Interfaces
 
         Restaurant GetRestaurantByID(int IdRestaurant);
 
+        Restaurant GetRestaurantByIDLogin(int IdLogin);
         Restaurant AddRestaurant(Restaurant restaurant);
 
         Restaurant UpdateRestaurant(Restaurant restaurant);

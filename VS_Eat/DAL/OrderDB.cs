@@ -53,7 +53,7 @@ namespace DAL
                             myOrder.IdUser = (int) dataReader["IdUser"];
                             myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
                             myOrder.IdLocation = (int) dataReader["IdLocation"];
-                            
+                            myOrder.IdRestaurant = (int)dataReader["IdRestaurant"];
                             // Add the restaurant to the list
                             allOrders.Add(myOrder);
 
@@ -106,7 +106,8 @@ namespace DAL
                             myOrder.IdUser = (int) dataReader["IdUser"];
                         //    myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
                             myOrder.IdLocation = (int) dataReader["IdLocation"];
-                            
+                            myOrder.IdRestaurant = (int)dataReader["IdRestaurant"];
+
                             // Add the order to the list
                             AllOrder.Add(myOrder); 
                         }
@@ -121,6 +122,101 @@ namespace DAL
                 Console.Write(e.Source);
             }
             return AllOrder; 
+        }
+
+        public Order GetOrderById(int IdOrder)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            Order myOrder = new Order();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM [dbo].[Order] WHERE IdOrder=@IdOrder";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdOrder", IdOrder);
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                        
+
+                            myOrder.IdOrder = (int)dataReader["IdOrder"];
+                            myOrder.OrderDate = (DateTime)dataReader["OrderDate"];
+                            myOrder.DeliveryTime = (DateTime)dataReader["DeliveryTime"];
+                            myOrder.DeliveryAddress = (string)dataReader["DeliveryAddress"];
+                            myOrder.Freight = (float)(double)dataReader["Freight"];
+                            myOrder.TotalPrice = (float)(double)dataReader["TotalPrice"];
+                            myOrder.IdOrderStatus = (int)dataReader["IdOrderStatus"];
+                            myOrder.IdUser = (int)dataReader["IdUser"];
+                            //    myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
+                            myOrder.IdLocation = (int)dataReader["IdLocation"];
+                            myOrder.IdRestaurant = (int)dataReader["IdRestaurant"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting OrderByUser\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return myOrder;
+        }
+
+        public List<Order> GetAllOrderFromRestaurant(int IdRestaurant)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            List<Order> AllOrder = new List<Order>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM [dbo].[Order] WHERE IdRestaurant=@IdRestaurant";
+                                    
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdRestaurant", IdRestaurant);
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            Order myOrder = new Order();
+
+                            myOrder.IdOrder = (int)dataReader["IdOrder"];
+                            myOrder.OrderDate = (DateTime)dataReader["OrderDate"];
+                            myOrder.DeliveryTime = (DateTime)dataReader["DeliveryTime"];
+                            myOrder.DeliveryAddress = (string)dataReader["DeliveryAddress"];
+                            myOrder.Freight = (float)(double)dataReader["Freight"];
+                            myOrder.TotalPrice = (float)(double)dataReader["TotalPrice"];
+                            myOrder.IdOrderStatus = (int)dataReader["IdOrderStatus"];
+                            myOrder.IdUser = (int)dataReader["IdUser"];
+                      
+                            //    myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
+                            myOrder.IdLocation = (int)dataReader["IdLocation"];
+                            myOrder.IdRestaurant = (int)dataReader["IdRestaurant"];
+
+                            // Add the order to the list
+                            AllOrder.Add(myOrder);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting OrderByUser\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return AllOrder;
         }
 
         /// <summary>
@@ -186,8 +282,8 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Insert into [dbo].[Order](OrderDate,DeliveryTime,DeliveryAddress,Freight,TotalPrice,IdOrderStatus,IdUser,IdDeliveryStaff,IdLocation) " +
-                                   "Values(@OrderDate,@DeliveryTime,@DeliveryAddress,@Freight,@TotalPrice,@IdOrderStatus,@IdUser,null,@IdLocation); SELECT SCOPE_IDENTITY()";
+                    string query = "Insert into [dbo].[Order](OrderDate,DeliveryTime,DeliveryAddress,Freight,TotalPrice,IdOrderStatus,IdUser,IdDeliveryStaff,IdLocation,IdRestaurant) " +
+                                   "Values(@OrderDate,@DeliveryTime,@DeliveryAddress,@Freight,@TotalPrice,@IdOrderStatus,@IdUser,null,@IdLocation,@IdRestaurant); SELECT SCOPE_IDENTITY()";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@OrderDate", MyOrder.OrderDate);
                     command.Parameters.AddWithValue("@DeliveryTime", MyOrder.DeliveryTime); 
@@ -197,6 +293,7 @@ namespace DAL
                     command.Parameters.AddWithValue("@IdOrderStatus", MyOrder.IdOrderStatus);
                     command.Parameters.AddWithValue("@IdUser", MyOrder.IdUser);
                     command.Parameters.AddWithValue("@IdLocation",MyOrder.IdLocation);
+                    command.Parameters.AddWithValue("@IdRestaurant", MyOrder.IdRestaurant); 
                     connection.Open();
 
                     MyOrder.IdOrder = Convert.ToInt32(command.ExecuteScalar());

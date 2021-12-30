@@ -20,16 +20,19 @@ namespace WebApplication.Controllers
 
         private IChartDetailsManager ChartDetailsManager { get;  }
 
+        private IOrderManager OrderManager { get; }
 
 
-        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,IChartDetailsManager ChartDetailsManager)
+
+        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,IChartDetailsManager ChartDetailsManager, IOrderManager OrderManager)
         {
             this.RestaurantManager = RestaurantManager;
             this.ProductManager = ProductManager;
             this.LocationManager = LocationManager;
             this.UserManager = UserManager;
             this.RegionManager = RegionManager;
-            this.ChartDetailsManager = ChartDetailsManager; 
+            this.ChartDetailsManager = ChartDetailsManager;
+            this.OrderManager = OrderManager; 
         }
         public ActionResult Index()
         {
@@ -130,6 +133,25 @@ namespace WebApplication.Controllers
             return View(allData); 
         }
 
+        public ActionResult MainPageRestaurant()
+        {
+            var OrderList = OrderManager.GetAllOrderFromRestaurant((int)HttpContext.Session.GetInt32("ID_RESTAURANT")); 
+            return View(OrderList); 
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MainPageRestaurant(int IdOrder)
+        {
+            var myOrder = OrderManager.GetOrderById(IdOrder);
+            myOrder.IdOrderStatus = 2; 
+            OrderManager.UpdateOrderStatus(myOrder);
+
+
+            //TODO creer la methode qui va assigner la command à un livreur 
+            var OrderList = OrderManager.GetAllOrderFromRestaurant((int)HttpContext.Session.GetInt32("ID_RESTAURANT"));
+            return View(OrderList);
+        }
+        
     }
 }

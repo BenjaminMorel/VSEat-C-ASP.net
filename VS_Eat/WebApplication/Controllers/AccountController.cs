@@ -19,16 +19,19 @@ namespace WebApplication.Controllers
         private ILoginManager LoginManager { get; }
         private ILocationManager LocationManager { get; }
         private IDeliveryStaffManager DeliveryStaffManager { get; }
+
+        private IRestaurantManager RestaurantManager { get;  }
         private IRegionManager RegionManager { get; }
 
         public AccountController(IUserManager UserManager, ILoginManager LoginManager, ILocationManager LocationManager,
-            IDeliveryStaffManager DeliveryStaffManager, IRegionManager RegionManager)
+            IDeliveryStaffManager DeliveryStaffManager, IRegionManager RegionManager, IRestaurantManager RestaurantManager)
         {
             this.LoginManager = LoginManager;
             this.UserManager = UserManager;
             this.LocationManager = LocationManager;
             this.DeliveryStaffManager = DeliveryStaffManager;
             this.RegionManager = RegionManager;
+            this.RestaurantManager = RestaurantManager; 
         }
 
         public ActionResult CreateAnAccount()
@@ -102,12 +105,19 @@ namespace WebApplication.Controllers
                         return RedirectToAction("Index", "Restaurant");
                     }
 
-                if (myAccount.IdLoginType == 3)
-                {
-                    var myDeliveryStaff = DeliveryStaffManager.GetDeliveryStaffByID(myAccount.IdLogin);
-                    HttpContext.Session.SetInt32("ID_STAFF", myDeliveryStaff.IdDeliveryStaff);
-                    return RedirectToAction("Index", "DeliveryStaff");
-                }
+                    if (myAccount.IdLoginType == 3)
+                    {
+                        var myDeliveryStaff = DeliveryStaffManager.GetDeliveryStaffByID(myAccount.IdLogin);
+                        HttpContext.Session.SetInt32("ID_STAFF", myDeliveryStaff.IdDeliveryStaff);
+                        return RedirectToAction("Index", "DeliveryStaff");
+                    }
+
+                    if(myAccount.IdLoginType == 2)
+                    {
+                        var myRestaurant = RestaurantManager.GetRestaurantByIDLogin(myAccount.IdLogin);
+                        HttpContext.Session.SetInt32("ID_RESTAURANT", myRestaurant.IdRestaurant);
+                        return RedirectToAction("MainPageRestaurant", "Restaurant"); 
+                    }
 
                     return View();
 

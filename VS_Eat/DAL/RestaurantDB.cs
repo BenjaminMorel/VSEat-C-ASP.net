@@ -103,6 +103,46 @@ namespace DAL
             return myRestaurant;
         }
 
+        public Restaurant GetRestaurantByIDLogin(int IdLogin)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            Restaurant myRestaurant = new Restaurant();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM [dbo].[Restaurant] WHERE IdLogin=@IdLogin";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    connection.Open();
+                    cmd.Parameters.AddWithValue("@IdLogin", IdLogin);
+
+                    using (SqlDataReader dataReader = cmd.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+
+                            myRestaurant.IdRestaurant = (int)dataReader["IdRestaurant"];
+                            myRestaurant.RestaurantName = (string)dataReader["RestaurantName"];
+                            myRestaurant.RestaurantAddress = (string)dataReader["RestaurantAddress"];
+                            myRestaurant.IdLogin = (int)dataReader["IdLogin"];
+                            myRestaurant.IdLocation = (int)dataReader["IdLocation"];
+                            myRestaurant.Picture = (string)dataReader["Picture"];
+
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting all restaurants\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return myRestaurant;
+        }
+
 
 
         /// <summary>

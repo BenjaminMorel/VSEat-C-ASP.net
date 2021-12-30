@@ -16,6 +16,10 @@ namespace BLL.Interfaces
 
         List<Order> GetOpenOrdersFromRegion(int IdRegion);
 
+        List<Order> GetAllOrderFromRestaurant(int IdRestaurant);
+
+        Order GetOrderById(int IdOrder);
+
         Order AddNewOrder(Order MyOrder);
 
         Order CancelOrder(Order MyOrder, User MyUser);

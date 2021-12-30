@@ -281,7 +281,7 @@ INSERT [dbo].[Restaurant] (RestaurantName, RestaurantAddress,Picture, IdLogin, I
 ('Pizza Express',			'Chemin de la pizza 93',	'/Images/Restaurants/restaurant2.jpg',		'1',	'12',	'2'),
 ('Le Bistrot d''Italie',	'Rue d''Oche 10',			'/Images/Restaurants/restaurant3.jpg',		'1',	'2',	'2'),
 ('La Dixence',				'Place du Midi 35',			'/Images/Restaurants/restaurant4.jpg',		'1',	'3',	'6'),
-('Inglewood',				'Cr de la gare 27',			'/Images/Restaurants/restaurant5.jpg',		'1',	'3',	'1'),
+('Inglewood',				'Cr de la gare 27',			'/Images/Restaurants/restaurant5.jpg',		'16',	'3',	'1'),
 ('StarKebab',				'Chemin du kebab 12',		'/Images/Restaurants/restaurant1.jpg',		'1',	'142',	'4'),
 ('Pizza Express',			'Chemin de la pizza 93',	'/Images/Restaurants/restaurant2.jpg',		'1',	'12',	'2'),
 ('Le Bistrot d''Italie',	'Rue d''Oche 10',			'/Images/Restaurants/restaurant3.jpg',		'1',	'2',	'2'),
@@ -350,10 +350,9 @@ INSERT [dbo].[DeliveryStaff] (FirstName, LastName, PhoneNumber, Address, IdLogin
 ('Simon',		'Beaud',		'0245212545', 'chemin de vionn 12', '15', '20', '1', '2');
 
 INSERT [dbo].[OrderStatus] (Status) VALUES
-('In preparation'),
-('Ready'),
+('Created'),
+('Ready to be delivered'),
 ('Out for delivery'),
-('Delivered'),
 ('Archived'),
 ('Canceled');
 

@@ -27,6 +27,8 @@ namespace DTO
 
         public int IdLocation { get; set; }
 
+        public int IdRestaurant { get; set;  }
+
         public override string ToString()
         {
             return "__________________________" +

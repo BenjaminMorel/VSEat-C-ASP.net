@@ -35,6 +35,15 @@ namespace BLL
             return OrderDb.GetOpenOrdersFromRegion(IdRegion); 
         }
 
+        public List<Order> GetAllOrderFromRestaurant(int IdRestaurant)
+        {
+            return OrderDb.GetAllOrderFromRestaurant(IdRestaurant); 
+        }
+
+        public Order GetOrderById(int IdOrder)
+        {
+            return OrderDb.GetOrderById(IdOrder); 
+        }
         public Order AddNewOrder(Order MyOrder)
         {
             return OrderDb.AddNewOrder(MyOrder); 

@@ -17,22 +17,32 @@
     </header>
     <tbody>
         <div class="grid_parent">
-            <!-- Column -->   
-         
-            @foreach (var item in Model.products)
+
+            @if (Model.myChart.Count > 0)
             {
+                @if (Model.IdRestaurant != Model.myChart[0].IdRestaurant)
+                {
+                    <div class="ErroMessage">You cannot add product from different restaurant into the chart ! You need to first finished your order</div>
+                }
+            }
 
-                <div class="grid_parent">
-                    <!-- Cover -->
-                    <!-- Content -->
 
-                    <div restaurant>
-                        <a href=@Url.Action("ProductDetails", new { id = item.IdProduct })>
+                <!-- Column -->
 
-                            <img src="@item.Picture" width="300" height="200" class="restaurantImage" />
+                @foreach (var item in Model.products)
+                {
 
-                        </a>
-        <tr>
+                    <div class="grid_parent">
+                        <!-- Cover -->
+                        <!-- Content -->
+
+                        <div restaurant>
+                            <a href=@Url.Action("ProductDetails", new { id = item.IdProduct })>
+
+                                <img src="@item.Picture" width="300" height="200" class="restaurantImage" />
+
+                            </a>
+<tr>
 
             <td>
 
@@ -61,7 +71,7 @@
                     }
                     else
                     {
-                        <input type="submit" value="Add to chart" class="Disabled"/>
+                        <input type="submit" value="Add to chart" class="Disabled"/>               
                     }
                 }
                 else

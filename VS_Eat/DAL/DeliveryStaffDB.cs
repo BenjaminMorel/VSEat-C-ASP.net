@@ -283,6 +283,51 @@ namespace DAL
         }
 
 
+        public List<DeliveryStaff> FindStaffFororder(int IdRegion)
+        {
+            List<DeliveryStaff> listDeliveryStaff = new List<DeliveryStaff>();
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    //TODO finir la query pour trouver le livreur 
+                    string query = "SELECT * FROM [dbo].[DeliveryStaff] D, [dbo].[Location] L" +
+                        "WHERE D.IdWorkingRegion=@IdRegion"; 
+                        
+                    SqlCommand command = new SqlCommand(query, connection);
+
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            DeliveryStaff myDeliveryStaff = new DeliveryStaff();
+
+                            myDeliveryStaff.IdLogin = (int)dataReader["IdLogin"];
+                            myDeliveryStaff.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                            myDeliveryStaff.FirstName = (string)dataReader["FirstName"];
+                            myDeliveryStaff.LastName = (string)dataReader["LastName"];
+                            myDeliveryStaff.PhoneNumber = (string)dataReader["PhoneNumber"];
+                            myDeliveryStaff.IdLocation = (int)dataReader["IdLocation"];
+                            myDeliveryStaff.IdDeliveryStaffType = (int)dataReader["IdDeliveryStaffType"];
+                            myDeliveryStaff.IdWorkingRegion = (int)dataReader["IdWorkingRegion"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN GET LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+
+            return listDeliveryStaff;
+        }
     }
 }

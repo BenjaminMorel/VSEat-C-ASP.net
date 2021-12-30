@@ -75,6 +75,8 @@ namespace WebApplication.Controllers
                     {
                         if (ModelState.IsValid)
                         {
+                        
+                      
                             ModelState.AddModelError(string.Empty, "The address delivery region's must be the same as the restaurant region !");
                         }
                         myChartDetails = ChartDetailsManager.GetAllChartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
@@ -95,6 +97,7 @@ namespace WebApplication.Controllers
                     myOrder.IdOrderStatus = 1;
                     myOrder.IdUser = (int)HttpContext.Session.GetInt32("ID_USER");
                     myOrder.IdLocation = myDeliveryLocation.IdLocation;
+                    myOrder.IdRestaurant = myChartDetails[0].IdRestaurant; 
 
                     var myNewOrder = OrderManager.AddNewOrder(myOrder);
                     foreach (var charDetail in myChartDetails)
