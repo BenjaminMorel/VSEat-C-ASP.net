@@ -59,7 +59,10 @@
                 <img src="@item.ProductImage" width="60" height="60" class="restaurantImage" />
             </td>
             <td>
-                <input type="submit"   value="DELETE" />
+                <form method="post">
+                    <input type="hidden" name="IdChartDetails" value=@Html.DisplayFor(modelItem => item.IdChartDetails) />
+                    <input type="submit" value="DELETE" />
+                </form>
             </td>
         </tr>
         }

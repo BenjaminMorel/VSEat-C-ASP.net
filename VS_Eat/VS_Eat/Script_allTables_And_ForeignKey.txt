@@ -152,6 +152,7 @@ CREATE TABLE [dbo].[OrderDetails] (
 );
 
 CREATE TABLE [dbo].[ChartDetails] (         
+    [IdChartDetails]INT                 IDENTITY(1,1) PRIMARY KEY,
     [IdLogin]       INT                 NOT NULL,
     [IdProduct]     INT                 NOT NULL,
     [IdRestaurant]  INT                 NOT NULL, 

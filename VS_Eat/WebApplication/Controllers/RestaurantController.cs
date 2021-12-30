@@ -65,8 +65,17 @@ namespace WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ShowAllProductFromRestaurant(int IdProduct, string ProductName,string ProductImage, int Quantity, double UnitPrice, int IdRestaurant)
         {
-            ChartDetails myChartDetails = new ChartDetails();
             int IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
+
+            var products = new List<Product>();
+            AllProductWithCart myPage = new AllProductWithCart();
+
+            var chartDetails = ChartDetailsManager.GetAllChartDetailsFromLogin(IdLogin);
+
+            //Vérification si l'ID restaurant du nouvel élément est pareil que le contenu du panier actuel 
+
+            ChartDetails myChartDetails = new ChartDetails();
+ 
             myChartDetails.IdLogin = IdLogin;
             myChartDetails.IdProduct = IdProduct;
             myChartDetails.IdRestaurant = IdRestaurant;
@@ -78,9 +87,8 @@ namespace WebApplication.Controllers
             //Création d'une nouvelle ligne dans la base de donnée avec la nouvelle information du panier 
             ChartDetailsManager.AddNewChartDetails(myChartDetails);
 
-            var products = ProductManager.GetAllProductsFromRestaurant(IdRestaurant);
+            products = ProductManager.GetAllProductsFromRestaurant(IdRestaurant);
 
-            AllProductWithCart myPage = new AllProductWithCart();
             myPage.myChart = ChartDetailsManager.GetAllChartDetailsFromLogin(IdLogin);
             myPage.products = products;
             myPage.IdRestaurant = IdRestaurant;

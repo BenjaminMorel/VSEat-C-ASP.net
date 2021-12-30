@@ -46,6 +46,7 @@ namespace WebApplication.Controllers
             
             if (myNewUser == null)
             {
+
                 //TODO create a page to handle doublon ( redirect to login page ?) 
                 return RedirectToAction("login", "Account");
             }
@@ -89,28 +90,32 @@ namespace WebApplication.Controllers
         {
             Login myAccount = LoginManager.GetLoginWithCredential(myLogin.Username, myLogin.Password);
 
-            if (myAccount != null)
+            if (ModelState.IsValid)
             {
-                HttpContext.Session.SetInt32("ID_LOGIN", myAccount.IdLogin);
-
-                if (myAccount.IdLoginType == 4 || myAccount.IdLoginType == 1)
+                if (myAccount != null)
                 {
-                    var myUser = UserManager.GetUserByID(myAccount.IdLogin);
-                    HttpContext.Session.SetInt32("ID_USER", myUser.IdUser);
-                    return RedirectToAction("Index", "Restaurant");
+                    HttpContext.Session.SetInt32("ID_LOGIN", myAccount.IdLogin);
+
+                    if (myAccount.IdLoginType == 4 || myAccount.IdLoginType == 1)
+                    {
+                        var myUser = UserManager.GetUserByID(myAccount.IdLogin);
+                        HttpContext.Session.SetInt32("ID_USER", myUser.IdUser);
+                        return RedirectToAction("Index", "Restaurant");
+                    }
+
+                    else if (myAccount.IdLoginType == 3)
+                    {
+                        var myDeliveryStaff = DeliveryStaffManager.GetDeliveryStaffByID(myAccount.IdLogin);
+                        HttpContext.Session.SetInt32("ID_STAFF", myDeliveryStaff.IdDeliveryStaff);
+                        return RedirectToAction("Index", "DeliveryStaff");
+                    }
+
+                    return View();
+
                 }
 
-                else if (myAccount.IdLoginType == 3)
-                {
-                    var myDeliveryStaff = DeliveryStaffManager.GetDeliveryStaffByID(myAccount.IdLogin);
-                    HttpContext.Session.SetInt32("ID_STAFF", myDeliveryStaff.IdDeliveryStaff);
-                    return RedirectToAction("Index", "DeliveryStaff");
-                }
-
-                return View();
-
+                ModelState.AddModelError(string.Empty, "Invalid Email or password");
             }
-            
             return View();
         }
 

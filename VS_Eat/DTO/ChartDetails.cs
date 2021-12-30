@@ -8,6 +8,7 @@ namespace DTO
 {
     public class ChartDetails
     {
+        public int IdChartDetails { get; set; }
         public int IdLogin { get; set; }
 
         public int IdProduct { get; set; }

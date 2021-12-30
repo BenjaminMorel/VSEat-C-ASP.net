@@ -39,6 +39,7 @@ namespace DAL
                         {
                             ChartDetails MyChartDetails = new ChartDetails();
 
+                            MyChartDetails.IdChartDetails = (int)dataReader["IdChartDetails"]; 
                             MyChartDetails.IdLogin = (int)dataReader["IdLogin"];
                             MyChartDetails.IdProduct = (int)dataReader["IdProduct"];
                             MyChartDetails.IdRestaurant = (int)dataReader["IdRestaurant"];
@@ -98,16 +99,16 @@ namespace DAL
            
         }
 
-        public void DeleteOneEntry(int IdProduct)
+        public void DeleteOneEntry(int IdChartDetails)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "DELETE FROM [dbo].[ChartDetails] WHERE IdProduct=@IdProduct";
+                    string query = "DELETE FROM [dbo].[ChartDetails] WHERE IdChartDetails=@IdChartDetails";
                     SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdProduct",IdProduct);
+                    command.Parameters.AddWithValue("@IdChartDetails", IdChartDetails);
                 
                     connection.Open();
 

@@ -11,6 +11,8 @@ namespace BLL.Interfaces
     {
         List<Restaurant> GetAllRestaurants();
 
+        Restaurant GetRestaurantByID(int IdRestaurant);
+
         Restaurant AddRestaurant(Restaurant restaurant);
 
         Restaurant UpdateRestaurant(Restaurant restaurant);

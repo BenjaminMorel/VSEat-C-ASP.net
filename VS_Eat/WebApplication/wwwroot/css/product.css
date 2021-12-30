@@ -33,3 +33,10 @@
     padding: 20px;
 }
 
+.Disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.45;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
