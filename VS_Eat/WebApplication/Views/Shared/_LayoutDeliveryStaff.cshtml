@@ -21,7 +21,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="AccountInformation">Account details</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="AccountInformationStaff">Account details</a>
                         </li>
                         <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ShowAllOrders">My open orders</a>
@@ -34,7 +34,9 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </main>
     </div>
 

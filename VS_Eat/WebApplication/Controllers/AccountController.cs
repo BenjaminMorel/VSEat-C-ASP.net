@@ -64,9 +64,8 @@ namespace WebApplication.Controllers
         public ActionResult CreateDeliveryStaff(Login_DeliveryStaff login_DeliveryStaff)
         {
             DeliveryStaff myDeliveryStaff = DeliveryStaffManager.CreateNewStaff(login_DeliveryStaff.FirstName,
-                login_DeliveryStaff.LastName,
-                login_DeliveryStaff.PhoneNumber, login_DeliveryStaff.Address, login_DeliveryStaff.PostCode,
-                login_DeliveryStaff.City, "Sion", login_DeliveryStaff.EmailAddress, login_DeliveryStaff.Password);
+                login_DeliveryStaff.LastName, login_DeliveryStaff.PhoneNumber, login_DeliveryStaff.Address, login_DeliveryStaff.PostCode,
+                login_DeliveryStaff.City, login_DeliveryStaff.RegionName, login_DeliveryStaff.EmailAddress, login_DeliveryStaff.Password);
             
             if (myDeliveryStaff == null)
             {
@@ -100,7 +99,7 @@ namespace WebApplication.Controllers
                     return RedirectToAction("Index", "Restaurant");
                 }
 
-                else if (myAccount.IdLoginType == 3)
+                if (myAccount.IdLoginType == 3)
                 {
                     var myDeliveryStaff = DeliveryStaffManager.GetDeliveryStaffByID(myAccount.IdLogin);
                     HttpContext.Session.SetInt32("ID_STAFF", myDeliveryStaff.IdDeliveryStaff);
@@ -140,6 +139,34 @@ namespace WebApplication.Controllers
             return View(myLogin_User);
         }
 
+        public ActionResult AccountInformationStaff()
+        {
+            int IdLogin = (int) HttpContext.Session.GetInt32("ID_LOGIN");
+
+            var myLogin = LoginManager.GetLoginByID(IdLogin);
+            var myDeliveryStaff = DeliveryStaffManager.GetDeliveryStaffByID(IdLogin);
+
+            var myLocation = LocationManager.GetLocationByID(myDeliveryStaff.IdLocation);
+            var myRegion = RegionManager.GetRegionName(myDeliveryStaff.IdWorkingRegion);
+
+            var myLogin_DeliveryStaff = new Login_DeliveryStaff();
+
+            myLogin_DeliveryStaff.EmailAddress = myLogin.Username;
+            myLogin_DeliveryStaff.Password = myLogin.Password;
+
+            myLogin_DeliveryStaff.FirstName = myDeliveryStaff.FirstName;
+            myLogin_DeliveryStaff.LastName = myDeliveryStaff.LastName;
+            myLogin_DeliveryStaff.PhoneNumber = myDeliveryStaff.PhoneNumber;
+            myLogin_DeliveryStaff.Address = myDeliveryStaff.Address;
+
+            myLogin_DeliveryStaff.RegionName = myRegion.RegionName;
+
+            myLogin_DeliveryStaff.PostCode = myLocation.PostCode;
+            myLogin_DeliveryStaff.City = myLocation.City;
+
+            return View(myLogin_DeliveryStaff);
+        }
+
         public ActionResult EditAccount()
         {
             int IdLogin = (int) HttpContext.Session.GetInt32("ID_LOGIN");
@@ -163,6 +190,34 @@ namespace WebApplication.Controllers
             myLogin_User.City = myLocation.City;
 
             return View(myLogin_User);
+        }
+
+        public ActionResult EditAccountStaff()
+        {
+            int IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
+
+            var myLogin = LoginManager.GetLoginByID(IdLogin);
+            var myDeliveryStaff = DeliveryStaffManager.GetDeliveryStaffByID(IdLogin);
+
+            var myLocation = LocationManager.GetLocationByID(myDeliveryStaff.IdLocation);
+            var myRegion = RegionManager.GetRegionName(myDeliveryStaff.IdWorkingRegion);
+
+            var myLogin_DeliveryStaff = new Login_DeliveryStaff();
+
+            myLogin_DeliveryStaff.EmailAddress = myLogin.Username;
+            myLogin_DeliveryStaff.Password = myLogin.Password;
+
+            myLogin_DeliveryStaff.FirstName = myDeliveryStaff.FirstName;
+            myLogin_DeliveryStaff.LastName = myDeliveryStaff.LastName;
+            myLogin_DeliveryStaff.PhoneNumber = myDeliveryStaff.PhoneNumber;
+            myLogin_DeliveryStaff.Address = myDeliveryStaff.Address;
+
+            myLogin_DeliveryStaff.RegionName = myRegion.RegionName;
+
+            myLogin_DeliveryStaff.PostCode = myLocation.PostCode;
+            myLogin_DeliveryStaff.City = myLocation.City;
+
+            return View(myLogin_DeliveryStaff);
         }
 
         [HttpPost]
@@ -189,6 +244,34 @@ namespace WebApplication.Controllers
             UserManager.UpdateUser(myUser);
 
             return RedirectToAction("AccountInformation", "Account");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAccountStaff(Login_DeliveryStaff login_DeliveryStaff)
+        {
+            var myDeliveryStaff = new DeliveryStaff();
+            var myLogin = new Login();
+            var myLocation = LocationManager.GetLocation(login_DeliveryStaff.City, login_DeliveryStaff.PostCode);
+            var myRegion = RegionManager.GetIdRegion(login_DeliveryStaff.RegionName);
+
+            myDeliveryStaff.IdDeliveryStaff = (int) HttpContext.Session.GetInt32("ID_STAFF");
+            myDeliveryStaff.IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
+            myDeliveryStaff.FirstName = login_DeliveryStaff.FirstName;
+            myDeliveryStaff.LastName = login_DeliveryStaff.LastName;
+            myDeliveryStaff.PhoneNumber = login_DeliveryStaff.PhoneNumber;
+            myDeliveryStaff.Address = login_DeliveryStaff.Address;
+            myDeliveryStaff.IdLocation = myLocation.IdLocation;
+            myDeliveryStaff.IdWorkingRegion = myRegion;
+
+            myLogin.IdLogin = (int) HttpContext.Session.GetInt32("ID_LOGIN");
+            myLogin.Username = login_DeliveryStaff.EmailAddress;
+            myLogin.Password = login_DeliveryStaff.Password;
+
+            LoginManager.UpdateLogin(myLogin);
+            DeliveryStaffManager.UpdateDeliveryStaff(myDeliveryStaff);
+
+            return RedirectToAction("AccountInformationStaff", "Account");
         }
 
         [HttpPost]
