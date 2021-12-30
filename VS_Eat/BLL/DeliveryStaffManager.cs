@@ -64,14 +64,19 @@ namespace BLL
             MyDeliveryStaff.LastName = LastName;
             MyDeliveryStaff.PhoneNumber = PhoneNumber;
             MyDeliveryStaff.Address = Address;
-            MyDeliveryStaff.IdLogin = 1;
-            MyDeliveryStaff.IdLocation = 1;
+            MyDeliveryStaff.IdLogin = MyLogin.IdLogin;
+            MyDeliveryStaff.IdLocation = Location.IdLocation;
             MyDeliveryStaff.IdDeliveryStaffType = 1; // For validation
-            MyDeliveryStaff.IdWorkingRegion = 1;
+            MyDeliveryStaff.IdWorkingRegion = region;
             MyDeliveryStaff = DeliveryStaffDb.AddStaff(MyDeliveryStaff);
 
             return MyDeliveryStaff; 
 
+        }
+
+        public DeliveryStaff UpdateDeliveryStaff(DeliveryStaff myDeliveryStaff)
+        {
+            return DeliveryStaffDb.UpdateDeliveryStaff(myDeliveryStaff);
         }
 
         public DeliveryStaff GetDeliveryStaffByID(int IdLogin)

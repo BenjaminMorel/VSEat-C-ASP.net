@@ -12,6 +12,8 @@ namespace DAL.Interfaces
 
         DeliveryStaff AddStaff(DeliveryStaff myDeliveryStaff);
 
+        DeliveryStaff UpdateDeliveryStaff(DeliveryStaff myDeliveryStaff);
+
         DeliveryStaff GetDeliveryStaffByID(int IdLogin);
 
     }

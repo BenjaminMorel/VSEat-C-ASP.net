@@ -14,6 +14,8 @@ namespace BLL.Interfaces
             int PostCode, string City, string RegionName, string Email,
             string Password);
 
+        DeliveryStaff UpdateDeliveryStaff(DeliveryStaff myDeliveryStaff);
+
         DeliveryStaff GetDeliveryStaffByID(int IdLogin);
     }
 

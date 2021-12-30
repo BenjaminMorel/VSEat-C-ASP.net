@@ -234,7 +234,7 @@ namespace DAL
                     command.Parameters.AddWithValue("@IdWorkingRegion", MyStaff.IdWorkingRegion);
 
                     connection.Open();
-                    MyStaff.IdDeliveryStaff = Convert.ToInt32(command.ExecuteScalar());
+                    command.ExecuteScalar();
 
                 }
             }
@@ -249,7 +249,40 @@ namespace DAL
             return MyStaff;
         }
 
+        public DeliveryStaff UpdateDeliveryStaff(DeliveryStaff myDeliveryStaff)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Update [dbo].[DeliveryStaff] Set FirstName=@FirstName, LastName=@LastName, PhoneNumber=@PhoneNumber, Address=@Address, IdLogin=@IdLogin, IdLocation=@IdLocation, IdWorkingRegion=@IdWorkingRegion WHERE IdLogin=@IdLogin;";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@FirstName", myDeliveryStaff.FirstName);
+                    command.Parameters.AddWithValue("@LastName", myDeliveryStaff.LastName);
+                    command.Parameters.AddWithValue("@PhoneNumber", myDeliveryStaff.PhoneNumber);
+                    command.Parameters.AddWithValue("@Address", myDeliveryStaff.Address);
+                    command.Parameters.AddWithValue("@IdLogin", myDeliveryStaff.IdLogin);
+                    command.Parameters.AddWithValue("@IdLocation", myDeliveryStaff.IdLocation);
+                    command.Parameters.AddWithValue("@IdWorkingRegion", myDeliveryStaff.IdWorkingRegion);
 
-        
+                    connection.Open();
+
+                    command.ExecuteScalar();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN UPDATE DELIVERY STAFF\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return myDeliveryStaff;
+        }
+
+
+
     }
 }
