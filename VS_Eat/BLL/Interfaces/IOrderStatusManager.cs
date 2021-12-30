@@ -10,5 +10,7 @@ namespace BLL.Interfaces
     public interface IOrderStatusManager
     {
         List<OrderStatus> GetAllOrderStatus();
+
+        OrderStatus GetOrderStatus(int IdOrder);
     }
 }

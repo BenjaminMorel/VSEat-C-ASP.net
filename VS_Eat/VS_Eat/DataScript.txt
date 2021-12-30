@@ -356,9 +356,9 @@ INSERT [dbo].[OrderStatus] (Status) VALUES
 ('Archived'),
 ('Canceled');
 
-INSERT [dbo].[Order] (OrderDate, DeliveryTime, DeliveryAddress, Freight, TotalPrice, IdOrderStatus, IdUser, IdDeliveryStaff, IdLocation) VALUES
-(DEFAULT,'18:30:00', 'Rue de la faim 3',	'4.00', '24.00', '5', '2', '8', '40'),
-(DEFAULT,'17:15:00', 'Rue de la faim 12',	'8.00', '68.00', '5', '2', '9', '88');
+INSERT [dbo].[Order] (OrderDate, DeliveryTime, DeliveryAddress, Freight, TotalPrice, IdOrderStatus, IdUser, IdDeliveryStaff, IdLocation, IdRestaurant) VALUES
+(DEFAULT,'18:30:00', 'Rue de la faim 3',	'4.00', '24.00', '5', '2', '2', '40', '1'),
+(DEFAULT,'17:15:00', 'Rue de la faim 12',	'8.00', '68.00', '5', '2', '2', '88', '1');
 
 INSERT [dbo].[OrderDetails] (UnitPrice, Quantity, IdProduct, IdOrder) VALUES
 ('10.00', '2', '1', '2'),

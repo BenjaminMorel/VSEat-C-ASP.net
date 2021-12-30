@@ -59,5 +59,43 @@ namespace DAL
             }
             return allOrderStatus;
         }
+
+        public OrderStatus GetOrderStatus(int IdOrder)
+        {
+            OrderStatus myOrderStatus = null;
+
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Select * from [dbo].[Order] WHERE IdOrder=@IdOrder";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdOrder", IdOrder);
+
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            myOrderStatus = new OrderStatus();
+
+                            myOrderStatus.IdOrderStatus = (int)dataReader["IdOrderStatus"];
+                            myOrderStatus.Status = (string)dataReader["Status"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN GET ORDERSTATUS\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return myOrderStatus;
+        }
     }
 }

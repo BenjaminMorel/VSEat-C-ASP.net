@@ -9,7 +9,8 @@ namespace DAL.Interfaces
 {
     public interface IOrderStatusDB
     {
-
         List<OrderStatus> GetAllOrderStatus();
+
+        OrderStatus GetOrderStatus(int IdOrder);
     }
 }
