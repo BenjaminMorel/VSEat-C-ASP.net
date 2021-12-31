@@ -60,27 +60,24 @@ namespace DAL
             return allOrderStatus;
         }
 
-        public OrderStatus GetOrderStatus(int IdOrder)
+        public OrderStatus GetOrderStatus(int IdOrderStatus)
         {
-            OrderStatus myOrderStatus = null;
-
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            OrderStatus myOrderStatus = new OrderStatus();
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Select * from [dbo].[Order] WHERE IdOrder=@IdOrder";
+                    string query = "Select * from [dbo].[OrderStatus] WHERE IdOrderStatus=@IdOrderStatus";
                     SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdOrder", IdOrder);
-
                     connection.Open();
+                    command.Parameters.AddWithValue("@IdOrderStatus", IdOrderStatus);
 
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
-                        if (dataReader.Read())
+                        while (dataReader.Read())
                         {
-                            myOrderStatus = new OrderStatus();
-
                             myOrderStatus.IdOrderStatus = (int)dataReader["IdOrderStatus"];
                             myOrderStatus.Status = (string)dataReader["Status"];
                         }

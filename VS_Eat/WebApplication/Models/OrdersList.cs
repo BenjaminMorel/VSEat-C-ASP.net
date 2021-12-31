@@ -17,9 +17,9 @@ namespace WebApplication.Models
 
         public string DeliveryAddress { get; set; }
 
-        public string FirstName { get; set; }
+        public string RecipientFirstName { get; set; }
 
-        public string LastName { get; set; }
+        public string RecipientLastName { get; set; }
 
         public int Postcode { get; set; }
 
@@ -27,6 +27,17 @@ namespace WebApplication.Models
 
         public double TotalPrice { get; set; }
 
+        public int IdOrderStatus { get; set; }
+
         public string OrderStatus { get; set; }
+
+        public string  RestaurantName { get; set; }
+        
+        public string RestaurantAddress { get; set; }
+
+        public int RestaurantPostCode { get; set; }
+        
+        public string RestaurantCity { get; set; }
+
     }
 }

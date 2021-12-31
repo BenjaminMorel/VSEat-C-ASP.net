@@ -85,10 +85,11 @@ namespace DAL
                             myRestaurant.IdRestaurant = (int)dataReader["IdRestaurant"];
                             myRestaurant.RestaurantName = (string)dataReader["RestaurantName"];
                             myRestaurant.RestaurantAddress = (string)dataReader["RestaurantAddress"];
+                            myRestaurant.Picture = (string)dataReader["Picture"];
                             myRestaurant.IdLogin = (int)dataReader["IdLogin"];
                             myRestaurant.IdLocation = (int)dataReader["IdLocation"];
-                            myRestaurant.Picture = (string)dataReader["Picture"];
-
+                            myRestaurant.IdRestaurantType = (int) dataReader["IdRestaurantType"];
+                            
                         }
                     }
                 }
