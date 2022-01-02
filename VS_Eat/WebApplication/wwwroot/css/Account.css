@@ -95,7 +95,7 @@
     }
 
     .login-form .group {
-            margin-bottom: 15px;
+         margin-bottom: 15px;
     }
 
     .login-form .group .label,
@@ -109,9 +109,9 @@
     .login-form .group .input,
     .login-form .group .button {
         border: none;
-        padding: 15px 20px;
+        padding: 17px 20px;
         border-radius: 25px;
-        background: #fff);
+        background: #ffff;
     }
 
     .login-form .group input[data-type="password"] {
@@ -120,11 +120,12 @@
 
     .login-form .group .label {
         color: #fff;
-        font-size: 12px;
+        font-size: 15px;
     }
 
     .login-form .group .button {
         background: darkorange;
+        transition-duration: 0.4s;
     }
 
     .login-form .group label .icon {
@@ -193,18 +194,39 @@
     text-align: center;
     }
 
-.h1-center {
-    color: darkorange;
-    text-shadow: 2px 2px 2px #ffffff;
-    text-align: center;
-}
+    .h1-center {
+        color: darkorange;
+        text-shadow: 2px 2px 2px #ffffff;
+        text-align: center;
+    }
 
-.buttons2 {
-    color: #000000;
-    font-size: 16px;
-    background: #ffffff;
-    border-radius: 25px;
-    width: 100%;
-    height: 45px;
-    border-radius: 2px;
-}
+    .buttons2 {
+        color: #000000;
+        font-size: 16px;
+        background: #ffffff;
+        border-radius: 25px;
+        width: 100%;
+        height: 45px;
+        border-radius: 2px;
+    }
+
+    .buttonSignUp {
+        width: 100%;
+        color: #000000;
+        display: block;
+        border: none;
+        padding: 15px 20px;
+        border-radius: 25px;
+        background: #fff;
+        transition-duration: 0.4s;
+    }
+
+    .button:hover {
+        background: #ffff;
+    }
+
+
+    .buttonSignUp:hover {
+        background: darkorange;
+        color : #fff;
+    }

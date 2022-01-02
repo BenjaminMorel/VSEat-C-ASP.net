@@ -31,6 +31,8 @@ namespace WebApplication.Models
 		public string LastName { get; set; } // from User
 
 		[Required]
+		[MinLength(10)]
+		[MaxLength(10)]
 		public string PhoneNumber { get; set; } // from user
 
 		[Required]

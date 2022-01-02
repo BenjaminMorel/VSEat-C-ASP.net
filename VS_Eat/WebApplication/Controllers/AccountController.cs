@@ -19,7 +19,6 @@ namespace WebApplication.Controllers
         private ILoginManager LoginManager { get; }
         private ILocationManager LocationManager { get; }
         private IDeliveryStaffManager DeliveryStaffManager { get; }
-
         private IRestaurantManager RestaurantManager { get;  }
         private IRegionManager RegionManager { get; }
 

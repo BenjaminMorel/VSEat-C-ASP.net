@@ -30,6 +30,8 @@ namespace WebApplication.Models
         public string LastName { get; set; } // from DeliveryStaff
 
         [Required]
+        [MinLength(10)]
+        [MaxLength(10)]
         public string PhoneNumber { get; set; } // from DeliveryStaff
 
         [Required]

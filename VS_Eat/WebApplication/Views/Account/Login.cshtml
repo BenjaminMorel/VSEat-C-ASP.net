@@ -13,6 +13,7 @@
             <div class="sign-in-htm">
                 <form asp-action="Login">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <br />
                     <div class="group">
                         <label asp-for="Username" class="label"></label>
                         <input asp-for="Username" type="text" class="input"/>
@@ -23,6 +24,7 @@
                         <input asp-for="Password" type="password" class="input" data-type="password"/>
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
+                    <br />
                     <div class="group">
                         <input type="submit" class="button" value="Sign in">
                     </div>
@@ -31,16 +33,15 @@
             </div>
 
             <div class="sign-up-htm">
-                <form asp-action="CreateAnAccount">
-                    <p></p>
-                    <div>
-                        <a class="buttons2" asp-area="" asp-controller="Account" asp-action="CreateAnAccount">Create an account</a>
-                    </div>
-                    <div>
-                        <a class="buttons2" asp-area="" asp-controller="Account" asp-action="CreateDeliveryStaff">Become a deliver</a>
-                    </div>
-                    <div class="hr"></div>
-                </form>
+                <br /> <br /> <br />
+                <div class="group">
+                    <a class="buttonSignUp" asp-area="" asp-controller="Account" asp-action="CreateAnAccount">Create an account</a>
+                </div>
+                <br />
+                <div class="group">
+                    <a class="buttonSignUp" asp-area="" asp-controller="Account" asp-action="CreateDeliveryStaff">Become a deliver</a>
+                </div>
+                <div class="hr"></div>
             </div>
         </div>
     </div>
