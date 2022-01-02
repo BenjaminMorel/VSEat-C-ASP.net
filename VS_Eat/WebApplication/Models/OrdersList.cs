@@ -9,7 +9,7 @@ namespace WebApplication.Models
 {
     public class OrdersList
     {
-        public int OrderNumber { get; set; }
+        public int IdOrder { get; set; }
 
         public DateTime OrderDate { get; set; }
 
@@ -25,7 +25,7 @@ namespace WebApplication.Models
 
         public string City { get; set; }
 
-        public double TotalPrice { get; set; }
+        public float TotalPrice { get; set; }
 
         public int IdOrderStatus { get; set; }
 

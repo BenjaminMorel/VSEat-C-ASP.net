@@ -40,6 +40,10 @@ namespace BLL
             return OrderDb.GetAllOrderFromRestaurant(IdRestaurant); 
         }
 
+        public List<Order> GetAllOrderFromDeliveryStaff(int IdDeliveryStaff)
+        {
+            return OrderDb.GetAllOrderFromDeliveryStaff(IdDeliveryStaff); 
+        }
         public Order GetOrderById(int IdOrder)
         {
             return OrderDb.GetOrderById(IdOrder); 
@@ -58,7 +62,7 @@ namespace BLL
         {
             return OrderDb.UpdateOrderStatus(MyOrder); 
         }
-        public Order AffectStaffToAnOrder(Order MyOrder)
+        public Order AssignStaffToAnOrder(Order MyOrder)
         {
 
             //TODO trouver le staff qui livrera l'order 

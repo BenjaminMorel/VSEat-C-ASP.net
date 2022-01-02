@@ -8,7 +8,7 @@ namespace BLL.Interfaces
     {
         List<DeliveryStaff> GetAllDeliveryStaff(); 
 
-        List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff);
+        List<Order> CountOrderWithTime(int IdDeliveryStaff, DateTime timeControl);
 
         DeliveryStaff CreateNewStaff(string FirstName, string LastName, string PhoneNumber, string Address,
             int PostCode, string City, string RegionName, string Email,
@@ -17,6 +17,8 @@ namespace BLL.Interfaces
         DeliveryStaff UpdateDeliveryStaff(DeliveryStaff myDeliveryStaff);
 
         DeliveryStaff GetDeliveryStaffByID(int IdLogin);
+
+        List<DeliveryStaff> FindStaffFororder(int IdRegion);
     }
 
 }

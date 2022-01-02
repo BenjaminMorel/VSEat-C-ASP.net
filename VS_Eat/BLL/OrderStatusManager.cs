@@ -25,9 +25,9 @@ namespace BLL
             return OrderStatusDB.GetAllOrderStatus();
         }
 
-        public OrderStatus GetOrderStatus(int IdOrder)
+        public OrderStatus GetOrderStatus(int IdOrderStatus)
         {
-            return OrderStatusDB.GetOrderStatus(IdOrder);
+            return OrderStatusDB.GetOrderStatus(IdOrderStatus);
         }
     }
 }

@@ -18,6 +18,8 @@ namespace BLL.Interfaces
 
         List<Order> GetAllOrderFromRestaurant(int IdRestaurant);
 
+        List<Order> GetAllOrderFromDeliveryStaff(int IdDeliveryStaff);
+
         Order GetOrderById(int IdOrder);
 
         Order AddNewOrder(Order MyOrder);
@@ -25,5 +27,7 @@ namespace BLL.Interfaces
         Order CancelOrder(Order MyOrder, User MyUser);
 
         Order UpdateOrderStatus(Order MyOrder);
+
+        Order AssignStaffToAnOrder(Order MyOrder);
     }
 }

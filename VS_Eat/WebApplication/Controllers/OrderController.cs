@@ -5,12 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
     public class OrderController : Controller
     {
         private IOrderManager OrderManager { get; }
+
+        private IOrderStatusManager OrderStatusManager { get;  }
         private IOrderDetailsManager OrderDetailsManager { get; }
 
         private IChartDetailsManager ChartDetailsManager { get;  }
@@ -18,18 +21,82 @@ namespace WebApplication.Controllers
         private ILocationManager LocationManager { get;  }
 
         private IRestaurantManager RestaurantManager { get; }
-        public OrderController(IOrderManager OrderManager, IOrderDetailsManager orderDetailsManager, IChartDetailsManager ChartDetailsManager, ILocationManager LocationManager, IRestaurantManager RestaurantManager)
+        public OrderController(IOrderManager OrderManager, IOrderDetailsManager orderDetailsManager, IChartDetailsManager ChartDetailsManager, ILocationManager LocationManager, IRestaurantManager RestaurantManager, IOrderStatusManager OrderStatusManager)
         {
             this.OrderManager = OrderManager;
             this.OrderDetailsManager = orderDetailsManager;
             this.ChartDetailsManager = ChartDetailsManager;
             this.LocationManager = LocationManager;
-            this.RestaurantManager = RestaurantManager; 
+            this.RestaurantManager = RestaurantManager;
+            this.OrderStatusManager = OrderStatusManager; 
         }
         public IActionResult ShowAllOrders()
         {
+            List<OrdersList> ordersList = new List<OrdersList>();
             var orders = OrderManager.GetOrderByUser((int)HttpContext.Session.GetInt32("ID_USER"));
-            return View(orders);
+            
+            foreach(var order in orders)
+            {
+                OrdersList myOrderList = new OrdersList();
+                var myLocation = LocationManager.GetLocationByID(order.IdLocation);
+                var mystatus = OrderStatusManager.GetOrderStatus(order.IdOrderStatus);
+                var myRestaurant = RestaurantManager.GetRestaurantByID(order.IdRestaurant); 
+
+                myOrderList.IdOrder = order.IdOrder;
+                myOrderList.DeliveryTime = order.DeliveryTime;
+                myOrderList.DeliveryAddress = order.DeliveryAddress;
+                // aucun nom n'est spécifié car on affiche les commandes d'un user donc le nom est logiquement toujours le même
+                myOrderList.RecipientFirstName = "";
+                myOrderList.RecipientLastName = "";
+                myOrderList.Postcode = myLocation.PostCode;
+                myOrderList.City = myLocation.City;
+                myOrderList.TotalPrice = order.TotalPrice;
+                myOrderList.IdOrderStatus = order.IdOrderStatus;
+                myOrderList.OrderStatus = mystatus.Status;
+                myOrderList.RestaurantName = myRestaurant.RestaurantName;
+                myOrderList.RestaurantAddress = myRestaurant.RestaurantAddress;
+
+                ordersList.Add(myOrderList); 
+            }
+            return View(ordersList);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ShowAllOrders(int IdOrder)
+        {
+            // update de l'order status => l'order status deviens 5, la commande est donc annulée 
+            var myOrder = OrderManager.GetOrderById(IdOrder);
+            myOrder.IdOrderStatus = 5;
+            OrderManager.UpdateOrderStatus(myOrder);
+
+            List<OrdersList> ordersList = new List<OrdersList>();
+            var orders = OrderManager.GetOrderByUser((int)HttpContext.Session.GetInt32("ID_USER"));
+
+            foreach (var order in orders)
+            {
+                OrdersList myOrderList = new OrdersList();
+                var myLocation = LocationManager.GetLocationByID(order.IdLocation);
+                var mystatus = OrderStatusManager.GetOrderStatus(order.IdOrder);
+                var myRestaurant = RestaurantManager.GetRestaurantByID(order.IdRestaurant);
+
+                myOrderList.IdOrder = order.IdOrder;
+                myOrderList.DeliveryTime = order.DeliveryTime;
+                myOrderList.DeliveryAddress = order.DeliveryAddress;
+                // aucun nom n'est spécifié car on affiche les commandes d'un user donc le nom est logiquement toujours le même
+                myOrderList.RecipientFirstName = "";
+                myOrderList.RecipientLastName = "";
+                myOrderList.Postcode = myLocation.PostCode;
+                myOrderList.City = myLocation.City;
+                myOrderList.TotalPrice = order.TotalPrice;
+                myOrderList.IdOrderStatus = order.IdOrderStatus;
+                myOrderList.OrderStatus = mystatus.Status;
+                myOrderList.RestaurantName = myRestaurant.RestaurantName;
+                myOrderList.RestaurantAddress = myRestaurant.RestaurantAddress;
+
+                ordersList.Add(myOrderList);
+            }
+            return View(ordersList);
         }
 
         public IActionResult ShowOrderDetail(int IdOrder)
@@ -51,7 +118,7 @@ namespace WebApplication.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
        
-        public ActionResult ConfirmOrder(string DeliveryAddress, string city, int PostCode, int IdChartDetails)
+        public ActionResult ConfirmOrder(string DeliveryAddress, string city, int PostCode, int IdChartDetails,DateTime deliveryTime)
         {
             var myChartDetails = new List<ChartDetails>();
  
@@ -88,9 +155,26 @@ namespace WebApplication.Controllers
                     foreach (var chartDetail in myChartDetails)
                     {
                         totalPrice += (float)(chartDetail.UnitPrice * chartDetail.Quantity);
-                    }
+                    }                 
                     myOrder.OrderDate = DateTime.Now;
-                    myOrder.DeliveryTime = DateTime.Now.AddMinutes(30);
+                if (deliveryTime.Minute < 15)
+                {
+                    deliveryTime.AddMinutes(15 - deliveryTime.Minute);
+                    if(deliveryTime.Minute > 15 && deliveryTime.Minute < 30)
+                    {
+                        deliveryTime.AddMinutes(30 - deliveryTime.Minute); 
+                        if(deliveryTime.Minute > 30 && deliveryTime.Minute < 45)
+                        {
+                            deliveryTime.AddMinutes(45 - deliveryTime.Minute); 
+                            if(deliveryTime.Minute > 45)
+                            {
+                                deliveryTime.AddMinutes(60 - deliveryTime.Minute); 
+                            }
+                        }
+                    }
+                }
+             
+                    myOrder.DeliveryTime = deliveryTime;
                     myOrder.DeliveryAddress = DeliveryAddress;
                     myOrder.Freight = 10;
                     myOrder.TotalPrice = totalPrice;

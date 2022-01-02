@@ -80,7 +80,7 @@ namespace DAL
                     command.Parameters.AddWithValue("@ProductName", myChartDetails.ProductName);
                     command.Parameters.AddWithValue("@ProductImage", myChartDetails.ProductImage); 
                     command.Parameters.AddWithValue("@Quantity", myChartDetails.Quantity);
-                    command.Parameters.AddWithValue("@UnitPrice", (float)(double) myChartDetails.UnitPrice);
+                    command.Parameters.AddWithValue("@UnitPrice", (float) myChartDetails.UnitPrice);
 
                     connection.Open();
 

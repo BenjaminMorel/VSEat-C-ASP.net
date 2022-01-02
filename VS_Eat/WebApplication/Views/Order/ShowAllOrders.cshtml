@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DTO.Order>
+﻿@model IEnumerable<WebApplication.Models.OrdersList>
 
 @{
     ViewData["Title"] = "ShowAllOrders";
@@ -6,49 +6,48 @@
 
 <h1>ShowAllOrders</h1>
 
+<div>Unfinished Command</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdOrder)
+                Order Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrderDate)
+               Wanted Delivery Time 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DeliveryTime)
+               Delivery Address
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DeliveryAddress)
+               Post Code
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Freight)
+                City
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalPrice)
+                Total Price
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdOrderStatus)
+               Order Status
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdUser)
+               Restaurant
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdDeliveryStaff)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdLocation)
+               Address
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
+    @if (item.IdOrderStatus <= 3)
+    {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdOrder)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OrderDate)
             </td>
@@ -59,27 +58,109 @@
                 @Html.DisplayFor(modelItem => item.DeliveryAddress)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Freight)
+                @Html.DisplayFor(modelItem => item.Postcode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
+                @Html.DisplayFor(modelItem => item.City)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdOrderStatus)
+                @Html.DisplayFor(modelItem => item.TotalPrice) CHF
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdUser)
+                @Html.DisplayFor(modelItem => item.OrderStatus)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdDeliveryStaff)
+                @Html.DisplayFor(modelItem => item.RestaurantName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdLocation)
+                @Html.DisplayFor(modelItem => item.RestaurantAddress)
             </td>
+       
             <td>
-                @Html.ActionLink("Details", "ShowOrderDetail", new { IdOrder = item.IdOrder  }) 
+                @if (DateTime.Now.AddMinutes(180) < item.DeliveryTime)
+                {
+                    <form method="post">
+                        <input type="hidden" name="IdOrder" value=@Html.DisplayFor(modelItem => item.IdOrder) />
+                        <input type="submit" value="CANCELLED" />
+                    </form>
+                }
             </td>
         </tr>
+    }
 }
+    </tbody>
+</table>
+
+<div>Historique</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Order Date
+            </th>
+            <th>
+                Delivery Time
+            </th>
+            <th>
+                Delivery Address
+            </th>
+            <th>
+                Post Code
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                Total Price
+            </th>
+            <th>
+                Order Status
+            </th>
+            <th>
+                Restaurant
+            </th>
+            <th>
+                Address
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            @if (item.IdOrderStatus > 3)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Postcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice) CHF
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestaurantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestaurantAddress)
+            </td>
+        </tr>
+            }
+        }
     </tbody>
 </table>

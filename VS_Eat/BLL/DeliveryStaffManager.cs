@@ -35,9 +35,9 @@ namespace BLL
             return DeliveryStaffDb.GetAllDeliveryStaff(); 
         }
 
-        public List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff)
+        public List<Order> CountOrderWithTime(int IdDeliveryStaff, DateTime timeControl)
         {
-            return DeliveryStaffDb.CountOpenOrderByStaffId(IdDeliveryStaff); 
+            return DeliveryStaffDb.CountOrderWithTime(IdDeliveryStaff,timeControl); 
         }
 
         public DeliveryStaff CreateNewStaff(string FirstName, string LastName, string PhoneNumber, string Address, int PostCode, string City, string RegionName, string Email,
@@ -82,6 +82,11 @@ namespace BLL
         public DeliveryStaff GetDeliveryStaffByID(int IdLogin)
         {
             return DeliveryStaffDb.GetDeliveryStaffByID(IdLogin);
+        }
+
+        public List<DeliveryStaff> FindStaffFororder(int IdRegion)
+        {
+            return DeliveryStaffDb.FindStaffFororder(IdRegion); 
         }
 
     }

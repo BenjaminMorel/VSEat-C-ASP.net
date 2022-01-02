@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OrdersList>;
+﻿@model IEnumerable<WebApplication.Models.OrdersList>;
 
 @{
     ViewData["Title"] = "Index";
@@ -28,11 +28,11 @@
     @foreach (var item in Model)
     {
        
-        if (item.IdOrderStatus == 3)
+        if (item.IdOrderStatus <= 2)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.OrderNumber)
+                    @Html.DisplayFor(modelItem => item.IdOrder)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RestaurantName)
@@ -56,12 +56,12 @@
                     @Html.DisplayFor(modelItem => item.TotalPrice)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "DetailsOrder", new {IdOrder = item.OrderNumber})
+                    @Html.ActionLink("Details", "DetailsOrder", new {IdOrder = item.IdOrder})
                 </td>
                 <td>
                     <form method="post">
-                        <input type="hidden" name="IdOrder" value=@Html.DisplayFor(modelItem => item.OrderNumber)/>
-                        <input type="submit" value="Delivered"/>
+                        <input type="hidden" name="IdOrder" value=@Html.DisplayFor(modelItem => item.IdOrder) />
+                        <input type="submit" value="Delivered" />
                     </form>
                 </td>
             </tr>
@@ -94,11 +94,11 @@
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.IdOrderStatus == 4)
+            if (item.IdOrderStatus >2)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.OrderNumber)
+                        @Html.DisplayFor(modelItem => item.IdOrder)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.RestaurantName)
@@ -122,7 +122,7 @@
                         @Html.DisplayFor(modelItem => item.TotalPrice)
                     </td>
                     <td>
-                        @Html.ActionLink("Details", "DetailsOrder", new { IdOrder = item.OrderNumber })
+                        @Html.ActionLink("Details", "DetailsOrder", new { IdOrder = item.IdOrder })
                     </td>
                 </tr>
             }

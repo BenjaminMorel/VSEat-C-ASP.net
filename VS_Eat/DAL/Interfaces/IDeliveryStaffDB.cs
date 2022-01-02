@@ -1,12 +1,13 @@
 ﻿
 using DTO;
+using System;
 using System.Collections.Generic;
 
 namespace DAL.Interfaces
 {
     public interface IDeliveryStaffDB
     {
-        List<Order> CountOpenOrderByStaffId(int IdDeliveryStaff);
+        List<Order> CountOrderWithTime(int IdDeliveryStaff, DateTime timeControl);
 
         List<DeliveryStaff> GetAllDeliveryStaff(); 
 
@@ -15,6 +16,8 @@ namespace DAL.Interfaces
         DeliveryStaff UpdateDeliveryStaff(DeliveryStaff myDeliveryStaff);
 
         DeliveryStaff GetDeliveryStaffByID(int IdLogin);
+
+        List<DeliveryStaff> FindStaffFororder(int IdRegion);
 
     }
 }

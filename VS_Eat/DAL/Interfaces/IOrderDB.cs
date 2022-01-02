@@ -15,6 +15,8 @@ namespace DAL.Interfaces
 
         List<Order> GetAllOrderFromRestaurant(int IdRestaurant);
 
+        List<Order> GetAllOrderFromDeliveryStaff(int IdDeliveryStaff);
+
         Order GetOrderById(int IdOrder);
 
         Order AddNewOrder(Order MyOrder);

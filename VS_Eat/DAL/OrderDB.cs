@@ -104,7 +104,10 @@ namespace DAL
                             myOrder.TotalPrice = (float) (double) dataReader["TotalPrice"];
                             myOrder.IdOrderStatus = (int) dataReader["IdOrderStatus"];
                             myOrder.IdUser = (int) dataReader["IdUser"];
-                        //    myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
+                            if(dataReader["IdDeliveryStaff"] != null)
+                            {
+                                myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                            }            
                             myOrder.IdLocation = (int) dataReader["IdLocation"];
                             myOrder.IdRestaurant = (int)dataReader["IdRestaurant"];
 
@@ -152,7 +155,10 @@ namespace DAL
                             myOrder.TotalPrice = (float)(double)dataReader["TotalPrice"];
                             myOrder.IdOrderStatus = (int)dataReader["IdOrderStatus"];
                             myOrder.IdUser = (int)dataReader["IdUser"];
-                            //    myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
+                            if (dataReader["IdDeliveryStaff"] != null)
+                            {
+                  //              myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                            }
                             myOrder.IdLocation = (int)dataReader["IdLocation"];
                             myOrder.IdRestaurant = (int)dataReader["IdRestaurant"];
                         }
@@ -198,8 +204,64 @@ namespace DAL
                             myOrder.TotalPrice = (float)(double)dataReader["TotalPrice"];
                             myOrder.IdOrderStatus = (int)dataReader["IdOrderStatus"];
                             myOrder.IdUser = (int)dataReader["IdUser"];
-                      
-                            //    myOrder.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
+
+                            if (dataReader["IdDeliveryStaff"] != null)
+                            {
+                       //         myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                            }
+                            myOrder.IdLocation = (int)dataReader["IdLocation"];
+                            myOrder.IdRestaurant = (int)dataReader["IdRestaurant"];
+
+                            // Add the order to the list
+                            AllOrder.Add(myOrder);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting OrderByUser\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+            return AllOrder;
+        }
+
+        public List<Order> GetAllOrderFromDeliveryStaff(int IdDeliveryStaff)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            List<Order> AllOrder = new List<Order>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM [dbo].[Order] WHERE IdDeliveryStaff=@IdDeliveryStaff";
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdDeliveryStaff", IdDeliveryStaff);
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            Order myOrder = new Order();
+
+                            myOrder.IdOrder = (int)dataReader["IdOrder"];
+                            myOrder.OrderDate = (DateTime)dataReader["OrderDate"];
+                            myOrder.DeliveryTime = (DateTime)dataReader["DeliveryTime"];
+                            myOrder.DeliveryAddress = (string)dataReader["DeliveryAddress"];
+                            myOrder.Freight = (float)(double)dataReader["Freight"];
+                            myOrder.TotalPrice = (float)(double)dataReader["TotalPrice"];
+                            myOrder.IdOrderStatus = (int)dataReader["IdOrderStatus"];
+                            myOrder.IdUser = (int)dataReader["IdUser"];
+
+                            if (dataReader["IdDeliveryStaff"] != null)
+                            {
+                    //            myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                            }
                             myOrder.IdLocation = (int)dataReader["IdLocation"];
                             myOrder.IdRestaurant = (int)dataReader["IdRestaurant"];
 
@@ -288,8 +350,8 @@ namespace DAL
                     command.Parameters.AddWithValue("@OrderDate", MyOrder.OrderDate);
                     command.Parameters.AddWithValue("@DeliveryTime", MyOrder.DeliveryTime); 
                     command.Parameters.AddWithValue("@DeliveryAddress", MyOrder.DeliveryAddress);
-                    command.Parameters.AddWithValue("@Freight", MyOrder.Freight);
-                    command.Parameters.AddWithValue("@TotalPrice", MyOrder.TotalPrice);
+                    command.Parameters.AddWithValue("@Freight",(float) MyOrder.Freight);
+                    command.Parameters.AddWithValue("@TotalPrice", (float)MyOrder.TotalPrice);
                     command.Parameters.AddWithValue("@IdOrderStatus", MyOrder.IdOrderStatus);
                     command.Parameters.AddWithValue("@IdUser", MyOrder.IdUser);
                     command.Parameters.AddWithValue("@IdLocation",MyOrder.IdLocation);

@@ -11,6 +11,6 @@ namespace BLL.Interfaces
     {
         List<OrderStatus> GetAllOrderStatus();
 
-        OrderStatus GetOrderStatus(int IdOrder);
+        OrderStatus GetOrderStatus(int IdOrderStatus);
     }
 }

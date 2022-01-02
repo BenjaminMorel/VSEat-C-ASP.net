@@ -162,7 +162,7 @@ namespace DAL
         /// </summary>
         /// <param name="IdDeliveryStaff"></param>
         /// <returns></returns>
-        public List<Order> CountOpenOrderByStaffId(int IdDeliveryStaff)
+        public List<Order> CountOrderWithTime(int IdDeliveryStaff,DateTime timeControl)
         {
             List<Order> numberOfOpenOrders = new List<Order>();
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -170,12 +170,14 @@ namespace DAL
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    //TODO[HUGO] ajouter contrainte de 30 min sur le compte des order open
-                    string query = "SELECT * FROM [dbo].[Order] WHERE IdDeliveryStaff=@IdDeliveryStaff";
+                {                
+                    string query = "SELECT * FROM [dbo].[Order] " +
+                        "WHERE IdDeliveryStaff=@IdDeliveryStaff " +
+                        "AND DeliveryTime>@timeControl";
 
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@IdDeliveryStaff", IdDeliveryStaff);
+                    command.Parameters.AddWithValue("@timeControl", timeControl); 
                     connection.Open();
 
                     using (SqlDataReader dataReader = command.ExecuteReader())
@@ -183,15 +185,17 @@ namespace DAL
                         while (dataReader.Read())
                         {
                             Order myOrder = new Order();
+
                             myOrder.IdOrder = (int)dataReader["IdOrder"];
-                            //myOrder.OrderDate = (string) dataReader["OrderDate"];
+                            myOrder.OrderDate = (DateTime)dataReader["OrderDate"];
+                            myOrder.DeliveryTime = (DateTime)dataReader["DeliveryTime"];
                             myOrder.DeliveryAddress = (string)dataReader["DeliveryAddress"];
-                            //myOrder.Freight = (float) dataReader["Freight"];
-                            //myOrder.TotalPrice = (float) dataReader["TotalPrice"];
+                            myOrder.Freight = (float)(double)dataReader["Freight"];
+                            myOrder.TotalPrice = (float)(double)dataReader["TotalPrice"];
                             myOrder.IdOrderStatus = (int)dataReader["IdOrderStatus"];
                             myOrder.IdUser = (int)dataReader["IdUser"];
-                            myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
                             myOrder.IdLocation = (int)dataReader["IdLocation"];
+                            myOrder.IdRestaurant = (int)dataReader["IdRestaurant"];
 
                             // Add the restaurant to the list
                             numberOfOpenOrders.Add(myOrder);
@@ -293,16 +297,17 @@ namespace DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     //TODO finir la query pour trouver le livreur 
-                    string query = "SELECT * FROM [dbo].[DeliveryStaff] D, [dbo].[Location] L" +
-                        "WHERE D.IdWorkingRegion=@IdRegion"; 
+                    string query = "SELECT * FROM [dbo].[DeliveryStaff] WHERE IdWorkingRegion=@IdRegion"; 
+         
                         
                     SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdRegion", IdRegion); 
 
                     connection.Open();
 
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
-                        if (dataReader.Read())
+                        while (dataReader.Read())
                         {
                             DeliveryStaff myDeliveryStaff = new DeliveryStaff();
 
@@ -314,6 +319,8 @@ namespace DAL
                             myDeliveryStaff.IdLocation = (int)dataReader["IdLocation"];
                             myDeliveryStaff.IdDeliveryStaffType = (int)dataReader["IdDeliveryStaffType"];
                             myDeliveryStaff.IdWorkingRegion = (int)dataReader["IdWorkingRegion"];
+
+                            listDeliveryStaff.Add(myDeliveryStaff); 
                         }
                     }
                 }

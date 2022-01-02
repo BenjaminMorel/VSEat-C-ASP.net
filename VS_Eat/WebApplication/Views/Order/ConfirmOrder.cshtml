@@ -69,6 +69,8 @@
     </tbody>
     <tbody>
         <form method="post">
+            <p>Wanted delivery time ? You can only choose every 15 minutes</p>
+            <input type="time"  name="deliveryTime" step="900" value=@DateTime.Now/>       
             <p>City</p>
             <input type="text" name="city" value="">
             <p>PostCode</p>
@@ -80,3 +82,4 @@
         </form>
     </tbody>
 </table>
+

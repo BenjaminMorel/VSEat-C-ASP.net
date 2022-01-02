@@ -22,9 +22,11 @@ namespace WebApplication.Controllers
 
         private IOrderManager OrderManager { get; }
 
+        private IDeliveryStaffManager DeliveryStaffManager { get;  }
 
 
-        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,IChartDetailsManager ChartDetailsManager, IOrderManager OrderManager)
+
+        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,IChartDetailsManager ChartDetailsManager, IOrderManager OrderManager, IDeliveryStaffManager DeliveryStaffManager)
         {
             this.RestaurantManager = RestaurantManager;
             this.ProductManager = ProductManager;
@@ -32,7 +34,8 @@ namespace WebApplication.Controllers
             this.UserManager = UserManager;
             this.RegionManager = RegionManager;
             this.ChartDetailsManager = ChartDetailsManager;
-            this.OrderManager = OrderManager; 
+            this.OrderManager = OrderManager;
+            this.DeliveryStaffManager = DeliveryStaffManager; 
         }
         public ActionResult Index()
         {
@@ -66,16 +69,12 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ShowAllProductFromRestaurant(int IdProduct, string ProductName,string ProductImage, int Quantity, double UnitPrice, int IdRestaurant)
+        public ActionResult ShowAllProductFromRestaurant(int IdProduct, string ProductName,string ProductImage, int Quantity, float Price, int IdRestaurant)
         {
             int IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
 
             var products = new List<Product>();
             AllProductWithCart myPage = new AllProductWithCart();
-
-            var chartDetails = ChartDetailsManager.GetAllChartDetailsFromLogin(IdLogin);
-
-            //Vérification si l'ID restaurant du nouvel élément est pareil que le contenu du panier actuel 
 
             ChartDetails myChartDetails = new ChartDetails();
  
@@ -85,7 +84,7 @@ namespace WebApplication.Controllers
             myChartDetails.ProductName = ProductName;
             myChartDetails.ProductImage = ProductImage; 
             myChartDetails.Quantity = Quantity;
-            myChartDetails.UnitPrice = (float) UnitPrice; 
+            myChartDetails.UnitPrice = (float)Price; 
 
             //Création d'une nouvelle ligne dans la base de donnée avec la nouvelle information du panier 
             ChartDetailsManager.AddNewChartDetails(myChartDetails);
@@ -147,7 +146,23 @@ namespace WebApplication.Controllers
             myOrder.IdOrderStatus = 2; 
             OrderManager.UpdateOrderStatus(myOrder);
 
+            var myLocation = LocationManager.GetLocationByID(myOrder.IdLocation);
 
+            var StaffInTheRegion = DeliveryStaffManager.FindStaffFororder(myLocation.IdRegion);
+            var StaffAvailable = new List<DeliveryStaff>(); 
+            foreach(var staff in StaffInTheRegion)
+            {
+                var timeControl = DateTime.Now;
+                var newTimeontrol = timeControl.AddMinutes(-30); 
+                var orders = DeliveryStaffManager.CountOrderWithTime(staff.IdDeliveryStaff, newTimeontrol); 
+                if(orders.Count < 5)
+                {
+                    StaffAvailable.Add(staff); 
+                }
+            }
+
+            myOrder.IdDeliveryStaff = StaffAvailable[0].IdDeliveryStaff;
+            OrderManager.AssignStaffToAnOrder(myOrder); 
             //TODO creer la methode qui va assigner la command à un livreur 
             var OrderList = OrderManager.GetAllOrderFromRestaurant((int)HttpContext.Session.GetInt32("ID_RESTAURANT"));
             return View(OrderList);

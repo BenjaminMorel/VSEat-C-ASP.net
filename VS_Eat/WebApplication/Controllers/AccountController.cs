@@ -83,13 +83,14 @@ namespace WebApplication.Controllers
 
         public ActionResult Login()
         {
+            HttpContext.Session.Clear();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(Login myLogin)
-        {
+        {      
             Login myAccount = LoginManager.GetLoginWithCredential(myLogin.Username, myLogin.Password);
 
             if (ModelState.IsValid)
@@ -287,14 +288,6 @@ namespace WebApplication.Controllers
             DeliveryStaffManager.UpdateDeliveryStaff(myDeliveryStaff);
 
             return RedirectToAction("AccountInformationStaff", "Account");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Disconnect()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Login", "Account");
         }
 
     }
