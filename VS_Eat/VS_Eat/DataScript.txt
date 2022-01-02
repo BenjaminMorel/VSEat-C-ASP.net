@@ -364,3 +364,8 @@ INSERT [dbo].[OrderDetails] (UnitPrice, Quantity, IdProduct, IdOrder) VALUES
 ('10.00', '2', '1', '2'),
 ('15.00', '2', '5', '2'),
 ('15.00', '2', '10', '2');
+
+INSERT [dbo].[Review] (IdRestaurant,Stars,Comment) VALUES
+('5','5','Super burger !'),
+('5','2',NULL),
+('5','3',NULL); 

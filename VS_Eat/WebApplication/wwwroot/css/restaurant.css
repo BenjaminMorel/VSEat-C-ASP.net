@@ -46,3 +46,12 @@
     padding: 20px;
 }
 
+.checked {
+    color: orange; 
+}
+
+.reviewText{
+    font-style: italic; 
+    font-size: small; 
+}
+

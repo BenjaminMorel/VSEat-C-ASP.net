@@ -166,3 +166,10 @@ CREATE TABLE [dbo].[ChartDetails] (
     CONSTRAINT [FK_ChartDetails_IdProduct] FOREIGN KEY ([IdProduct]) REFERENCES [Product]([IdProduct]),
     CONSTRAINT [FK_ChartDetails_IdRestaurant] FOREIGN KEY ([IdRestaurant]) REFERENCES [Restaurant]([IdRestaurant])
 );
+
+CREATE TABLE [dbo].[Review] (
+    [IdRestaurant]  INT             NOT NULL,
+    [Stars]         INT             NOT NULL,
+    [Comment]       NVARCHAR (50)   NULL,
+    CONSTRAINT [FK_Review_IdRestaurant] FOREIGN KEY ([IdRestaurant]) REFERENCES [Restaurant]([IdRestaurant])
+    ); 

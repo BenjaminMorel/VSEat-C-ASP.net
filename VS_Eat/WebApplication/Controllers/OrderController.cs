@@ -93,7 +93,6 @@ namespace WebApplication.Controllers
                 myOrderList.OrderStatus = mystatus.Status;
                 myOrderList.RestaurantName = myRestaurant.RestaurantName;
                 myOrderList.RestaurantAddress = myRestaurant.RestaurantAddress;
-
                 ordersList.Add(myOrderList);
             }
             return View(ordersList);

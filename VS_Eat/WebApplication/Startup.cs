@@ -67,6 +67,10 @@ namespace WebApplication
             services.AddScoped<IDeliveryStaffTypeManager, DeliveryStaffTypeManager>();
             services.AddScoped<IDeliveryStaffTypeDB, DeliveryStaffTypeDB>();
 
+            services.AddScoped<IReviewManager, ReviewManager>();
+            services.AddScoped<IReviewDB, ReviewDB>(); 
+
+
             services.AddSession();
             
 

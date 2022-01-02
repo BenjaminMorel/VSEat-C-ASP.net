@@ -13,5 +13,7 @@ namespace WebApplication.Models
         public List<ChartDetails> myChart { get; set; }
 
         public int IdRestaurant { get; set; }
+
+        public List<string> Comment { get; set; }
     }
 }

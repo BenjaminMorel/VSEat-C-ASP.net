@@ -26,9 +26,11 @@ namespace WebApplication.Controllers
 
         private IDeliveryStaffManager DeliveryStaffManager { get;  }
 
+        private IReviewManager ReviewManager { get; }
 
 
-        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,IChartDetailsManager ChartDetailsManager, IOrderManager OrderManager, IDeliveryStaffManager DeliveryStaffManager)
+
+        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,IChartDetailsManager ChartDetailsManager, IOrderManager OrderManager, IDeliveryStaffManager DeliveryStaffManager, IReviewManager ReviewManager)
         {
             this.RestaurantManager = RestaurantManager;
             this.ProductManager = ProductManager;
@@ -37,7 +39,8 @@ namespace WebApplication.Controllers
             this.RegionManager = RegionManager;
             this.ChartDetailsManager = ChartDetailsManager;
             this.OrderManager = OrderManager;
-            this.DeliveryStaffManager = DeliveryStaffManager; 
+            this.DeliveryStaffManager = DeliveryStaffManager;
+            this.ReviewManager = ReviewManager; 
         }
         public ActionResult Index()
         {
@@ -46,12 +49,40 @@ namespace WebApplication.Controllers
                 //ligne pour forcer la personne a se loger la première fois 
                 return RedirectToAction("Login", "Account"); 
             }
+
             var restaurants = RestaurantManager.GetAllRestaurants();
+            var ReviewsToDisplay = new List<ReviewToDisplay>();
+            foreach (var restaurant in restaurants)
+            {
+                var reviews = ReviewManager.GetAllReviewByRestaurantID(restaurant.IdRestaurant);
+                var myReviewToDisplay = new ReviewToDisplay();
+                myReviewToDisplay.Comment = new List<string>(); 
+                myReviewToDisplay.IdRestaurant = restaurant.IdRestaurant;
+                foreach (var review in reviews)
+                {                  
+                    myReviewToDisplay.total += review.Stars;
+                    myReviewToDisplay.numberOfReview += 1;
+                    if (!(String.IsNullOrEmpty(review.Comment)))
+                    {
+                        myReviewToDisplay.Comment.Add(review.Comment);
+                    }          
+                }
+                if (myReviewToDisplay.numberOfReview > 0)
+                {
+                    myReviewToDisplay.average = Math.Round((double)myReviewToDisplay.total / (double) myReviewToDisplay.numberOfReview ,0);
+                }
+
+                
+                ReviewsToDisplay.Add(myReviewToDisplay);
+            }
+
             var regions = RegionManager.GetAllRegions();
             RestaurantToDisplay allData = new RestaurantToDisplay();
 
             allData.allRestaurant = restaurants;
             allData.RegionName = regions;
+            allData.AllReview = ReviewsToDisplay; 
+        
             return View(allData);
 
         }
@@ -64,7 +95,11 @@ namespace WebApplication.Controllers
             AllProductWithCart myPage = new AllProductWithCart();
             myPage.myChart = ChartDetailsManager.GetAllChartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
             myPage.products = products;
-            myPage.IdRestaurant = id; 
+            myPage.IdRestaurant = id;
+
+            List<string> comments = new List<string>();
+            comments = ReviewManager.GetAllCommentByRestaurantID(id);
+            myPage.Comment = comments;
 
             return View(myPage); 
         }
@@ -79,7 +114,9 @@ namespace WebApplication.Controllers
             AllProductWithCart myPage = new AllProductWithCart();
 
             ChartDetails myChartDetails = new ChartDetails();
- 
+
+            List<string> comments = new List<string>();
+            comments = ReviewManager.GetAllCommentByRestaurantID(IdRestaurant); 
             myChartDetails.IdLogin = IdLogin;
             myChartDetails.IdProduct = IdProduct;
             myChartDetails.IdRestaurant = IdRestaurant;
@@ -96,6 +133,7 @@ namespace WebApplication.Controllers
             myPage.myChart = ChartDetailsManager.GetAllChartDetailsFromLogin(IdLogin);
             myPage.products = products;
             myPage.IdRestaurant = IdRestaurant;
+            myPage.Comment = comments; 
 
             return View(myPage); 
         }

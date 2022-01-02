@@ -13,6 +13,9 @@ namespace WebApplication.Models
         
         public List<Region> RegionName { get; set;}
 
+        public List<ReviewToDisplay> AllReview { get; set; }
+
+        public int total { get; set; }
 
     }
 }

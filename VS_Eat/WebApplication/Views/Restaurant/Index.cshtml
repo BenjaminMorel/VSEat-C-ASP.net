@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/restaurant.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 <body>
@@ -50,7 +51,30 @@
                                 @Html.DisplayFor(modelItem => item.RestaurantName)
                             </h2>
                         </td>
-                        <p></p>
+                        @foreach (var review in Model.AllReview)
+                        {
+                            @if (review.IdRestaurant == item.IdRestaurant)
+                            {
+                                <div>
+                                    @for (int i = 0; i < 5; i++)
+                                    {
+                                        @if (i < review.average)
+                                        {
+                                            <span class="fa fa-star checked"></span>
+                                        }
+                                        else
+                                        {
+                                            <span class="fa fa-star"></span>
+                                        }
+                                    }
+
+                                    <p class="reviewText">
+                                        (@Html.DisplayFor(modelItem => review.numberOfReview) reviews | @review.Comment.Count() Comments)
+                                    </p>
+                                </div>
+                            }
+                        }
+
 
                     </tr>
                 </div>
