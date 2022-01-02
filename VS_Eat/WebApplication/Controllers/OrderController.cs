@@ -124,7 +124,14 @@ namespace WebApplication.Controllers
  
                 if (IdChartDetails != 0)
                 {
+                    if(IdChartDetails == -1)
+                    {
+                    ChartDetailsManager.DeleteAllEntryByLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+                    }
+                    else {
                     ChartDetailsManager.DeleteOneEntry(IdChartDetails);
+                    }
+                    
 
                     myChartDetails = ChartDetailsManager.GetAllChartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
                     return View(myChartDetails);
@@ -156,23 +163,7 @@ namespace WebApplication.Controllers
                     {
                         totalPrice += (float)(chartDetail.UnitPrice * chartDetail.Quantity);
                     }                 
-                    myOrder.OrderDate = DateTime.Now;
-                if (deliveryTime.Minute < 15)
-                {
-                    deliveryTime.AddMinutes(15 - deliveryTime.Minute);
-                    if(deliveryTime.Minute > 15 && deliveryTime.Minute < 30)
-                    {
-                        deliveryTime.AddMinutes(30 - deliveryTime.Minute); 
-                        if(deliveryTime.Minute > 30 && deliveryTime.Minute < 45)
-                        {
-                            deliveryTime.AddMinutes(45 - deliveryTime.Minute); 
-                            if(deliveryTime.Minute > 45)
-                            {
-                                deliveryTime.AddMinutes(60 - deliveryTime.Minute); 
-                            }
-                        }
-                    }
-                }
+                    myOrder.OrderDate = DateTime.Now;          
              
                     myOrder.DeliveryTime = deliveryTime;
                     myOrder.DeliveryAddress = DeliveryAddress;

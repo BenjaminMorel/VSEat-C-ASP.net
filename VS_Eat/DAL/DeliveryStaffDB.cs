@@ -162,7 +162,7 @@ namespace DAL
         /// </summary>
         /// <param name="IdDeliveryStaff"></param>
         /// <returns></returns>
-        public List<Order> CountOrderWithTime(int IdDeliveryStaff,DateTime timeControl)
+        public List<Order> CountOrderWithTime(int IdDeliveryStaff)
         {
             List<Order> numberOfOpenOrders = new List<Order>();
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -173,11 +173,11 @@ namespace DAL
                 {                
                     string query = "SELECT * FROM [dbo].[Order] " +
                         "WHERE IdDeliveryStaff=@IdDeliveryStaff " +
-                        "AND DeliveryTime>@timeControl";
+                        "AND IdOrderStatus < 4";
 
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@IdDeliveryStaff", IdDeliveryStaff);
-                    command.Parameters.AddWithValue("@timeControl", timeControl); 
+  
                     connection.Open();
 
                     using (SqlDataReader dataReader = command.ExecuteReader())

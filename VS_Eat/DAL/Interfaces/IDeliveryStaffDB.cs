@@ -7,7 +7,7 @@ namespace DAL.Interfaces
 {
     public interface IDeliveryStaffDB
     {
-        List<Order> CountOrderWithTime(int IdDeliveryStaff, DateTime timeControl);
+        List<Order> CountOrderWithTime(int IdDeliveryStaff);
 
         List<DeliveryStaff> GetAllDeliveryStaff(); 
 

@@ -104,7 +104,7 @@ namespace DAL
                             myOrder.TotalPrice = (float) (double) dataReader["TotalPrice"];
                             myOrder.IdOrderStatus = (int) dataReader["IdOrderStatus"];
                             myOrder.IdUser = (int) dataReader["IdUser"];
-                            if(dataReader["IdDeliveryStaff"] != null)
+                           if(dataReader["IdDeliveryStaff"] != System.DBNull.Value)
                             {
                                 myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
                             }            
@@ -156,9 +156,10 @@ namespace DAL
                             myOrder.IdOrderStatus = (int)dataReader["IdOrderStatus"];
                             myOrder.IdUser = (int)dataReader["IdUser"];
                             if (dataReader["IdDeliveryStaff"] != null)
-                            {
-                  //              myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
-                            }
+                                if (dataReader["IdDeliveryStaff"] != System.DBNull.Value)
+                                {
+                                    myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                                }
                             myOrder.IdLocation = (int)dataReader["IdLocation"];
                             myOrder.IdRestaurant = (int)dataReader["IdRestaurant"];
                         }
@@ -205,9 +206,9 @@ namespace DAL
                             myOrder.IdOrderStatus = (int)dataReader["IdOrderStatus"];
                             myOrder.IdUser = (int)dataReader["IdUser"];
 
-                            if (dataReader["IdDeliveryStaff"] != null)
+                            if (dataReader["IdDeliveryStaff"] != System.DBNull.Value)
                             {
-                       //         myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                                myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
                             }
                             myOrder.IdLocation = (int)dataReader["IdLocation"];
                             myOrder.IdRestaurant = (int)dataReader["IdRestaurant"];
@@ -258,9 +259,9 @@ namespace DAL
                             myOrder.IdOrderStatus = (int)dataReader["IdOrderStatus"];
                             myOrder.IdUser = (int)dataReader["IdUser"];
 
-                            if (dataReader["IdDeliveryStaff"] != null)
+                            if (dataReader["IdDeliveryStaff"] != System.DBNull.Value)
                             {
-                    //            myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
+                                myOrder.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
                             }
                             myOrder.IdLocation = (int)dataReader["IdLocation"];
                             myOrder.IdRestaurant = (int)dataReader["IdRestaurant"];
