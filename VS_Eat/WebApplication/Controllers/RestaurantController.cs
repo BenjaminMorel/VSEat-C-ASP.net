@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Http;
 using DTO;
 using System.Collections.Generic;
 using WebApplication.Models;
+using Microsoft.JSInterop;
+using javax.jws;
 
-namespace WebApplication.Controllers
+namespace WebApplication.Controllers 
 {
     public class RestaurantController : Controller
     {
@@ -142,31 +144,67 @@ namespace WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult MainPageRestaurant(int IdOrder)
         {
-            var myOrder = OrderManager.GetOrderById(IdOrder);
-            myOrder.IdOrderStatus = 2; 
-            OrderManager.UpdateOrderStatus(myOrder);
+         
+                var myOrder = OrderManager.GetOrderById(IdOrder);
 
-            var myLocation = LocationManager.GetLocationByID(myOrder.IdLocation);
 
-            var StaffInTheRegion = DeliveryStaffManager.FindStaffFororder(myLocation.IdRegion);
-            var StaffAvailable = new List<DeliveryStaff>(); 
-            foreach(var staff in StaffInTheRegion)
-            {
-                var timeControl = DateTime.Now;
-                var newTimeontrol = timeControl.AddMinutes(-30); 
-                var orders = DeliveryStaffManager.CountOrderWithTime(staff.IdDeliveryStaff, newTimeontrol); 
-                if(orders.Count < 5)
+                var myLocation = LocationManager.GetLocationByID(myOrder.IdLocation);
+                var OrderList = new List<Order>();
+                var StaffInTheRegion = DeliveryStaffManager.FindStaffFororder(myLocation.IdRegion);
+                var StaffAvailable = new List<DeliveryStaff>();
+      
+                foreach (var staff in StaffInTheRegion)
                 {
-                    StaffAvailable.Add(staff); 
-                }
-            }
+                  
+                    var orders = DeliveryStaffManager.CountOrderWithTime(staff.IdDeliveryStaff);
+                    int testBefore = 0;
+                    int testAfter = 0;
+                    int testBetween = 0;
+                    var timeControlBefore = myOrder.DeliveryTime.AddMinutes(-30);
+                    var timeControlAfter = myOrder.DeliveryTime.AddMinutes(30);
+                    var timeControleBetween = myOrder.DeliveryTime.AddMinutes(-15);
+                    var timeControleBetween2 = myOrder.DeliveryTime.AddMinutes(15); 
+                    foreach (var order in orders)
+                        {
+                            if(order.DeliveryTime <= myOrder.DeliveryTime && order.DeliveryTime >= timeControlBefore)
+                            {
+                            testBefore += 1; 
+                            }
+                            if(order.DeliveryTime >= myOrder.DeliveryTime && order.DeliveryTime <= timeControlAfter)
+                            {
+                            testAfter += 1; 
+                            }
+                            if(order.DeliveryTime >= timeControleBetween && order.DeliveryTime <= timeControleBetween2)
+                            {
+                            testBetween += 1; 
+                            }
 
-            myOrder.IdDeliveryStaff = StaffAvailable[0].IdDeliveryStaff;
-            OrderManager.AssignStaffToAnOrder(myOrder); 
-            //TODO creer la methode qui va assigner la command à un livreur 
-            var OrderList = OrderManager.GetAllOrderFromRestaurant((int)HttpContext.Session.GetInt32("ID_RESTAURANT"));
-            return View(OrderList);
+                        }
+                    if(testAfter < 5 && testBetween < 5 && testBefore < 5)
+                    {
+                    StaffAvailable.Add(staff); 
+                    }
+                    
+                }
+
+                if (StaffAvailable.Count == 0)
+                {
+
+                    ModelState.AddModelError(string.Empty, "No staff available now, try again later");
+                    OrderList = OrderManager.GetAllOrderFromRestaurant((int)HttpContext.Session.GetInt32("ID_RESTAURANT"));
+                    return View(OrderList);
+
+
+                }
+                myOrder.IdDeliveryStaff = StaffAvailable[0].IdDeliveryStaff;
+                myOrder.IdOrderStatus = 2;
+                OrderManager.AssignStaffToAnOrder(myOrder);
+                OrderManager.UpdateOrderStatus(myOrder);
+                OrderList = OrderManager.GetAllOrderFromRestaurant((int)HttpContext.Session.GetInt32("ID_RESTAURANT"));
+             
+            
+                return View(OrderList);
         }
-        
+       
     }
 }

@@ -6,18 +6,10 @@
 
 <h1>ConfirmOrder</h1>
 
+<body>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdLogin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdProduct)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdRestaurant)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
@@ -33,19 +25,10 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    
         @foreach (var item in Model)
         {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdLogin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdProduct)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdRestaurant)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>     
@@ -66,8 +49,12 @@
             </td>
         </tr>
         }
-    </tbody>
-    <tbody>
+
+    <form method="post">
+        <input type="hidden" name="IdChartDetails"  value="-1"/>
+        <input type="submit"   value="Remove All"/>
+    </form>
+    <body>
         <form method="post">
             <p>Wanted delivery time ? You can only choose every 15 minutes</p>
             <input type="time"  name="deliveryTime" step="900" value=@DateTime.Now/>       
@@ -80,6 +67,7 @@
             <p>Delivery Time </p>
             <input type="submit" value="Confirmer" />
         </form>
-    </tbody>
+    </body>
 </table>
+</body>
 

@@ -18,13 +18,16 @@
 <body>
         <div>
             <label for="region-name">Chose a region :</label>
-            <select name="region-name">
-                @foreach (var region in Model.RegionName)
-                {
-                    <option> @Html.DisplayFor(modelItem => region.RegionName)</option>
+            <form method="post"/>
+                <select name="region-name">
+               
+                    @foreach (var region in Model.RegionName)
+                    {
+                        <option> @Html.DisplayFor(modelItem => region.RegionName)</option>
 
-                }
-            </select>
+                    }
+                </select>
+            <form/>
         
         </div>
         <div class="grid_parent">
