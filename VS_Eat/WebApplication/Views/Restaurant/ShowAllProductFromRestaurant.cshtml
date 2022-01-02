@@ -1,17 +1,13 @@
-﻿@model WebApplication.Models.AllProductWithCart; 
+﻿@using System.Diagnostics.Contracts
+@model WebApplication.Models.AllProductWithCart; 
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/product.css" />
-</head>
+
 <body>
     <header>
     </header>
@@ -25,9 +21,7 @@
                     <div class="ErroMessage">You cannot add product from different restaurant into the chart ! You need to first finished your order</div>
                 }
             }
-
-
-                <!-- Column -->
+             
 
                 @foreach (var item in Model.products)
                 {
@@ -35,25 +29,42 @@
                     <div class="grid_parent">
                         <!-- Cover -->
                         <!-- Content -->
-
+                        
                         <div restaurant>
-                            <a href=@Url.Action("ProductDetails", new { id = item.IdProduct })>
-
+                            @if (item.Disponibility)
+                            {
                                 <img src="@item.Picture" width="300" height="200" class="restaurantImage" />
+                            }
+                  
+                            @if (item.Disponibility == false)
+                            {
+                                <img src="@item.Picture" width="300" height="200" class="ImageDisabled" />
+                            }
+                            <tr>
+                                <td>
 
-                            </a>
-<tr>
+                                    <h2 class="titleProduct">
+                                        @Html.DisplayFor(modelItem => item.ProductName)
+                                    </h2>
+                                    <p>
+                                        @Html.DisplayFor(modelItem => item.Description)
 
-            <td>
+                                    @if (item.Vegetarian)
+                                    {
+                                        <img src="~/Images/Products/vegetarian.png" height="30" width="30" />
+                                    }
 
-                <h2 class="titleProduct">
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </h2>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price) CHF
-            </td>
-            <td>
+                                    @if (item.Disponibility == false)
+                                    {
+                                        <p class="ErroMessage">Currently unavailable</p>
+                                    }
+                                <p></p>
+
+                                </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price) CHF
+                            </td>
+                            <td>
             </td>
            
             <form method="post">
@@ -63,9 +74,10 @@
                 <input type="hidden" name="ProductName" value=@Html.DisplayFor(modelItem => item.ProductName) />
                 <input type="hidden" name="ProductImage" value=@Html.DisplayFor(modelItem => item.Picture) />
                 <input type="text" name="Quantity" value="1">
+
                 @if (Model.myChart.Count > 0)
                 {
-                    @if (item.IdRestaurant == Model.myChart[0].IdRestaurant)
+                    @if (item.IdRestaurant == Model.myChart[0].IdRestaurant && item.Disponibility)
                     {
                         <input type="submit" value="Add to chart" />
                     }
@@ -76,7 +88,11 @@
                 }
                 else
                 {
-                    <input type="submit" value="Add to chart" />
+                    @if (item.Disponibility == false)
+                    {
+                        <input type="submit" value="Add to chart" class="Disabled"/>    
+                    }
+
                 }
 
             </form>

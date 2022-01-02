@@ -18,6 +18,7 @@ namespace WebApplication.Models
         [MinLength(6)]
         public string Password { get; set; } // from Login
 
+        [Required]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Confirm password doesn't match, Type again !")]
         public string ConfirmPassword { get; set; } // from Login
