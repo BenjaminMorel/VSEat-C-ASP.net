@@ -42,6 +42,14 @@
     box-shadow: none;
 }
 
+.ImageDisabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    filter: grayscale(100%);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 .ErroMessage{
    color:red; 
    

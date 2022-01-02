@@ -5,29 +5,15 @@
     Layout = "~/Views/Shared/_LayoutDeliveryStaff.cshtml";
 }
 
-<h1>Account Information</h1>
+<h1 class="mainButton">Account Information</h1>
 
 <div>
-
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.EmailAddress)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EmailAddress)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ConfirmPassword)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ConfirmPassword)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)

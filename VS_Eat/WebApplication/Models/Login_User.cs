@@ -20,6 +20,11 @@ namespace WebApplication.Models
 		public string Password { get; set; } // from Login
 
 		[Required]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Confirm password doesn't match, Type again !")]
+        public string ConfirmPassword { get; set; } // from Login
+
+		[Required]
 		public string FirstName { get; set; } // from user
 
 		[Required]

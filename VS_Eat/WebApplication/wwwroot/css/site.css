@@ -83,7 +83,6 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-image: src("/Images/background.jpg");
 }
 .footer {
   position: absolute;
@@ -147,4 +146,8 @@ input[type=submit] {
 .titleAvatar {
     font-family: Verdana;
     font-size: 13px;
+}
+
+.mainButton {
+    color: darkorange;
 }
