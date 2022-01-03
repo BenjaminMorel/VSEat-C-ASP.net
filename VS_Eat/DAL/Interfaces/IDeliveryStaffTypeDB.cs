@@ -10,5 +10,7 @@ namespace DAL.Interfaces
     public interface IDeliveryStaffTypeDB
     {
         List<DeliveryStaffType> GetAllDeliveryStaffTypes();
+
+        DeliveryStaffType GetAllDeliveryStaffType(int IdDeliveryStaffType);
     }
 }

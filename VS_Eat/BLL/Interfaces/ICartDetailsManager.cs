@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    public interface IChartDetailsManager
+    public interface ICartDetailsManager
     {
-        List<ChartDetails> GetAllChartDetailsFromLogin(int IdLogin);
+        List<CartDetails> GetAllCartDetailsFromLogin(int IdLogin);
 
-        void AddNewChartDetails(ChartDetails myChartDetails);
+        void AddNewCartDetails(CartDetails myCartDetails);
 
-        void DeleteOneEntry(int IdProdcut);
+        void DeleteOneEntry(int IdProduct);
 
         void DeleteAllEntryByLogin(int IdLogin);
     }

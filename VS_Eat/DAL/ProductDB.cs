@@ -51,7 +51,6 @@ namespace DAL
                             myProduct.Disponibility = (bool) dataReader["Disponibility"];
                             myProduct.Vegetarian = (bool) dataReader["Vegetarian"];
                             myProduct.IdRestaurant = (int) dataReader["IdRestaurant"];
-                            myProduct.IdProductType = (int) dataReader["IdProductType"];
 
                             // Add the product to the list
                             products.Add(myProduct);
@@ -105,7 +104,6 @@ namespace DAL
                             myProduct.Disponibility = (bool) dataReader["Disponibility"];
                             myProduct.Vegetarian = (bool) dataReader["Vegetarian"];
                             myProduct.IdRestaurant = (int) dataReader["IdRestaurant"];
-                            myProduct.IdProductType = (int) dataReader["IdProductType"];
 
                             // Add the product to the list
                             products.Add(myProduct);
@@ -157,8 +155,6 @@ namespace DAL
                             myProduct.Disponibility = (bool)dataReader["Disponibility"];
                             myProduct.Vegetarian = (bool)dataReader["Vegetarian"];
                             myProduct.IdRestaurant = (int)dataReader["IdRestaurant"];
-                            myProduct.IdProductType = (int)dataReader["IdProductType"];
-
      
                         }
                     }
@@ -194,9 +190,7 @@ namespace DAL
                     command.Parameters.AddWithValue("@Picture", MyProduct.Picture);
                     command.Parameters.AddWithValue("@Disponibility", MyProduct.Disponibility);
                     command.Parameters.AddWithValue("@Vegetarian", MyProduct.Vegetarian);
-                    command.Parameters.AddWithValue("@IdRestaurant", MyProduct.IdRestaurant);
-                    command.Parameters.AddWithValue("@IdProductType", MyProduct.IdProductType);
-                 
+                    command.Parameters.AddWithValue("@IdRestaurant", MyProduct.IdRestaurant);                 
 
                     connection.Open();
 
@@ -236,7 +230,6 @@ namespace DAL
                     command.Parameters.AddWithValue("@Vegetarian", MyProduct.Vegetarian);
                     command.Parameters.AddWithValue("@IdProduct", MyProduct.IdProduct);
 
-
                     connection.Open();
 
                     command.ExecuteScalar(); 
@@ -251,7 +244,6 @@ namespace DAL
             }
             return MyProduct;
         }
-
 
 
     }

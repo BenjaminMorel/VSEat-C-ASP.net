@@ -98,11 +98,11 @@ namespace WebApplication.Controllers
                 {
                     HttpContext.Session.SetInt32("ID_LOGIN", myAccount.IdLogin);
 
-                    if (myAccount.IdLoginType == 4 || myAccount.IdLoginType == 1)
+                    if (myAccount.IdLoginType == 2)
                     {
-                        var myUser = UserManager.GetUserByID(myAccount.IdLogin);
-                        HttpContext.Session.SetInt32("ID_USER", myUser.IdUser);
-                        return RedirectToAction("Index", "Restaurant");
+                        var myRestaurant = RestaurantManager.GetRestaurantByIDLogin(myAccount.IdLogin);
+                        HttpContext.Session.SetInt32("ID_RESTAURANT", myRestaurant.IdRestaurant);
+                        return RedirectToAction("MainPageRestaurant", "Restaurant");
                     }
 
                     if (myAccount.IdLoginType == 3)
@@ -112,12 +112,18 @@ namespace WebApplication.Controllers
                         return RedirectToAction("Index", "DeliveryStaff");
                     }
 
-                    if(myAccount.IdLoginType == 2)
+                    if (myAccount.IdLoginType == 4)
                     {
-                        var myRestaurant = RestaurantManager.GetRestaurantByIDLogin(myAccount.IdLogin);
-                        HttpContext.Session.SetInt32("ID_RESTAURANT", myRestaurant.IdRestaurant);
-                        return RedirectToAction("MainPageRestaurant", "Restaurant"); 
+                        var myUser = UserManager.GetUserByID(myAccount.IdLogin);
+                        HttpContext.Session.SetInt32("ID_USER", myUser.IdUser);
+                        return RedirectToAction("Index", "Restaurant");
                     }
+
+                    if (myAccount.IdLoginType == 1)
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+
 
                     return View();
 

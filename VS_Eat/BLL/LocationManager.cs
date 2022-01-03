@@ -12,6 +12,7 @@ namespace BLL
     public class LocationManager : ILocationManager
     {
         private ILocationDB LocationDB { get;  }
+
         public LocationManager(ILocationDB LocationDB)
         {
             this.LocationDB = LocationDB;

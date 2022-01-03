@@ -57,6 +57,41 @@ namespace DAL
             return allDeliveryStaffTypes;
         }
 
+        public DeliveryStaffType GetAllDeliveryStaffType(int IdDeliveryStaffType)
+        {
+            DeliveryStaffType DeliveryStaffType = new DeliveryStaffType();
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM [dbo].[DeliveryStaffType] WHERE IdDeliveryStaffType=@IdDeliveryStaffType";
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdDeliveryStaffType", IdDeliveryStaffType);
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            DeliveryStaffType.IdDeliveryStaffType = (int)dataReader["IdDeliveryStaffType"];
+                            DeliveryStaffType.DeliveryStaffTypeStr = (string)dataReader["DeliveryStaffType"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error while getting DeliveryStaff Type\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+            }
+
+            return DeliveryStaffType;
+        }
 
     }
 }

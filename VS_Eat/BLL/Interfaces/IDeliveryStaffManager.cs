@@ -10,6 +10,8 @@ namespace BLL.Interfaces
 
         List<Order> CountOrderWithTime(int IdDeliveryStaff);
 
+        List<DeliveryStaff> GetAllDeliveryStaffByType(int IdDeliveryStaffType);
+
         DeliveryStaff CreateNewStaff(string FirstName, string LastName, string PhoneNumber, string Address,
             int PostCode, string City, string RegionName, string Email,
             string Password);

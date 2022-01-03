@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    public interface IChartDetailsDB
+    public interface ICartDetailsDB
     {
+        List<CartDetails> GetAllCartDetailsFromLogin(int Idlogin);
 
-        List<ChartDetails> GetAllChartDetailsFromLogin(int Idlogin);
-        void AddNewChartDetails(ChartDetails myChartDetails);
+        void AddNewCartDetails(CartDetails myCartDetails);
 
         void DeleteOneEntry(int IdProduct);
 

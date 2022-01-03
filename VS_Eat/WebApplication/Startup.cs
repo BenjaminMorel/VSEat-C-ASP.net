@@ -61,8 +61,8 @@ namespace WebApplication
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<IUserDB, UserDB>();
 
-            services.AddScoped<IChartDetailsManager, ChartDetailsManager>();
-            services.AddScoped<IChartDetailsDB, ChartDetailsDB>(); 
+            services.AddScoped<ICartDetailsManager, CartDetailsManager>();
+            services.AddScoped<ICartDetailsDB, CartDetailsDB>(); 
 
             services.AddScoped<IDeliveryStaffTypeManager, DeliveryStaffTypeManager>();
             services.AddScoped<IDeliveryStaffTypeDB, DeliveryStaffTypeDB>();

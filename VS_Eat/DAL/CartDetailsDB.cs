@@ -10,25 +10,25 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class ChartDetailsDB : IChartDetailsDB
+    public class CartDetailsDB : ICartDetailsDB
     {
-        private IConfiguration Configuration { get;  }
+        private IConfiguration Configuration { get; }
 
-        public ChartDetailsDB(IConfiguration configuration)
+        public CartDetailsDB(IConfiguration configuration)
         {
             Configuration = configuration; 
         }
 
-        public List<ChartDetails> GetAllChartDetailsFromLogin(int IdLogin)
+        public List<CartDetails> GetAllCartDetailsFromLogin(int IdLogin)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            List<ChartDetails> allChartDetails = new List<ChartDetails>();
+            List<CartDetails> allCartDetails = new List<CartDetails>();
 
             try
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT * FROM [dbo].[ChartDetails] WHERE Idlogin=@IdLogin ";
+                    string query = "SELECT * FROM [dbo].[CartDetails] WHERE Idlogin=@IdLogin ";
                     SqlCommand command = new SqlCommand(query, cn);
                     command.Parameters.AddWithValue("@IdLogin", IdLogin); 
                     cn.Open();
@@ -37,50 +37,50 @@ namespace DAL
                     {
                         while (dataReader.Read())
                         {
-                            ChartDetails MyChartDetails = new ChartDetails();
+                            CartDetails cartDetails = new CartDetails();
 
-                            MyChartDetails.IdChartDetails = (int)dataReader["IdChartDetails"]; 
-                            MyChartDetails.IdLogin = (int)dataReader["IdLogin"];
-                            MyChartDetails.IdProduct = (int)dataReader["IdProduct"];
-                            MyChartDetails.IdRestaurant = (int)dataReader["IdRestaurant"];
-                            MyChartDetails.ProductName = (string)dataReader["ProductName"];
-                            MyChartDetails.ProductImage = (string)dataReader["ProductImage"]; 
-                            MyChartDetails.Quantity = (int)dataReader["Quantity"];
-                            MyChartDetails.UnitPrice = (float) (double) dataReader["UnitPrice"]; 
+                            cartDetails.IdCartDetails = (int)dataReader["IdCartDetails"]; 
+                            cartDetails.IdLogin = (int)dataReader["IdLogin"];
+                            cartDetails.IdProduct = (int)dataReader["IdProduct"];
+                            cartDetails.IdRestaurant = (int)dataReader["IdRestaurant"];
+                            cartDetails.ProductName = (string)dataReader["ProductName"];
+                            cartDetails.ProductImage = (string)dataReader["ProductImage"]; 
+                            cartDetails.Quantity = (int)dataReader["Quantity"];
+                            cartDetails.UnitPrice = (float) (double) dataReader["UnitPrice"]; 
 
                             // Add the user to the list
-                            allChartDetails.Add(MyChartDetails);
+                            allCartDetails.Add(cartDetails);
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.Write("Error while getting all users\n");
+                Console.Write("Error while getting all cart details\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
             }
-            return allChartDetails;
+            return allCartDetails;
         }
 
 
-        public void AddNewChartDetails(ChartDetails myChartDetails)
+        public void AddNewCartDetails(CartDetails myCartDetails)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Insert into [dbo].[ChartDetails](IdLogin,IdProduct,IdRestaurant,ProductName,ProductImage,Quantity,UnitPrice) values(@IdLogin,@IdProduct,@IdRestaurant,@ProductName,@ProductImage,@Quantity,@UnitPrice);";
+                    string query = "Insert into [dbo].[CartDetails](IdLogin,IdProduct,IdRestaurant,ProductName,ProductImage,Quantity,UnitPrice) values(@IdLogin,@IdProduct,@IdRestaurant,@ProductName,@ProductImage,@Quantity,@UnitPrice);";
                     SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdLogin", myChartDetails.IdLogin);
-                    command.Parameters.AddWithValue("@IdProduct", myChartDetails.IdProduct);
-                    command.Parameters.AddWithValue("@IdRestaurant", myChartDetails.IdRestaurant);
-                    command.Parameters.AddWithValue("@ProductName", myChartDetails.ProductName);
-                    command.Parameters.AddWithValue("@ProductImage", myChartDetails.ProductImage); 
-                    command.Parameters.AddWithValue("@Quantity", myChartDetails.Quantity);
-                    command.Parameters.AddWithValue("@UnitPrice", (float) myChartDetails.UnitPrice);
+                    command.Parameters.AddWithValue("@IdLogin", myCartDetails.IdLogin);
+                    command.Parameters.AddWithValue("@IdProduct", myCartDetails.IdProduct);
+                    command.Parameters.AddWithValue("@IdRestaurant", myCartDetails.IdRestaurant);
+                    command.Parameters.AddWithValue("@ProductName", myCartDetails.ProductName);
+                    command.Parameters.AddWithValue("@ProductImage", myCartDetails.ProductImage); 
+                    command.Parameters.AddWithValue("@Quantity", myCartDetails.Quantity);
+                    command.Parameters.AddWithValue("@UnitPrice", (float) myCartDetails.UnitPrice);
 
                     connection.Open();
 
@@ -90,7 +90,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("ERROR IN ADD NEW USER\n");
+                Console.Write("Error while adding new cart details\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
@@ -99,16 +99,16 @@ namespace DAL
            
         }
 
-        public void DeleteOneEntry(int IdChartDetails)
+        public void DeleteOneEntry(int IdCartDetails)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "DELETE FROM [dbo].[ChartDetails] WHERE IdChartDetails=@IdChartDetails";
+                    string query = "DELETE FROM [dbo].[CartDetails] WHERE IdCartDetails=@IdCartDetails";
                     SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdChartDetails", IdChartDetails);
+                    command.Parameters.AddWithValue("@IdCCrtDetails", IdCartDetails);
                 
                     connection.Open();
 
@@ -118,7 +118,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("ERROR IN ADD NEW USER\n");
+                Console.Write("Error while deleting on cart details\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
@@ -135,7 +135,7 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "DELETE FROM [dbo].[ChartDetails] WHERE IdLogin=@IdLogin";
+                    string query = "DELETE FROM [dbo].[CartDetails] WHERE IdLogin=@IdLogin";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@IdLogin", IdLogin);
 
@@ -147,7 +147,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("ERROR IN ADD NEW USER\n");
+                Console.Write("Error while deleting all cart details by login\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);

@@ -25,6 +25,10 @@
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                     <br />
+                    <center>
+                        <div class="g-recaptcha" data-theme="dark" data-sitekey="6Le5_eYdAAAAADxPmJgX0cRJQUJNjP-E6HehGqUx"></div>
+                    </center>
+                    <br /><br />
                     <div class="group">
                         <input type="submit" class="button" value="Sign in">
                     </div>
@@ -42,6 +46,9 @@
                     <a class="buttonSignUp" asp-area="" asp-controller="Account" asp-action="CreateDeliveryStaff">Become a deliver</a>
                 </div>
                 <div class="hr"></div>
+
+
+                <script src='https://www.google.com/recaptcha/api.js'></script>
             </div>
         </div>
     </div>

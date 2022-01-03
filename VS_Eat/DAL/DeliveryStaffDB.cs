@@ -39,16 +39,17 @@ namespace DAL
                         {
                             DeliveryStaff MyDeliveryStaff = new DeliveryStaff();
 
-                            MyDeliveryStaff.IdLogin = (int)dataReader["IdLogin"];
                             MyDeliveryStaff.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
                             MyDeliveryStaff.FirstName = (string) dataReader["FirstName"];
                             MyDeliveryStaff.LastName = (string) dataReader["LastName"];
-                            MyDeliveryStaff.PhoneNumber = (string) dataReader["PhoneNumber"];
+                            MyDeliveryStaff.PhoneNumber = (string)dataReader["PhoneNumber"];
+                            MyDeliveryStaff.Address = (string)dataReader["Address"];
+                            MyDeliveryStaff.IdLogin = (int)dataReader["IdLogin"];
                             MyDeliveryStaff.IdLocation = (int) dataReader["IdLocation"];
                             MyDeliveryStaff.IdDeliveryStaffType = (int) dataReader["IdDeliveryStaffType"];
                             MyDeliveryStaff.IdWorkingRegion = (int) dataReader["IdWorkingRegion"];
 
-                            // Add the user to the list
+                            // Add the deliverystaff to the list
                             allDeliveryStaff.Add(MyDeliveryStaff);
                         }
                     }
@@ -56,7 +57,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("Error while getting all users\n");
+                Console.Write("Error while getting all deliverystaff\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
@@ -103,7 +104,7 @@ namespace DAL
             catch (Exception e)
             {
                 myDeliveryStaff.IdDeliveryStaffType = 999;
-                Console.Write("ERROR IN GET USER BY ID\n");
+                Console.Write("Error while getting delivery staff by id\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
@@ -113,7 +114,7 @@ namespace DAL
             return myDeliveryStaff;
         }
 
-        public List<DeliveryStaff> GetAllDeliveryStaffByType(int IdDeliveryStaff)
+        public List<DeliveryStaff> GetAllDeliveryStaffByType(int IdDeliveryStaffType)
         {
             List<DeliveryStaff> listDeliveryStaff = new List<DeliveryStaff>();
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -122,7 +123,7 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT * FROM [dbo].[DeliveryStaff] WHERE IdDeliveryStaffType=@IdDeliveryStaff";
+                    string query = "SELECT * FROM [dbo].[DeliveryStaff] WHERE IdDeliveryStaffType=@IdDeliveryStaffType";
                     SqlCommand command = new SqlCommand(query, connection);
 
                     connection.Open();
@@ -133,11 +134,12 @@ namespace DAL
                         {
                             DeliveryStaff myDeliveryStaff = new DeliveryStaff();
 
-                            myDeliveryStaff.IdLogin = (int)dataReader["IdLogin"];
                             myDeliveryStaff.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
                             myDeliveryStaff.FirstName = (string)dataReader["FirstName"];
                             myDeliveryStaff.LastName = (string)dataReader["LastName"];
                             myDeliveryStaff.PhoneNumber = (string)dataReader["PhoneNumber"];
+                            myDeliveryStaff.Address = (string)dataReader["Address"];
+                            myDeliveryStaff.IdLogin = (int)dataReader["IdLogin"];
                             myDeliveryStaff.IdLocation = (int)dataReader["IdLocation"];
                             myDeliveryStaff.IdDeliveryStaffType = (int)dataReader["IdDeliveryStaffType"];
                             myDeliveryStaff.IdWorkingRegion = (int)dataReader["IdWorkingRegion"];
@@ -147,7 +149,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("ERROR IN GET LOGIN\n");
+                Console.Write("Error while getting all delivery staff by id\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
@@ -260,7 +262,7 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Update [dbo].[DeliveryStaff] Set FirstName=@FirstName, LastName=@LastName, PhoneNumber=@PhoneNumber, Address=@Address, IdLogin=@IdLogin, IdLocation=@IdLocation, IdWorkingRegion=@IdWorkingRegion WHERE IdLogin=@IdLogin;";
+                    string query = "Update [dbo].[DeliveryStaff] Set FirstName=@FirstName, LastName=@LastName, PhoneNumber=@PhoneNumber, Address=@Address, IdLogin=@IdLogin, IdLocation=@IdLocation, IdWorkingRegion=@IdWorkingRegion, IdDeliveryStaffType=@IdDeliveryStaffType WHERE IdLogin=@IdLogin;";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@FirstName", myDeliveryStaff.FirstName);
                     command.Parameters.AddWithValue("@LastName", myDeliveryStaff.LastName);
@@ -268,6 +270,7 @@ namespace DAL
                     command.Parameters.AddWithValue("@Address", myDeliveryStaff.Address);
                     command.Parameters.AddWithValue("@IdLogin", myDeliveryStaff.IdLogin);
                     command.Parameters.AddWithValue("@IdLocation", myDeliveryStaff.IdLocation);
+                    command.Parameters.AddWithValue("@IdDeliveryStaffType", myDeliveryStaff.IdDeliveryStaffType);
                     command.Parameters.AddWithValue("@IdWorkingRegion", myDeliveryStaff.IdWorkingRegion);
 
                     connection.Open();
@@ -277,7 +280,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("ERROR IN UPDATE DELIVERY STAFF\n");
+                Console.Write("Errow while updating a delivery staff\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
@@ -311,11 +314,12 @@ namespace DAL
                         {
                             DeliveryStaff myDeliveryStaff = new DeliveryStaff();
 
-                            myDeliveryStaff.IdLogin = (int)dataReader["IdLogin"];
                             myDeliveryStaff.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
                             myDeliveryStaff.FirstName = (string)dataReader["FirstName"];
                             myDeliveryStaff.LastName = (string)dataReader["LastName"];
                             myDeliveryStaff.PhoneNumber = (string)dataReader["PhoneNumber"];
+                            myDeliveryStaff.Address = (string)dataReader["Address"];
+                            myDeliveryStaff.IdLogin = (int)dataReader["IdLogin"];
                             myDeliveryStaff.IdLocation = (int)dataReader["IdLocation"];
                             myDeliveryStaff.IdDeliveryStaffType = (int)dataReader["IdDeliveryStaffType"];
                             myDeliveryStaff.IdWorkingRegion = (int)dataReader["IdWorkingRegion"];
@@ -327,7 +331,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.Write("ERROR IN GET LOGIN\n");
+                Console.Write("Error while finding staff for order\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);

@@ -14,97 +14,95 @@
     <tbody>
         <div class="grid_parent">
 
-            @if (Model.myChart.Count > 0)
+            @if (Model.myCart.Count > 0)
             {
-                @if (Model.IdRestaurant != Model.myChart[0].IdRestaurant)
+                @if (Model.IdRestaurant != Model.myCart[0].IdRestaurant)
                 {
-                    <div class="ErroMessage">You cannot add product from different restaurant into the chart ! You need to first finished your order</div>
+                    <div class="ErroMessage">You cannot add product from different restaurant into the cart ! You need to first finish your order</div>
                 }
             }
              
 
-                @foreach (var item in Model.products)
-                {
+            @foreach (var item in Model.products)
+            {
+                <div class="grid_parent">
+                    <div restaurant>
+                        @if (item.Disponibility)
+                        {
+                            <img src="@item.Picture" width="300" height="200" class="restaurantImage" />
+                        }
+              
+                        @if (item.Disponibility == false)
+                        {
+                            <img src="@item.Picture" width="300" height="200" class="ImageDisabled" />
+                        }
 
-                    <div class="grid_parent">
-                        <!-- Cover -->
-                        <!-- Content -->
-                        
-                        <div restaurant>
-                            @if (item.Disponibility)
-                            {
-                                <img src="@item.Picture" width="300" height="200" class="restaurantImage" />
-                            }
-                  
-                            @if (item.Disponibility == false)
-                            {
-                                <img src="@item.Picture" width="300" height="200" class="ImageDisabled" />
-                            }
-                            <tr>
-                                <td>
+                        <tr>
+                            <td>
+                                <h2 class="titleProduct">
+                                    @Html.DisplayFor(modelItem => item.ProductName)
+                                </h2>
+                                <p>
+                                @Html.DisplayFor(modelItem => item.Description)
 
-                                    <h2 class="titleProduct">
-                                        @Html.DisplayFor(modelItem => item.ProductName)
-                                    </h2>
-                                    <p>
-                                        @Html.DisplayFor(modelItem => item.Description)
+                                @if (item.Vegetarian)
+                                {
+                                    <img src="~/Images/Products/vegetarian.png" height="30" width="30" />
+                                }
 
-                                    @if (item.Vegetarian)
+                                @if (item.Disponibility == false)
+                                {
+                                    <p class="ErroMessage">Currently unavailable</p>
+                                }
+
+                                <p></p></td>
+
+                            <td>@Html.DisplayFor(modelItem => item.Price) CHF</td>
+
+                            <td></td>
+                            
+                            <form method="post">
+                                <input type="hidden" name="IdProduct" value=@Html.DisplayFor(modelItem => item.IdProduct) />
+                                <input type="hidden" name="IdRestaurant" value=@Html.DisplayFor(modelItem => item.IdRestaurant) />
+                                <input type="hidden" name="Price" value=@Html.DisplayFor(modelItem => item.Price) />
+                                <input type="hidden" name="ProductName" value=@Html.DisplayFor(modelItem => item.ProductName) />
+                                <input type="hidden" name="ProductImage" value=@Html.DisplayFor(modelItem => item.Picture) />
+                                <input type="text" name="Quantity" value="1">
+
+           
+                                @if (Model.myCart.Count > 0)
+                                {
+                                    @if (item.IdRestaurant == Model.myCart[0].IdRestaurant && item.Disponibility)
                                     {
-                                        <img src="~/Images/Products/vegetarian.png" height="30" width="30" />
+                                        <input type="submit" value="Add to cart" />
                                     }
-
+                                    else
+                                    {
+                                        <input type="submit" value="Add to cart" class="Disabled"/>               
+                                    }
+                                }
+                                else
+                                {
                                     @if (item.Disponibility == false)
                                     {
-                                        <p class="ErroMessage">Currently unavailable</p>
+                                        <input type="submit" value="Add to cart" class="Disabled"/>    
                                     }
-                                <p></p>
+                                    else
+                                    {
+                                        <input type="submit" value="Add to cart" />
+                                    }
 
-                                </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Price) CHF
-                            </td>
-                            <td>
-            </td>
-           
-            <form method="post">
-                <input type="hidden" name="IdProduct" value=@Html.DisplayFor(modelItem => item.IdProduct) />
-                <input type="hidden" name="IdRestaurant" value=@Html.DisplayFor(modelItem => item.IdRestaurant) />
-                <input type="hidden" name="Price" value=@Html.DisplayFor(modelItem => item.Price) />
-                <input type="hidden" name="ProductName" value=@Html.DisplayFor(modelItem => item.ProductName) />
-                <input type="hidden" name="ProductImage" value=@Html.DisplayFor(modelItem => item.Picture) />
-                <input type="text" name="Quantity" value="1">
+                                }
+                                </form>
+                        </tr>
+                    </div>
 
-                @if (Model.myChart.Count > 0)
-                {
-                    @if (item.IdRestaurant == Model.myChart[0].IdRestaurant && item.Disponibility)
-                    {
-                        <input type="submit" value="Add to chart" />
-                    }
-                    else
-                    {
-                        <input type="submit" value="Add to chart" class="Disabled"/>               
-                    }
-                }
-                else
-                {
-                    @if (item.Disponibility == false)
-                    {
-                        <input type="submit" value="Add to chart" class="Disabled"/>    
-                    }
-
-                }
-
-                </form>
-            </tr>
-            </div>
-
-            <!-- Button sticks to the bottom -->
-            </div>
-        }
+        <!-- Button sticks to the bottom -->
+        </div>
+    }
             <div>
-                PANIER
-                @if (Model.myChart != null && Model.myChart.Count > 0)
+                Cart :
+                @if (Model.myCart != null && Model.myCart.Count > 0)
                 {
                     <table>
                         <tr>
@@ -113,7 +111,7 @@
                             <th>Price</th>
                             <th>Image</th>
                         </tr>
-                        @foreach (var itemDetails in Model.myChart)
+                        @foreach (var itemDetails in Model.myCart)
                         {
                             <tr>
                                 <th>  @Html.DisplayFor(modelItem => itemDetails.ProductName)  </th>
@@ -124,11 +122,11 @@
                         }
                     </table>
 
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ConfirmOrder">Confirmer commande</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ConfirmOrder">Confirm order</a>
                 }
                 else
                 {
-                    <p>Le panier est actuellement vide </p>
+                    <p>The cart is currently empty </p>
                 }
             </div>
 

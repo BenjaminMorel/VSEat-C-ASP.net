@@ -31,7 +31,7 @@ namespace WebApplication.Models
 
         public string OrderStatus { get; set; }
 
-        public string  RestaurantName { get; set; }
+        public string RestaurantName { get; set; }
         
         public string RestaurantAddress { get; set; }
 

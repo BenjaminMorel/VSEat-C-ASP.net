@@ -4,6 +4,7 @@ using System;
 using Microsoft.AspNetCore.Http;
 using DTO;
 using System.Collections.Generic;
+using BLL;
 using WebApplication.Models;
 using Microsoft.JSInterop;
 using javax.jws;
@@ -15,33 +16,26 @@ namespace WebApplication.Controllers
         private IRestaurantManager RestaurantManager { get; }
         private IProductManager ProductManager { get; }
         private ILocationManager LocationManager { get; }
-
         private IUserManager UserManager { get; }
-
         private IRegionManager RegionManager { get; }
-
-        private IChartDetailsManager ChartDetailsManager { get;  }
-
+        private ICartDetailsManager CartDetailsManager { get; }
         private IOrderManager OrderManager { get; }
-
-        private IDeliveryStaffManager DeliveryStaffManager { get;  }
-
+        private IDeliveryStaffManager DeliveryStaffManager { get; }
         private IReviewManager ReviewManager { get; }
 
-
-
-        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,IChartDetailsManager ChartDetailsManager, IOrderManager OrderManager, IDeliveryStaffManager DeliveryStaffManager, IReviewManager ReviewManager)
+        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,ICartDetailsManager CartDetailsManager, IOrderManager OrderManager, IDeliveryStaffManager DeliveryStaffManager, IReviewManager ReviewManager)
         {
             this.RestaurantManager = RestaurantManager;
             this.ProductManager = ProductManager;
             this.LocationManager = LocationManager;
             this.UserManager = UserManager;
             this.RegionManager = RegionManager;
-            this.ChartDetailsManager = ChartDetailsManager;
+            this.CartDetailsManager = CartDetailsManager;
             this.OrderManager = OrderManager;
             this.DeliveryStaffManager = DeliveryStaffManager;
             this.ReviewManager = ReviewManager; 
         }
+
         public ActionResult Index()
         {
             if(HttpContext.Session.GetInt32("ID_LOGIN") == null)
@@ -52,12 +46,14 @@ namespace WebApplication.Controllers
 
             var restaurants = RestaurantManager.GetAllRestaurants();
             var ReviewsToDisplay = new List<ReviewToDisplay>();
+
             foreach (var restaurant in restaurants)
             {
                 var reviews = ReviewManager.GetAllReviewByRestaurantID(restaurant.IdRestaurant);
                 var myReviewToDisplay = new ReviewToDisplay();
                 myReviewToDisplay.Comment = new List<string>(); 
                 myReviewToDisplay.IdRestaurant = restaurant.IdRestaurant;
+
                 foreach (var review in reviews)
                 {                  
                     myReviewToDisplay.total += review.Stars;
@@ -67,12 +63,12 @@ namespace WebApplication.Controllers
                         myReviewToDisplay.Comment.Add(review.Comment);
                     }          
                 }
+
                 if (myReviewToDisplay.numberOfReview > 0)
                 {
                     myReviewToDisplay.average = Math.Round((double)myReviewToDisplay.total / (double) myReviewToDisplay.numberOfReview ,0);
                 }
 
-                
                 ReviewsToDisplay.Add(myReviewToDisplay);
             }
 
@@ -87,13 +83,12 @@ namespace WebApplication.Controllers
 
         }
 
-
         public ActionResult ShowAllProductFromRestaurant(int id)
         {
             var products = ProductManager.GetAllProductsFromRestaurant(id);
 
             AllProductWithCart myPage = new AllProductWithCart();
-            myPage.myChart = ChartDetailsManager.GetAllChartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+            myPage.myCart = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
             myPage.products = products;
             myPage.IdRestaurant = id;
 
@@ -113,24 +108,24 @@ namespace WebApplication.Controllers
             var products = new List<Product>();
             AllProductWithCart myPage = new AllProductWithCart();
 
-            ChartDetails myChartDetails = new ChartDetails();
+            CartDetails myCartDetails = new CartDetails();
 
             List<string> comments = new List<string>();
             comments = ReviewManager.GetAllCommentByRestaurantID(IdRestaurant); 
-            myChartDetails.IdLogin = IdLogin;
-            myChartDetails.IdProduct = IdProduct;
-            myChartDetails.IdRestaurant = IdRestaurant;
-            myChartDetails.ProductName = ProductName;
-            myChartDetails.ProductImage = ProductImage; 
-            myChartDetails.Quantity = Quantity;
-            myChartDetails.UnitPrice = (float)Price; 
+            myCartDetails.IdLogin = IdLogin;
+            myCartDetails.IdProduct = IdProduct;
+            myCartDetails.IdRestaurant = IdRestaurant;
+            myCartDetails.ProductName = ProductName;
+            myCartDetails.ProductImage = ProductImage; 
+            myCartDetails.Quantity = Quantity;
+            myCartDetails.UnitPrice = (float)Price; 
 
             //Création d'une nouvelle ligne dans la base de donnée avec la nouvelle information du panier 
-            ChartDetailsManager.AddNewChartDetails(myChartDetails);
+            CartDetailsManager.AddNewCartDetails(myCartDetails);
 
             products = ProductManager.GetAllProductsFromRestaurant(IdRestaurant);
 
-            myPage.myChart = ChartDetailsManager.GetAllChartDetailsFromLogin(IdLogin);
+            myPage.myCart = CartDetailsManager.GetAllCartDetailsFromLogin(IdLogin);
             myPage.products = products;
             myPage.IdRestaurant = IdRestaurant;
             myPage.Comment = comments; 
@@ -165,7 +160,6 @@ namespace WebApplication.Controllers
                 }
             }
 
-    
             allData.allRestaurant = RestaurantsFromMyRegion;
             allData.RegionName = region; 
 
@@ -182,66 +176,56 @@ namespace WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult MainPageRestaurant(int IdOrder)
         {
-         
-                var myOrder = OrderManager.GetOrderById(IdOrder);
+            var myOrder = OrderManager.GetOrderById(IdOrder);
+        
+            var myLocation = LocationManager.GetLocationByID(myOrder.IdLocation);
+            var OrderList = new List<Order>();
+            var StaffInTheRegion = DeliveryStaffManager.FindStaffFororder(myLocation.IdRegion);
+            var StaffAvailable = new List<DeliveryStaff>();
 
-
-                var myLocation = LocationManager.GetLocationByID(myOrder.IdLocation);
-                var OrderList = new List<Order>();
-                var StaffInTheRegion = DeliveryStaffManager.FindStaffFororder(myLocation.IdRegion);
-                var StaffAvailable = new List<DeliveryStaff>();
-      
-                foreach (var staff in StaffInTheRegion)
+            foreach (var staff in StaffInTheRegion)
+            {
+              
+                var orders = DeliveryStaffManager.CountOrderWithTime(staff.IdDeliveryStaff);
+                int testBefore = 0;
+                int testAfter = 0;
+                int testBetween = 0;
+                var timeControlBefore = myOrder.DeliveryTime.AddMinutes(-30);
+                var timeControlAfter = myOrder.DeliveryTime.AddMinutes(30);
+                var timeControleBetween = myOrder.DeliveryTime.AddMinutes(-15);
+                var timeControleBetween2 = myOrder.DeliveryTime.AddMinutes(15); 
+                foreach (var order in orders)
                 {
-                  
-                    var orders = DeliveryStaffManager.CountOrderWithTime(staff.IdDeliveryStaff);
-                    int testBefore = 0;
-                    int testAfter = 0;
-                    int testBetween = 0;
-                    var timeControlBefore = myOrder.DeliveryTime.AddMinutes(-30);
-                    var timeControlAfter = myOrder.DeliveryTime.AddMinutes(30);
-                    var timeControleBetween = myOrder.DeliveryTime.AddMinutes(-15);
-                    var timeControleBetween2 = myOrder.DeliveryTime.AddMinutes(15); 
-                    foreach (var order in orders)
-                        {
-                            if(order.DeliveryTime <= myOrder.DeliveryTime && order.DeliveryTime >= timeControlBefore)
-                            {
-                            testBefore += 1; 
-                            }
-                            if(order.DeliveryTime >= myOrder.DeliveryTime && order.DeliveryTime <= timeControlAfter)
-                            {
-                            testAfter += 1; 
-                            }
-                            if(order.DeliveryTime >= timeControleBetween && order.DeliveryTime <= timeControleBetween2)
-                            {
-                            testBetween += 1; 
-                            }
-
-                        }
-                    if(testAfter < 5 && testBetween < 5 && testBefore < 5)
-                    {
-                    StaffAvailable.Add(staff); 
-                    }
+                    if(order.DeliveryTime <= myOrder.DeliveryTime && order.DeliveryTime >= timeControlBefore)
+                        testBefore += 1; 
                     
-                }
 
-                if (StaffAvailable.Count == 0)
-                {
+                    if(order.DeliveryTime >= myOrder.DeliveryTime && order.DeliveryTime <= timeControlAfter)
+                        testAfter += 1; 
+                    
 
-                    ModelState.AddModelError(string.Empty, "No staff available now, try again later");
-                    OrderList = OrderManager.GetAllOrderFromRestaurant((int)HttpContext.Session.GetInt32("ID_RESTAURANT"));
-                    return View(OrderList);
-
+                    if(order.DeliveryTime >= timeControleBetween && order.DeliveryTime <= timeControleBetween2)
+                        testBetween += 1;
 
                 }
-                myOrder.IdDeliveryStaff = StaffAvailable[0].IdDeliveryStaff;
-                myOrder.IdOrderStatus = 2;
-                OrderManager.AssignStaffToAnOrder(myOrder);
-                OrderManager.UpdateOrderStatus(myOrder);
+                if(testAfter < 5 && testBetween < 5 && testBefore < 5)
+                    StaffAvailable.Add(staff);
+            }
+
+            if (StaffAvailable.Count == 0)
+            {
+                ModelState.AddModelError(string.Empty, "No staff available now, try again later");
                 OrderList = OrderManager.GetAllOrderFromRestaurant((int)HttpContext.Session.GetInt32("ID_RESTAURANT"));
-             
-            
                 return View(OrderList);
+            }
+
+            myOrder.IdDeliveryStaff = StaffAvailable[0].IdDeliveryStaff;
+            myOrder.IdOrderStatus = 2;
+            OrderManager.AssignStaffToAnOrder(myOrder);
+            OrderManager.UpdateOrderStatus(myOrder);
+            OrderList = OrderManager.GetAllOrderFromRestaurant((int)HttpContext.Session.GetInt32("ID_RESTAURANT"));
+
+            return View(OrderList);
         }
        
     }

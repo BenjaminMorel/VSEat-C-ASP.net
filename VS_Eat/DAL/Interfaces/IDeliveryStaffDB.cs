@@ -7,17 +7,20 @@ namespace DAL.Interfaces
 {
     public interface IDeliveryStaffDB
     {
-        List<Order> CountOrderWithTime(int IdDeliveryStaff);
 
-        List<DeliveryStaff> GetAllDeliveryStaff(); 
+        List<DeliveryStaff> GetAllDeliveryStaff();
+
+        DeliveryStaff GetDeliveryStaffByID(int IdLogin);
+
+        List<DeliveryStaff> GetAllDeliveryStaffByType(int IdDeliveryStaffType);
+
+        List<Order> CountOrderWithTime(int IdDeliveryStaff);
 
         DeliveryStaff AddStaff(DeliveryStaff myDeliveryStaff);
 
         DeliveryStaff UpdateDeliveryStaff(DeliveryStaff myDeliveryStaff);
 
-        DeliveryStaff GetDeliveryStaffByID(int IdLogin);
-
-        List<DeliveryStaff> FindStaffFororder(int IdRegion);
+       List<DeliveryStaff> FindStaffFororder(int IdRegion);
 
     }
 }

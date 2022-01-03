@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class ChartDetails
+    public class CartDetails
     {
-        public int IdChartDetails { get; set; }
+        public int IdCartDetails { get; set; }
+
         public int IdLogin { get; set; }
 
         public int IdProduct { get; set; }

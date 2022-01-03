@@ -15,7 +15,5 @@ namespace WebApplication.Models
 
         public List<ReviewToDisplay> AllReview { get; set; }
 
-        public int total { get; set; }
-
     }
 }

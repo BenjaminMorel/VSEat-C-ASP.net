@@ -10,7 +10,7 @@ namespace WebApplication.Models
     {
         public List<Product> products { get; set; }
 
-        public List<ChartDetails> myChart { get; set; }
+        public List<CartDetails> myCart { get; set; }
 
         public int IdRestaurant { get; set; }
 

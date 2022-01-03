@@ -24,8 +24,6 @@ namespace DTO
 
         public int IdRestaurant { get; set; }
 
-        public int IdProductType { get; set; }
-
         public override string ToString()
         {
             return "__________________________" +
@@ -37,7 +35,6 @@ namespace DTO
                    "\nDisponibility: " + Disponibility +
                    "\nVegetarian " + Vegetarian +
                    "\nIdRestaurant: " + IdRestaurant +
-                   "\nIdProductType: " + IdProductType +
                    "\n__________________________";
         }
     }

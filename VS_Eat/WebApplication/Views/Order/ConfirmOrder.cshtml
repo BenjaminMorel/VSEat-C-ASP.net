@@ -1,11 +1,11 @@
-﻿@model IEnumerable<DTO.ChartDetails>
+﻿@model IEnumerable<DTO.CartDetails>
 
 @{
     ViewData["Title"] = "ConfirmOrder";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-<h1 class="mainButton">ConfirmOrder</h1>
+<h1 class="mainButton">Confirm Order</h1>
 
 <body>
 <table class="table">
@@ -44,7 +44,7 @@
             </td>
             <td>
                 <form method="post">
-                    <input type="hidden" name="IdChartDetails" value=@Html.DisplayFor(modelItem => item.IdChartDetails) />
+                    <input type="hidden" name="IdCartDetails" value=@Html.DisplayFor(modelItem => item.IdCartDetails) />
                     <input type="submit" value="DELETE" />
                 </form>
             </td>
@@ -52,7 +52,7 @@
         }
 
     <form method="post">
-        <input type="hidden" name="IdChartDetails"  value="-1"/>
+        <input type="hidden" name="IdCartDetails"  value="-1"/>
         <input type="submit"   value="Remove All"/>
     </form>
     <body>

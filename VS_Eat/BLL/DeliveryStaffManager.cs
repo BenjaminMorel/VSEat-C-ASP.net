@@ -40,6 +40,11 @@ namespace BLL
             return DeliveryStaffDb.CountOrderWithTime(IdDeliveryStaff); 
         }
 
+        public List<DeliveryStaff> GetAllDeliveryStaffByType(int IdDeliveryStaffType)
+        {
+            return DeliveryStaffDb.GetAllDeliveryStaffByType(IdDeliveryStaffType);
+        }
+
         public DeliveryStaff CreateNewStaff(string FirstName, string LastName, string PhoneNumber, string Address, int PostCode, string City, string RegionName, string Email,
             string Password)
         {

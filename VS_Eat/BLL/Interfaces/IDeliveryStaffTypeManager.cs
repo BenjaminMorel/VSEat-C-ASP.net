@@ -10,5 +10,7 @@ namespace BLL.Interfaces
     public interface IDeliveryStaffTypeManager
     {
         List<DeliveryStaffType> GetAllDeliveryStaffTypes();
+
+        DeliveryStaffType GetAllDeliveryStaffType(int IdDeliveryStaffType);
     }
 }

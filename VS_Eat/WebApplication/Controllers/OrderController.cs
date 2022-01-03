@@ -12,20 +12,17 @@ namespace WebApplication.Controllers
     public class OrderController : Controller
     {
         private IOrderManager OrderManager { get; }
-
         private IOrderStatusManager OrderStatusManager { get;  }
         private IOrderDetailsManager OrderDetailsManager { get; }
-
-        private IChartDetailsManager ChartDetailsManager { get;  }
-
+        private ICartDetailsManager CartDetailsManager { get;  }
         private ILocationManager LocationManager { get;  }
-
         private IRestaurantManager RestaurantManager { get; }
-        public OrderController(IOrderManager OrderManager, IOrderDetailsManager orderDetailsManager, IChartDetailsManager ChartDetailsManager, ILocationManager LocationManager, IRestaurantManager RestaurantManager, IOrderStatusManager OrderStatusManager)
+
+        public OrderController(IOrderManager OrderManager, IOrderDetailsManager orderDetailsManager, ICartDetailsManager CartDetailsManager, ILocationManager LocationManager, IRestaurantManager RestaurantManager, IOrderStatusManager OrderStatusManager)
         {
             this.OrderManager = OrderManager;
             this.OrderDetailsManager = orderDetailsManager;
-            this.ChartDetailsManager = ChartDetailsManager;
+            this.CartDetailsManager = CartDetailsManager;
             this.LocationManager = LocationManager;
             this.RestaurantManager = RestaurantManager;
             this.OrderStatusManager = OrderStatusManager; 
@@ -33,7 +30,7 @@ namespace WebApplication.Controllers
         public IActionResult ShowAllOrders()
         {
             List<OrdersList> ordersList = new List<OrdersList>();
-            var orders = OrderManager.GetOrderByUser((int)HttpContext.Session.GetInt32("ID_USER"));
+            var orders = OrderManager.GetOrderByUser((int)HttpContext.Session.GetInt32("ID_LOGIN"));
             
             foreach(var order in orders)
             {
@@ -107,58 +104,53 @@ namespace WebApplication.Controllers
 
         public IActionResult ConfirmOrder()
         {
-            var myChartDetails = ChartDetailsManager.GetAllChartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
-            return View(myChartDetails); 
+            var myCartDetails = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+            return View(myCartDetails); 
         }
-
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
        
         public ActionResult ConfirmOrder(string DeliveryAddress, string city, int PostCode, int IdChartDetails,DateTime deliveryTime)
         {
-            var myChartDetails = new List<ChartDetails>();
+            var cartDetailsList = new List<CartDetails>();
  
                 if (IdChartDetails != 0)
                 {
                     if(IdChartDetails == -1)
                     {
-                    ChartDetailsManager.DeleteAllEntryByLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+                    CartDetailsManager.DeleteAllEntryByLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
                     }
                     else {
-                    ChartDetailsManager.DeleteOneEntry(IdChartDetails);
+                    CartDetailsManager.DeleteOneEntry(IdChartDetails);
                     }
                     
 
-                    myChartDetails = ChartDetailsManager.GetAllChartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
-                    return View(myChartDetails);
+                    cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+                    return View(cartDetailsList);
                 }
                 else
                 {
 
-
                     var myDeliveryLocation = LocationManager.GetLocation(city, PostCode);
-                    myChartDetails = ChartDetailsManager.GetAllChartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
-                    var myRestaurant = RestaurantManager.GetRestaurantByID(myChartDetails[0].IdRestaurant);
+                    cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+                    var myRestaurant = RestaurantManager.GetRestaurantByID(cartDetailsList[0].IdRestaurant);
                     var myRestaurantLocation = LocationManager.GetLocationByID(myRestaurant.IdLocation);
 
                     if (myDeliveryLocation.IdRegion != myRestaurantLocation.IdRegion)
                     {
                         if (ModelState.IsValid)
                         {
-                        
-                      
                             ModelState.AddModelError(string.Empty, "The address delivery region's must be the same as the restaurant region !");
                         }
-                        myChartDetails = ChartDetailsManager.GetAllChartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
-                        return View(myChartDetails);
+                        cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+                        return View(cartDetailsList);
                     }
 
                     var myOrder = new Order();
                     float totalPrice = 0;
-                    foreach (var chartDetail in myChartDetails)
+
+                    foreach (var chartDetail in cartDetailsList)
                     {
                         totalPrice += (float)(chartDetail.UnitPrice * chartDetail.Quantity);
                     }                 
@@ -171,10 +163,10 @@ namespace WebApplication.Controllers
                     myOrder.IdOrderStatus = 1;
                     myOrder.IdUser = (int)HttpContext.Session.GetInt32("ID_USER");
                     myOrder.IdLocation = myDeliveryLocation.IdLocation;
-                    myOrder.IdRestaurant = myChartDetails[0].IdRestaurant; 
+                    myOrder.IdRestaurant = cartDetailsList[0].IdRestaurant; 
 
                     var myNewOrder = OrderManager.AddNewOrder(myOrder);
-                    foreach (var charDetail in myChartDetails)
+                    foreach (var charDetail in cartDetailsList)
                     {
                         var myOrderDetails = new OrderDetails();
                         myOrderDetails.IdOrder = myNewOrder.IdOrder;
@@ -182,14 +174,9 @@ namespace WebApplication.Controllers
                         myOrderDetails.Quantity = charDetail.Quantity;
                         myOrderDetails.UnitPrice = charDetail.UnitPrice;
 
-
                         OrderDetailsManager.AddOrderDetails(myOrderDetails);
                     }
-                    ChartDetailsManager.DeleteAllEntryByLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
-
-
-
-            
+                    CartDetailsManager.DeleteAllEntryByLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
                 }
             
             return RedirectToAction("Index", "Restaurant");

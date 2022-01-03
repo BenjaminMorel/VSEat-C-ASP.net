@@ -23,5 +23,10 @@ namespace BLL
         {
             return DeliveryStaffTypeDB.GetAllDeliveryStaffTypes();
         }
+
+        public DeliveryStaffType GetAllDeliveryStaffType(int IdDeliveryStaffType)
+        {
+            return DeliveryStaffTypeDB.GetAllDeliveryStaffType(IdDeliveryStaffType);
+        }
     }
 }
