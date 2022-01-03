@@ -4,8 +4,9 @@
 
 
 /** DELETE ALL EXISTING TABLES IF EXISTING **/
-DROP TABLE [dbo].[ChartDetails]
+DROP TABLE [dbo].[CartDetails]
 DROP TABLE [dbo].[OrderDetails]
+DROP TABLE [dbo].[Review]
 DROP TABLE [dbo].[Order]
 DROP TABLE [dbo].[OrderStatus]
 DROP TABLE [dbo].[DeliveryStaff]
@@ -94,9 +95,7 @@ CREATE TABLE [dbo].[Product] (
     [Disponibility] BIT           NULL,
     [Vegetarian]    BIT           NULL,
     [IdRestaurant]  INT           NOT NULL,
-    [IdProductType] INT           NOT NULL,
 	CONSTRAINT [FK_Product_IdRestaurant] FOREIGN KEY ([IdRestaurant]) REFERENCES [Restaurant]([IdRestaurant]),
-	CONSTRAINT [FK_Product_IdProductType] FOREIGN KEY ([IdProductType]) REFERENCES [ProductType]([IdProductType])
 );
 
 CREATE TABLE [dbo].[DeliveryStaffType] (
@@ -153,8 +152,8 @@ CREATE TABLE [dbo].[OrderDetails] (
 	CONSTRAINT [FK_OrderDetail_IdOrder] FOREIGN KEY ([IdOrder]) REFERENCES [Order]([IdOrder])
 );
 
-CREATE TABLE [dbo].[ChartDetails] (         
-    [IdChartDetails]INT                 IDENTITY(1,1) PRIMARY KEY,
+CREATE TABLE [dbo].[CartDetails] (         
+    [IdCartDetails]INT                 IDENTITY(1,1) PRIMARY KEY,
     [IdLogin]       INT                 NOT NULL,
     [IdProduct]     INT                 NOT NULL,
     [IdRestaurant]  INT                 NOT NULL, 

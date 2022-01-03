@@ -1,5 +1,4 @@
-﻿/** SQL SCRIPT THAT FILLS OUR DIFFERENT TABLES **/
-
+﻿
 
 /** DELETE ALL THE DATA 
 TRUNCATE TABLE [dbo].[OrderDetails]
@@ -240,7 +239,7 @@ INSERT [dbo].[Location] (PostCode, City, IdRegion) VALUES
 
 INSERT [dbo].[Login] (Username, Password, IdLoginType) VALUES
 ('benjamin@morel.ch',	'password', '1'),
-('hugo@vouillamoz.ch',	'password', '1'),
+('hugo@vouillamoz.ch',	'password', '4'),
 ('Daniel@Coimbra.ch',	'password', '4'),
 ('thomas@cheseaux.ch',	'password', '4'),
 ('vouillamoz@hugo.ch',	'password', '4'),
@@ -271,71 +270,112 @@ INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, Address, FavoriteRestaura
 INSERT [dbo].[RestaurantType] (NomRestaurantType) VALUES 
 ('Burger'),
 ('Pizza'),
-('Tacos'),
-('Kebab'),
-('Asiatique'),
-('Autre'); 
+('Asiatique'); 
 
 INSERT [dbo].[Restaurant] (RestaurantName, RestaurantAddress,Picture, IdLogin, IdLocation, IdRestaurantType) VALUES
-('StarKebab',				'Chemin du kebab 12',		'/Images/Restaurants/restaurant1.jpg',		'1',	'142',	'4'),
-('Pizza Express',			'Chemin de la pizza 93',	'/Images/Restaurants/restaurant2.jpg',		'1',	'12',	'2'),
-('Le Bistrot d''Italie',	'Rue d''Oche 10',			'/Images/Restaurants/restaurant3.jpg',		'1',	'2',	'2'),
-('La Dixence',				'Place du Midi 35',			'/Images/Restaurants/restaurant4.jpg',		'1',	'3',	'6'),
-('Inglewood',				'Cr de la gare 27',			'/Images/Restaurants/restaurant5.jpg',		'16',	'3',	'1'),
-('StarKebab',				'Chemin du kebab 12',		'/Images/Restaurants/restaurant1.jpg',		'1',	'142',	'4'),
-('Pizza Express',			'Chemin de la pizza 93',	'/Images/Restaurants/restaurant2.jpg',		'1',	'12',	'2'),
-('Le Bistrot d''Italie',	'Rue d''Oche 10',			'/Images/Restaurants/restaurant3.jpg',		'1',	'2',	'2'),
-('La Dixence',				'Place du Midi 35',			'/Images/Restaurants/restaurant4.jpg',		'1',	'3',	'6'),
-('Inglewood',				'Cr de la gare 27',			'/Images/Restaurants/restaurant5.jpg',		'1',	'3',	'1') ;
+('Pizza Express',			'Chemin de la pizza 93',	'/Images/Restaurants/PizzaEx.jpg',		'1',	'3',	'2'),
+('Le Bistrot d''Italie',	'Rue d''Oche 10',			'/Images/Restaurants/Bistrot.jpg',		'1',	'2',	'2'),
+('La Dixence',				'Place du Midi 35',			'/Images/Restaurants/Dixence.jpg',		'1',	'3',	'2'),
+('Inglewood',				'Cr de la gare 27',			'/Images/Restaurants/Ingelwood.jpg',		'16',	'3',	'1'),
+('Gourmnadises d''Asie',	'Av. de France 6',			'/Images/Restaurants/gourmandises.jpg',		'1',	'3',	'3'),
+('Chez Chou',				'Espace des Remparts 25',	'/Images/Restaurants/chezChou.jpg',				'1',	'3',	'3'),
+('Samui Thai Food',			'Av. de Tourbillon 28',		'/Images/Restaurants/Samui.jpg',				'1',	'3',	'3'),
+('Coucou shushi',			'Place du midi 37',			'/Images/Restaurants/CoucouShushi.jpg',			'1',	'3',	'3'),
+('La Tonnella',				'Place du Midi 29',			'/Images/Restaurants/Tonnella.jpg',				'1',	'3',	'2'),
+('Luigia',					'Cr de la gare 29',			'/Images/Restaurants/Luigia.jpg',				'1',	'3',	'2'),
+('Holy Cow',				'Av. de France 8',			'/Images/Restaurants/HolyCow.jpg',				'1',	'3',	'1'),
+('Burger House',			'Place du Midi 10',			'/Images/Restaurants/BurgerHouse.jpg',			'1',	'3',	'1');
 
-INSERT [dbo].[ProductType] (ProductType) VALUES
-('Petit'),
-('Moyen'),
-('Grand'),
-('Famille');
 
-INSERT [dbo].[Product] (ProductName, Description, Price, Picture, Disponibility, Vegetarian, IdRestaurant, IdProductType) VALUES
 
-('Durum',				'Durum poulet ou agneau',	'10.50', '/Images/Products/durum.jpg',			'1', '0', '1', '2'), 
-('Pizza Margarita',		'tomate, mozzarella',		'12.20', '/Images/Products/pizza.jpg',			'1', '0', '2', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '3', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '4', '2'),
-('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '5', '3'),
-('Durum',				'Durum poulet ou agneau',	'10.50', '/Images/Products/durum.jpg',			'1', '0', '6', '2'), 
-('Pizza Margarita',		'tomate, mozzarella',		'12.20', '/Images/Products/pizza.jpg',			'1', '0', '7', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '8', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '9', '2'),
-('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '10', '3'),
-('Durum',				'Durum poulet ou agneau',	'10.50', '/Images/Products/durum.jpg',			'1', '0', '1', '2'), 
-('Pizza Margarita',		'tomate, mozzarella',		'12.20', '/Images/Products/pizza.jpg',			'1', '0', '2', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '3', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '4', '2'),
-('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '5', '3'),
-('Durum',				'Durum poulet ou agneau',	'10.50', '/Images/Products/durum.jpg',			'1', '0', '6', '2'), 
-('Pizza Margarita',		'tomate, mozzarella',		'12.20', '/Images/Products/pizza.jpg',			'1', '0', '7', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '8', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '9', '2'),
-('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '10', '3'),
-('Durum',				'Durum poulet ou agneau',	'10.50', '/Images/Products/durum.jpg',			'1', '0', '1', '2'), 
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '2', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '3', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '4', '2'),
-('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '5', '3'),
-('Durum',				'Durum poulet ou agneau',	'10.50', '/Images/Products/durum.jpg',			'1', '0', '6', '2'), 
-('Pizza Margarita',		'tomate, mozzarella',		'12.20', '/Images/Products/pizza.jpg',			'1', '0', '7', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '8', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '9', '2'),
-('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '10', '3'),
-('Durum',				'Durum poulet ou agneau',	'10.50', '/Images/Products/durum.jpg',			'1', '0', '1', '2'), 
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '2', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '3', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '4', '2'),
-('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '5', '3'),
-('Durum',				'Durum poulet ou agneau',	'10.50', '/Images/Products/durum.jpg',			'1', '0', '6', '2'), 
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '7', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/default.jpg',		'1', '0', '8', '2'),
-('Pizza Margarita',		'tomate, mozzarella',		'10.00', '/Images/Products/pizza.jpg',			'1', '0', '9', '2'),
-('CheeseBurger',		'Burger avec fromage',		'15.00', '/Images/Products/cheeseburger.jpg',	'1', '0', '10', '3'); 
+INSERT [dbo].[Product] (ProductName, Description, Price, Picture, Disponibility, Vegetarian, IdRestaurant) VALUES
+
+('Cheesburger',				'Beef burger with cheese and fries',	'10.50', '/Images/Products/Burger/cheeseburger.jpg',			'1', '0', '4'), 
+('Cheesburger',				'Beef burger with cheese and fries',	'10.50', '/Images/Products/Burger/cheeseburger.jpg',			'1', '0', '11'), 
+('Cheesburger',				'Beef burger with cheese and fries',	'10.50', '/Images/Products/Burger/cheeseburger.jpg',			'1', '0', '12'),
+
+('beefBurger',				'Beef burger with fries',				'11.50', '/Images/Products/Burger/beefburger.jpg',			'1', '0', '4'), 
+('beefBurger',				'Beef burger with fries',				'11.50', '/Images/Products/Burger/beefburger.jpg',			'1', '0', '11'), 
+('beefBurger',				'Beef burger whith fries',				'11.50', '/Images/Products/Burger/beefburger.jpg',			'1', '0', '12'), 
+
+('Big Burger',			'double beef burger with fries',		'20.50',	 '/Images/Products/Burger/bigBurger.jpg',		'1', '0', '4'),
+('Big Burger',			'double beef burger with fries',		'20.50', '/Images/Products/Burger/bigBurger.jpg',		'1', '0', '11'),
+('Big Burger',			'double beef burger with fries',		'20.50', '/Images/Products/Burger/bigBurger.jpg',		'1', '0', '12'),
+
+('chicken Burger',			'chicken burger with salad and fries',	'10.50', '/Images/Products/Burger/chicken.jpg',	'1', '0', '4'),
+('chicken Burger',			'chicken burger with salad and fries',	'10.50', '/Images/Products/Burger/chicken.jpg',	'1', '0', '11'),
+('chicken Burger',			'chicken burger with salad and fries',	'10.50', '/Images/Products/Burger/chicken.jpg',	'1', '0', '12'),
+
+('Vegie Burger',			'Vegetarian burger with fries',		'9.50',	'/Images/Products/Burger/vegie.jpg',			'1', '1', '4'),
+('Vegie Burger',			'Vegetarian burger with fries',		'9.50',	'/Images/Products/Burger/vegie.jpg',			'1', '1', '11'),
+('Vegie Burger',			'Vegetarian burger with fries',		'9.50',	'/Images/Products/Burger/vegie.jpg',			'1', '1', '12'),
+
+('Boscaiola',				'Pizza with tomatoes and mozzarela',	'11.00',	'/Images/Products/Pizza/Boscaiola.jpg',		'1',	'1',	'1'),
+('Boscaiola',				'Pizza with tomatoes and mozzarela',	'11.00',	'/Images/Products/Pizza/Boscaiola.jpg',		'1',	'1',	'2'),
+('Boscaiola',				'Pizza with tomatoes and mozzarela',	'11.00',	'/Images/Products/Pizza/Boscaiola.jpg',		'1',	'1',	'3'),
+('Boscaiola',				'Pizza with tomatoes and mozzarela',	'11.00',	'/Images/Products/Pizza/Boscaiola.jpg',		'1',	'1',	'9'),
+('Boscaiola',				'Pizza with tomatoes and mozzarela',	'11.00',	'/Images/Products/Pizza/Boscaiola.jpg',		'1',	'1',	'10'),
+
+('Diavola',					'Pizza with chorizo and tomatoes',		'12.00',	'/Images/Products/Pizza/Diavola.jpg',		'1',	'0',	'1'),
+('Diavola',					'Pizza with chorizo and tomatoes',		'12.00',	'/Images/Products/Pizza/Diavola.jpg',		'1',	'0',	'2'),
+('Diavola',					'Pizza with chorizo and tomatoes',		'12.00',	'/Images/Products/Pizza/Diavola.jpg',		'1',	'0',	'3'),
+('Diavola',					'Pizza with chorizo and tomatoes',		'12.00',	'/Images/Products/Pizza/Diavola.jpg',		'1',	'0',	'9'),
+('Diavola',					'Pizza with chorizo and tomatoes',		'12.00',	'/Images/Products/Pizza/Diavola.jpg',		'1',	'0',	'10'),
+
+('Hawaï',					'Pizza with ananas',					'13.00',	'/Images/Products/Pizza/Hawai.jpg',			'1',	'0',	'1'),
+('Hawaï',					'Pizza with ananas',					'13.00',	'/Images/Products/Pizza/Hawai.jpg',			'1',	'0',	'2'),
+('Hawaï',					'Pizza with ananas',					'13.00',	'/Images/Products/Pizza/Hawai.jpg',			'1',	'0',	'3'),
+('Hawaï',					'Pizza with ananas',					'13.00',	'/Images/Products/Pizza/Hawai.jpg',			'1',	'0',	'9'),
+('Hawaï',					'Pizza with ananas',					'13.00',	'/Images/Products/Pizza/Hawai.jpg',			'1',	'0',	'10'),
+
+('Marguerita',				'Simple pizza with ham and mozzarela',		'9.00',	'/Images/Products/Pizza/margerita.jpg',		'1',	'0',	'1'),
+('Marguerita',				'Simple pizza with ham and mozzarela',		'9.00',	'/Images/Products/Pizza/margerita.jpg',		'1',	'0',	'2'),
+('Marguerita',				'Simple pizza with ham and mozzarela',		'9.00',	'/Images/Products/Pizza/margerita.jpg',		'1',	'0',	'3'),
+('Marguerita',				'Simple pizza with ham and mozzarela',		'9.00',	'/Images/Products/Pizza/margerita.jpg',		'1',	'0',	'9'),
+('Marguerita',				'Simple pizza with ham and mozzarela',		'9.00',	'/Images/Products/Pizza/margerita.jpg',		'1',	'0',	'10'),
+
+('Prosciutto',				'Pizza with mushroom and ham',				'11.00', '/Images/Products/Pizza/Prosciutto.jpg',	'1',	'0',	'1'),
+('Prosciutto',				'Pizza with mushroom and ham',				'11.00', '/Images/Products/Pizza/Prosciutto.jpg',	'1',	'0',	'2'),
+('Prosciutto',				'Pizza with mushroom and ham',				'11.00', '/Images/Products/Pizza/Prosciutto.jpg',	'1',	'0',	'3'),
+('Prosciutto',				'Pizza with mushroom and ham',				'11.00', '/Images/Products/Pizza/Prosciutto.jpg',	'1',	'0',	'9'),
+('Prosciutto',				'Pizza with mushroom and ham',				'11.00', '/Images/Products/Pizza/Prosciutto.jpg',	'1',	'0',	'10'),
+
+('Quatre Fromage',			'Pizza with four different cheeses',		'10.00', '/Images/Products/Pizza/QuatreFrom.jpg',	'1',	'1',	'1'),
+('Quatre Fromage',			'Pizza with four different cheeses',		'10.00', '/Images/Products/Pizza/QuatreFrom.jpg',	'1',	'1',	'2'),
+('Quatre Fromage',			'Pizza with four different cheeses',		'10.00', '/Images/Products/Pizza/QuatreFrom.jpg',	'1',	'1',	'3'),
+('Quatre Fromage',			'Pizza with four different cheeses',		'10.00', '/Images/Products/Pizza/QuatreFrom.jpg',	'1',	'1',	'9'),
+('Quatre Fromage',			'Pizza with four different cheeses',		'10.00', '/Images/Products/Pizza/QuatreFrom.jpg',	'1',	'1',	'10'),
+
+('Boeuf piquant',			'Beef with spicy sauce',					'10.00', '/Images/Products/Asiatique/boeuf.jpg',	'1',	'0',	'5'),
+('Boeuf piquant',			'Beef with spicy sauce',					'10.00', '/Images/Products/Asiatique/boeuf.jpg',	'1',	'0',	'6'),
+('Boeuf piquant',			'Beef with spicy sauce',					'10.00', '/Images/Products/Asiatique/boeuf.jpg',	'1',	'0',	'7'),
+('Boeuf piquant',			'Beef with spicy sauce',					'10.00', '/Images/Products/Asiatique/boeuf.jpg',	'1',	'0',	'8'),
+
+('Boeuf aux Légumes',		'Beef with vegetables',						'11.00', '/Images/Products/Asiatique/boeufLegume.jpg', '1', '0',	'5'),
+('Boeuf aux Légumes',		'Beef with vegetables',						'11.00', '/Images/Products/Asiatique/boeufLegume.jpg', '1', '0',	'6'),
+('Boeuf aux Légumes',		'Beef with vegetables',						'11.00', '/Images/Products/Asiatique/boeufLegume.jpg', '1', '0',	'7'),
+('Boeuf aux Légumes',		'Beef with vegetables',						'11.00', '/Images/Products/Asiatique/boeufLegume.jpg', '1', '0',	'8'),
+
+('Canard à l''orange',		'Duck with orange sauce',					'16.00', '/Images/Products/Asiatique/canard.jpg',		'1', '0',	'5'),
+('Canard à l''orange',		'Duck with orange sauce',					'16.00', '/Images/Products/Asiatique/canard.jpg',		'1', '0',	'6'),
+('Canard à l''orange',		'Duck with orange sauce',					'16.00', '/Images/Products/Asiatique/canard.jpg',		'1', '0',	'7'),
+('Canard à l''orange',		'Duck with orange sauce',					'16.00', '/Images/Products/Asiatique/canard.jpg',		'1', '0',	'8'),
+
+('Poulet au légume',		'Chicken with vegetables',					'8.50', '/Images/Products/Asiatique/poulet.jpg',		'1', '0',	'5'),
+('Poulet au légume',		'Chicken with vegetables',					'8.50', '/Images/Products/Asiatique/poulet.jpg',		'1', '0',	'6'),
+('Poulet au légume',		'Chicken with vegetables',					'8.50', '/Images/Products/Asiatique/poulet.jpg',		'1', '0',	'7'),
+('Poulet au légume',		'Chicken with vegetables',					'8.50', '/Images/Products/Asiatique/poulet.jpg',		'1', '0',	'8'),
+
+('Nouilles aux légumes', 'Noodles with vegtables',				'9.00',	'/Images/Products/Asiatique/salade.jpg',		'1', '1',	'5'),
+('Nouilles aux légumes', 'Noodles with vegtables',				'9.00',	'/Images/Products/Asiatique/salade.jpg',		'1', '1',	'6'),
+('Nouilles aux légumes', 'Noodles with vegtables',				'9.00',	'/Images/Products/Asiatique/salade.jpg',		'1', '1',	'7'),
+('Nouilles aux légumes', 'Noodles with vegtables',				'9.00',	'/Images/Products/Asiatique/salade.jpg',		'1', '1',	'8'),
+
+('Shushi',					'Shushi (30 pieces)',						'30.00', '/Images/Products/Asiatique/shushi.jpg',		'1', '0',	'5'),
+('Shushi',					'Shushi (30 pieces)',						'30.00', '/Images/Products/Asiatique/shushi.jpg',		'1', '0',	'6'),
+('Shushi',					'Shushi (30 pieces)',						'30.00', '/Images/Products/Asiatique/shushi.jpg',		'1', '0',	'7'),
+('Shushi',					'Shushi (30 pieces)',						'30.00', '/Images/Products/Asiatique/shushi.jpg',		'1', '0',	'8');
+
 
 INSERT [dbo].[DeliveryStaffType] (DeliveryStaffType) VALUES
 ('Inactive'),
@@ -356,6 +396,7 @@ INSERT [dbo].[OrderStatus] (Status) VALUES
 ('Archived'),
 ('Canceled');
 
+/**
 INSERT [dbo].[Order] (OrderDate, DeliveryTime, DeliveryAddress, Freight, TotalPrice, IdOrderStatus, IdUser, IdDeliveryStaff, IdLocation, IdRestaurant) VALUES
 (DEFAULT,'18:30:00', 'Rue de la faim 3',	'4.00', '24.00', '5', '2', '2', '40', '1'),
 (DEFAULT,'17:15:00', 'Rue de la faim 12',	'8.00', '68.00', '5', '2', '2', '88', '1');
@@ -364,8 +405,9 @@ INSERT [dbo].[OrderDetails] (UnitPrice, Quantity, IdProduct, IdOrder) VALUES
 ('10.00', '2', '1', '2'),
 ('15.00', '2', '5', '2'),
 ('15.00', '2', '10', '2');
+**/
 
 INSERT [dbo].[Review] (IdRestaurant,Stars,Comment) VALUES
 ('5','5','Super burger !'),
-('5','2',NULL),
+('1','2',NULL),
 ('5','3',NULL); 
