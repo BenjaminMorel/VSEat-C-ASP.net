@@ -55,3 +55,31 @@
     font-size: small; 
 }
 
+.checkbox-round {
+    width: 1.3em;
+    height: 1.3em;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.checkbox-round:checked {
+    background-color: #51e534;
+}
+
+.searchPanel{
+    background-color:#ffda9e;
+    padding-left: 50px; 
+    padding-right: 50px; 
+    padding-top: 30px;
+    padding-bottom: 60px; 
+    border-radius: 30px; 
+  
+}
+
+

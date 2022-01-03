@@ -7,7 +7,13 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/product.css" />
+</head>
 <body>
     <header>
     </header>
@@ -104,23 +110,20 @@
                 Cart :
                 @if (Model.myCart != null && Model.myCart.Count > 0)
                 {
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Image</th>
-                        </tr>
-                        @foreach (var itemDetails in Model.myCart)
+                    <ul class="cd-cart-items">
+                      
+                        @foreach (var itemDetails in Model.myChart)
                         {
-                            <tr>
-                                <th>  @Html.DisplayFor(modelItem => itemDetails.ProductName)  </th>
-                                <th>  @Html.DisplayFor(modelItem => itemDetails.Quantity)  </th>
-                                <th>  @Html.DisplayFor(modelItem => itemDetails.UnitPrice)  </th>
-                                <th> <img src="@itemDetails.ProductImage" width="50" height="50" class="restaurantImage" /> </th>
-                            </tr>
+                           
+                        <li>
+                            @Html.DisplayFor(modelItem => itemDetails.Quantity) x 
+                            @Html.DisplayFor(modelItem => itemDetails.ProductName)
+
+                            @Html.DisplayFor(modelItem => itemDetails.UnitPrice) CHF
+                            <img src="@itemDetails.ProductImage" width="50" height="50" class="restaurantImage" />
+                        </li>
                         }
-                    </table>
+                    </ul>
 
                     <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ConfirmOrder">Confirm order</a>
                 }

@@ -6,8 +6,7 @@ using DTO;
 using System.Collections.Generic;
 using BLL;
 using WebApplication.Models;
-using Microsoft.JSInterop;
-using javax.jws;
+
 
 namespace WebApplication.Controllers 
 {
@@ -33,21 +32,44 @@ namespace WebApplication.Controllers
             this.CartDetailsManager = CartDetailsManager;
             this.OrderManager = OrderManager;
             this.DeliveryStaffManager = DeliveryStaffManager;
-            this.ReviewManager = ReviewManager; 
+            this.ReviewManager = ReviewManager;
+            this.RestaurantTypeManager = RestaurantTypeManager; 
         }
-
-        public ActionResult Index()
+        public IActionResult Index()
         {
+            
             if(HttpContext.Session.GetInt32("ID_LOGIN") == null)
             {
                 //ligne pour forcer la personne a se loger la première fois 
                 return RedirectToAction("Login", "Account"); 
             }
-
+            //list with all restaurant 
             var restaurants = RestaurantManager.GetAllRestaurants();
-            var ReviewsToDisplay = new List<ReviewToDisplay>();
+            
+            //new list where we will put all restaurant from a region
+            var restaurantsFromMyRegion = new List<Restaurant>();
+            var myUser = UserManager.GetUserByID((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+            var myLocation = LocationManager.GetLocationByID(myUser.IdLocation);
+            var myRegion = RegionManager.GetRegionName(myLocation.IdRegion);
+            var myrestaurantTypes = RestaurantTypeManager.GetAllRestaurantType();
+            var restauranTypeToDisplay = new List<string>(); 
 
+            foreach(var type in myrestaurantTypes)
+            {
+                restauranTypeToDisplay.Add(type.NomRestaurantType); 
+            }
             foreach (var restaurant in restaurants)
+            {
+                var location = LocationManager.GetLocationByID(restaurant.IdLocation);
+                if (location.IdRegion == myRegion.IdRegion)
+                {
+                    restaurantsFromMyRegion.Add(restaurant);
+                }
+            }
+
+
+            var ReviewsToDisplay = new List<ReviewToDisplay>();
+            foreach (var restaurant in restaurantsFromMyRegion)
             {
                 var reviews = ReviewManager.GetAllReviewByRestaurantID(restaurant.IdRestaurant);
                 var myReviewToDisplay = new ReviewToDisplay();
@@ -75,10 +97,99 @@ namespace WebApplication.Controllers
             var regions = RegionManager.GetAllRegions();
             RestaurantToDisplay allData = new RestaurantToDisplay();
 
-            allData.allRestaurant = restaurants;
+            allData.myRegion = myRegion; 
+            allData.allRestaurant = restaurantsFromMyRegion;
             allData.RegionName = regions;
-            allData.AllReview = ReviewsToDisplay; 
+            allData.AllReview = ReviewsToDisplay;
+            allData.AllRestaurantType = myrestaurantTypes;
+            allData.AllTypeToDisplay = restauranTypeToDisplay; 
         
+            return View(allData);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Index(string regionName, List<string> restaurantType)
+        {
+            if (HttpContext.Session.GetInt32("ID_LOGIN") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
+            //list with all restaurant 
+            var restaurants = RestaurantManager.GetAllRestaurants();
+            var myRegion = new Region() ; 
+            //new list where we will put all restaurant from a region
+            var restaurantsFromMyRegion = new List<Restaurant>();
+            var myrestaurantTypes = RestaurantTypeManager.GetAllRestaurantType();
+
+            if (string.IsNullOrEmpty(regionName))
+            {
+                var myUser = UserManager.GetUserByID((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+                var myLocation = LocationManager.GetLocationByID(myUser.IdLocation);
+                myRegion = RegionManager.GetRegionName(myLocation.IdRegion);
+            }
+            else
+            {
+                myRegion = RegionManager.GetRegionName(RegionManager.GetIdRegion(regionName));
+            }
+         
+
+            foreach (var restaurant in restaurants)
+            {
+                var location = LocationManager.GetLocationByID(restaurant.IdLocation);
+                if (location.IdRegion == myRegion.IdRegion)
+                {
+                    foreach(var type in myrestaurantTypes)
+                    {
+                        if(restaurantType.Contains(type.NomRestaurantType) && restaurant.IdRestaurantType == type.IdRestaurantType)
+                        {
+                            restaurantsFromMyRegion.Add(restaurant);
+                        }
+                    }
+                
+                }
+            }
+
+
+            var ReviewsToDisplay = new List<ReviewToDisplay>();
+            foreach (var restaurant in restaurantsFromMyRegion)
+            {
+                var reviews = ReviewManager.GetAllReviewByRestaurantID(restaurant.IdRestaurant);
+                var myReviewToDisplay = new ReviewToDisplay();
+                myReviewToDisplay.Comment = new List<string>();
+                myReviewToDisplay.IdRestaurant = restaurant.IdRestaurant;
+
+                foreach (var review in reviews)
+                {
+                    myReviewToDisplay.total += review.Stars;
+                    myReviewToDisplay.numberOfReview += 1;
+                    if (!(String.IsNullOrEmpty(review.Comment)))
+                    {
+                        myReviewToDisplay.Comment.Add(review.Comment);
+                    }
+                }
+                if (myReviewToDisplay.numberOfReview > 0)
+                {
+                    myReviewToDisplay.average = Math.Round((double)myReviewToDisplay.total / (double)myReviewToDisplay.numberOfReview, 0);
+                }
+
+
+                ReviewsToDisplay.Add(myReviewToDisplay);
+            }
+
+            var regions = RegionManager.GetAllRegions();
+            RestaurantToDisplay allData = new RestaurantToDisplay();
+
+            allData.myRegion = myRegion;
+            allData.allRestaurant = restaurantsFromMyRegion;
+            allData.RegionName = regions;
+            allData.AllReview = ReviewsToDisplay;
+            allData.AllRestaurantType = myrestaurantTypes;
+            allData.AllTypeToDisplay = restaurantType; 
+
+
             return View(allData);
 
         }

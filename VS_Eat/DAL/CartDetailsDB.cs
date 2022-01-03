@@ -128,6 +128,10 @@ namespace DAL
         }
 
 
+        /// <summary>
+        /// Methode to remove all element in the chart for a specific user 
+        /// </summary>
+        /// <param name="IdLogin">We used the IdLogin parameter to find the corresponding user and remove all of his stuff in the chart details table</param>
         public void DeleteAllEntryByLogin(int IdLogin)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");

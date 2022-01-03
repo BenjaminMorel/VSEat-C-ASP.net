@@ -6,9 +6,9 @@ namespace BLL.Interfaces
 {
     public interface IDeliveryStaffManager
     {
-        List<DeliveryStaff> GetAllDeliveryStaff(); 
+        DeliveryStaff GetDeliveryStaffByID(int IdLogin);
 
-        List<Order> CountOrderWithTime(int IdDeliveryStaff);
+        List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff);
 
         List<DeliveryStaff> GetAllDeliveryStaffByType(int IdDeliveryStaffType);
 
@@ -18,8 +18,7 @@ namespace BLL.Interfaces
 
         DeliveryStaff UpdateDeliveryStaff(DeliveryStaff myDeliveryStaff);
 
-        DeliveryStaff GetDeliveryStaffByID(int IdLogin);
-
+      
         List<DeliveryStaff> FindStaffFororder(int IdRegion);
     }
 

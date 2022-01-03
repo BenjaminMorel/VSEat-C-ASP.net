@@ -16,9 +16,12 @@ namespace DAL
         {
             Configuration = configuration;
         }
+
         /// <summary>
-        /// Method which returns a list of all the delivery staff of the database
+        /// Methode to find a delivery staff with his id login, we used this method when a staff member get connected to retreive his information 
         /// </summary>
+        /// <param name="IdLogin">The idLogin parameter to find the corresponding line in the database</param>
+        /// <returns></returns>
         /// <returns>list of all the delivery staff</returns>
         public List<DeliveryStaff> GetAllDeliveryStaff()
         {
@@ -114,57 +117,13 @@ namespace DAL
             return myDeliveryStaff;
         }
 
-        public List<DeliveryStaff> GetAllDeliveryStaffByType(int IdDeliveryStaffType)
-        {
-            List<DeliveryStaff> listDeliveryStaff = new List<DeliveryStaff>();
-            string connectionString = Configuration.GetConnectionString("DefaultConnection");
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    string query = "SELECT * FROM [dbo].[DeliveryStaff] WHERE IdDeliveryStaffType=@IdDeliveryStaffType";
-                    SqlCommand command = new SqlCommand(query, connection);
-
-                    connection.Open();
-
-                    using (SqlDataReader dataReader = command.ExecuteReader())
-                    {
-                        if (dataReader.Read())
-                        {
-                            DeliveryStaff myDeliveryStaff = new DeliveryStaff();
-
-                            myDeliveryStaff.IdDeliveryStaff = (int)dataReader["IdDeliveryStaff"];
-                            myDeliveryStaff.FirstName = (string)dataReader["FirstName"];
-                            myDeliveryStaff.LastName = (string)dataReader["LastName"];
-                            myDeliveryStaff.PhoneNumber = (string)dataReader["PhoneNumber"];
-                            myDeliveryStaff.Address = (string)dataReader["Address"];
-                            myDeliveryStaff.IdLogin = (int)dataReader["IdLogin"];
-                            myDeliveryStaff.IdLocation = (int)dataReader["IdLocation"];
-                            myDeliveryStaff.IdDeliveryStaffType = (int)dataReader["IdDeliveryStaffType"];
-                            myDeliveryStaff.IdWorkingRegion = (int)dataReader["IdWorkingRegion"];
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.Write("Error while getting all delivery staff by id\n");
-                Console.Write(e.Message);
-                Console.Write(e.StackTrace);
-                Console.Write(e.Source);
-                Console.Write("ERROR\n");
-            }
-
-            return listDeliveryStaff;
-        }
-
+        
         /// <summary>
-        /// Method which returns a list of open order for a deliver by id
+        /// Methode to get all order that are not delivered now, for a specific Staff member
         /// </summary>
-        /// <param name="IdDeliveryStaff"></param>
+        /// <param name="IdDeliveryStaff">Staff member id to find the correct openOrder</param>
         /// <returns></returns>
-        public List<Order> CountOrderWithTime(int IdDeliveryStaff)
+        public List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff)
         {
             List<Order> numberOfOpenOrders = new List<Order>();
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -255,6 +214,11 @@ namespace DAL
             return MyStaff;
         }
 
+        /// <summary>
+        /// Methode to update the inforamtion regarding a staff member, this method is used by the staff to update their personnal information
+        /// </summary>
+        /// <param name="myDeliveryStaff"></param>
+        /// <returns></returns>
         public DeliveryStaff UpdateDeliveryStaff(DeliveryStaff myDeliveryStaff)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -289,7 +253,11 @@ namespace DAL
             return myDeliveryStaff;
         }
 
-
+        /// <summary>
+        /// Find all staff member that worked in a specific region
+        /// </summary>
+        /// <param name="IdRegion">The id region where we want to find some staff member</param>
+        /// <returns></returns>
         public List<DeliveryStaff> FindStaffFororder(int IdRegion)
         {
             List<DeliveryStaff> listDeliveryStaff = new List<DeliveryStaff>();

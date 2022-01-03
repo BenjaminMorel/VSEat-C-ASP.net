@@ -155,6 +155,7 @@ namespace DAL
                             myProduct.Disponibility = (bool)dataReader["Disponibility"];
                             myProduct.Vegetarian = (bool)dataReader["Vegetarian"];
                             myProduct.IdRestaurant = (int)dataReader["IdRestaurant"];
+
      
                         }
                     }
@@ -190,7 +191,8 @@ namespace DAL
                     command.Parameters.AddWithValue("@Picture", MyProduct.Picture);
                     command.Parameters.AddWithValue("@Disponibility", MyProduct.Disponibility);
                     command.Parameters.AddWithValue("@Vegetarian", MyProduct.Vegetarian);
-                    command.Parameters.AddWithValue("@IdRestaurant", MyProduct.IdRestaurant);                 
+                    command.Parameters.AddWithValue("@IdRestaurant", MyProduct.IdRestaurant);
+                 
 
                     connection.Open();
 

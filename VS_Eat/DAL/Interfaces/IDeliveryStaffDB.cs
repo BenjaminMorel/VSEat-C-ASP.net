@@ -7,8 +7,9 @@ namespace DAL.Interfaces
 {
     public interface IDeliveryStaffDB
     {
-
-        List<DeliveryStaff> GetAllDeliveryStaff();
+        List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff);
+        List<DeliveryStaff> GetAllDeliveryStaff(); 
+        List<DeliveryStaff> GetAllDeliveryStaff(); 
 
         DeliveryStaff GetDeliveryStaffByID(int IdLogin);
 
