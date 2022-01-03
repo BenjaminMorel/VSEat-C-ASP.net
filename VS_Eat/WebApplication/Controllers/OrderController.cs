@@ -111,18 +111,18 @@ namespace WebApplication.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
        
-        public ActionResult ConfirmOrder(string DeliveryAddress, string city, int PostCode, int IdChartDetails,DateTime deliveryTime)
+        public ActionResult ConfirmOrder(string DeliveryAddress, string city, int PostCode, int IdCartDetails,DateTime deliveryTime)
         {
             var cartDetailsList = new List<CartDetails>();
  
-                if (IdChartDetails != 0)
+                if (IdCartDetails != 0)
                 {
-                    if(IdChartDetails == -1)
+                    if(IdCartDetails == -1)
                     {
                     CartDetailsManager.DeleteAllEntryByLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
                     }
                     else {
-                    CartDetailsManager.DeleteOneEntry(IdChartDetails);
+                    CartDetailsManager.DeleteOneEntry(IdCartDetails);
                     }
                     
 

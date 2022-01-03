@@ -108,7 +108,7 @@ namespace DAL
                 {
                     string query = "DELETE FROM [dbo].[CartDetails] WHERE IdCartDetails=@IdCartDetails";
                     SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdCCrtDetails", IdCartDetails);
+                    command.Parameters.AddWithValue("@IdCartDetails", IdCartDetails);
                 
                     connection.Open();
 
