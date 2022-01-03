@@ -1,0 +1,40 @@
+﻿@*
+*@
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+<br/>
+
+<div class="contactForm">
+    <form action="action_page.php">
+
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" Required="required" name="firstname">
+        <asp:TextBox itemid="txt_firstName" runat="server" required="required"></asp:TextBox>
+
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" Required="required" name="lastname">
+
+        <label for="email">Your email</label>
+        <input type="text" id="email" Required="required" name="email">
+
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" Required="required" name="subject">
+
+        <label for="message">Message</label>
+        <textarea id="subject" Required="required" name="message" placeholder="Write something here..." style="height:200px"></textarea>
+
+        <input type="submit" value="Submit" onclick="btn_send_click">
+
+    </form>
+</div>
+
+</body>
+
+</html>

@@ -62,7 +62,7 @@ namespace BLL
             MyDeliveryStaff.IdLogin = MyLogin.IdLogin;
             MyDeliveryStaff.IdLocation = Location.IdLocation;
             MyDeliveryStaff.IdDeliveryStaffType = 1; // For validation
-            MyDeliveryStaff.IdWorkingRegion = region;
+            MyDeliveryStaff.IdWorkingRegion = 1;
             MyDeliveryStaff = DeliveryStaffDb.AddStaff(MyDeliveryStaff);
 
             return MyDeliveryStaff; 
