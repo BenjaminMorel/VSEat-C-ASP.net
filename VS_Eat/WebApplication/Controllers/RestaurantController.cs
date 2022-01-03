@@ -22,7 +22,9 @@ namespace WebApplication.Controllers
         private IDeliveryStaffManager DeliveryStaffManager { get; }
         private IReviewManager ReviewManager { get; }
 
-        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,ICartDetailsManager CartDetailsManager, IOrderManager OrderManager, IDeliveryStaffManager DeliveryStaffManager, IReviewManager ReviewManager)
+        private IRestaurantTypeManager restaurantTypeManager { get; }
+
+        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,ICartDetailsManager CartDetailsManager, IOrderManager OrderManager, IDeliveryStaffManager DeliveryStaffManager, IReviewManager ReviewManager, IRestaurantTypeManager restaurantTypeManager)
         {
             this.RestaurantManager = RestaurantManager;
             this.ProductManager = ProductManager;
@@ -33,7 +35,7 @@ namespace WebApplication.Controllers
             this.OrderManager = OrderManager;
             this.DeliveryStaffManager = DeliveryStaffManager;
             this.ReviewManager = ReviewManager;
-            this.RestaurantTypeManager = RestaurantTypeManager; 
+            this.restaurantTypeManager = restaurantTypeManager; 
         }
         public IActionResult Index()
         {
@@ -51,7 +53,7 @@ namespace WebApplication.Controllers
             var myUser = UserManager.GetUserByID((int)HttpContext.Session.GetInt32("ID_LOGIN"));
             var myLocation = LocationManager.GetLocationByID(myUser.IdLocation);
             var myRegion = RegionManager.GetRegionName(myLocation.IdRegion);
-            var myrestaurantTypes = RestaurantTypeManager.GetAllRestaurantType();
+            var myrestaurantTypes = restaurantTypeManager.GetAllRestaurantType();
             var restauranTypeToDisplay = new List<string>(); 
 
             foreach(var type in myrestaurantTypes)
@@ -122,7 +124,7 @@ namespace WebApplication.Controllers
             var myRegion = new Region() ; 
             //new list where we will put all restaurant from a region
             var restaurantsFromMyRegion = new List<Restaurant>();
-            var myrestaurantTypes = RestaurantTypeManager.GetAllRestaurantType();
+            var myrestaurantTypes = restaurantTypeManager.GetAllRestaurantType();
 
             if (string.IsNullOrEmpty(regionName))
             {
@@ -297,7 +299,7 @@ namespace WebApplication.Controllers
             foreach (var staff in StaffInTheRegion)
             {
               
-                var orders = DeliveryStaffManager.CountOrderWithTime(staff.IdDeliveryStaff);
+                var orders = DeliveryStaffManager.CountOpenOrderByStaffID(staff.IdDeliveryStaff);
                 int testBefore = 0;
                 int testAfter = 0;
                 int testBetween = 0;
