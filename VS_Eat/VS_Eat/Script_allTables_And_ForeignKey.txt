@@ -6,6 +6,7 @@
 /** DELETE ALL EXISTING TABLES IF EXISTING **/
 DROP TABLE [dbo].[ChartDetails]
 DROP TABLE [dbo].[OrderDetails]
+DROP TABLE [dbo].[Review]
 DROP TABLE [dbo].[Order]
 DROP TABLE [dbo].[OrderStatus]
 DROP TABLE [dbo].[DeliveryStaff]
@@ -94,9 +95,7 @@ CREATE TABLE [dbo].[Product] (
     [Disponibility] BIT           NULL,
     [Vegetarian]    BIT           NULL,
     [IdRestaurant]  INT           NOT NULL,
-    [IdProductType] INT           NOT NULL,
 	CONSTRAINT [FK_Product_IdRestaurant] FOREIGN KEY ([IdRestaurant]) REFERENCES [Restaurant]([IdRestaurant]),
-	CONSTRAINT [FK_Product_IdProductType] FOREIGN KEY ([IdProductType]) REFERENCES [ProductType]([IdProductType])
 );
 
 CREATE TABLE [dbo].[DeliveryStaffType] (

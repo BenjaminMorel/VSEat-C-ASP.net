@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Http;
 using DTO;
 using System.Collections.Generic;
 using WebApplication.Models;
-using Microsoft.JSInterop;
-using javax.jws;
+
 
 namespace WebApplication.Controllers 
 {
@@ -28,9 +27,11 @@ namespace WebApplication.Controllers
 
         private IReviewManager ReviewManager { get; }
 
+        private IRestaurantTypeManager RestaurantTypeManager { get;  }
 
 
-        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,IChartDetailsManager ChartDetailsManager, IOrderManager OrderManager, IDeliveryStaffManager DeliveryStaffManager, IReviewManager ReviewManager)
+
+        public RestaurantController(IRestaurantManager RestaurantManager, IProductManager ProductManager, ILocationManager LocationManager, IUserManager UserManager, IRegionManager RegionManager,IChartDetailsManager ChartDetailsManager, IOrderManager OrderManager, IDeliveryStaffManager DeliveryStaffManager, IReviewManager ReviewManager, IRestaurantTypeManager RestaurantTypeManager)
         {
             this.RestaurantManager = RestaurantManager;
             this.ProductManager = ProductManager;
@@ -40,10 +41,12 @@ namespace WebApplication.Controllers
             this.ChartDetailsManager = ChartDetailsManager;
             this.OrderManager = OrderManager;
             this.DeliveryStaffManager = DeliveryStaffManager;
-            this.ReviewManager = ReviewManager; 
+            this.ReviewManager = ReviewManager;
+            this.RestaurantTypeManager = RestaurantTypeManager; 
         }
         public IActionResult Index()
         {
+            
             if(HttpContext.Session.GetInt32("ID_LOGIN") == null)
             {
                 //ligne pour forcer la personne a se loger la première fois 
@@ -51,13 +54,19 @@ namespace WebApplication.Controllers
             }
             //list with all restaurant 
             var restaurants = RestaurantManager.GetAllRestaurants();
-
+            
             //new list where we will put all restaurant from a region
             var restaurantsFromMyRegion = new List<Restaurant>();
             var myUser = UserManager.GetUserByID((int)HttpContext.Session.GetInt32("ID_LOGIN"));
             var myLocation = LocationManager.GetLocationByID(myUser.IdLocation);
             var myRegion = RegionManager.GetRegionName(myLocation.IdRegion);
+            var myrestaurantTypes = RestaurantTypeManager.GetAllRestaurantType();
+            var restauranTypeToDisplay = new List<string>(); 
 
+            foreach(var type in myrestaurantTypes)
+            {
+                restauranTypeToDisplay.Add(type.NomRestaurantType); 
+            }
             foreach (var restaurant in restaurants)
             {
                 var location = LocationManager.GetLocationByID(restaurant.IdLocation);
@@ -100,7 +109,9 @@ namespace WebApplication.Controllers
             allData.myRegion = myRegion; 
             allData.allRestaurant = restaurantsFromMyRegion;
             allData.RegionName = regions;
-            allData.AllReview = ReviewsToDisplay; 
+            allData.AllReview = ReviewsToDisplay;
+            allData.AllRestaurantType = myrestaurantTypes;
+            allData.AllTypeToDisplay = restauranTypeToDisplay; 
         
             return View(allData);
 
@@ -108,7 +119,7 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(string regionName)
+        public IActionResult Index(string regionName, List<string> restaurantType)
         {
             if (HttpContext.Session.GetInt32("ID_LOGIN") == null)
             {
@@ -117,19 +128,36 @@ namespace WebApplication.Controllers
             }
             //list with all restaurant 
             var restaurants = RestaurantManager.GetAllRestaurants();
-
+            var myRegion = new Region() ; 
             //new list where we will put all restaurant from a region
             var restaurantsFromMyRegion = new List<Restaurant>();
-            var myUser = UserManager.GetUserByID((int)HttpContext.Session.GetInt32("ID_LOGIN"));
-            var myLocation = LocationManager.GetLocationByID(myUser.IdLocation);
-            var myRegion = RegionManager.GetRegionName(RegionManager.GetIdRegion(regionName));
+            var myrestaurantTypes = RestaurantTypeManager.GetAllRestaurantType();
+
+            if (string.IsNullOrEmpty(regionName))
+            {
+                var myUser = UserManager.GetUserByID((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+                var myLocation = LocationManager.GetLocationByID(myUser.IdLocation);
+                myRegion = RegionManager.GetRegionName(myLocation.IdRegion);
+            }
+            else
+            {
+                myRegion = RegionManager.GetRegionName(RegionManager.GetIdRegion(regionName));
+            }
+         
 
             foreach (var restaurant in restaurants)
             {
                 var location = LocationManager.GetLocationByID(restaurant.IdLocation);
                 if (location.IdRegion == myRegion.IdRegion)
                 {
-                    restaurantsFromMyRegion.Add(restaurant);
+                    foreach(var type in myrestaurantTypes)
+                    {
+                        if(restaurantType.Contains(type.NomRestaurantType) && restaurant.IdRestaurantType == type.IdRestaurantType)
+                        {
+                            restaurantsFromMyRegion.Add(restaurant);
+                        }
+                    }
+                
                 }
             }
 
@@ -167,6 +195,9 @@ namespace WebApplication.Controllers
             allData.allRestaurant = restaurantsFromMyRegion;
             allData.RegionName = regions;
             allData.AllReview = ReviewsToDisplay;
+            allData.AllRestaurantType = myrestaurantTypes;
+            allData.AllTypeToDisplay = restaurantType; 
+
 
             return View(allData);
 

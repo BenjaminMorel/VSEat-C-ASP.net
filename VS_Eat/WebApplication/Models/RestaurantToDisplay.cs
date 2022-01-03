@@ -15,6 +15,9 @@ namespace WebApplication.Models
         
         public List<Region> RegionName { get; set;}
 
+        public List<RestaurantType> AllRestaurantType { get; set;  }
+
+        public List<string> AllTypeToDisplay { get; set;  }
         public List<ReviewToDisplay> AllReview { get; set; }
 
         public int total { get; set; }
