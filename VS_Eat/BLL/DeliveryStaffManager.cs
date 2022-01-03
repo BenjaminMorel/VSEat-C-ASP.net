@@ -35,6 +35,11 @@ namespace BLL
             return DeliveryStaffDb.CountOpenOrderByStaffID(IdDeliveryStaff); 
         }
 
+        public List<DeliveryStaff> GetAllDeliveryStaff()
+        {
+            return DeliveryStaffDb.GetAllDeliveryStaff();
+        }
+
         public DeliveryStaff CreateNewStaff(string FirstName, string LastName, string PhoneNumber, string Address, int PostCode, string City, string RegionName, string Email,
             string Password)
         {
