@@ -13,6 +13,7 @@ namespace BLL
     {
         private IChartDetailsDB ChartDetailsDB { get; }
 
+        
         public ChartDetailsManager(IChartDetailsDB ChartDetailsDB)
         {
             this.ChartDetailsDB = ChartDetailsDB; 

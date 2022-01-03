@@ -7,7 +7,13 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/product.css" />
+</head>
 <body>
     <header>
     </header>
@@ -67,62 +73,66 @@
                             <td>
             </td>
            
-            <form method="post">
-                <input type="hidden" name="IdProduct" value=@Html.DisplayFor(modelItem => item.IdProduct) />
-                <input type="hidden" name="IdRestaurant" value=@Html.DisplayFor(modelItem => item.IdRestaurant) />
-                <input type="hidden" name="Price" value=@Html.DisplayFor(modelItem => item.Price) />
-                <input type="hidden" name="ProductName" value=@Html.DisplayFor(modelItem => item.ProductName) />
-                <input type="hidden" name="ProductImage" value=@Html.DisplayFor(modelItem => item.Picture) />
-                <input type="text" name="Quantity" value="1">
+                            <form method="post">
+                                <input type="hidden" name="IdProduct" value=@Html.DisplayFor(modelItem => item.IdProduct) />
+                                <input type="hidden" name="IdRestaurant" value=@Html.DisplayFor(modelItem => item.IdRestaurant) />
+                                <input type="hidden" name="Price" value=@Html.DisplayFor(modelItem => item.Price) />
+                                <input type="hidden" name="ProductName" value=@Html.DisplayFor(modelItem => item.ProductName) />
+                                <input type="hidden" name="ProductImage" value=@Html.DisplayFor(modelItem => item.Picture) />
+                                <input type="text" name="Quantity" value="1">
 
-                @if (Model.myChart.Count > 0)
-                {
-                    @if (item.IdRestaurant == Model.myChart[0].IdRestaurant && item.Disponibility)
-                    {
-                        <input type="submit" value="Add to chart" />
-                    }
-                    else
-                    {
-                        <input type="submit" value="Add to chart" class="Disabled"/>               
-                    }
-                }
-                else
-                {
-                    @if (item.Disponibility == false)
-                    {
-                        <input type="submit" value="Add to chart" class="Disabled"/>    
-                    }
+                                @if (Model.myChart.Count > 0)
+                                {
+                                    @if (item.IdRestaurant == Model.myChart[0].IdRestaurant && item.Disponibility)
+                                    {
+                                        <input type="submit" value="Add to chart" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" value="Add to chart" class="Disabled" />
+                                    }
+                                }
+                                else
+                                {
+                                    @if (item.Disponibility == false)
+                                    {
 
-                }
 
-                </form>
+                                        <input type="submit" value="Add to chart" class="Disabled" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" value="Add to chart" />
+                                    }
+
+                                }
+
+                            </form>
             </tr>
             </div>
 
             <!-- Button sticks to the bottom -->
             </div>
         }
-            <div>
-                PANIER
+
+            <div class="cd-cart">
+                <h2>Chart</h2>
                 @if (Model.myChart != null && Model.myChart.Count > 0)
                 {
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Image</th>
-                        </tr>
+                    <ul class="cd-cart-items">
+                      
                         @foreach (var itemDetails in Model.myChart)
                         {
-                            <tr>
-                                <th>  @Html.DisplayFor(modelItem => itemDetails.ProductName)  </th>
-                                <th>  @Html.DisplayFor(modelItem => itemDetails.Quantity)  </th>
-                                <th>  @Html.DisplayFor(modelItem => itemDetails.UnitPrice)  </th>
-                                <th> <img src="@itemDetails.ProductImage" width="50" height="50" class="restaurantImage" /> </th>
-                            </tr>
+                           
+                        <li>
+                            @Html.DisplayFor(modelItem => itemDetails.Quantity) x 
+                            @Html.DisplayFor(modelItem => itemDetails.ProductName)
+
+                            @Html.DisplayFor(modelItem => itemDetails.UnitPrice) CHF
+                            <img src="@itemDetails.ProductImage" width="50" height="50" class="restaurantImage" />
+                        </li>
                         }
-                    </table>
+                    </ul>
 
                     <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ConfirmOrder">Confirmer commande</a>
                 }

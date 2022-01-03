@@ -5,21 +5,17 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-<h1>AddReview</h1>
+<h1>Leave a review for @Model.RestaurantName</h1>
 
-<h4>AddReview</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AddReview">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-           
-            <div class="form-group">
-                <label asp-for="RestaurantName" class="control-label"></label>
-            </div>
+          
             <div class="form-group">
                 <label asp-for="Stars" class="control-label"></label>
-                <input asp-for="Stars"  min="0" max="5" class="form-control" />
+                <input asp-for="Stars" type="range"  min="1" max="5"  value="3" class="form-control" />
                 <span asp-validation-for="Stars" class="text-danger"></span>
             </div>
             <div class="form-group">

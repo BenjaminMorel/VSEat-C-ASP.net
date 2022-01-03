@@ -30,14 +30,9 @@ namespace BLL
             this.RegionManager = RegionManager;
         }
 
-        public List<DeliveryStaff> GetAllDeliveryStaff()
+        public List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff)
         {
-            return DeliveryStaffDb.GetAllDeliveryStaff(); 
-        }
-
-        public List<Order> CountOrderWithTime(int IdDeliveryStaff)
-        {
-            return DeliveryStaffDb.CountOrderWithTime(IdDeliveryStaff); 
+            return DeliveryStaffDb.CountOpenOrderByStaffID(IdDeliveryStaff); 
         }
 
         public DeliveryStaff CreateNewStaff(string FirstName, string LastName, string PhoneNumber, string Address, int PostCode, string City, string RegionName, string Email,

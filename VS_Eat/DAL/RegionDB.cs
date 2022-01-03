@@ -78,7 +78,8 @@ namespace DAL
                     {
                         if (dataReader.Read())
                         {
-                            region.RegionName = (string)dataReader["RegionName"]; 
+                            region.RegionName = (string)dataReader["RegionName"];
+                            region.IdRegion = (int)dataReader["IdRegion"]; 
                         }
                     }
                 }

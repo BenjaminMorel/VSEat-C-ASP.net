@@ -19,6 +19,12 @@ namespace DAL
             Configuration = configuration; 
         }
 
+
+        /// <summary>
+        ///   We took the Id Login from the connected user and we use it to find all element of his chart
+        /// </summary>
+        /// <param name="IdLogin"></param>
+        /// <returns>We return a list of ChartDetails, every chart details is a product in the chart</returns>
         public List<ChartDetails> GetAllChartDetailsFromLogin(int IdLogin)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -64,7 +70,10 @@ namespace DAL
             return allChartDetails;
         }
 
-
+        /// <summary>
+        /// Methode to create a new entry in the chartdetails table
+        /// </summary>
+        /// <param name="myChartDetails">The chart details object is create in the controller methode and send here</param>
         public void AddNewChartDetails(ChartDetails myChartDetails)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -99,6 +108,11 @@ namespace DAL
            
         }
 
+
+        /// <summary>
+        /// Methode to remove on element from the list of product in the chart
+        /// </summary>
+        /// <param name="IdChartDetails">We used the IdChartDetails to find the corresponding line in the database and remove it</param>
         public void DeleteOneEntry(int IdChartDetails)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -128,6 +142,10 @@ namespace DAL
         }
 
 
+        /// <summary>
+        /// Methode to remove all element in the chart for a specific user 
+        /// </summary>
+        /// <param name="IdLogin">We used the IdLogin parameter to find the corresponding user and remove all of his stuff in the chart details table</param>
         public void DeleteAllEntryByLogin(int IdLogin)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");

@@ -10,6 +10,8 @@ namespace WebApplication.Models
 
     {
         public List<Restaurant> allRestaurant {get; set;} 
+
+        public Region myRegion { get; set;  }
         
         public List<Region> RegionName { get; set;}
 

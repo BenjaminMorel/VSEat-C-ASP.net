@@ -42,22 +42,40 @@ namespace WebApplication.Controllers
             this.DeliveryStaffManager = DeliveryStaffManager;
             this.ReviewManager = ReviewManager; 
         }
-        public ActionResult Index()
+        public IActionResult Index()
         {
             if(HttpContext.Session.GetInt32("ID_LOGIN") == null)
             {
                 //ligne pour forcer la personne a se loger la première fois 
                 return RedirectToAction("Login", "Account"); 
             }
-
+            //list with all restaurant 
             var restaurants = RestaurantManager.GetAllRestaurants();
-            var ReviewsToDisplay = new List<ReviewToDisplay>();
+
+            //new list where we will put all restaurant from a region
+            var restaurantsFromMyRegion = new List<Restaurant>();
+            var myUser = UserManager.GetUserByID((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+            var myLocation = LocationManager.GetLocationByID(myUser.IdLocation);
+            var myRegion = RegionManager.GetRegionName(myLocation.IdRegion);
+
             foreach (var restaurant in restaurants)
+            {
+                var location = LocationManager.GetLocationByID(restaurant.IdLocation);
+                if (location.IdRegion == myRegion.IdRegion)
+                {
+                    restaurantsFromMyRegion.Add(restaurant);
+                }
+            }
+
+
+            var ReviewsToDisplay = new List<ReviewToDisplay>();
+            foreach (var restaurant in restaurantsFromMyRegion)
             {
                 var reviews = ReviewManager.GetAllReviewByRestaurantID(restaurant.IdRestaurant);
                 var myReviewToDisplay = new ReviewToDisplay();
                 myReviewToDisplay.Comment = new List<string>(); 
                 myReviewToDisplay.IdRestaurant = restaurant.IdRestaurant;
+
                 foreach (var review in reviews)
                 {                  
                     myReviewToDisplay.total += review.Stars;
@@ -79,7 +97,8 @@ namespace WebApplication.Controllers
             var regions = RegionManager.GetAllRegions();
             RestaurantToDisplay allData = new RestaurantToDisplay();
 
-            allData.allRestaurant = restaurants;
+            allData.myRegion = myRegion; 
+            allData.allRestaurant = restaurantsFromMyRegion;
             allData.RegionName = regions;
             allData.AllReview = ReviewsToDisplay; 
         
@@ -87,6 +106,71 @@ namespace WebApplication.Controllers
 
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Index(string regionName)
+        {
+            if (HttpContext.Session.GetInt32("ID_LOGIN") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
+            //list with all restaurant 
+            var restaurants = RestaurantManager.GetAllRestaurants();
+
+            //new list where we will put all restaurant from a region
+            var restaurantsFromMyRegion = new List<Restaurant>();
+            var myUser = UserManager.GetUserByID((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+            var myLocation = LocationManager.GetLocationByID(myUser.IdLocation);
+            var myRegion = RegionManager.GetRegionName(RegionManager.GetIdRegion(regionName));
+
+            foreach (var restaurant in restaurants)
+            {
+                var location = LocationManager.GetLocationByID(restaurant.IdLocation);
+                if (location.IdRegion == myRegion.IdRegion)
+                {
+                    restaurantsFromMyRegion.Add(restaurant);
+                }
+            }
+
+
+            var ReviewsToDisplay = new List<ReviewToDisplay>();
+            foreach (var restaurant in restaurantsFromMyRegion)
+            {
+                var reviews = ReviewManager.GetAllReviewByRestaurantID(restaurant.IdRestaurant);
+                var myReviewToDisplay = new ReviewToDisplay();
+                myReviewToDisplay.Comment = new List<string>();
+                myReviewToDisplay.IdRestaurant = restaurant.IdRestaurant;
+
+                foreach (var review in reviews)
+                {
+                    myReviewToDisplay.total += review.Stars;
+                    myReviewToDisplay.numberOfReview += 1;
+                    if (!(String.IsNullOrEmpty(review.Comment)))
+                    {
+                        myReviewToDisplay.Comment.Add(review.Comment);
+                    }
+                }
+                if (myReviewToDisplay.numberOfReview > 0)
+                {
+                    myReviewToDisplay.average = Math.Round((double)myReviewToDisplay.total / (double)myReviewToDisplay.numberOfReview, 0);
+                }
+
+
+                ReviewsToDisplay.Add(myReviewToDisplay);
+            }
+
+            var regions = RegionManager.GetAllRegions();
+            RestaurantToDisplay allData = new RestaurantToDisplay();
+
+            allData.myRegion = myRegion;
+            allData.allRestaurant = restaurantsFromMyRegion;
+            allData.RegionName = regions;
+            allData.AllReview = ReviewsToDisplay;
+
+            return View(allData);
+
+        }
 
         public ActionResult ShowAllProductFromRestaurant(int id)
         {
@@ -194,7 +278,7 @@ namespace WebApplication.Controllers
                 foreach (var staff in StaffInTheRegion)
                 {
                   
-                    var orders = DeliveryStaffManager.CountOrderWithTime(staff.IdDeliveryStaff);
+                    var orders = DeliveryStaffManager.CountOpenOrderByStaffID(staff.IdDeliveryStaff);
                     int testBefore = 0;
                     int testAfter = 0;
                     int testBetween = 0;
