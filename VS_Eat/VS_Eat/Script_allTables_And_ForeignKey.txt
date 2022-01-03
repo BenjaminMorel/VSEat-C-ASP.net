@@ -152,8 +152,8 @@ CREATE TABLE [dbo].[OrderDetails] (
 	CONSTRAINT [FK_OrderDetail_IdOrder] FOREIGN KEY ([IdOrder]) REFERENCES [Order]([IdOrder])
 );
 
-CREATE TABLE [dbo].[ChartDetails] (         
-    [IdChartDetails]INT                 IDENTITY(1,1) PRIMARY KEY,
+CREATE TABLE [dbo].[CartDetails] (         
+    [IdCartDetails]INT                 IDENTITY(1,1) PRIMARY KEY,
     [IdLogin]       INT                 NOT NULL,
     [IdProduct]     INT                 NOT NULL,
     [IdRestaurant]  INT                 NOT NULL, 
