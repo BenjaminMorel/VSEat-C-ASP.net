@@ -159,3 +159,38 @@ input[type=submit] {
     z-index: 1030; 
     background-color: #ebffb0;
 }
+
+
+.contact{
+    max-width: 600px;
+    margin: 10px auto;
+
+}
+
+.gmap_canvas {
+    border-radius: 5px;
+    color: #000000;
+}
+
+.contact__container {
+    display: block;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 0 0 10px 10px;
+    max-width: 330px;
+    background: linear-gradient(lightsalmon, white);
+}
+
+.contact__title {
+    display: inline-block;
+}
+
+.contact__title h2 {
+    padding: 0 5px 0 0px;
+    margin: 5px 0;
+    color: #FBFBFB;
+}
+
+.contact__form {
+    padding: 5px 10px 0 0;
+}

@@ -1,0 +1,48 @@
+﻿@*
+*@
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<body>
+    <br />
+    
+<fieldset>
+    <legend>Get in touch</legend>
+    
+    <div class="icon">
+        <label class="cd-label" for="cd-name">Name</label>
+        <input class="name" type="text" name="cd-name" id="cd-name" required>
+    </div> 
+    
+    <div class="icon">
+        <label class="cd-label" for="cd-name">EmailAddress</label>
+        <input class="email" type="text" name="cd-name" id="cd-name" required>
+    </div> 
+    
+    <div class="icon">
+        <label class="cd-label" for="cd-name">Subject</label>
+        <input class="subject" type="text" name="cd-name" id="cd-name" required>
+    </div> 
+    
+    <div class="icon">
+        <label class="cd-label" for="cd-textarea">Message</label>
+        <textarea class="message" name="cd-textarea" id="cd-textarea" required></textarea>
+    </div>
+    
+    <div>
+        <input type="submit" value="Send Message">
+    </div>
+
+</fieldset>
+
+</body>
+
+
+
+</html>
