@@ -37,6 +37,14 @@ namespace WebApplication.Controllers
             this.ReviewManager = ReviewManager;
             this.restaurantTypeManager = restaurantTypeManager; 
         }
+     
+        /// <summary>
+        /// Method to display all restaurant to a user
+        /// This method will create a list of restaurant with every restaurant in the data base and then it will add it to a new list
+        /// if the region is the correct one and if the restaurant type match too
+        /// it will also create a list of review for every restaurant about his stars rating
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             
@@ -97,19 +105,20 @@ namespace WebApplication.Controllers
             }
 
             var regions = RegionManager.GetAllRegions();
-            RestaurantToDisplay allData = new RestaurantToDisplay();
-
-            allData.myRegion = myRegion; 
-            allData.allRestaurant = restaurantsFromMyRegion;
-            allData.RegionName = regions;
-            allData.AllReview = ReviewsToDisplay;
-            allData.AllRestaurantType = myrestaurantTypes;
-            allData.AllTypeToDisplay = restauranTypeToDisplay; 
+            RestaurantToDisplay allData = new RestaurantToDisplay(restaurantsFromMyRegion, myRegion, regions, myrestaurantTypes, restauranTypeToDisplay,ReviewsToDisplay);
         
             return View(allData);
 
         }
 
+
+        /// <summary>
+        /// http post method that is called when a user want to change the filter he use on the restaurant page
+        /// It will display the same page but with a different short of all restaurant 
+        /// </summary>
+        /// <param name="regionName">The specific region that we want to see</param>
+        /// <param name="restaurantType">All type of restaurant that we want to see</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Index(string regionName, List<string> restaurantType)
@@ -182,20 +191,17 @@ namespace WebApplication.Controllers
             }
 
             var regions = RegionManager.GetAllRegions();
-            RestaurantToDisplay allData = new RestaurantToDisplay();
-
-            allData.myRegion = myRegion;
-            allData.allRestaurant = restaurantsFromMyRegion;
-            allData.RegionName = regions;
-            allData.AllReview = ReviewsToDisplay;
-            allData.AllRestaurantType = myrestaurantTypes;
-            allData.AllTypeToDisplay = restaurantType; 
-
+            RestaurantToDisplay allData = new RestaurantToDisplay(restaurantsFromMyRegion, myRegion, regions, myrestaurantTypes, restaurantType, ReviewsToDisplay);
 
             return View(allData);
 
         }
 
+        /// <summary>
+        /// Method to display the page where the user can see all products from a specific restaurant 
+        /// </summary>
+        /// <param name="id">The id of the restaurant that we want to show all of his products</param>
+        /// <returns></returns>
         public ActionResult ShowAllProductFromRestaurant(int id)
         {
             var products = ProductManager.GetAllProductsFromRestaurant(id);
@@ -212,82 +218,61 @@ namespace WebApplication.Controllers
             return View(myPage); 
         }
 
+        /// <summary>
+        /// Http post method to add a new content into the cart 
+        /// </summary>
+        /// <param name="IdProduct">The id product that will be add into the cart</param>
+        /// <param name="ProductName">the name of the product</param>
+        /// <param name="ProductImage">the image of the product</param>
+        /// <param name="Quantity">the quantity we add into the cart</param>
+        /// <param name="Price">the price of the product</param>
+        /// <param name="IdRestaurant">the id of the restaurant</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ShowAllProductFromRestaurant(int IdProduct, string ProductName,string ProductImage, int Quantity, float Price, int IdRestaurant)
+        public IActionResult ShowAllProductFromRestaurant(int IdProduct, string ProductName,string ProductImage, int Quantity, float Price, int IdRestaurant)
         {
             int IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
 
             var products = new List<Product>();
-            AllProductWithCart myPage = new AllProductWithCart();
 
-            CartDetails myCartDetails = new CartDetails();
+
+            CartDetails myCartDetails = new CartDetails(IdLogin, IdProduct, IdRestaurant,ProductName, ProductImage, Quantity, Price);
 
             List<string> comments = new List<string>();
             comments = ReviewManager.GetAllCommentByRestaurantID(IdRestaurant); 
-            myCartDetails.IdLogin = IdLogin;
-            myCartDetails.IdProduct = IdProduct;
-            myCartDetails.IdRestaurant = IdRestaurant;
-            myCartDetails.ProductName = ProductName;
-            myCartDetails.ProductImage = ProductImage; 
-            myCartDetails.Quantity = Quantity;
-            myCartDetails.UnitPrice = (float)Price; 
 
             //Création d'une nouvelle ligne dans la base de donnée avec la nouvelle information du panier 
             CartDetailsManager.AddNewCartDetails(myCartDetails);
 
             products = ProductManager.GetAllProductsFromRestaurant(IdRestaurant);
 
-            myPage.myCart = CartDetailsManager.GetAllCartDetailsFromLogin(IdLogin);
-            myPage.products = products;
-            myPage.IdRestaurant = IdRestaurant;
-            myPage.Comment = comments; 
+            AllProductWithCart myPage = new AllProductWithCart(products, CartDetailsManager.GetAllCartDetailsFromLogin(IdLogin), IdRestaurant, comments);
 
             return View(myPage); 
         }
 
-        public ActionResult ProductDetails(int id)
-        {
-            var product = ProductManager.GetProductByID(id);
-            Console.WriteLine(product.ToString());
-            return View(product); 
-        }
-
-        public ActionResult AllRestaurantsByRegion()
-        {
-            var myUser = UserManager.GetUserByID((int)HttpContext.Session.GetInt32("ID_LOGIN"));
-            var User_Location = LocationManager.GetLocationByID(myUser.IdLocation); 
-            var restaurants = RestaurantManager.GetAllRestaurants();
-            var RestaurantsFromMyRegion = new List<Restaurant>();
-            List<Region> region = new List<Region>(); 
-            region.Add(RegionManager.GetRegionName(User_Location.IdRegion)); 
-            
-            var allData = new RestaurantToDisplay();
-
-            foreach (var restaurant in restaurants)
-            {
-                var location = LocationManager.GetLocationByID(restaurant.IdLocation); 
-                if(location.IdRegion == User_Location.IdRegion)
-                {
-                    RestaurantsFromMyRegion.Add(restaurant); 
-                }
-            }
-
-            allData.allRestaurant = RestaurantsFromMyRegion;
-            allData.RegionName = region; 
-
-            return View(allData); 
-        }
-
-        public ActionResult MainPageRestaurant()
+        /// <summary>
+        /// Method to display the page to show to a restaurant login 
+        /// It contain all order that have been passed to his restaurant
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult MainPageRestaurant()
         {
             var OrderList = OrderManager.GetAllOrderFromRestaurant((int)HttpContext.Session.GetInt32("ID_RESTAURANT")); 
             return View(OrderList); 
         }
 
+        /// <summary>
+        /// Http post method to let a restaurant signal that his order is ready to be delivered by a staff
+        /// The controller will verify that a staff is available in the same region 
+        /// and it will also verified that the staff didn't had more than 5 order to delivered every 30  min
+        /// </summary>
+        /// <param name="IdOrder">The id of the order that is now ready</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult MainPageRestaurant(int IdOrder)
+        public IActionResult MainPageRestaurant(int IdOrder)
         {
             var myOrder = OrderManager.GetOrderById(IdOrder);
         

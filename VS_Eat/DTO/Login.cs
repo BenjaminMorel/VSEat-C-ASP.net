@@ -19,14 +19,16 @@ namespace DTO
 
         public int IdLoginType { get; set; }
 
-        public override string ToString()
+        public Login()
         {
-            return "__________________________" +
-                    "\nId Login : " + IdLogin +
-                    "\nUsername : " + Username +
-                    "\nPassword : " + Password +
-                    "\nId Login Type : " + IdLoginType +
-                    "\n__________________________";
+
+        }
+
+        public Login(int idLogin, string username, string password)
+        {
+            IdLogin = idLogin;
+            Username = username;
+            Password = password;
         }
     }
 }

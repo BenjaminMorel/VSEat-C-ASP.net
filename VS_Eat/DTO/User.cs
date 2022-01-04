@@ -22,24 +22,21 @@ namespace DTO
 
 		public int IdLocation { get; set; }
 
-		public string FavoriteRestaurant { get; set; }
 
-		public string FavoriteProduct { get; set; }
-
-		public override string ToString()
+        public User()
         {
-            return "__________________________" +
-                   "\nId User: " + IdUser +
-                   "\nFirstname: " + FirstName +
-                   "\nLastname: " + LastName +
-                   "\nPhoneNumber: " + PhoneNumber +
-                   "\nAddress: " + Address +
-                   "\nId Login: " + IdLogin +
-                   "\nId Location: " + IdLocation +
-                   "\nFavorite Restaurant: " + FavoriteRestaurant +
-                   "\nFavorite Product: " + FavoriteProduct +
-				   "\n__________________________";
-		}
 
-	}
+        }
+
+        public User(int idUser, string firstName, string lastName, string phoneNumber, string address, int idLogin, int idLocation)
+        {
+            IdUser = idUser;
+            FirstName = firstName;
+            LastName = lastName;
+            PhoneNumber = phoneNumber;
+            Address = address;
+            IdLogin = idLogin;
+            IdLocation = idLocation;
+        }
+    }
 }

@@ -13,5 +13,15 @@ namespace DTO
         public int Stars { get; set; }
 
         public string Comment{get;set;}
+
+        public Review()
+        {
+
+        }
+        public Review(int idRestaurant, int stars)
+        {
+            IdRestaurant = idRestaurant;
+            Stars = stars;
+        }
     }
 }

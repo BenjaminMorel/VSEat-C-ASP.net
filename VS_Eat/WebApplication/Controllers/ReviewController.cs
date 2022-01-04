@@ -20,26 +20,39 @@ namespace WebApplication.Controllers
             this.ReviewManager = reviewManager;
             this.RestaurantManager = RestaurantManager; 
         }
+        
+
+        /// <summary>
+        /// Method to display the page where a use can add a review about a restaraurant
+        /// </summary>
+        /// <param name="IdRestaurant"></param>
+        /// <returns></returns>
         public IActionResult AddReview(int IdRestaurant)
         {
             var myRestaurant = RestaurantManager.GetRestaurantByID(IdRestaurant);
-            var reviewToAdd = new AddReview();
-            reviewToAdd.IdRestaurant = IdRestaurant;
-            reviewToAdd.RestaurantName = myRestaurant.RestaurantName;
+            var reviewToAdd = new AddReview(IdRestaurant,myRestaurant.RestaurantName);
             return View(reviewToAdd);
         }
 
+        /// <summary>
+        /// http post method to get the value of the newly add review and insert it into the database
+        /// </summary>
+        /// <param name="myNewReview">The comment and stars written by the user that we will write into the database</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddReview(AddReview myNewReview)
-        {           
-                var myReview = new Review();
-                myReview.IdRestaurant = myNewReview.IdRestaurant;
-                myReview.Stars = myNewReview.Stars;
+        {
+                var myReview = new Review(myNewReview.IdRestaurant, myNewReview.Stars);
                 if (!(String.IsNullOrEmpty(myNewReview.Comment)))
                 {
-                    myReview.Comment = myNewReview.Comment;
+                    myReview.Comment = myNewReview.Comment; 
                 }
+                else
+                {
+                    myReview.Comment = ""; 
+                }
+     
                 ReviewManager.AddAReview(myReview);
 
                 return RedirectToAction("Index", "Restaurant");

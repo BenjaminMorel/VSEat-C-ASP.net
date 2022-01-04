@@ -46,6 +46,17 @@ namespace WebApplication.Models
         [Required]
         public string RegionName { get; set; }
         //public List<Region> AllRegions {get; set; } // from Region
-
-	}
+        public Login_DeliveryStaff(string Username, string Password, string FirstName, string LastName, string PhoneNumber, string Address, int PostCode, string City,string RegionName)
+        {
+            this.EmailAddress = Username;
+            this.Password = Password;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.PhoneNumber = PhoneNumber;
+            this.PostCode = PostCode;
+            this.City = City;
+            this.Address = Address;
+            this.RegionName = RegionName; 
+        }
+    }
 }

@@ -15,5 +15,17 @@ namespace WebApplication.Models
         public int IdRestaurant { get; set; }
 
         public List<string> Comment { get; set; }
+
+        public AllProductWithCart()
+        {
+
+        }
+        public AllProductWithCart(List<Product> products, List<CartDetails> myCart, int idRestaurant, List<string> comment)
+        {
+            this.products = products;
+            this.myCart = myCart;
+            IdRestaurant = idRestaurant;
+            Comment = comment;
+        }
     }
 }

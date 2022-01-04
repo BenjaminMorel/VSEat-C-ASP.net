@@ -2,13 +2,6 @@
 using DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Threading.Tasks;
 using WebApplication.Models;
 
 namespace WebApplication.Controllers
@@ -33,14 +26,24 @@ namespace WebApplication.Controllers
             this.RestaurantManager = RestaurantManager; 
         }
 
-        public ActionResult CreateAnAccount()
+        /// <summary>
+        /// Method to display the page where you can create a user account
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult CreateAnAccount()
         {
             return View();
         }
+        
 
+        /// <summary>
+        /// Http Post method that take the new created user as a parameter and add it to the database 
+        /// </summary>
+        /// <param name="login_User"> the new user that has been created</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateAnAccount(Login_User login_User)
+        public IActionResult CreateAnAccount(Login_User login_User)
         {
             User myNewUser = UserManager.CreateNewUser(login_User.FirstName, login_User.LastName,
                 login_User.PhoneNumber, login_User.Address, login_User.Username, login_User.Password,
@@ -56,15 +59,25 @@ namespace WebApplication.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        public ActionResult CreateDeliveryStaff()
+        /// <summary>
+        /// Methode to display the page where you can create a new Delivery staff account
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult CreateDeliveryStaff()
         {
             var AllRegions = RegionManager.GetAllRegions();
             return View();
         }
 
+
+        /// <summary>
+        /// Http post method that take the new created staff as a parameter and add it to the delivery staff database
+        /// </summary>
+        /// <param name="login_DeliveryStaff">the new staff member that has been created</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateDeliveryStaff(Login_DeliveryStaff login_DeliveryStaff)
+        public IActionResult CreateDeliveryStaff(Login_DeliveryStaff login_DeliveryStaff)
         {
             DeliveryStaff myDeliveryStaff = DeliveryStaffManager.CreateNewStaff(login_DeliveryStaff.FirstName,
                 login_DeliveryStaff.LastName, login_DeliveryStaff.PhoneNumber, login_DeliveryStaff.Address, login_DeliveryStaff.PostCode,
@@ -79,16 +92,25 @@ namespace WebApplication.Controllers
             return RedirectToAction("Login", "Account");
         } 
         
-
-        public ActionResult Login()
+        /// <summary>
+        /// method to display the page where you could login in the application (as user / staff /admin or restaurant) 
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Login()
         {
             HttpContext.Session.Clear();
             return View();
         }
 
+
+        /// <summary>
+        ///Http post method that take the credentials and verified them 
+        /// </summary>
+        /// <param name="myLogin">The cretendial that have been enter by the user into the login form</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(Login myLogin)
+        public IActionResult Login(Login myLogin)
         {      
             Login myAccount = LoginManager.GetLoginWithCredential(myLogin.Username, myLogin.Password);
 
@@ -134,8 +156,11 @@ namespace WebApplication.Controllers
             return View();
         }
 
-
-        public ActionResult AccountInformation()
+        /// <summary>
+        /// Method to display the page where you could see your personnal information 
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult AccountInformation()
         {
             int IdLogin = (int) HttpContext.Session.GetInt32("ID_LOGIN");
 
@@ -144,23 +169,16 @@ namespace WebApplication.Controllers
 
             var myLocation = LocationManager.GetLocationByID(myUser.IdLocation);
 
-            var myLogin_User = new Login_User();
-
-            myLogin_User.Username = myLogin.Username;
-            myLogin_User.Password = myLogin.Password;
-
-            myLogin_User.FirstName = myUser.FirstName;
-            myLogin_User.LastName = myUser.LastName;
-            myLogin_User.PhoneNumber = myUser.PhoneNumber;
-            myLogin_User.Address = myUser.Address;
-
-            myLogin_User.PostCode = myLocation.PostCode;
-            myLogin_User.City = myLocation.City;
+            var myLogin_User = new Login_User(myLogin.Username,myLogin.Password,myUser.FirstName,myUser.LastName,myUser.PhoneNumber,myLocation.PostCode,myLocation.City,myUser.Address);
 
             return View(myLogin_User);
         }
 
-        public ActionResult AccountInformationStaff()
+        /// <summary>
+        /// Method to display the page where staff can see their personnal infomation 
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult AccountInformationStaff()
         {
             int IdLogin = (int) HttpContext.Session.GetInt32("ID_LOGIN");
 
@@ -170,25 +188,16 @@ namespace WebApplication.Controllers
             var myLocation = LocationManager.GetLocationByID(myDeliveryStaff.IdLocation);
             var myRegion = RegionManager.GetRegionName(myDeliveryStaff.IdWorkingRegion);
 
-            var myLogin_DeliveryStaff = new Login_DeliveryStaff();
-
-            myLogin_DeliveryStaff.EmailAddress = myLogin.Username;
-            myLogin_DeliveryStaff.Password = myLogin.Password;
-
-            myLogin_DeliveryStaff.FirstName = myDeliveryStaff.FirstName;
-            myLogin_DeliveryStaff.LastName = myDeliveryStaff.LastName;
-            myLogin_DeliveryStaff.PhoneNumber = myDeliveryStaff.PhoneNumber;
-            myLogin_DeliveryStaff.Address = myDeliveryStaff.Address;
-
-            myLogin_DeliveryStaff.RegionName = myRegion.RegionName;
-
-            myLogin_DeliveryStaff.PostCode = myLocation.PostCode;
-            myLogin_DeliveryStaff.City = myLocation.City;
+            var myLogin_DeliveryStaff = new Login_DeliveryStaff(myLogin.Username,myLogin.Password,myDeliveryStaff.FirstName,myDeliveryStaff.LastName,myDeliveryStaff.PhoneNumber,myDeliveryStaff.Address,myLocation.PostCode,myLocation.City,myRegion.RegionName);
 
             return View(myLogin_DeliveryStaff);
         }
 
-        public ActionResult EditAccount()
+        /// <summary>
+        /// Method to display the page where you can edit your personnal information 
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult EditAccount()
         {
             int IdLogin = (int) HttpContext.Session.GetInt32("ID_LOGIN");
 
@@ -197,23 +206,38 @@ namespace WebApplication.Controllers
 
             var myLocation = LocationManager.GetLocationByID(myUser.IdLocation);
 
-            var myLogin_User = new Login_User();
-
-            myLogin_User.Username = myLogin.Username;
-            myLogin_User.Password = myLogin.Password;
-
-            myLogin_User.FirstName = myUser.FirstName;
-            myLogin_User.LastName = myUser.LastName;
-            myLogin_User.PhoneNumber = myUser.PhoneNumber;
-            myLogin_User.Address = myUser.Address;
-
-            myLogin_User.PostCode = myLocation.PostCode;
-            myLogin_User.City = myLocation.City;
+            var myLogin_User = new Login_User(myLogin.Username, myLogin.Password, myUser.FirstName, myUser.LastName, myUser.PhoneNumber, myLocation.PostCode, myLocation.City, myUser.Address);
 
             return View(myLogin_User);
         }
 
-        public ActionResult EditAccountStaff()
+        /// <summary>
+        /// Http post method to send the modification you made about your personnal information
+        /// </summary>
+        /// <param name="login_user">the personnal information (old or new) that have been made in the page and that will be change in the database</param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditAccount(Login_User login_user)
+        {
+
+            var myLocation = LocationManager.GetLocation(login_user.City, login_user.PostCode);
+
+            var myUser = new User((int)HttpContext.Session.GetInt32("ID_USER"), login_user.FirstName, login_user.LastName, login_user.PhoneNumber, login_user.Address,
+                                 (int)HttpContext.Session.GetInt32("ID_LOGIN"), myLocation.IdLocation);
+            var myLogin = new Login((int)HttpContext.Session.GetInt32("ID_LOGIN"), login_user.Username, login_user.Password);
+
+            LoginManager.UpdateLogin(myLogin);
+            UserManager.UpdateUser(myUser);
+
+            return RedirectToAction("AccountInformation", "Account");
+        }
+
+        /// <summary>
+        /// Method to display the page where a staff member can modify his personnal information 
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult EditAccountStaff()
         {
             int IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
 
@@ -223,71 +247,27 @@ namespace WebApplication.Controllers
             var myLocation = LocationManager.GetLocationByID(myDeliveryStaff.IdLocation);
             var myRegion = RegionManager.GetRegionName(myDeliveryStaff.IdWorkingRegion);
 
-            var myLogin_DeliveryStaff = new Login_DeliveryStaff();
-
-            myLogin_DeliveryStaff.EmailAddress = myLogin.Username;
-            myLogin_DeliveryStaff.Password = myLogin.Password;
-
-            myLogin_DeliveryStaff.FirstName = myDeliveryStaff.FirstName;
-            myLogin_DeliveryStaff.LastName = myDeliveryStaff.LastName;
-            myLogin_DeliveryStaff.PhoneNumber = myDeliveryStaff.PhoneNumber;
-            myLogin_DeliveryStaff.Address = myDeliveryStaff.Address;
-
-            myLogin_DeliveryStaff.RegionName = myRegion.RegionName;
-
-            myLogin_DeliveryStaff.PostCode = myLocation.PostCode;
-            myLogin_DeliveryStaff.City = myLocation.City;
+            var myLogin_DeliveryStaff = new Login_DeliveryStaff(myLogin.Username, myLogin.Password, myDeliveryStaff.FirstName, myDeliveryStaff.LastName, myDeliveryStaff.PhoneNumber, myDeliveryStaff.Address, myLocation.PostCode, myLocation.City, myRegion.RegionName);
 
             return View(myLogin_DeliveryStaff);
         }
 
+        /// <summary>
+        /// Http post method that take the new information of the staff member
+        /// </summary>
+        /// <param name="login_DeliveryStaff">all informations that will be write into the database about the staff member</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditAccount(Login_User login_user)
+        public IActionResult EditAccountStaff(Login_DeliveryStaff login_DeliveryStaff)
         {
-            var myUser = new User();
-            var myLogin = new Login();
-            var myLocation = LocationManager.GetLocation(login_user.City, login_user.PostCode);
-
-            myUser.IdUser = (int) HttpContext.Session.GetInt32("ID_USER");
-            myUser.IdLogin = (int) HttpContext.Session.GetInt32("ID_LOGIN");
-            myUser.FirstName = login_user.FirstName;
-            myUser.LastName = login_user.LastName;
-            myUser.PhoneNumber = login_user.PhoneNumber;
-            myUser.Address = login_user.Address;
-            myUser.IdLocation = myLocation.IdLocation;
-
-            myLogin.IdLogin = (int) HttpContext.Session.GetInt32("ID_LOGIN");
-            myLogin.Username = login_user.Username;
-            myLogin.Password = login_user.Password;
-
-            LoginManager.UpdateLogin(myLogin);
-            UserManager.UpdateUser(myUser);
-
-            return RedirectToAction("AccountInformation", "Account");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditAccountStaff(Login_DeliveryStaff login_DeliveryStaff)
-        {
-            var myDeliveryStaff = new DeliveryStaff();
-            var myLogin = new Login();
+            
+            var myLogin = new Login((int)HttpContext.Session.GetInt32("ID_LOGIN"), login_DeliveryStaff.EmailAddress, login_DeliveryStaff.Password);
             var myLocation = LocationManager.GetLocation(login_DeliveryStaff.City, login_DeliveryStaff.PostCode);
             var myRegion = RegionManager.GetIdRegion(login_DeliveryStaff.RegionName);
 
-            myDeliveryStaff.IdDeliveryStaff = (int) HttpContext.Session.GetInt32("ID_STAFF");
-            myDeliveryStaff.IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
-            myDeliveryStaff.FirstName = login_DeliveryStaff.FirstName;
-            myDeliveryStaff.LastName = login_DeliveryStaff.LastName;
-            myDeliveryStaff.PhoneNumber = login_DeliveryStaff.PhoneNumber;
-            myDeliveryStaff.Address = login_DeliveryStaff.Address;
-            myDeliveryStaff.IdLocation = myLocation.IdLocation;
-            myDeliveryStaff.IdWorkingRegion = myRegion;
-
-            myLogin.IdLogin = (int) HttpContext.Session.GetInt32("ID_LOGIN");
-            myLogin.Username = login_DeliveryStaff.EmailAddress;
-            myLogin.Password = login_DeliveryStaff.Password;
+            var myDeliveryStaff = new DeliveryStaff((int)HttpContext.Session.GetInt32("ID_STAFF"),login_DeliveryStaff.FirstName,login_DeliveryStaff.LastName,login_DeliveryStaff.PhoneNumber,login_DeliveryStaff.Address,
+                                       (int)HttpContext.Session.GetInt32("ID_LOGIN"),myLocation.IdLocation,myRegion);
 
             LoginManager.UpdateLogin(myLogin);
             DeliveryStaffManager.UpdateDeliveryStaff(myDeliveryStaff);

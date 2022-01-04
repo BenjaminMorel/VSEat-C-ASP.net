@@ -27,6 +27,11 @@ namespace WebApplication.Controllers
             this.RestaurantManager = RestaurantManager;
             this.OrderStatusManager = OrderStatusManager; 
         }
+
+        /// <summary>
+        /// Method to display the page where a user can see all the order he had made 
+        /// </summary>
+        /// <returns></returns>
         public IActionResult ShowAllOrders()
         {
             List<OrdersList> ordersList = new List<OrdersList>();
@@ -34,30 +39,25 @@ namespace WebApplication.Controllers
             
             foreach(var order in orders)
             {
-                OrdersList myOrderList = new OrdersList();
                 var myLocation = LocationManager.GetLocationByID(order.IdLocation);
                 var mystatus = OrderStatusManager.GetOrderStatus(order.IdOrderStatus);
-                var myRestaurant = RestaurantManager.GetRestaurantByID(order.IdRestaurant); 
+                var myRestaurant = RestaurantManager.GetRestaurantByID(order.IdRestaurant);
 
-                myOrderList.IdOrder = order.IdOrder;
-                myOrderList.DeliveryTime = order.DeliveryTime;
-                myOrderList.DeliveryAddress = order.DeliveryAddress;
-                // aucun nom n'est spécifié car on affiche les commandes d'un user donc le nom est logiquement toujours le même
-                myOrderList.RecipientFirstName = "";
-                myOrderList.RecipientLastName = "";
-                myOrderList.Postcode = myLocation.PostCode;
-                myOrderList.City = myLocation.City;
-                myOrderList.TotalPrice = order.TotalPrice;
-                myOrderList.IdOrderStatus = order.IdOrderStatus;
-                myOrderList.OrderStatus = mystatus.Status;
-                myOrderList.RestaurantName = myRestaurant.RestaurantName;
-                myOrderList.RestaurantAddress = myRestaurant.RestaurantAddress;
-
+                // aucun nom et prénom n'est spécifié vu qu'on montre toutes les commandes d'un seul client
+                OrdersList myOrderList = new OrdersList(order.IdOrder, order.OrderDate, order.DeliveryTime, order.DeliveryAddress, null,null, myLocation.PostCode, myLocation.City,
+                    order.TotalPrice, order.IdOrderStatus, mystatus.Status, myRestaurant.RestaurantName, myRestaurant.RestaurantAddress);
+              
                 ordersList.Add(myOrderList); 
             }
             return View(ordersList);
         }
 
+
+        /// <summary>
+        /// http post method where the user can cancelled an order (at least 3h before the delivery) 
+        /// </summary>
+        /// <param name="IdOrder">the id of the order we want to cancelled</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ShowAllOrders(int IdOrder)
@@ -72,45 +72,57 @@ namespace WebApplication.Controllers
 
             foreach (var order in orders)
             {
-                OrdersList myOrderList = new OrdersList();
+
                 var myLocation = LocationManager.GetLocationByID(order.IdLocation);
                 var mystatus = OrderStatusManager.GetOrderStatus(order.IdOrder);
                 var myRestaurant = RestaurantManager.GetRestaurantByID(order.IdRestaurant);
 
-                myOrderList.IdOrder = order.IdOrder;
-                myOrderList.DeliveryTime = order.DeliveryTime;
-                myOrderList.DeliveryAddress = order.DeliveryAddress;
-                // aucun nom n'est spécifié car on affiche les commandes d'un user donc le nom est logiquement toujours le même
-                myOrderList.RecipientFirstName = "";
-                myOrderList.RecipientLastName = "";
-                myOrderList.Postcode = myLocation.PostCode;
-                myOrderList.City = myLocation.City;
-                myOrderList.TotalPrice = order.TotalPrice;
-                myOrderList.IdOrderStatus = order.IdOrderStatus;
-                myOrderList.OrderStatus = mystatus.Status;
-                myOrderList.RestaurantName = myRestaurant.RestaurantName;
-                myOrderList.RestaurantAddress = myRestaurant.RestaurantAddress;
+                OrdersList myOrderList = new OrdersList(order.IdOrder, order.OrderDate, order.DeliveryTime, order.DeliveryAddress, null, null, myLocation.PostCode, myLocation.City,
+                    order.TotalPrice, order.IdOrderStatus, mystatus.Status, myRestaurant.RestaurantName, myRestaurant.RestaurantAddress);
+          
+
                 ordersList.Add(myOrderList);
             }
             return View(ordersList);
         }
 
+
+        /// <summary>
+        /// method to display the details of an order 
+        /// </summary>
+        /// <param name="IdOrder">The id of the order we want to see in details</param>
+        /// <returns></returns>
         public IActionResult ShowOrderDetail(int IdOrder)
         {
             var orderDetails = OrderDetailsManager.GetOrderDetailsFromOrder(IdOrder); 
             return View(orderDetails); 
         }
 
-
+        /// <summary>
+        /// Method to display the page where the user can confirm the content of his cart and validate the order
+        /// </summary>
+        /// <returns></returns>
         public IActionResult ConfirmOrder()
         {
             var myCartDetails = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
             return View(myCartDetails); 
         }
 
+
+        /// <summary>
+        /// Http post method that can do 3 different thing
+        /// 1. Remove one element of the cart 
+        /// 2. Remove all element of the cart 
+        /// 3. validate the order and insert it into the database
+        /// </summary>
+        /// <param name="DeliveryAddress">The adress where we want the delivery</param>
+        /// <param name="city">The city of the delivery</param>
+        /// <param name="PostCode">The post code of the delivery</param>
+        /// <param name="IdCartDetails">The parameters that tell us if we want to confirm the order (IdCart== 0) or if we want to modify the cart</param>
+        /// <param name="deliveryTime">The time of the delivery</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-       
         public ActionResult ConfirmOrder(string DeliveryAddress, string city, int PostCode, int IdCartDetails,DateTime deliveryTime)
         {
             var cartDetailsList = new List<CartDetails>();
@@ -147,33 +159,21 @@ namespace WebApplication.Controllers
                         return View(cartDetailsList);
                     }
 
-                    var myOrder = new Order();
-                    float totalPrice = 0;
+                   float totalPrice = 0;
 
                     foreach (var chartDetail in cartDetailsList)
                     {
                         totalPrice += (float)(chartDetail.UnitPrice * chartDetail.Quantity);
-                    }                 
-                    myOrder.OrderDate = DateTime.Now;          
-             
-                    myOrder.DeliveryTime = deliveryTime;
-                    myOrder.DeliveryAddress = DeliveryAddress;
-                    myOrder.Freight = 10;
-                    myOrder.TotalPrice = totalPrice;
-                    myOrder.IdOrderStatus = 1;
-                    myOrder.IdUser = (int)HttpContext.Session.GetInt32("ID_USER");
-                    myOrder.IdLocation = myDeliveryLocation.IdLocation;
-                    myOrder.IdRestaurant = cartDetailsList[0].IdRestaurant; 
+                    }
 
+                    var myOrder = new Order(DateTime.Now, deliveryTime, DeliveryAddress, 6, totalPrice, 1, (int)HttpContext.Session.GetInt32("ID_USER"), 
+                        myDeliveryLocation.IdLocation, cartDetailsList[0].IdRestaurant);
+
+            
                     var myNewOrder = OrderManager.AddNewOrder(myOrder);
                     foreach (var charDetail in cartDetailsList)
                     {
-                        var myOrderDetails = new OrderDetails();
-                        myOrderDetails.IdOrder = myNewOrder.IdOrder;
-                        myOrderDetails.IdProduct = charDetail.IdProduct;
-                        myOrderDetails.Quantity = charDetail.Quantity;
-                        myOrderDetails.UnitPrice = charDetail.UnitPrice;
-
+                        var myOrderDetails = new OrderDetails(charDetail.UnitPrice,charDetail.Quantity,charDetail.IdProduct,myNewOrder.IdOrder);      
                         OrderDetailsManager.AddOrderDetails(myOrderDetails);
                     }
                     CartDetailsManager.DeleteAllEntryByLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));

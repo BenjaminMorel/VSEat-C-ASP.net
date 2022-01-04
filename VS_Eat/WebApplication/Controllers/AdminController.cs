@@ -25,7 +25,10 @@ namespace WebApplication.Controllers
             this.deliveryStaffTypeManager = deliveryStaffTypeManager;
         }
 
-
+        /// <summary>
+        /// Method to see all the staff that are working and the old one that not work here anymore
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             List<DeliveryStaff> allStafs = deliveryStaffManager.GetAllDeliveryStaff();
@@ -34,16 +37,10 @@ namespace WebApplication.Controllers
 
             foreach(var deliveryStaff in allStafs)
             {
-                StaffToDisplay staffToDisplay = new StaffToDisplay();
                 var region = regionManager.GetRegionName(deliveryStaff.IdWorkingRegion);
+             
                 var deliveryStaffType = deliveryStaffTypeManager.GetAllDeliveryStaffType(deliveryStaff.IdDeliveryStaffType);
-
-                staffToDisplay.FirstName = deliveryStaff.FirstName;
-                staffToDisplay.LastName = deliveryStaff.LastName;
-                staffToDisplay.PhoneNumber = deliveryStaff.PhoneNumber;
-                staffToDisplay.RegionName = region.RegionName;
-                staffToDisplay.IdDeliveryStaffType = deliveryStaff.IdDeliveryStaffType;
-                staffToDisplay.DeliveryStaffType = deliveryStaffType.DeliveryStaffTypeStr;
+                StaffToDisplay staffToDisplay = new StaffToDisplay(deliveryStaff.FirstName, deliveryStaff.LastName, deliveryStaff.PhoneNumber, region.RegionName,deliveryStaff.IdDeliveryStaffType,deliveryStaffType.DeliveryStaffTypeStr);
 
                 listOfAllStaffs.Add(staffToDisplay);
             }

@@ -22,15 +22,5 @@ namespace DTO
 
         public int IdRestaurantType { get; set; }
 
-        public override string ToString() {
-
-            return "__________________________"+ 
-                   "\nRestaurant: " + IdRestaurant + 
-                   "\nNom: " + RestaurantName + 
-                   "\nAddress: " + RestaurantAddress +
-                   "\nIdLogin: " + IdLogin + 
-                   "\nIdLocation: " + IdLocation +
-                   "\n__________________________"; 
-        }
     }
 }

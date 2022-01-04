@@ -26,17 +26,20 @@ namespace DTO
 
         public int IdWorkingRegion { get; set; }
 
-        public override string ToString()
+        public DeliveryStaff()
         {
-            return "\n__________________________" +
-                    "\nIdDeliveryStaff: " + IdDeliveryStaff +
-                    "\nFirstName: " + FirstName +
-                    "\nLastName: " + LastName +
-                    "\nIdLogin: " + IdLogin +
-                    "\nIdLocation:"  + IdLocation +
-                    "\nIdDeliveryStaffType:" + IdDeliveryStaffType +
-                    "\nIdWorkingRegion:" + IdWorkingRegion +
-                    "\n__________________________";
+
+        }
+        public DeliveryStaff(int idDeliveryStaff, string firstName, string lastName, string phoneNumber, string address, int idLogin, int idLocation, int idWorkingRegion)
+        {
+            IdDeliveryStaff = idDeliveryStaff;
+            FirstName = firstName;
+            LastName = lastName;
+            PhoneNumber = phoneNumber;
+            Address = address;
+            IdLogin = idLogin;
+            IdLocation = idLocation;
+            IdWorkingRegion = idWorkingRegion;
         }
     }
 }

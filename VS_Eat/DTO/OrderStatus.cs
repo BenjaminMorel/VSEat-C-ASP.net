@@ -12,14 +12,6 @@ namespace DTO
 
         public string Status { get; set; }
 
-        public override string ToString()
-        {
-            return "__________________________" +
-                   "\nIdOrder: " + IdOrderStatus +
-                   "\nStatus: " + Status +
-                   "\n__________________________";
-        }
-
     }
 
 }

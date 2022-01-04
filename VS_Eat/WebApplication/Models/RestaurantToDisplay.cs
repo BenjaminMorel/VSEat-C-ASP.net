@@ -20,5 +20,14 @@ namespace WebApplication.Models
         public List<string> AllTypeToDisplay { get; set;  }
         public List<ReviewToDisplay> AllReview { get; set; }
 
+        public RestaurantToDisplay(List<Restaurant> allRestaurant, Region myRegion, List<Region> regionName, List<RestaurantType> allRestaurantType, List<string> allTypeToDisplay, List<ReviewToDisplay> allReview)
+        {
+            this.allRestaurant = allRestaurant;
+            this.myRegion = myRegion;
+            RegionName = regionName;
+            AllRestaurantType = allRestaurantType;
+            AllTypeToDisplay = allTypeToDisplay;
+            AllReview = allReview;
+        }
     }
 }

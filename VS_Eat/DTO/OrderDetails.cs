@@ -16,14 +16,17 @@ namespace DTO
 
         public int IdOrder { get; set; }
 
-        public override string ToString()
+        public OrderDetails()
         {
-            return "__________________________" +
-                   "\nUnitPrice : " + UnitPrice +
-                   "\nQuantity : " + Quantity +
-                   "\nIdProduct : " + IdProduct +
-                   "\nIdOrder : " + IdOrder +
-                   "\n__________________________";
+
         }
+        public OrderDetails(float unitPrice, int quantity, int idProduct, int idOrder)
+        {
+            UnitPrice = unitPrice;
+            Quantity = quantity;
+            IdProduct = idProduct;
+            IdOrder = idOrder;
+        }
+
     }
 }
