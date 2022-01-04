@@ -37,6 +37,11 @@ namespace BLL
         {
             CartDetailsDB.DeleteAllEntryByLogin(IdLogin); 
         }
+
+        public void UpdateQuantity(CartDetails myCartDetail)
+        {
+            CartDetailsDB.UpdateQuantity(myCartDetail); 
+        }
     }
 
 }

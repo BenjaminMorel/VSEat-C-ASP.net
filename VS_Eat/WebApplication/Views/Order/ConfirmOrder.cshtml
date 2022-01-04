@@ -1,33 +1,42 @@
-﻿@model IEnumerable<DTO.CartDetails>
+﻿@model WebApplication.Models.ConfirmOrder
 
 @{
     ViewData["Title"] = "ConfirmOrder";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
-
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/ConfirmCommand.css" />
+</head>
 <h1 class="mainButton">Confirm Order</h1>
 
-<body>
+<body class="blockConfirmOrder">
+    @if (Model.allCartDetails.Count > 0)
+    {
     <table class="table table_with_all_product">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ProductName)
+                    @Html.DisplayNameFor(model => model.allCartDetails[0].ProductName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
+                    @Html.DisplayNameFor(model => model.allCartDetails[0].Quantity)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UnitPrice)
+                    @Html.DisplayNameFor(model => model.allCartDetails[0].UnitPrice)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ProductImage)
+                    @Html.DisplayNameFor(model => model.allCartDetails[0].ProductImage)
+                </th>
+                <th>
+                    Total
                 </th>
                 <th></th>
             </tr>
         </thead>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.allCartDetails)
         {
             <tr>
                 <td>
@@ -42,6 +51,10 @@
                 <td>
                     <img src="@item.ProductImage" width="60" height="60" class="restaurantImage" />
                 </td>
+
+                <td>
+                    @(item.UnitPrice * item.Quantity) CHF
+                </td>
                 <td>
                     <form method="post">
                         <input type="hidden" name="IdCartDetails" value=@Html.DisplayFor(modelItem => item.IdCartDetails) />
@@ -50,12 +63,33 @@
                 </td>
             </tr>
         }
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Freight for delivery :</td>
+            <td>
+                @Model.freight CHF
+            </td>
+            <td>
+            </td>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total price</td>
+            <td><b>
+                @Model.TotalPrice CHF
+            </b></td>
+            <td>
+                <form method="post">
+                    <input type="hidden" name="IdCartDetails" value="-1" />
+                    <input type="submit" value="Remove All" />
+                </form>
+            </td>
+        </tr>
     </table>
-    <br /><br />
-    <form method="post">
-        <input type="hidden" name="IdCartDetails"  value="-1"/>
-        <input type="submit"   value="Remove All"/>
-    </form>
+
     <br /><br />
     <body class="form_Info_Delivery">
         <form method="post">
@@ -64,10 +98,14 @@
             <p>City <input type="text" name="city" value=""> PostCode <input type="number" name="PostCode" value=""> </p>
             <p>Address</p>
             <input type="text" name="DeliveryAddress" value="">
-            <p>Delivery Time </p>
+      
             <input type="submit" value="Confirmer" />
         </form>
     </body>
-
+            }
+            else
+            {
+                <h1 class="errorMessage">You have no product in your cart </h1>
+            }
 </body>
 
