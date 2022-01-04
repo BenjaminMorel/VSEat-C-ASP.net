@@ -55,8 +55,6 @@ CREATE TABLE [dbo].[User] (
     [LastName]     NVARCHAR (50) NULL,
     [PhoneNumber]  NCHAR (10)    NULL,
     [Address]      NVARCHAR (50) NULL,
-    [FavoriteRestaurant] NVARCHAR (250) NULL,
-    [FavoriteProduct] NVARCHAR (250) NULL,
     [IdLogin]      INT           NOT NULL,
     [IdLocation]   INT           NOT NULL,
     CONSTRAINT [FK_User_IdLogin] FOREIGN KEY ([IdLogin]) REFERENCES [Login]([IdLogin]),

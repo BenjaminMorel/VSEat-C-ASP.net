@@ -23,5 +23,20 @@ namespace DTO
         public int Quantity { get; set; }
 
         public float UnitPrice { get; set;  }
+
+        public CartDetails()
+        {
+
+        }
+        public CartDetails(int idLogin, int idProduct, int idRestaurant, string productName, string productImage, int quantity, float unitPrice)
+        {
+            IdLogin = idLogin;
+            IdProduct = idProduct;
+            IdRestaurant = idRestaurant;
+            ProductName = productName;
+            ProductImage = productImage;
+            Quantity = quantity;
+            UnitPrice = unitPrice;
+        }
     }
 }

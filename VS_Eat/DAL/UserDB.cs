@@ -48,8 +48,6 @@ namespace DAL
                             MyUser.LastName = (string) dataReader["LastName"];
                             MyUser.PhoneNumber = (string) dataReader["PhoneNumber"];
                             MyUser.Address = (string) dataReader["Address"];
-                            MyUser.FavoriteRestaurant = (string) dataReader["FavoriteRestaurant"];
-                            MyUser.FavoriteProduct = (string) dataReader["FavoriteProduct"];
 
                             // Add the user to the list
                             allUsers.Add(MyUser);

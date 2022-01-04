@@ -256,16 +256,16 @@ INSERT [dbo].[Login] (Username, Password, IdLoginType) VALUES
 ('Inglewood@gmail.com', 'password', '2');
 
 INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, Address, FavoriteRestaurant, FavoriteProduct, IdLogin, IdLocation) VALUES
-('Benjamin',	'Morel',		'0799811254', 'chemin de vionn 12',			NULL, NULL,		'1', '110'),
-('Hugo',		'Vouillamoz',	'0799872542', 'route du flipreset 7',		'1', '1',		'2', '59'),
-('Daniel',		'Coimbra',		'0791565814', 'avenue du scex 27',			'1,2', '2',		'3', '40'),
-('Thomas',		'Cheseaux',		'0792839183', 'chemin du comptoir 5',		'1', '1,2',		'4', '88'),
-('Vouillamoz',	'Hugo',			'0792147863', 'Chemin des fontaines 10',	NULL, NULL,		'5', '56'),
-('Theo',		'Choffat',		'0394587425', 'Chemin du Lac 21',			NULL, NULL,		'6','3'),
-('Nathan',		'Dely',			'0745841247', 'Place du village 12',		NULL, NULL,		'7','24'),
-('Mégane',		'Solliard',		'0241454879', 'Rue du pré 12',				NULL, NULL,		'8','54'),
-('Doriane',		'Papilloud',	'0472575458', 'Rue des châteaux 45',		NULL, NULL,		'9', '67'),
-('Abdullah',	'Binjos',		'0264587854', 'Rue des vélo 19',			NULL, NULL,		'10', '78'); 
+('Benjamin',	'Morel',		'0799811254', 'chemin de vionn 12',					'1', '110'),
+('Hugo',		'Vouillamoz',	'0799872542', 'route du flipreset 7',				'2', '59'),
+('Daniel',		'Coimbra',		'0791565814', 'avenue du scex 27',					'3', '40'),
+('Thomas',		'Cheseaux',		'0792839183', 'chemin du comptoir 5',				'4', '88'),
+('Vouillamoz',	'Hugo',			'0792147863', 'Chemin des fontaines 10',			'5', '56'),
+('Theo',		'Choffat',		'0394587425', 'Chemin du Lac 21',					'6','3'),
+('Nathan',		'Dely',			'0745841247', 'Place du village 12',				'7','24'),
+('Mégane',		'Solliard',		'0241454879', 'Rue du pré 12',						'8','54'),
+('Doriane',		'Papilloud',	'0472575458', 'Rue des châteaux 45',				'9', '67'),
+('Abdullah',	'Binjos',		'0264587854', 'Rue des vélo 19',					'10', '78'); 
 
 INSERT [dbo].[RestaurantType] (NomRestaurantType) VALUES 
 ('Burger'),

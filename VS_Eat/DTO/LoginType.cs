@@ -12,12 +12,5 @@ namespace DTO
 
         public string LoginTypeStr { get; set; }
 
-        public override string ToString()
-        {
-            return "__________________________" +
-                   "\nIdLoginType: " + IdLoginType +
-                   "\nLoginType: " + LoginTypeStr +
-                   "\n__________________________";
-        }
     }
 }

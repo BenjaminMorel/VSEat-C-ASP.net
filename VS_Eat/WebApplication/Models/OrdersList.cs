@@ -39,5 +39,40 @@ namespace WebApplication.Models
         
         public string RestaurantCity { get; set; }
 
+        public OrdersList(int idOrder, DateTime orderDate, DateTime deliveryTime, string deliveryAddress, string recipientFirstName, string recipientLastName, int postcode, string city, float totalPrice, int idOrderStatus, string orderStatus, string restaurantName, string restaurantAddress, int restaurantPostCode, string restaurantCity)
+        {
+            IdOrder = idOrder;
+            OrderDate = orderDate;
+            DeliveryTime = deliveryTime;
+            DeliveryAddress = deliveryAddress;
+            RecipientFirstName = recipientFirstName;
+            RecipientLastName = recipientLastName;
+            Postcode = postcode;
+            City = city;
+            TotalPrice = totalPrice;
+            IdOrderStatus = idOrderStatus;
+            OrderStatus = orderStatus;
+            RestaurantName = restaurantName;
+            RestaurantAddress = restaurantAddress;
+            RestaurantPostCode = restaurantPostCode;
+            RestaurantCity = restaurantCity;
+        }
+
+        public OrdersList(int idOrder, DateTime orderDate, DateTime deliveryTime, string deliveryAddress, string recipientFirstName, string recipientLastName, int postcode, string city, float totalPrice, int idOrderStatus, string orderStatus, string restaurantName, string restaurantAddress)
+        {
+            IdOrder = idOrder;
+            OrderDate = orderDate;
+            DeliveryTime = deliveryTime;
+            DeliveryAddress = deliveryAddress;
+            RecipientFirstName = recipientFirstName;
+            RecipientLastName = recipientLastName;
+            Postcode = postcode;
+            City = city;
+            TotalPrice = totalPrice;
+            IdOrderStatus = idOrderStatus;
+            OrderStatus = orderStatus;
+            RestaurantName = restaurantName;
+            RestaurantAddress = restaurantAddress;
+        }
     }
 }

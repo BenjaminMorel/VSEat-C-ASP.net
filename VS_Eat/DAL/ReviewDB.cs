@@ -161,7 +161,15 @@ namespace DAL
                     SqlCommand command = new SqlCommand(query, cn);
                     command.Parameters.AddWithValue("@IdRestaurant", myReview.IdRestaurant);
                     command.Parameters.AddWithValue("@Stars", myReview.Stars);
-                    command.Parameters.AddWithValue("@Comment", myReview.Comment); 
+                    if (myReview.Comment != null)
+                    {
+                        command.Parameters.AddWithValue("@Comment", myReview.Comment);
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@Comment", ""); 
+                    }
+                   
                     cn.Open();
 
                     command.ExecuteReader(); 

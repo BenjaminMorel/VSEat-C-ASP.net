@@ -12,13 +12,5 @@ namespace DTO
 
         public string DeliveryStaffTypeStr { get; set; }
 
-        public override string ToString()
-        {
-            return "__________________________" +
-                   "\nIdDeliveryStaffType: " + IdDeliveryStaffType +
-                   "\nDeliveryStaffTypeStr: " + DeliveryStaffTypeStr +
-                   "\n__________________________";
-        }
-
     }
 }

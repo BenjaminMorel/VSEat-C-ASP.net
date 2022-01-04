@@ -30,19 +30,21 @@ namespace DTO
 
         public int IdRestaurant { get; set;  }
 
-        public override string ToString()
+        public Order()
         {
-            return "__________________________" +
-                   "\nId Order: " + IdOrder +
-                   "\nOrder Date: " + OrderDate +
-                   "\nDelivery Address: " + DeliveryAddress +
-                   "\nFreight: " + Freight +
-                   "\nTotalPrice: " + TotalPrice +
-                   "\nIdOrderStatus: " + IdOrderStatus +
-                   "\nIdUser: " + IdUser +
-                   "\nIdDelivery Staff: " + IdDeliveryStaff +
-                   "\nIdLocation: " + IdLocation +
-                   "\n__________________________";
+
+        }
+        public Order(DateTime orderDate, DateTime deliveryTime, string deliveryAddress, float freight, float totalPrice, int idOrderStatus, int idUser, int idLocation, int idRestaurant)
+        {
+            OrderDate = orderDate;
+            DeliveryTime = deliveryTime;
+            DeliveryAddress = deliveryAddress;
+            Freight = freight;
+            TotalPrice = totalPrice;
+            IdOrderStatus = idOrderStatus;
+            IdUser = idUser;
+            IdLocation = idLocation;
+            IdRestaurant = idRestaurant;
         }
     }
 }

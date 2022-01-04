@@ -12,12 +12,5 @@ namespace DTO
 
         public string RegionName { get; set; }
 
-        public override string ToString()
-        {
-            return "__________________________" +
-                   "\nIdRegion : " + IdRegion +
-                   "\nRegionName : " + RegionName +
-                   "\n__________________________";
-        }
     }
 }

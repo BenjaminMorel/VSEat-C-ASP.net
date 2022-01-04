@@ -32,6 +32,11 @@ namespace WebApplication.Controllers
             this.restaurantManager = restaurantManager;
         }
 
+        /// <summary>
+        /// method to display the main page of staff member
+        /// the page show to the delivery all his order (the archived one and the one that still must be delivered)
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             var IdStaff = (int) HttpContext.Session.GetInt32("ID_LOGIN");
@@ -41,25 +46,14 @@ namespace WebApplication.Controllers
 
             foreach (var order in allOrders)
             {
-                OrdersList myOrderList = new OrdersList();
+            
                 var myLocation = locationManager.GetLocationByID(order.IdLocation);
                 var myUser = userManager.GetUserByID(order.IdUser);      
                 var myStatus = orderStatusManager.GetOrderStatus(order.IdOrder);
                 var myRestaurant = restaurantManager.GetRestaurantByID(order.IdRestaurant);
 
-                myOrderList.IdOrder = order.IdOrder;
-                myOrderList.OrderDate = order.OrderDate;
-                myOrderList.DeliveryTime = order.DeliveryTime;
-                myOrderList.DeliveryAddress = order.DeliveryAddress;
-                myOrderList.RecipientFirstName = myUser.FirstName;
-                myOrderList.RecipientLastName = myUser.LastName;
-                myOrderList.Postcode = myLocation.PostCode;
-                myOrderList.City = myLocation.City;
-                myOrderList.TotalPrice = (float) order.TotalPrice;
-                myOrderList.IdOrderStatus = order.IdOrderStatus;
-                myOrderList.OrderStatus = myStatus.Status;
-                myOrderList.RestaurantName = myRestaurant.RestaurantName;
-                myOrderList.RestaurantAddress = myRestaurant.RestaurantAddress;
+                OrdersList myOrderList = new OrdersList(order.IdOrder, order.OrderDate, order.DeliveryTime, order.DeliveryAddress, myUser.FirstName,myUser.LastName,myLocation.PostCode,myLocation.City,
+                    order.TotalPrice,order.IdOrderStatus,myStatus.Status,myRestaurant.RestaurantName,myRestaurant.RestaurantAddress);
 
                 ordersList.Add(myOrderList);
             }
@@ -68,6 +62,11 @@ namespace WebApplication.Controllers
 
         }
         
+        /// <summary>
+        /// Http post method to change the status of an order from to be delivered to archived 
+        /// </summary>
+        /// <param name="IdOrder">the ID of the order that we want to change the status</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Index(int IdOrder)
@@ -84,34 +83,27 @@ namespace WebApplication.Controllers
 
             foreach (var order in allOrders)
             {
-                OrdersList myOrderList = new OrdersList();
+ 
                 var myLocation = locationManager.GetLocationByID(order.IdLocation);
                 var myUser = userManager.GetUserByID(order.IdUser);
                 var myStatus = orderStatusManager.GetOrderStatus(order.IdOrder);
                 var myRestaurant = restaurantManager.GetRestaurantByID(order.IdRestaurant);
-
-                myOrderList.IdOrder = order.IdOrder;
-                myOrderList.OrderDate = order.OrderDate;
-                myOrderList.DeliveryTime = order.DeliveryTime;
-                myOrderList.DeliveryAddress = order.DeliveryAddress;
-                myOrderList.RecipientFirstName = myUser.FirstName;
-                myOrderList.RecipientLastName = myUser.LastName;
-                myOrderList.Postcode = myLocation.PostCode;
-                myOrderList.City = myLocation.City;
-                myOrderList.TotalPrice = (float)order.TotalPrice;
-                myOrderList.IdOrderStatus = order.IdOrderStatus;
-                myOrderList.OrderStatus = myStatus.Status;
-                myOrderList.RestaurantName = myRestaurant.RestaurantName;
-                myOrderList.RestaurantAddress = myRestaurant.RestaurantAddress;
+                OrdersList myOrderList = new OrdersList(order.IdOrder, order.OrderDate, order.DeliveryTime, order.DeliveryAddress, myUser.FirstName, myUser.LastName, myLocation.PostCode, myLocation.City,
+                         order.TotalPrice, order.IdOrderStatus, myStatus.Status, myRestaurant.RestaurantName, myRestaurant.RestaurantAddress);
 
                 ordersList.Add(myOrderList);
             }
 
             return View(ordersList);
         }
+       
+        /// <summary>
+        /// Method to show the details of an order 
+        /// </summary>
+        /// <param name="IdOrder">the ID of the order that we want to see in detail</param>
+        /// <returns></returns>
         public IActionResult DetailsOrder(int IdOrder)
         {
-            OrdersList myOrderList = new OrdersList();
             var myOrder = orderManager.GetOrderById(IdOrder);
 
             var myUser = userManager.GetUserByID(myOrder.IdUser);        
@@ -120,21 +112,9 @@ namespace WebApplication.Controllers
             var myLocation = locationManager.GetLocationByID(myOrder.IdLocation);
             var restaurantLocation = locationManager.GetLocationByID(myRestaurant.IdLocation);
 
-            myOrderList.IdOrder = myOrder.IdOrder;
-            myOrderList.OrderDate = myOrder.OrderDate;
-            myOrderList.DeliveryTime = myOrder.DeliveryTime;
-            myOrderList.DeliveryAddress = myOrder.DeliveryAddress;
-            myOrderList.RecipientFirstName = myUser.FirstName;
-            myOrderList.RecipientLastName = myUser.LastName;
-            myOrderList.Postcode = myLocation.PostCode;
-            myOrderList.City = myLocation.City;
-            myOrderList.TotalPrice = (float) myOrder.TotalPrice;
-            myOrderList.IdOrderStatus = myOrder.IdOrderStatus;
-            myOrderList.OrderStatus = myStatus.Status;
-            myOrderList.RestaurantName = myRestaurant.RestaurantName;
-            myOrderList.RestaurantAddress = myRestaurant.RestaurantAddress;
-            myOrderList.RestaurantPostCode = restaurantLocation.PostCode;
-            myOrderList.RestaurantCity = restaurantLocation.City;
+            OrdersList myOrderList = new OrdersList(myOrder.IdOrder, myOrder.OrderDate, myOrder.DeliveryTime, myOrder.DeliveryAddress, myUser.FirstName, myUser.LastName, myLocation.PostCode, myLocation.City,
+                                                    myOrder.TotalPrice, myOrder.IdOrderStatus, myStatus.Status, myRestaurant.RestaurantName, myRestaurant.RestaurantAddress,restaurantLocation.PostCode,restaurantLocation.City);
+
 
             return View(myOrderList);
         }
