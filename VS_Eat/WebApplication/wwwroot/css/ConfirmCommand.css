@@ -1,0 +1,9 @@
+﻿.form_Info_Delivery{
+    border-block-color: black; 
+    background-color: #a0ffeb;
+}
+
+.table_with_all_product{
+    display:flex; 
+    position:absolute; 
+}

@@ -68,11 +68,11 @@
                     <td></td>
 
                     <form method="post">
-                        <input type="hidden" name="IdProduct" value=@Html.DisplayFor(modelItem => item.IdProduct)/>
-                        <input type="hidden" name="IdRestaurant" value=@Html.DisplayFor(modelItem => item.IdRestaurant)/>
-                        <input type="hidden" name="Price" value=@Html.DisplayFor(modelItem => item.Price)/>
-                        <input type="hidden" name="ProductName" value=@Html.DisplayFor(modelItem => item.ProductName)/>
-                        <input type="hidden" name="ProductImage" value=@Html.DisplayFor(modelItem => item.Picture)/>
+                        <input type="hidden" name="IdProduct" value="@item.IdProduct"/>             
+                        <input type="hidden" name="IdRestaurant" value="@item.IdRestaurant"/>
+                        <input type="hidden" name="Price" value=@item.Price/>
+                        <input type="hidden" name="ProductName" value=@item.ProductName/>
+                        <input type="hidden" name="ProductImage" value=@item.Picture/>
                         <input type="text" name="Quantity" value="1">
 
 
@@ -106,7 +106,7 @@
             <!-- Button sticks to the bottom -->
         </div>
     }
-    <div>
+    <div class="cart">
         Cart :
         @if (Model.myCart != null && Model.myCart.Count > 0)
         {

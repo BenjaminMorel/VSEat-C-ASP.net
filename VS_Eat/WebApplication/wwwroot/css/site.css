@@ -151,3 +151,11 @@ input[type=submit] {
 .mainButton {
     color: darkorange;
 }
+
+.fixed_navBar{
+    width: 100%; 
+    display:flex; 
+    position: fixed;
+    z-index: 1030; 
+    background-color: #ebffb0;
+}

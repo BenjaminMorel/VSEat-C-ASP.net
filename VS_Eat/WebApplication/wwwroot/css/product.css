@@ -70,3 +70,12 @@
     
 }
 
+.cart{
+    position: fixed;    
+    right: 350px;
+    border:dashed; 
+    border-color: #ffd487;
+    padding: 40px; 
+
+}
+

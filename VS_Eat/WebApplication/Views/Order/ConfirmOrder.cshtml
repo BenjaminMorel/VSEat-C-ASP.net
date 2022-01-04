@@ -8,67 +8,66 @@
 <h1 class="mainButton">Confirm Order</h1>
 
 <body>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImage)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    
+    <table class="table table_with_all_product">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductImage)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>     
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitPrice)
-            </td>
-            <td>
-                <img src="@item.ProductImage" width="60" height="60" class="restaurantImage" />
-            </td>
-            <td>
-                <form method="post">
-                    <input type="hidden" name="IdCartDetails" value=@Html.DisplayFor(modelItem => item.IdCartDetails) />
-                    <input type="submit" value="DELETE" />
-                </form>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    <img src="@item.ProductImage" width="60" height="60" class="restaurantImage" />
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="IdCartDetails" value=@Html.DisplayFor(modelItem => item.IdCartDetails) />
+                        <input type="submit" value="DELETE" />
+                    </form>
+                </td>
+            </tr>
         }
-
+    </table>
+    <br /><br />
     <form method="post">
         <input type="hidden" name="IdCartDetails"  value="-1"/>
         <input type="submit"   value="Remove All"/>
     </form>
-    <body>
+    <br /><br />
+    <body class="form_Info_Delivery">
         <form method="post">
             <p>You can choose the delivery time you want (only every 15 minutes)</p>
             <input type="time"  name="deliveryTime" min="10:00" max="22:00" step="900" value="@DateTime.Now"/>       
-            <p>City</p>
-            <input type="text" name="city" value="">
-            <p>PostCode</p>
-            <input type="number" name="PostCode" value="">
+            <p>City <input type="text" name="city" value=""> PostCode <input type="number" name="PostCode" value=""> </p>
             <p>Address</p>
             <input type="text" name="DeliveryAddress" value="">
             <p>Delivery Time </p>
             <input type="submit" value="Confirmer" />
         </form>
     </body>
-</table>
+
 </body>
 

@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="~/css/product.css" />
 </head>
 
-<body>
+<body class="">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed_navBar">
             <div class="container">
                 <img src="~/Images/Logo.jpg" height="60" width="60"/>
                 <a class="navbar-brand" asp-area="" asp-controller="Restaurant" asp-action="Index">Valais Eat</a>
@@ -46,6 +46,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <br/><br/><br/><br/>
             @RenderBody()
         </main>
     </div>

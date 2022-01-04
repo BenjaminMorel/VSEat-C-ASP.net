@@ -162,6 +162,9 @@
                 @Html.DisplayFor(modelItem => item.RestaurantAddress)
             </td>
             <td>
+                @Html.ActionLink("Details", "ShowOrdersDetails","Order", new { IdOrder = item.IdOrder })
+            </td>
+            <td>
             </td>
         </tr>
             }
