@@ -59,16 +59,18 @@ namespace WebApplication.Controllers
         public ActionResult CreateDeliveryStaff()
         {
             var AllRegions = RegionManager.GetAllRegions();
-            return View();
+            Login_DeliveryStaff loginDelivery = new Login_DeliveryStaff();
+            loginDelivery.AllRegions = AllRegions;
+            return View(loginDelivery);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateDeliveryStaff(Login_DeliveryStaff login_DeliveryStaff)
+        public ActionResult CreateDeliveryStaff(Login_DeliveryStaff login_DeliveryStaff, string regionName)
         {
             DeliveryStaff myDeliveryStaff = DeliveryStaffManager.CreateNewStaff(login_DeliveryStaff.FirstName,
                 login_DeliveryStaff.LastName, login_DeliveryStaff.PhoneNumber, login_DeliveryStaff.Address, login_DeliveryStaff.PostCode,
-                login_DeliveryStaff.City, login_DeliveryStaff.RegionName, login_DeliveryStaff.EmailAddress, login_DeliveryStaff.Password);
+                login_DeliveryStaff.City, regionName, login_DeliveryStaff.EmailAddress, login_DeliveryStaff.Password);
             
             if (myDeliveryStaff == null)
             {
@@ -98,6 +100,13 @@ namespace WebApplication.Controllers
                 {
                     HttpContext.Session.SetInt32("ID_LOGIN", myAccount.IdLogin);
 
+                    if (myAccount.IdLoginType == 4)
+                    {
+                        var myUser = UserManager.GetUserByID(myAccount.IdLogin);
+                        HttpContext.Session.SetInt32("ID_USER", myUser.IdUser);
+                        return RedirectToAction("Index", "Restaurant");
+                    }
+
                     if (myAccount.IdLoginType == 2)
                     {
                         var myRestaurant = RestaurantManager.GetRestaurantByIDLogin(myAccount.IdLogin);
@@ -108,15 +117,23 @@ namespace WebApplication.Controllers
                     if (myAccount.IdLoginType == 3)
                     {
                         var myDeliveryStaff = DeliveryStaffManager.GetDeliveryStaffByID(myAccount.IdLogin);
-                        HttpContext.Session.SetInt32("ID_STAFF", myDeliveryStaff.IdDeliveryStaff);
-                        return RedirectToAction("Index", "DeliveryStaff");
-                    }
 
-                    if (myAccount.IdLoginType == 4)
-                    {
-                        var myUser = UserManager.GetUserByID(myAccount.IdLogin);
-                        HttpContext.Session.SetInt32("ID_USER", myUser.IdUser);
-                        return RedirectToAction("Index", "Restaurant");
+                        if (myDeliveryStaff.IdDeliveryStaffType == 2)
+                        {
+                            HttpContext.Session.SetInt32("ID_STAFF", myDeliveryStaff.IdDeliveryStaff);
+                            return RedirectToAction("Index", "DeliveryStaff");
+                        }
+
+                        if (myDeliveryStaff.IdDeliveryStaffType == 1)
+                        {
+                            ModelState.AddModelError(string.Empty, "Your account is not active for the moment, please wait the validation");
+                        }
+
+                        if (myDeliveryStaff.IdDeliveryStaffType == 3)
+                        {
+                            ModelState.AddModelError(string.Empty, "You have no more access to your account");
+                        }
+
                     }
 
                     if (myAccount.IdLoginType == 1)
@@ -124,12 +141,11 @@ namespace WebApplication.Controllers
                         return RedirectToAction("Index", "Admin");
                     }
 
-
                     return View();
 
                 }
+                ModelState.AddModelError(string.Empty, "Invalid email or password");
 
-                ModelState.AddModelError(string.Empty, "Invalid Email or password");
             }
             return View();
         }

@@ -5,11 +5,8 @@
     Layout = "~/Views/Shared/_LayoutRestaurant.cshtml";
 }
 
-<h1>MainPageRestaurant</h1>
+<h1>Main Page Restaurant</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <p>
     Open Order
 </p>
@@ -23,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.OrderDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DeliveryTime)
+                To prepare for
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DeliveryAddress)
@@ -97,9 +94,9 @@
 </table>
 
 <p>
-   Historique
+   Old Orders
 </p>
-<table class="table" title="Historique">
+<table class="table" title="Old Orders">
     <thead>
         <tr>
             <th>

@@ -9,6 +9,8 @@ namespace WebApplication.Models
 {
     public class StaffToDisplay
     {
+        public int IdDeliveryStaff { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

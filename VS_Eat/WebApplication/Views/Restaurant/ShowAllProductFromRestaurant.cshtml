@@ -7,158 +7,158 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/product.css" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="~/css/product.css"/>
 </head>
+
 <body>
-    <header>
-    </header>
-    <tbody>
+<header>
+</header>
+<tbody>
+<div class="grid_parent">
+
+    @if (Model.myCart.Count > 0)
+    {
+        @if (Model.IdRestaurant != Model.myCart[0].IdRestaurant)
+        {
+            <div class="ErroMessage">You cannot add product from different restaurant into the cart ! You need to first finish your order</div>
+        }
+    }
+
+
+    @foreach (var item in Model.products)
+    {
         <div class="grid_parent">
-
-            @if (Model.myCart.Count > 0)
-            {
-                @if (Model.IdRestaurant != Model.myCart[0].IdRestaurant)
+            <div restaurant>
+                @if (item.Disponibility)
                 {
-                    <div class="ErroMessage">You cannot add product from different restaurant into the cart ! You need to first finish your order</div>
+                    <img src="@item.Picture" width="300" height="200" class="restaurantImage"/>
                 }
-            }
-             
 
-            @foreach (var item in Model.products)
-            {
-                <div class="grid_parent">
-                    <div restaurant>
-                        @if (item.Disponibility)
+                @if (item.Disponibility == false)
+                {
+                    <img src="@item.Picture" width="300" height="200" class="ImageDisabled"/>
+                }
+
+                <tr>
+                    <td>
+                        <h2 class="titleProduct">
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </h2>
+                        <p>
+                        @Html.DisplayFor(modelItem => item.Description)
+
+                        @if (item.Vegetarian)
                         {
-                            <img src="@item.Picture" width="300" height="200" class="restaurantImage" />
+                            <img src="~/Images/Products/vegetarian.png" height="30" width="30"/>
                         }
-              
+
                         @if (item.Disponibility == false)
                         {
-                            <img src="@item.Picture" width="300" height="200" class="ImageDisabled" />
+                            <p class="ErroMessage">Currently unavailable</p>
                         }
 
-                        <tr>
-                            <td>
-                                <h2 class="titleProduct">
-                                    @Html.DisplayFor(modelItem => item.ProductName)
-                                </h2>
-                                <p>
-                                @Html.DisplayFor(modelItem => item.Description)
+                        <p></p></td>
 
-                                @if (item.Vegetarian)
-                                {
-                                    <img src="~/Images/Products/vegetarian.png" height="30" width="30" />
-                                }
+                    <td>@Html.DisplayFor(modelItem => item.Price) CHF</td>
 
-                                @if (item.Disponibility == false)
-                                {
-                                    <p class="ErroMessage">Currently unavailable</p>
-                                }
+                    <td></td>
 
-                                <p></p></td>
+                    <form method="post">
+                        <input type="hidden" name="IdProduct" value=@Html.DisplayFor(modelItem => item.IdProduct)/>
+                        <input type="hidden" name="IdRestaurant" value=@Html.DisplayFor(modelItem => item.IdRestaurant)/>
+                        <input type="hidden" name="Price" value=@Html.DisplayFor(modelItem => item.Price)/>
+                        <input type="hidden" name="ProductName" value=@Html.DisplayFor(modelItem => item.ProductName)/>
+                        <input type="hidden" name="ProductImage" value=@Html.DisplayFor(modelItem => item.Picture)/>
+                        <input type="text" name="Quantity" value="1">
 
-                            <td>@Html.DisplayFor(modelItem => item.Price) CHF</td>
 
-                            <td></td>
-                            
-                            <form method="post">
-                                <input type="hidden" name="IdProduct" value=@Html.DisplayFor(modelItem => item.IdProduct) />
-                                <input type="hidden" name="IdRestaurant" value=@Html.DisplayFor(modelItem => item.IdRestaurant) />
-                                <input type="hidden" name="Price" value=@Html.DisplayFor(modelItem => item.Price) />
-                                <input type="hidden" name="ProductName" value=@Html.DisplayFor(modelItem => item.ProductName) />
-                                <input type="hidden" name="ProductImage" value=@Html.DisplayFor(modelItem => item.Picture) />
-                                <input type="text" name="Quantity" value="1">
+                        @if (Model.myCart.Count > 0)
+                        {
+                            @if (item.IdRestaurant == Model.myCart[0].IdRestaurant && item.Disponibility)
+                            {
+                                <input type="submit" value="Add to cart"/>
+                            }
+                            else
+                            {
+                                <input type="submit" value="Add to cart" class="Disabled"/>
+                            }
+                        }
+                        else
+                        {
+                            @if (item.Disponibility == false)
+                            {
+                                <input type="submit" value="Add to cart" class="Disabled"/>
+                            }
+                            else
+                            {
+                                <input type="submit" value="Add to cart"/>
+                            }
 
-           
-                                @if (Model.myCart.Count > 0)
-                                {
-                                    @if (item.IdRestaurant == Model.myCart[0].IdRestaurant && item.Disponibility)
-                                    {
-                                        <input type="submit" value="Add to cart" />
-                                    }
-                                    else
-                                    {
-                                        <input type="submit" value="Add to cart" class="Disabled"/>               
-                                    }
-                                }
-                                else
-                                {
-                                    @if (item.Disponibility == false)
-                                    {
-                                        <input type="submit" value="Add to cart" class="Disabled"/>    
-                                    }
-                                    else
-                                    {
-                                        <input type="submit" value="Add to cart" />
-                                    }
+                        }
+                    </form>
+                </tr>
+            </div>
 
-                                }
-                                </form>
-                        </tr>
-                    </div>
-
-        <!-- Button sticks to the bottom -->
+            <!-- Button sticks to the bottom -->
         </div>
     }
-            <div>
-                Cart :
-                @if (Model.myCart != null && Model.myCart.Count > 0)
+    <div>
+        Cart :
+        @if (Model.myCart != null && Model.myCart.Count > 0)
+        {
+            <ul class="cd-cart-items">
+
+                @foreach (var itemDetails in Model.myCart)
                 {
-                    <ul class="cd-cart-items">
-                      
-                        @foreach (var itemDetails in Model.myCart)
-                        {
-                           
-                        <li>
-                            @Html.DisplayFor(modelItem => itemDetails.Quantity) x 
-                            @Html.DisplayFor(modelItem => itemDetails.ProductName)
 
-                            @Html.DisplayFor(modelItem => itemDetails.UnitPrice) CHF
-                            <img src="@itemDetails.ProductImage" width="50" height="50" class="restaurantImage" />
-                        </li>
-                        }
-                    </ul>
+                    <li>
+                        @Html.DisplayFor(modelItem => itemDetails.Quantity) x
+                        @Html.DisplayFor(modelItem => itemDetails.ProductName)
 
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ConfirmOrder">Confirm order</a>
+                        @Html.DisplayFor(modelItem => itemDetails.UnitPrice) CHF
+                        <img src="@itemDetails.ProductImage" width="50" height="50" class="restaurantImage"/>
+                    </li>
                 }
-                else
-                {
-                    <p>The cart is currently empty </p>
-                }
-            </div>
+            </ul>
 
-            </div>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ConfirmOrder">Confirm order</a>
+        }
+        else
+        {
+            <p>The cart is currently empty </p>
+        }
+    </div>
 
-        </tbody>
+</div>
 
-        <div>
-            @if (Model.Comment.Count > 0)
+</tbody>
+
+<div>
+    @if (Model.Comment.Count > 0)
+    {
+        @foreach (var comment in Model.Comment)
+        {
+            @if (comment.Length > 0)
             {
-                @foreach (var comment in Model.Comment)
-                {
-                    @if (comment.Length > 0)
-                    {
-                    <p class="comment"> @comment </p>
-                        }
-                    }
+                <p class="comment"> @comment </p>
             }
+        }
+    }
 
-        </div>
-        <div>
-            @Html.ActionLink("Leave a review", "AddReview", "Review", new { idRestaurant = Model.IdRestaurant })
-        </div>
+</div>
+<div>
+    @Html.ActionLink("Leave a review", "AddReview", "Review", new {idRestaurant = Model.IdRestaurant})
+</div>
 
 
-    </body>
+</body>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
 
 </html>

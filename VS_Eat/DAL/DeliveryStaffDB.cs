@@ -117,7 +117,53 @@ namespace DAL
             return myDeliveryStaff;
         }
 
-        
+        public DeliveryStaff GetDeliveryStaffByIDStaff(int IdDeliveryStaff)
+        {
+            DeliveryStaff myDeliveryStaff = new DeliveryStaff();
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+
+                    string query = "Select * from [dbo].[DeliveryStaff] WHERE IdDeliveryStaff=@IdDeliveryStaff";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdDeliveryStaff", IdDeliveryStaff);
+
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            myDeliveryStaff.IdDeliveryStaff = (int) dataReader["IdDeliveryStaff"];
+                            myDeliveryStaff.FirstName = (string) dataReader["FirstName"];
+                            myDeliveryStaff.LastName = (string) dataReader["LastName"];
+                            myDeliveryStaff.PhoneNumber = (string) dataReader["PhoneNumber"];
+                            myDeliveryStaff.Address = (string) dataReader["Address"];
+                            myDeliveryStaff.IdLogin = (int) dataReader["IdLogin"];
+                            myDeliveryStaff.IdLocation = (int) dataReader["IdLocation"];
+                            myDeliveryStaff.IdDeliveryStaffType = (int) dataReader["IdDeliveryStaffType"];
+                            myDeliveryStaff.IdWorkingRegion = (int) dataReader["IdWorkingRegion"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                myDeliveryStaff.IdDeliveryStaffType = 999;
+                Console.Write("Error while getting delivery staff by id\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+
+            return myDeliveryStaff;
+        }
+
+
         /// <summary>
         /// Methode to get all order that are not delivered now, for a specific Staff member
         /// </summary>

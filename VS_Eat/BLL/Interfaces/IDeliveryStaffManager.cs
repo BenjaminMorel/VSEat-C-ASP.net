@@ -8,6 +8,8 @@ namespace BLL.Interfaces
     {
         DeliveryStaff GetDeliveryStaffByID(int IdLogin);
 
+        DeliveryStaff GetDeliveryStaffByIDStaff(int IdDeliveryStaff);
+
         List<DeliveryStaff> GetAllDeliveryStaff();
 
         List<Order> CountOpenOrderByStaffID(int IdDeliveryStaff);

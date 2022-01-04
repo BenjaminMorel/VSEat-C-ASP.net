@@ -67,7 +67,7 @@ namespace BLL
             MyDeliveryStaff.IdLogin = MyLogin.IdLogin;
             MyDeliveryStaff.IdLocation = Location.IdLocation;
             MyDeliveryStaff.IdDeliveryStaffType = 1; // For validation
-            MyDeliveryStaff.IdWorkingRegion = 1;
+            MyDeliveryStaff.IdWorkingRegion = region;
             MyDeliveryStaff = DeliveryStaffDb.AddStaff(MyDeliveryStaff);
 
             return MyDeliveryStaff; 
@@ -82,6 +82,11 @@ namespace BLL
         public DeliveryStaff GetDeliveryStaffByID(int IdLogin)
         {
             return DeliveryStaffDb.GetDeliveryStaffByID(IdLogin);
+        }
+
+        public DeliveryStaff GetDeliveryStaffByIDStaff(int IdDeliveryStaff)
+        {
+            return DeliveryStaffDb.GetDeliveryStaffByIDStaff(IdDeliveryStaff);
         }
 
         public List<DeliveryStaff> FindStaffFororder(int IdRegion)

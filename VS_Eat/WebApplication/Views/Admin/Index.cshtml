@@ -6,7 +6,7 @@
 }
 
 <br />
-<h1>List of all registrations for delivery staff </h1>
+<h2 class="mainButton">List of all registrations for delivery staff </h2>
 
 <table class="table">
     <thead>
@@ -25,6 +25,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DeliveryStaffType)
+            </th>
+            <th>
+                Status
             </th>
             <th></th>
         </tr>
@@ -52,7 +55,10 @@
                         @Html.DisplayFor(modelItem => item.DeliveryStaffType)
                     </td>
                     <td>
-                        Action
+                        <form method="post">
+                            <input type="hidden" name="IdDeliveryStaff" value=@Html.DisplayFor(modelItem => item.IdDeliveryStaff) />
+                            <input type="submit" value="Validate" />
+                        </form>
                     </td>
                 </tr>
             }
@@ -62,7 +68,7 @@
 
 <br />
 <br />
-<h1>List of all active delivery staff </h1>
+<h2 class="mainButton">List of all active delivery staff </h2>
 
 <table class="table">
     <thead>
@@ -83,6 +89,7 @@
                 @Html.DisplayNameFor(model => model.DeliveryStaffType)
             </th>
             <th>
+                Status
             </th>
             <th></th>
         </tr>
@@ -109,6 +116,12 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.DeliveryStaffType)
                     </td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="IdDeliveryStaff" value=@Html.DisplayFor(modelItem => item.IdDeliveryStaff) />
+                            <input type="submit" value="Fire !" />
+                        </form>
+                    </td>
                 </tr>
             }
         }
@@ -118,7 +131,7 @@
 
 <br />
 <br />
-<h1>List of former delivery staff </h1>
+<h2 class="mainButton">List of former delivery staff </h2>
 
 <table class="table">
     <thead>
@@ -137,6 +150,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DeliveryStaffType)
+            </th>
+            <th>
+                Status
             </th>
             <th></th>
         </tr>

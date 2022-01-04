@@ -60,22 +60,13 @@
                             <input asp-for="PostCode" type="text" class="input" />
                             <span asp-validation-for="PostCode" class="text-danger"></span>
                         </div>
-                        <div>
-                           <select class="form-control" id="Regions" name="Regions">
-                                <option>Brig</option>
-                                <option>Conthey</option>
-                                <option>Entremont</option>
-                                <option>Goms</option>
-                                <option>Hérens</option>
-                                <option>Leuk</option>
-                                <option>Martigny</option>
-                                <option>Monthey</option>
-                                <option>Raron</option>
-                                <option>Saint-Maurice</option>
-                                <option>Sierre</option>
-                                <option>Sion</option>
-                                <option>Visp</option>
-                            </select>
+                        <div class="group" method="post">
+                            <select name="regionName">
+                                    @foreach (var item in Model.AllRegions)
+                                    {
+                                        <option> @Html.DisplayFor(modelItem => item.RegionName)</option>
+                                    }
+                                </select>
                         </div>
                         <div class="group">
                             <input type="submit" class="button" value="Create" />

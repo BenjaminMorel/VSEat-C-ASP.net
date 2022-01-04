@@ -44,8 +44,9 @@ namespace WebApplication.Models
         public string City { get; set; } // from Location
 
         [Required]
-        public string RegionName { get; set; }
-        //public List<Region> AllRegions {get; set; } // from Region
+        public string RegionName { get; set; } // from region
+        
+        public List<Region> AllRegions {get; set; } // from Region
 
 	}
 }
