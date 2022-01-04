@@ -23,8 +23,9 @@ namespace WebApplication.Models
 
         public string DeliveryStaffType { get; set; }
 
-        public StaffToDisplay(string FirstName, string LastName, string PhoneNumber, string RegionName, int IdDeliveryStaffType, string DeliveryStaffType)
+        public StaffToDisplay(int IdDeliveryStaff, string FirstName, string LastName, string PhoneNumber, string RegionName, int IdDeliveryStaffType, string DeliveryStaffType)
         {
+            this.IdDeliveryStaff = IdDeliveryStaff;
             this.FirstName = FirstName;
             this.LastName = LastName;
             this.PhoneNumber = PhoneNumber;

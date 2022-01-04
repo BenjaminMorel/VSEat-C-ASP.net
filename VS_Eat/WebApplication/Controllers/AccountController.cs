@@ -79,7 +79,7 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateDeliveryStaff(Login_DeliveryStaff login_DeliveryStaff)
+        public IActionResult CreateDeliveryStaff(Login_DeliveryStaff login_DeliveryStaff, string regionName)
         {
             DeliveryStaff myDeliveryStaff = DeliveryStaffManager.CreateNewStaff(login_DeliveryStaff.FirstName,
                 login_DeliveryStaff.LastName, login_DeliveryStaff.PhoneNumber, login_DeliveryStaff.Address, login_DeliveryStaff.PostCode,
