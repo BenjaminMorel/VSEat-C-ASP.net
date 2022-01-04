@@ -1,9 +1,11 @@
-﻿.form_Info_Delivery{
-    border-block-color: black; 
-    background-color: #a0ffeb;
+﻿
+.blockConfirmOrder{
+    border-style:solid; 
+    background-color: blue; 
 }
 
-.table_with_all_product{
-    display:flex; 
-    position:absolute; 
+.errorMessage{
+    position:fixed; 
+    top:25%;
+    left:25%; 
 }

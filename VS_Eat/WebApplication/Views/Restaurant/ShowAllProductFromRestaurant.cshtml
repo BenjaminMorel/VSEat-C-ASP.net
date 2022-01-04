@@ -70,9 +70,9 @@
                     <form method="post">
                         <input type="hidden" name="IdProduct" value="@item.IdProduct"/>             
                         <input type="hidden" name="IdRestaurant" value="@item.IdRestaurant"/>
-                        <input type="hidden" name="Price" value=@item.Price/>
-                        <input type="hidden" name="ProductName" value=@item.ProductName/>
-                        <input type="hidden" name="ProductImage" value=@item.Picture/>
+                        <input type="hidden" name="Price" value="@item.Price"/>
+                        <input type="hidden" name="ProductName" value="@item.ProductName"/>
+                        <input type="hidden" name="ProductImage" value="@item.Picture"/>
                         <input type="text" name="Quantity" value="1">
 
 
@@ -106,10 +106,12 @@
             <!-- Button sticks to the bottom -->
         </div>
     }
-    <div class="cart">
-        Cart :
-        @if (Model.myCart != null && Model.myCart.Count > 0)
-        {
+<div class="cart">
+    @if (Model.myCart != null && Model.myCart.Count > 0)
+    {
+        <p>Order for @Model.RestaurantName</p>
+        Cart:
+
             <ul class="cd-cart-items">
 
                 @foreach (var itemDetails in Model.myCart)
@@ -120,10 +122,11 @@
                         @Html.DisplayFor(modelItem => itemDetails.ProductName)
 
                         @Html.DisplayFor(modelItem => itemDetails.UnitPrice) CHF
-                        <img src="@itemDetails.ProductImage" width="50" height="50" class="restaurantImage"/>
+                        <img src="@itemDetails.ProductImage" width="60" height="40" class="restaurantImage" />
                     </li>
                 }
             </ul>
+            <p>Total Price : @Model.TotalPrice CHF</p>
 
             <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ConfirmOrder">Confirm order</a>
         }
@@ -131,7 +134,7 @@
         {
             <p>The cart is currently empty </p>
         }
-    </div>
+</div>
 
 </div>
 

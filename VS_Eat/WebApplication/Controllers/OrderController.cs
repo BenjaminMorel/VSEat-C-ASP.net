@@ -105,7 +105,9 @@ namespace WebApplication.Controllers
         public IActionResult ConfirmOrder()
         {
             var myCartDetails = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
-            return View(myCartDetails); 
+
+            ConfirmOrder myConfirmOrder = new ConfirmOrder(myCartDetails, 7); 
+            return View(myConfirmOrder); 
         }
 
 
@@ -139,8 +141,9 @@ namespace WebApplication.Controllers
                     
 
                     cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
-                    return View(cartDetailsList);
-                }
+                    ConfirmOrder myConfirmOrder = new ConfirmOrder(cartDetailsList, 7);
+                    return View(myConfirmOrder);
+                 }
                 else
                 {
 
@@ -156,8 +159,10 @@ namespace WebApplication.Controllers
                             ModelState.AddModelError(string.Empty, "The address delivery region's must be the same as the restaurant region !");
                         }
                         cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
-                        return View(cartDetailsList);
-                    }
+
+                        ConfirmOrder myConfirmOrder = new ConfirmOrder(cartDetailsList, 7);
+                        return View(myConfirmOrder);
+                     }
 
                    float totalPrice = 0;
 

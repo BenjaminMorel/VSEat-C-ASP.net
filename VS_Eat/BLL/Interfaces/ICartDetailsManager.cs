@@ -16,5 +16,6 @@ namespace BLL.Interfaces
         void DeleteOneEntry(int IdProduct);
 
         void DeleteAllEntryByLogin(int IdLogin);
+        void UpdateQuantity(CartDetails myCartDetail); 
     }
 }

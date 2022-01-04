@@ -15,6 +15,7 @@ namespace DAL.Interfaces
 
         void DeleteOneEntry(int IdProduct);
 
-        void DeleteAllEntryByLogin(int Idlogin); 
+        void DeleteAllEntryByLogin(int Idlogin);
+        void UpdateQuantity(CartDetails myCartDetail);
     }
 }

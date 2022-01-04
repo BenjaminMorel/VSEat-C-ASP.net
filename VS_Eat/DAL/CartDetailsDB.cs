@@ -159,5 +159,33 @@ namespace DAL
             }
 
         }
+
+        public void UpdateQuantity(CartDetails myCartDetail)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Update [dbo].[CartDetails] Set Quantity=@Quantity WHERE IdCartDetails=@IdCartDetails;";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Quantity", myCartDetail.Quantity);
+                    command.Parameters.AddWithValue("@IdCartDetails", myCartDetail.IdCartDetails);
+
+
+                    connection.Open();
+
+                    command.ExecuteScalar();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN ADD NEW USER\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+        }
     }
 }
