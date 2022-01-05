@@ -14,6 +14,7 @@ namespace WebApplication.Models
 
         public double TotalPrice { get; set;  }
 
+        public int errorCode { get; set;  }
         public ConfirmOrder(List<CartDetails> allCartDetails, double freight)
         {
             this.allCartDetails = allCartDetails;

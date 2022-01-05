@@ -167,6 +167,6 @@ CREATE TABLE [dbo].[CartDetails] (
 CREATE TABLE [dbo].[Review] (
     [IdRestaurant]  INT             NOT NULL,
     [Stars]         INT             NOT NULL,
-    [Comment]       NVARCHAR (50)   NULL,
+     [Comment]      NVARCHAR (MAX) NULL,
     CONSTRAINT [FK_Review_IdRestaurant] FOREIGN KEY ([IdRestaurant]) REFERENCES [Restaurant]([IdRestaurant])
     ); 
