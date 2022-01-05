@@ -30,7 +30,7 @@ namespace DTO
         {
 
         }
-        public DeliveryStaff(int idDeliveryStaff, string firstName, string lastName, string phoneNumber, string address, int idLogin, int idLocation, int idWorkingRegion)
+        public DeliveryStaff(int idDeliveryStaff, string firstName, string lastName, string phoneNumber, string address, int idLogin, int idLocation, int idDeliveryStaffType, int idWorkingRegion)
         {
             IdDeliveryStaff = idDeliveryStaff;
             FirstName = firstName;
@@ -39,6 +39,7 @@ namespace DTO
             Address = address;
             IdLogin = idLogin;
             IdLocation = idLocation;
+            IdDeliveryStaffType = idDeliveryStaffType;
             IdWorkingRegion = idWorkingRegion;
         }
     }

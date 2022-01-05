@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_LayoutRestaurant.cshtml";
 }
 
-<h1>Main Page Restaurant</h1>
+<h2 class="mainButton">Main Page Restaurant</h2>
+<hr/>
 
 <p>
     Open Order
@@ -47,51 +48,54 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-    if (item.IdOrderStatus == 1)
+    @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdOrder)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Freight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdOrderStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdUser)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdDeliveryStaff)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdLocation)
-            </td>
-            <td>
-                <form method="post">
-                    <input type="hidden" name="IdOrder" value=@Html.DisplayFor(modelItem => item.IdOrder) />
-                    <input type="submit" value="Ready to be deliverd" />
-                </form>
-            </td>
-        </tr>
+        if (item.IdOrderStatus == 1)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Freight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdOrderStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdUser)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdDeliveryStaff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdLocation)
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="IdOrder" value=@Html.DisplayFor(modelItem => item.IdOrder)/>
+                        <input type="submit" value="Ready to be deliverd"/>
+                    </form>
+                </td>
+            </tr>
+        }
     }
-}
     </tbody>
 </table>
+
+<br/><br />
 
 <p>
    Old Orders

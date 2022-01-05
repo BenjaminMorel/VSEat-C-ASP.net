@@ -60,7 +60,7 @@ namespace WebApplication.Controllers
         }
 
         /// <summary>
-        /// Methode to display the page where you can create a new Delivery staff account
+        /// Method to display the page where you can create a new Delivery staff account
         /// </summary>
         /// <returns></returns>
         public IActionResult CreateDeliveryStaff()
@@ -108,7 +108,7 @@ namespace WebApplication.Controllers
         /// <summary>
         ///Http post method that take the credentials and verified them 
         /// </summary>
-        /// <param name="myLogin">The cretendial that have been enter by the user into the login form</param>
+        /// <param name="myLogin">The credendials that have been enter by the user into the login form</param>
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -173,7 +173,7 @@ namespace WebApplication.Controllers
         }
 
         /// <summary>
-        /// Method to display the page where you could see your personnal information 
+        /// Method to display the page where you could see your personal information 
         /// </summary>
         /// <returns></returns>
         public IActionResult AccountInformation()
@@ -191,7 +191,7 @@ namespace WebApplication.Controllers
         }
 
         /// <summary>
-        /// Method to display the page where staff can see their personnal infomation 
+        /// Method to display the page where staff can see their personal information 
         /// </summary>
         /// <returns></returns>
         public IActionResult AccountInformationStaff()
@@ -210,7 +210,22 @@ namespace WebApplication.Controllers
         }
 
         /// <summary>
-        /// Method to display the page where you can edit your personnal information 
+        /// Method to display the page where the restaurant could see his personal information 
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult AccountInformationRestaurant()
+        {
+            int IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
+
+            var myLogin = LoginManager.GetLoginByID(IdLogin);
+            var myRestaurant = RestaurantManager.GetRestaurantByIDLogin(IdLogin);
+            
+
+            return View(myRestaurant);
+        }
+
+        /// <summary>
+        /// Method to display the page where you can edit your personal information 
         /// </summary>
         /// <returns></returns>
         public IActionResult EditAccount()
@@ -228,9 +243,9 @@ namespace WebApplication.Controllers
         }
 
         /// <summary>
-        /// Http post method to send the modification you made about your personnal information
+        /// Http post method to send the modification you made about your personal information
         /// </summary>
-        /// <param name="login_user">the personnal information (old or new) that have been made in the page and that will be change in the database</param>
+        /// <param name="login_user">the personal information (old or new) that have been made in the page and that will be change in the database</param>
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -250,7 +265,7 @@ namespace WebApplication.Controllers
         }
 
         /// <summary>
-        /// Method to display the page where a staff member can modify his personnal information 
+        /// Method to display the page where a staff member can modify his personal information 
         /// </summary>
         /// <returns></returns>
         public IActionResult EditAccountStaff()
@@ -265,25 +280,29 @@ namespace WebApplication.Controllers
 
             var myLogin_DeliveryStaff = new Login_DeliveryStaff(myLogin.Username, myLogin.Password, myDeliveryStaff.FirstName, myDeliveryStaff.LastName, myDeliveryStaff.PhoneNumber, myDeliveryStaff.Address, myLocation.PostCode, myLocation.City, myRegion.RegionName);
 
+            var AllRegions = RegionManager.GetAllRegions();
+            myLogin_DeliveryStaff.AllRegions = AllRegions;
+
             return View(myLogin_DeliveryStaff);
         }
 
         /// <summary>
         /// Http post method that take the new information of the staff member
         /// </summary>
-        /// <param name="login_DeliveryStaff">all informations that will be write into the database about the staff member</param>
+        /// <param name="login_DeliveryStaff">all information that will be write into the database about the staff member</param>
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditAccountStaff(Login_DeliveryStaff login_DeliveryStaff)
+        public IActionResult EditAccountStaff(Login_DeliveryStaff login_DeliveryStaff, string regionName)
         {
             
             var myLogin = new Login((int)HttpContext.Session.GetInt32("ID_LOGIN"), login_DeliveryStaff.EmailAddress, login_DeliveryStaff.Password);
             var myLocation = LocationManager.GetLocation(login_DeliveryStaff.City, login_DeliveryStaff.PostCode);
-            var myRegion = RegionManager.GetIdRegion(login_DeliveryStaff.RegionName);
+            var myRegion = RegionManager.GetIdRegion(regionName);
+            var deliveryStaff = DeliveryStaffManager.GetDeliveryStaffByID(myLogin.IdLogin);
 
             var myDeliveryStaff = new DeliveryStaff((int)HttpContext.Session.GetInt32("ID_STAFF"),login_DeliveryStaff.FirstName,login_DeliveryStaff.LastName,login_DeliveryStaff.PhoneNumber,login_DeliveryStaff.Address,
-                                       (int)HttpContext.Session.GetInt32("ID_LOGIN"),myLocation.IdLocation,myRegion);
+                                       (int)HttpContext.Session.GetInt32("ID_LOGIN"),myLocation.IdLocation, deliveryStaff.IdDeliveryStaffType, myRegion);
 
             LoginManager.UpdateLogin(myLogin);
             DeliveryStaffManager.UpdateDeliveryStaff(myDeliveryStaff);

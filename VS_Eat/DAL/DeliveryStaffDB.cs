@@ -272,7 +272,7 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Update [dbo].[DeliveryStaff] Set FirstName=@FirstName, LastName=@LastName, PhoneNumber=@PhoneNumber, Address=@Address, IdLogin=@IdLogin, IdLocation=@IdLocation, IdWorkingRegion=@IdWorkingRegion, IdDeliveryStaffType=@IdDeliveryStaffType WHERE IdLogin=@IdLogin;";
+                    string query = "Update [dbo].[DeliveryStaff] Set FirstName=@FirstName, LastName=@LastName, PhoneNumber=@PhoneNumber, Address=@Address, IdLogin=@IdLogin, IdLocation=@IdLocation, IdDeliveryStaffType=@IdDeliveryStaffType, IdWorkingRegion=@IdWorkingRegion WHERE IdLogin=@IdLogin;";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@FirstName", myDeliveryStaff.FirstName);
                     command.Parameters.AddWithValue("@LastName", myDeliveryStaff.LastName);
@@ -314,7 +314,7 @@ namespace DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     //TODO finir la query pour trouver le livreur 
-                    string query = "SELECT * FROM [dbo].[DeliveryStaff] WHERE IdWorkingRegion=@IdRegion"; 
+                    string query = "SELECT * FROM [dbo].[DeliveryStaff] WHERE IdWorkingRegion=@IdRegion AND IdDeliveryStaffType=2"; 
          
                         
                     SqlCommand command = new SqlCommand(query, connection);

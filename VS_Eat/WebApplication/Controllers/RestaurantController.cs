@@ -202,7 +202,7 @@ namespace WebApplication.Controllers
         /// </summary>
         /// <param name="id">The id of the restaurant that we want to show all of his products</param>
         /// <returns></returns>
-        public ActionResult ShowAllProductFromRestaurant(int id)
+        public IActionResult ShowAllProductFromRestaurant(int id)
         {
          
             var products = ProductManager.GetAllProductsFromRestaurant(id);
@@ -347,6 +347,29 @@ namespace WebApplication.Controllers
 
             return View(OrderList);
         }
-       
+
+        /// <summary>
+        /// Method to display the page where the restaurant can see all his products
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult ShowAllProducts()
+        {
+            int IdRestaurant = (int)HttpContext.Session.GetInt32("ID_RESTAURANT");
+            var products = ProductManager.GetAllProductsFromRestaurant(IdRestaurant);
+            return View(products);
+        }
+
+        /// <summary>
+        /// Method to display the page where the restaurant can see all his reviews
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult ShowAllReviews()
+        {
+            int IdRestaurant = (int)HttpContext.Session.GetInt32("ID_RESTAURANT");
+            var reviews = ReviewManager.GetAllReviewByRestaurantID(IdRestaurant);
+            return View(reviews);
+        }
+
+
     }
 }

@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-<h1 class="mainButton">All my orders</h1>
+<h2 class="mainButton">All my orders</h2>
 
 <div>Unfinished commands</div>
 
@@ -162,7 +162,7 @@
                 @Html.DisplayFor(modelItem => item.RestaurantAddress)
             </td>
             <td>
-                @Html.ActionLink("Details", "ShowOrdersDetails","Order", new { IdOrder = item.IdOrder })
+                @Html.ActionLink("Details", "ShowOrderDetail","Order", new { IdOrder = item.IdOrder })
             </td>
             <td>
             </td>
