@@ -35,7 +35,7 @@ namespace WebApplication.Controllers
         public IActionResult ShowAllOrders()
         {
             List<OrdersList> ordersList = new List<OrdersList>();
-            var orders = OrderManager.GetOrderByUser((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+            var orders = OrderManager.GetOrderByUser((int)HttpContext.Session.GetInt32("ID_USER"));
             
             foreach(var order in orders)
             {
@@ -106,7 +106,8 @@ namespace WebApplication.Controllers
         {
             var myCartDetails = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
 
-            ConfirmOrder myConfirmOrder = new ConfirmOrder(myCartDetails, 7); 
+            ConfirmOrder myConfirmOrder = new ConfirmOrder(myCartDetails, 7);
+            myConfirmOrder.errorCode = 0;
             return View(myConfirmOrder); 
         }
 
@@ -115,7 +116,9 @@ namespace WebApplication.Controllers
         /// Http post method that can do 3 different thing
         /// 1. Remove one element of the cart 
         /// 2. Remove all element of the cart 
-        /// 3. validate the order and insert it into the database
+        /// 3. verifiy that the region of the delivery is the same as the one of the restaurant
+        /// 4. verify that the hour of the delivery is not passed
+        /// 5. validate the order and insert it into the database
         /// </summary>
         /// <param name="DeliveryAddress">The adress where we want the delivery</param>
         /// <param name="city">The city of the delivery</param>
@@ -127,23 +130,25 @@ namespace WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmOrder(string DeliveryAddress, string city, int PostCode, int IdCartDetails,DateTime deliveryTime)
         {
-            var cartDetailsList = new List<CartDetails>();
- 
+                var cartDetailsList = new List<CartDetails>();
+
                 if (IdCartDetails != 0)
                 {
-                    if(IdCartDetails == -1)
+                    if (IdCartDetails == -1)
                     {
-                    CartDetailsManager.DeleteAllEntryByLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+                        CartDetailsManager.DeleteAllEntryByLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
                     }
-                    else {
-                    CartDetailsManager.DeleteOneEntry(IdCartDetails);
+                    else
+                    {
+                        CartDetailsManager.DeleteOneEntry(IdCartDetails);
                     }
-                    
+
 
                     cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
                     ConfirmOrder myConfirmOrder = new ConfirmOrder(cartDetailsList, 7);
+                    myConfirmOrder.errorCode = 0; 
                     return View(myConfirmOrder);
-                 }
+                }
                 else
                 {
 
@@ -154,31 +159,40 @@ namespace WebApplication.Controllers
 
                     if (myDeliveryLocation.IdRegion != myRestaurantLocation.IdRegion)
                     {
-                        if (ModelState.IsValid)
-                        {
-                            ModelState.AddModelError(string.Empty, "The address delivery region's must be the same as the restaurant region !");
-                        }
+
+                
+                        
                         cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
 
                         ConfirmOrder myConfirmOrder = new ConfirmOrder(cartDetailsList, 7);
+                        myConfirmOrder.errorCode = 1; 
                         return View(myConfirmOrder);
-                     }
+                    }
+                    if(deliveryTime < DateTime.Now.AddMinutes(30))
+                    {
+                    cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
 
-                   float totalPrice = 0;
+                    ConfirmOrder myConfirmOrder = new ConfirmOrder(cartDetailsList, 7);
+                    myConfirmOrder.errorCode = 2;
+                    return View(myConfirmOrder);
+                    }
+                    
+
+                    float totalPrice = 0;
 
                     foreach (var chartDetail in cartDetailsList)
                     {
                         totalPrice += (float)(chartDetail.UnitPrice * chartDetail.Quantity);
                     }
 
-                    var myOrder = new Order(DateTime.Now, deliveryTime, DeliveryAddress, 6, totalPrice, 1, (int)HttpContext.Session.GetInt32("ID_USER"), 
+                    var myOrder = new Order(DateTime.Now, deliveryTime, DeliveryAddress, 6, totalPrice, 1, (int)HttpContext.Session.GetInt32("ID_USER"),
                         myDeliveryLocation.IdLocation, cartDetailsList[0].IdRestaurant);
 
-            
+
                     var myNewOrder = OrderManager.AddNewOrder(myOrder);
                     foreach (var charDetail in cartDetailsList)
                     {
-                        var myOrderDetails = new OrderDetails(charDetail.UnitPrice,charDetail.Quantity,charDetail.IdProduct,myNewOrder.IdOrder);      
+                        var myOrderDetails = new OrderDetails(charDetail.UnitPrice, charDetail.Quantity, charDetail.IdProduct, myNewOrder.IdOrder);
                         OrderDetailsManager.AddOrderDetails(myOrderDetails);
                     }
                     CartDetailsManager.DeleteAllEntryByLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));

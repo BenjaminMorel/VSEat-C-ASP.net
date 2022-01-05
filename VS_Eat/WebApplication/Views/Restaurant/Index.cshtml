@@ -29,23 +29,25 @@
 
                 }
             </select>
-            @foreach (var restaurantType in Model.AllRestaurantType)
-            {
-
-
-                @if (Model.AllTypeToDisplay.Contains(restaurantType.NomRestaurantType))
+                <p>
+                @foreach (var restaurantType in Model.AllRestaurantType)
                 {
 
-                    <p> <input type="checkbox" name="restaurantType" value=@restaurantType.NomRestaurantType checked class="checkbox-round" />  @restaurantType.NomRestaurantType </p>
-                }
-                else
-                {
-                    <p> <input type="checkbox" name="restaurantType" value=@restaurantType.NomRestaurantType class="checkbox-round" /> @restaurantType.NomRestaurantType </p>
-                }
-            }
-            <br /><br />
-            <input type="submit" value="search" />
-        </form>
+
+                    @if (Model.AllTypeToDisplay.Contains(restaurantType.NomRestaurantType))
+                    {
+
+                        <input type="checkbox" name="restaurantType" value=@restaurantType.NomRestaurantType checked class="checkbox-round" /> @restaurantType.NomRestaurantType
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="restaurantType" value=@restaurantType.NomRestaurantType class="checkbox-round" /> @restaurantType.NomRestaurantType
+                        }
+                    }
+                </p>
+                <br />
+                <input type="submit" value="search" />
+            </form>
     </div>
     <h1>Restaurant for Region @Model.myRegion.RegionName</h1>
     <div class="grid_parent">

@@ -44,6 +44,10 @@ namespace WebApplication.Models
 		[Required]
 		public string Address { get; set; } // from User
 
+		public Login_User()
+        {
+
+        }
 
 		public Login_User(string Username, string Password, string FirstName, string LastName, string PhoneNumber, int PostCode, string City, string Address)
         {
