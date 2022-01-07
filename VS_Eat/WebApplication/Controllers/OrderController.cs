@@ -128,7 +128,7 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ConfirmOrder(string DeliveryAddress, string city, int PostCode, int IdCartDetails,DateTime deliveryTime)
+        public IActionResult ConfirmOrder(string DeliveryAddress, string city, int PostCode, int IdCartDetails,DateTime deliveryTime)
         {
                 var cartDetailsList = new List<CartDetails>();
 
@@ -181,7 +181,7 @@ namespace WebApplication.Controllers
                         totalPrice += (float)(chartDetail.UnitPrice * chartDetail.Quantity);
                     }
 
-                    var myOrder = new Order(DateTime.Now, deliveryTime, DeliveryAddress, 6, totalPrice, 1, (int)HttpContext.Session.GetInt32("ID_USER"),
+                    var myOrder = new Order(DateTime.Now, deliveryTime, DeliveryAddress, 7, totalPrice, 1, (int)HttpContext.Session.GetInt32("ID_USER"),
                         myDeliveryLocation.IdLocation, cartDetailsList[0].IdRestaurant);
 
 
