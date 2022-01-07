@@ -143,7 +143,6 @@ namespace WebApplication.Controllers
                         CartDetailsManager.DeleteOneEntry(IdCartDetails);
                     }
 
-
                     cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
                     ConfirmOrder myConfirmOrder = new ConfirmOrder(cartDetailsList, 7);
                     myConfirmOrder.errorCode = 0; 
@@ -151,7 +150,6 @@ namespace WebApplication.Controllers
                 }
                 else
                 {
-
                     var myDeliveryLocation = LocationManager.GetLocation(city, PostCode);
                     cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
                     var myRestaurant = RestaurantManager.GetRestaurantByID(cartDetailsList[0].IdRestaurant);
@@ -160,8 +158,6 @@ namespace WebApplication.Controllers
                     if (myDeliveryLocation.IdRegion != myRestaurantLocation.IdRegion)
                     {
 
-                
-                        
                         cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
 
                         ConfirmOrder myConfirmOrder = new ConfirmOrder(cartDetailsList, 7);
@@ -170,11 +166,11 @@ namespace WebApplication.Controllers
                     }
                     if(deliveryTime < DateTime.Now.AddMinutes(30))
                     {
-                    cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
+                        cartDetailsList = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
 
-                    ConfirmOrder myConfirmOrder = new ConfirmOrder(cartDetailsList, 7);
-                    myConfirmOrder.errorCode = 2;
-                    return View(myConfirmOrder);
+                        ConfirmOrder myConfirmOrder = new ConfirmOrder(cartDetailsList, 7);
+                        myConfirmOrder.errorCode = 2;
+                        return View(myConfirmOrder);
                     }
                     
 
@@ -198,7 +194,7 @@ namespace WebApplication.Controllers
                     CartDetailsManager.DeleteAllEntryByLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
                 }
             
-            return RedirectToAction("Index", "Restaurant");
+                return RedirectToAction("Index", "Restaurant");
         }
     }
 }

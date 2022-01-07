@@ -1,9 +1,4 @@
 ﻿
-.blockConfirmOrder{
-    border-style:solid; 
-    background-color: blue; 
-}
-
 .errorMessage{
     position:fixed; 
     top:25%;
