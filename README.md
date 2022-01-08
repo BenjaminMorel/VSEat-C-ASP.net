@@ -1,7 +1,9 @@
 # Guide - How To Use ValaisEat
 
 **Website Link :** http://153.109.124.35:81/Vouillamoz_Morel_ValaisEat/Account/Login
+
 **Database name :** Vouillamoz_Morel_ValaisEat
+
 **Connection string :** Data Source=153.109.124.35;Initial Catalog=Vouillamoz_Morel_ValaisEat;Persist Security Info=True;User ID=6231db;Password=***********
 
 ## User stories : 
