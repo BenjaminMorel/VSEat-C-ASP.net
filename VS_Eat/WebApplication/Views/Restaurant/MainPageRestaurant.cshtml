@@ -27,22 +27,10 @@
                 @Html.DisplayNameFor(model => model.DeliveryAddress)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Freight)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.TotalPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdOrderStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdUser)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.IdDeliveryStaff)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdLocation)
             </th>
             <th></th>
         </tr>
@@ -65,23 +53,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DeliveryAddress)
                 </td>
+                @{
+                    var total = @item.Freight + @item.TotalPrice;
+                }
                 <td>
-                    @Html.DisplayFor(modelItem => item.Freight)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdOrderStatus)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdUser)
+                    @total CHF 
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IdDeliveryStaff)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdLocation)
                 </td>
                 <td>
                     <form method="post">
@@ -102,39 +81,27 @@
 </p>
 <table class="table" title="Old Orders">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdOrder)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeliveryTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeliveryAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Freight)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdOrderStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdUser)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdDeliveryStaff)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdLocation)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </th>
+        <th>
+            To prepare for
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdDeliveryStaff)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
@@ -154,25 +121,14 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.DeliveryAddress)
                     </td>
+                    @{
+                        var total = @item.Freight + @item.TotalPrice;
+                    }
                     <td>
-                        @Html.DisplayFor(modelItem => item.Freight)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TotalPrice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdOrderStatus)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdUser)
+                        @total CHF 
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.IdDeliveryStaff)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdLocation)
-                    </td>
-                    <td>
                     </td>
                 </tr>
             }

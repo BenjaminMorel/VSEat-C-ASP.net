@@ -115,7 +115,7 @@ namespace WebApplication.Controllers
             }
             var myOrder = orderManager.GetOrderById(IdOrder);
 
-            var myUser = userManager.GetUserByID(myOrder.IdUser);        
+            var myUser = userManager.GetUserByIDUser(myOrder.IdUser);        
             var myStatus = orderStatusManager.GetOrderStatus(myOrder.IdOrder);
             var myRestaurant = restaurantManager.GetRestaurantByID(myOrder.IdRestaurant);
             var myLocation = locationManager.GetLocationByID(myOrder.IdLocation);
