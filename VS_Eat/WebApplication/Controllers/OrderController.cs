@@ -34,6 +34,11 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         public IActionResult ShowAllOrders()
         {
+            if (HttpContext.Session.GetInt32("ID_LOGIN") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
             List<OrdersList> ordersList = new List<OrdersList>();
             var orders = OrderManager.GetOrderByUser((int)HttpContext.Session.GetInt32("ID_USER"));
             
@@ -94,6 +99,11 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         public IActionResult ShowOrderDetail(int IdOrder)
         {
+            if (HttpContext.Session.GetInt32("ID_LOGIN") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
             var orderDetails = OrderDetailsManager.GetOrderDetailsFromOrder(IdOrder); 
             return View(orderDetails); 
         }
@@ -104,6 +114,11 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         public IActionResult ConfirmOrder()
         {
+            if (HttpContext.Session.GetInt32("ID_LOGIN") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
             var myCartDetails = CartDetailsManager.GetAllCartDetailsFromLogin((int)HttpContext.Session.GetInt32("ID_LOGIN"));
 
             ConfirmOrder myConfirmOrder = new ConfirmOrder(myCartDetails, 7);

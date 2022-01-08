@@ -160,6 +160,7 @@ namespace WebApplication.Controllers
 
                     if (myAccount.IdLoginType == 1)
                     {
+                        HttpContext.Session.SetInt32("ID_ADMIN", 1);
                         return RedirectToAction("Index", "Admin");
                     }
 

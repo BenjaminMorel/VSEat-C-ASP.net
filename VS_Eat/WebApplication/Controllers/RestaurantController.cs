@@ -204,7 +204,13 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         public IActionResult ShowAllProductFromRestaurant(int id)
         {
-         
+
+            if (HttpContext.Session.GetInt32("ID_LOGIN") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
+
             var products = ProductManager.GetAllProductsFromRestaurant(id);
             int IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
             var allCartDetails = CartDetailsManager.GetAllCartDetailsFromLogin(IdLogin);
@@ -281,6 +287,12 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         public IActionResult MainPageRestaurant()
         {
+
+            if (HttpContext.Session.GetInt32("ID_RESTAURANT") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
             var OrderList = OrderManager.GetAllOrderFromRestaurant((int)HttpContext.Session.GetInt32("ID_RESTAURANT")); 
             return View(OrderList); 
         }
@@ -354,6 +366,12 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         public IActionResult ShowAllProducts()
         {
+
+            if (HttpContext.Session.GetInt32("ID_RESTAURANT") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
             int IdRestaurant = (int)HttpContext.Session.GetInt32("ID_RESTAURANT");
             var products = ProductManager.GetAllProductsFromRestaurant(IdRestaurant);
             return View(products);
@@ -365,6 +383,12 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         public IActionResult ShowAllReviews()
         {
+
+            if (HttpContext.Session.GetInt32("ID_RESTAURANT") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
             int IdRestaurant = (int)HttpContext.Session.GetInt32("ID_RESTAURANT");
             var reviews = ReviewManager.GetAllReviewByRestaurantID(IdRestaurant);
             return View(reviews);

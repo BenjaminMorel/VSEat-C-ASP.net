@@ -30,6 +30,11 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetInt32("ID_ADMIN") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
             List<DeliveryStaff> allStafs = deliveryStaffManager.GetAllDeliveryStaff();
 
             List<StaffToDisplay> listOfAllStaffs = new List<StaffToDisplay>();
