@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication.Controllers
 {
@@ -29,6 +30,12 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         public IActionResult AddReview(int IdRestaurant)
         {
+
+            if (HttpContext.Session.GetInt32("ID_LOGIN") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
             var myRestaurant = RestaurantManager.GetRestaurantByID(IdRestaurant);
             var reviewToAdd = new AddReview(IdRestaurant,myRestaurant.RestaurantName);
             return View(reviewToAdd);

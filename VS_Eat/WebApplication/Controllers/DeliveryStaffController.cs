@@ -39,6 +39,11 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetInt32("ID_STAFF") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
             var IdStaff = (int) HttpContext.Session.GetInt32("ID_LOGIN");
             var myDeliveryStaff = deliveryStaffManager.GetDeliveryStaffByID(IdStaff);
             var allOrders = orderManager.GetAllOrderFromDeliveryStaff(myDeliveryStaff.IdDeliveryStaff);
@@ -103,6 +108,11 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         public IActionResult DetailsOrder(int IdOrder)
         {
+            if (HttpContext.Session.GetInt32("ID_STAFF") == null)
+            {
+                //ligne pour forcer la personne a se loger la première fois 
+                return RedirectToAction("Login", "Account");
+            }
             var myOrder = orderManager.GetOrderById(IdOrder);
 
             var myUser = userManager.GetUserByID(myOrder.IdUser);        
