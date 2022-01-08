@@ -193,7 +193,7 @@ namespace WebApplication.Controllers
 
                     foreach (var chartDetail in cartDetailsList)
                     {
-                        totalPrice += (float)(chartDetail.UnitPrice * chartDetail.Quantity);
+                        totalPrice += (float)(chartDetail.UnitPrice * chartDetail.Quantity) +7;
                     }
 
                     var myOrder = new Order(DateTime.Now, deliveryTime, DeliveryAddress, 7, totalPrice, 1, (int)HttpContext.Session.GetInt32("ID_USER"),

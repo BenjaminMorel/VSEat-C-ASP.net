@@ -238,46 +238,69 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ShowAllProductFromRestaurant(int IdProduct, string ProductName,string ProductImage, int Quantity, float Price, int IdRestaurant)
+        public IActionResult ShowAllProductFromRestaurant(int IdProduct, string ProductName,string ProductImage, int Quantity, float Price, int IdRestaurant,int IdCartDetail)
         {
-       
+
             bool ISCartUpdate = false; 
             int IdLogin = (int)HttpContext.Session.GetInt32("ID_LOGIN");
             var products = new List<Product>();
+          
 
-            CartDetails myCartDetails = new CartDetails(IdLogin, IdProduct, IdRestaurant,ProductName, ProductImage, Quantity, Price);
-            //vérification si le produit est déjà dans le panier on l'incremente de 1 sinon on le rajoute 
-            var allExistingCartDetail = CartDetailsManager.GetAllCartDetailsFromLogin(IdLogin); 
-
-            foreach(var product in allExistingCartDetail)
+            if (IdCartDetail != 0)
             {
-                if(product.IdProduct == IdProduct)
+                CartDetailsManager.DeleteOneEntry(IdCartDetail);
+                products = ProductManager.GetAllProductsFromRestaurant(IdRestaurant);
+                var allCartDetails = CartDetailsManager.GetAllCartDetailsFromLogin(IdLogin);
+                var myRestaurant = new Restaurant();
+                if (allCartDetails.Count > 0)
                 {
-                    product.Quantity += Quantity;
-                    CartDetailsManager.UpdateQuantity(product);
-                    ISCartUpdate = true; 
+                    myRestaurant = RestaurantManager.GetRestaurantByID(allCartDetails[0].IdRestaurant);
                 }
-            }
-            //Création d'une nouvelle ligne dans la base de donnée avec la nouvelle information du panier 
-            if (!(ISCartUpdate)) {
-                CartDetailsManager.AddNewCartDetails(myCartDetails);
-                allExistingCartDetail.Add(myCartDetails); 
-            }
 
-            var myRestaurant = new Restaurant();
-            if (allExistingCartDetail.Count > 0)
+                List<string> comments = new List<string>();
+                comments = ReviewManager.GetAllCommentByRestaurantID(IdRestaurant);
+                AllProductWithCart myPage = new AllProductWithCart(products, allCartDetails, IdRestaurant, comments, myRestaurant.RestaurantName);
+                return View(myPage);
+            }
+            else
             {
-                myRestaurant = RestaurantManager.GetRestaurantByID(allExistingCartDetail[0].IdRestaurant);
+
+                CartDetails myCartDetails = new CartDetails(IdLogin, IdProduct, IdRestaurant, ProductName, ProductImage, Quantity, Price);
+                //vérification si le produit est déjà dans le panier on l'incremente de 1 sinon on le rajoute 
+                var allExistingCartDetail = CartDetailsManager.GetAllCartDetailsFromLogin(IdLogin);
+
+                foreach (var product in allExistingCartDetail)
+                {
+                    if (product.IdProduct == IdProduct)
+                    {
+                        product.Quantity += Quantity;
+                        CartDetailsManager.UpdateQuantity(product);
+                        ISCartUpdate = true;
+                    }
+                }
+                //Création d'une nouvelle ligne dans la base de donnée avec la nouvelle information du panier 
+                if (!(ISCartUpdate))
+                {
+                    CartDetailsManager.AddNewCartDetails(myCartDetails);
+                    allExistingCartDetail.Add(myCartDetails);
+                }
+
+
+                var myRestaurant = new Restaurant();
+                if (allExistingCartDetail.Count > 0)
+                {
+                    myRestaurant = RestaurantManager.GetRestaurantByID(allExistingCartDetail[0].IdRestaurant);
+                }
+
+                List<string> comments = new List<string>();
+                comments = ReviewManager.GetAllCommentByRestaurantID(IdRestaurant);
+
+                products = ProductManager.GetAllProductsFromRestaurant(IdRestaurant);
+
+                AllProductWithCart myPage = new AllProductWithCart(products, allExistingCartDetail, IdRestaurant, comments, myRestaurant.RestaurantName);
+
+                return View(myPage);
             }
-
-            List<string> comments = new List<string>();
-            comments = ReviewManager.GetAllCommentByRestaurantID(IdRestaurant);
-
-            products = ProductManager.GetAllProductsFromRestaurant(IdRestaurant);
-
-            AllProductWithCart myPage = new AllProductWithCart(products, allExistingCartDetail, IdRestaurant, comments,myRestaurant.RestaurantName);
-
-            return View(myPage); 
         }
 
         /// <summary>
