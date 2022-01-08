@@ -52,7 +52,6 @@ namespace WebApplication.Controllers
             if (myNewUser == null)
             {
 
-                //TODO create a page to handle doublon ( redirect to login page ?) 
                 return RedirectToAction("login", "Account");
             }
 
@@ -87,7 +86,6 @@ namespace WebApplication.Controllers
             
             if (myDeliveryStaff == null)
             {
-                //TODO create a page to handle doublon ( redirect to login page ?) 
                 return RedirectToAction("login", "Account");
             }
 
