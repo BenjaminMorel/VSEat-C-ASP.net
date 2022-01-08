@@ -1,0 +1,176 @@
+﻿@using System.Diagnostics.Contracts
+@model WebApplication.Models.AllProductWithCart; 
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="~/css/product.css"/>
+</head>
+
+<body>
+<header>
+</header>
+<tbody>
+<div class="grid_parent">
+
+    @if (Model.myCart.Count > 0)
+    {
+        @if (Model.IdRestaurant != Model.myCart[0].IdRestaurant)
+        {
+            <div class="ErroMessage">You cannot add product from different restaurant into the cart ! You need to first finish your order</div>
+        }
+    }
+
+
+    @foreach (var item in Model.products)
+    {
+        <div class="grid_parent">
+            <div restaurant>
+                @if (item.Disponibility)
+                {
+                    <img src="~/@item.Picture" width="300" height="200" class="restaurantImage"/>
+                }
+
+                @if (item.Disponibility == false)
+                {
+                    <img src="~/@item.Picture" width="300" height="200" class="ImageDisabled"/>
+                }
+
+                <tr>
+                    <td>
+                        <h2 class="titleProduct">
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </h2>
+                        <p>
+                        @Html.DisplayFor(modelItem => item.Description)
+
+                        @if (item.Vegetarian)
+                        {
+                            <img src="~/Images/Products/vegetarian.png" height="30" width="30"/>
+                        }
+
+                        @if (item.Disponibility == false)
+                        {
+                            <p class="ErroMessage">Currently unavailable</p>
+                        }
+
+                        <p></p></td>
+
+                    <td>@Html.DisplayFor(modelItem => item.Price) CHF</td>
+
+                    <td></td>
+
+                    <form method="post">
+                        <input type="hidden" name="IdProduct" value="@item.IdProduct"/>             
+                        <input type="hidden" name="IdRestaurant" value="@item.IdRestaurant"/>
+                        <input type="hidden" name="Price" value="@item.Price"/>
+                        <input type="hidden" name="ProductName" value="@item.ProductName"/>
+                        <input type="hidden" name="ProductImage" value="@item.Picture"/>
+                        <input type="text" name="Quantity" value="1">
+
+
+                        @if (Model.myCart.Count > 0)
+                        {
+                            @if (item.IdRestaurant == Model.myCart[0].IdRestaurant && item.Disponibility)
+                            {
+                                <input type="submit" value="Add to cart"/>
+                            }
+                            else
+                            {
+                                <input type="submit" value="Add to cart" class="Disabled"/>
+                            }
+                        }
+                        else
+                        {
+                            @if (item.Disponibility == false)
+                            {
+                                <input type="submit" value="Add to cart" class="Disabled"/>
+                            }
+                            else
+                            {
+                                <input type="submit" value="Add to cart"/>
+                            }
+
+                        }
+                    </form>
+                </tr>
+            </div>
+
+            <!-- Button sticks to the bottom -->
+        </div>
+    }
+<div class="cart">
+    @if (Model.myCart != null && Model.myCart.Count > 0)
+    {
+        <p>Order for @Model.RestaurantName</p>
+        Cart:
+
+            <ul class="cd-cart-items">
+
+                @foreach (var itemDetails in Model.myCart)
+                {
+                     
+                <li>
+                    <form method="post">
+                        @Html.DisplayFor(modelItem => itemDetails.Quantity)
+                        @Html.DisplayFor(modelItem => itemDetails.ProductName)
+
+                        @Html.DisplayFor(modelItem => itemDetails.UnitPrice) CHF
+                        <img src="~/@itemDetails.ProductImage" width="60" height="40" class="restaurantImage" />
+
+                        <input type="hidden" name="IdCartDetail" value="@itemDetails.IdCartDetails" />
+                        <input type="hidden" name="IdRestaurant" value="@Model.IdRestaurant" />
+                        <input type="submit" value="X" class="remove_button" />
+                    </form>
+
+                </li>
+                }
+            </ul>
+            <p>Total Price : @Model.TotalPrice CHF</p>
+
+             <b>
+            <a class="nav-link text-dark button" asp-area="" asp-controller="Order" asp-action="ConfirmOrder">Confirm order</a>
+                 </b>
+        }
+        else
+        {
+            <p>The cart is currently empty </p>
+        }
+</div>
+
+</div>
+
+</tbody>
+
+<div>
+    @if (Model.Comment.Count > 0)
+    {
+        @foreach (var comment in Model.Comment)
+        {
+            @if (comment.Length > 0)
+            {
+                <p class="comment"> @comment </p>
+            }
+        }
+    }
+
+</div>
+<div>
+    @Html.ActionLink("Leave a review", "AddReview", "Review", new {idRestaurant = Model.IdRestaurant})
+</div>
+
+
+</body>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+</html>

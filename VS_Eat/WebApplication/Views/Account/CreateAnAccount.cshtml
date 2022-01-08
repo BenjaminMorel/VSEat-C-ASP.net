@@ -1,0 +1,77 @@
+﻿@model WebApplication.Models.Login_User
+
+@{
+    ViewData["Title"] = "CreateAnAccount";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="login-wrap2">
+    <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Create an account</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+        <div class="login-form">
+            <div class="sign-in-htm">
+                <div class="sign-in-htm">
+                    <form asp-action="CreateAnAccount">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="group">
+                            <label asp-for="Username" class="label"></label>
+                            <input asp-for="Username" type="text" class="input" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                        <div class="group">
+                            <label asp-for="Password" class="label"></label>
+                            <input asp-for="Password" type="password" class="input" data-type="password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="group">
+                            <label asp-for="ConfirmPassword" class="label"></label>
+                            <input asp-for="ConfirmPassword" type="password" class="input" data-type="password" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="group">
+                            <label asp-for="FirstName" class="label"></label>
+                            <input asp-for="FirstName" type="text" class="input" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="group">
+                            <label asp-for="LastName" class="label"></label>
+                            <input asp-for="LastName" type="text" class="input" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="group">
+                            <label asp-for="PhoneNumber" class="label"></label>
+                            <input asp-for="PhoneNumber" type="text" class="input" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="group">
+                            <label asp-for="PostCode" class="label"></label>
+                            <input asp-for="PostCode" type="text" class="input" />
+                            <span asp-validation-for="PostCode" class="text-danger"></span>
+                        </div>
+                        <div class="group">
+                            <label asp-for="City" class="label"></label>
+                            <input asp-for="City" type="text" class="input" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="group">
+                            <label asp-for="Address" class="label"></label>
+                            <input asp-for="Address" type="text" class="input" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <p></p>
+                        <div class="group">
+                            <input type="submit" class="button" value="Create" />
+                        </div>
+                        <div class="hr"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

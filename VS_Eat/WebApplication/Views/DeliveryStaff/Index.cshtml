@@ -1,0 +1,131 @@
+﻿@model IEnumerable<WebApplication.Models.OrdersList>;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutDeliveryStaff.cshtml";
+}
+
+
+<h2 class="mainButton">Your current orders </h2>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order Number</th>
+            <th>RestaurantName</th>
+            <th>RestaurantAddress</th>
+            <th>Delivery Time</th>
+            <th>Delivery Address </th>
+            <th>Postcode</th>
+            <th>City</th>
+            <th>Total Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    
+
+    @foreach (var item in Model)
+    {
+       
+        if (item.IdOrderStatus <= 2)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RestaurantName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RestaurantAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Postcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "DetailsOrder", new {IdOrder = item.IdOrder})
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="IdOrder" value=@Html.DisplayFor(modelItem => item.IdOrder) />
+                        <input type="submit" value="Delivered" />
+                    </form>
+                </td>
+            </tr>
+        }
+
+    }
+    </tbody>
+</table>
+
+<br />
+<br />
+
+
+<h2 class="mainButton">Your old deliveries </h2>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order Number</th>
+            <th>RestaurantName</th>
+            <th>RestaurantAddress</th>
+            <th>Delivery Time</th>
+            <th>Delivery Address </th>
+            <th>Postcode</th>
+            <th>City</th>
+            <th>Total Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.IdOrderStatus >2)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdOrder)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RestaurantName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RestaurantAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeliveryTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeliveryAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Postcode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "DetailsOrder", new { IdOrder = item.IdOrder })
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

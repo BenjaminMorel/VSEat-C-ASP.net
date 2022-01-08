@@ -1,0 +1,50 @@
+﻿@model WebApplication.Models.RestaurantToDisplay
+
+@{
+    ViewData["Title"] = "AllRestaurantsByRegion";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <h1>Restaurant for Region : @foreach (var item in Model.RegionName) {
+        @Html.DisplayFor(modelItem => item.RegionName)} </h1>
+    <div class="grid_parent">
+        <!-- Column -->
+        @foreach (var item in Model.allRestaurant)
+        {
+            <div class="grid_parent">
+                <!-- Cover -->
+                <!-- Content -->
+
+                <div class="">
+                    <a href=@Url.Action("ShowAllProductFromRestaurant", new { id = item.IdRestaurant })>
+
+                        <img src="~/@item.Picture" width="300" height="200" class="restaurantImage" />
+
+                    </a>
+                    <tr>
+                        <td>
+                            <h2 class="titleRestaurant">
+                                @Html.DisplayFor(modelItem => item.RestaurantName)
+                            </h2>
+                        </td>
+                        <p></p>
+
+                    </tr>
+                </div>
+
+                <!-- Button sticks to the bottom -->
+            </div>
+        }
+
+    </div>
+</body>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+</html>

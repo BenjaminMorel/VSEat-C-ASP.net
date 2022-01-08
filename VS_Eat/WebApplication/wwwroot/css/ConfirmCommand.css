@@ -1,0 +1,10 @@
+﻿
+.errorMessage{
+    position:fixed; 
+    top:25%;
+    left:25%; 
+}
+
+.errorCode{
+    color:red; 
+}

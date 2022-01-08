@@ -1,0 +1,58 @@
+﻿@model DTO.Login;  
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="login-wrap">
+    <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+        <div class="login-form">
+            <div class="sign-in-htm">
+                <form asp-action="Login">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <br />
+                    <div class="group">
+                        <label asp-for="Username" class="label"></label>
+                        <input asp-for="Username" type="text" class="input"/>
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="group">
+                        <label asp-for="Password" class="label"></label>
+                        <input asp-for="Password" type="password" class="input" data-type="password"/>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <br /><br />
+                    <div class="group">
+                        <input type="submit" class="button" value="Sign in">
+                    </div>
+                    <div class="hr"></div>
+                </form>
+            </div>
+
+            <div class="sign-up-htm">
+                <br /> <br /> <br />
+                <div class="group">
+                    <a class="buttonSignUp" asp-area="" asp-controller="Account" asp-action="CreateAnAccount">Create an account</a>
+                </div>
+                <br />
+                <div class="group">
+                    <a class="buttonSignUp" asp-area="" asp-controller="Account" asp-action="CreateDeliveryStaff">Become a deliver</a>
+                </div>
+                <div class="hr"></div>
+
+
+                <script src='https://www.google.com/recaptcha/api.js'></script>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

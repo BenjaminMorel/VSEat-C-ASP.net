@@ -1,0 +1,137 @@
+﻿@model IEnumerable<DTO.Order>
+
+@{
+    ViewData["Title"] = "MainPageRestaurant";
+    Layout = "~/Views/Shared/_LayoutRestaurant.cshtml";
+}
+
+<h2 class="mainButton">Main Page Restaurant</h2>
+<hr/>
+
+<p>
+    Open Order
+</p>
+<table class="table" title="OpenOrder">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                To prepare for
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdDeliveryStaff)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        if (item.IdOrderStatus == 1)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryAddress)
+                </td>
+                @{
+                    var total = @item.Freight + @item.TotalPrice;
+                }
+                <td>
+                    @total CHF 
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdDeliveryStaff)
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="IdOrder" value="@item.IdOrder"/>
+                        <input type="submit" value="Ready to be deliverd"/>
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
+<br/><br />
+
+<p>
+   Old Orders
+</p>
+<table class="table" title="Old Orders">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </th>
+        <th>
+            To prepare for
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdDeliveryStaff)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.IdOrderStatus > 1)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdOrder)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeliveryTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeliveryAddress)
+                    </td>
+                    @{
+                        var total = @item.Freight + @item.TotalPrice;
+                    }
+                    <td>
+                        @total CHF 
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdDeliveryStaff)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

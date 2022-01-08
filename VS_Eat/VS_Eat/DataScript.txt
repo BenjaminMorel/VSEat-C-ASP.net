@@ -1,62 +1,413 @@
-﻿﻿/** SQL SCRIPT THAT FILLS OUR DIFFERENT TABLES **/
-
+﻿
 
 /** DELETE ALL THE DATA 
-TRUNCATE TABLE [dbo].[LoginType]
-TRUNCATE TABLE [dbo].[Location]
-TRUNCATE TABLE [dbo].[Login]
-TRUNCATE TABLE [dbo].[User]
-TRUNCATE TABLE [dbo].[Restaurant]
-TRUNCATE TABLE [dbo].[ProductType]
-TRUNCATE TABLE [dbo].[Product]
-TRUNCATE TABLE [dbo].[DeliveryStaff]
-TRUNCATE TABLE [dbo].[Order]
 TRUNCATE TABLE [dbo].[OrderDetails]
+TRUNCATE TABLE [dbo].[Order]
+TRUNCATE TABLE [dbo].[OrderStatus]
+TRUNCATE TABLE [dbo].[DeliveryStaff]
+TRUNCATE TABLE [dbo].[DeliveryStaffType]
+TRUNCATE TABLE [dbo].[Product]
+TRUNCATE TABLE [dbo].[ProductType]
+TRUNCATE TABLE [dbo].[Restaurant]
+TRUNCATE TABLE [dbo].[RestaurantType]
+TRUNCATE TABLE [dbo].[User]
+TRUNCATE TABLE [dbo].[Login]
+TRUNCATE TABLE [dbo].[Location]
+TRUNCATE TABLE [dbo].[Region]
+TRUNCATE TABLE [dbo].[LoginType]
 **/
 
 /** INSERT NEW VALUES **/
 INSERT [dbo].[LoginType] (LoginType) VALUES
 ('Administrator'),
-('User'),
 ('Restaurant'),
-('DeliveryStaff');
+('DeliveryStaff'),
+('User');
 
-INSERT [dbo].[Location] (PostCode, City) VALUES
-('3960', 'Sierre'),
-('1950', 'Sion'),
-('1895', 'Vionnaz'),
-('1945', 'Liddes');
+INSERT [dbo].[Region] (RegionName) VALUES
+('Brig'),
+('Conthey'),
+('Entremont'),
+('Goms'),
+('Hérens'),
+('Leuk'),
+('Martigny'),
+('Monthey'),
+('Raron'),
+('Saint-Maurice'),
+('Sierre'),
+('Sion'),
+('Visp');
 
-INSERT [dbo].[Login] (Login, Password, IdLoginType) VALUES
-('benjamin.morel@students.hevs.ch', 1234, '1'),
-('hugo.vouillamoz@students.hevs.ch', 4567, '1'),
-('daniel.coimbra@students.hevs.ch', 6969, '2');
+INSERT [dbo].[Location] (PostCode, City, IdRegion) VALUES
+('1870', 'Monthey', '8'),
+('1920', 'Martigny', '7'),
+('1950', 'Sion', '12'),
+('3900', 'Brig', '1'),
+('3920', 'Zermatt', '13'),
+('3930', 'Visp', '13'),
+('3960', 'Sierre', '11'),
+('1868', 'Collombey', '8'),
+('1890', 'St-Maurice', '10'),
+('1907', 'Saxon', '7'),
+('1926', 'Fully', '7'),
+('1936', 'Verbier', '3'),
+('1963', 'Vétroz', '2'),
+('1964', 'Conthey', '2'),
+('1997', 'Haute-Nendaz', '2'),
+('3902', 'Glis', '1'),
+('3904', 'Naters', '1'),
+('3925', 'Grächen', '13'),
+('3929', 'Täsch', '13'),
+('3934', 'Zeneggen', '13'),
+('3945', 'Gampel', '6'),
+('3952', 'Susten', '6'),
+('3954', 'Leukerbad', '6'),
+('3961', 'Grimentz', '11'),
+('3963', 'Crans-Montana', '11'),
+('3970', 'Salgesch', '6'),
+('3984', 'Fiesch', '4'),
+('3987', 'Riederalp', '9'),
+('3992', 'Bettmeralp', '9'),
+('3995', 'Ernen', '4'),
+('1872', 'Troistorrents', '8'),
+('1873', 'Val-d''Illiez', '8'),
+('1874', 'Champéry', '8'),
+('1875', 'Morgins', '8'),
+('1895', 'Vionnaz', '8'),
+('1896', 'Vouvry', '8'),
+('1897', 'Bouveret', '8'),
+('1902', 'Evionnaz', '10'),
+('1903', 'Collonges', '10'),
+('1904', 'Vernayaz', '10'),
+('1905', 'Dorénaz', '10'),
+('1906', 'Charrat', '7'),
+('1908', 'Riddes', '7'),
+('1911', 'Ovronnaz', '7'),
+('1912', 'Leytron', '7'),
+('1913', 'Saillon', '7'),
+('1914', 'Isérables', '7'),
+('1921', 'Martigny-Croix', '7'),
+('1922', 'Salvan', '10'),
+('1923', 'Les Marécottes', '10'),
+('1925', 'Finhaut', '10'),
+('1927', 'Chemin', '3'),
+('1933', 'Sembrancher', '3'),
+('1937', 'Orsières', '3'),
+('1938', 'Champex-Lac', '3'),
+('1945', 'Liddes', '3'),
+('1955', 'Chamoson', '2'),
+('1957', 'Ardon', '2'),
+('1958', 'Uvrier', '12'),
+('1967', 'Bramois', '12'),
+('1971', 'Grimisuat', '12'),
+('1972', 'Anzère', '5'),
+('1973', 'Nax', '5'),
+('1976', 'Erde', '2'),
+('1981', 'Vex', '5'),
+('1982', 'Euseigne', '5'),
+('1983', 'Evolène', '5'),
+('1984', 'Les Haudères', '5'),
+('1986', 'Arolla', '5'),
+('1987', 'Hérémence', '5'),
+('1988', 'Thyon', '5'),
+('1993', 'Veysonnaz', '12'),
+('1996', 'Basse-Nendaz', '2'),
+('3900', 'Brigerbad', '1'),
+('3900', 'Gamsen', '1'),
+('3903', 'Mund', '1'),
+('3907', 'Simplon Dorf', '1'),
+('3911', 'Ried-Brig', '1'),
+('3912', 'Termen', '1'),
+('3914', 'Belalp', '1'),
+('3916', 'Ferden', '9'),
+('3917', 'Kippel', '9'),
+('3917', 'Goppenstein', '9'),
+('3918', 'Wiler (Lötschen)', '9'),
+('3923', 'Törbel', '13'),
+('3926', 'Embd', '13'),
+('3927', 'Herbriggen', '13'),
+('3928', 'Randa', '13'),
+('3931', 'Lalden', '13'),
+('3932', 'Visperterminen', '13'),
+('3933', 'Staldenried', '13'),
+('3935', 'Bürchen', '9'),
+('3937', 'Baltschieder', '13'),
+('3939', 'Eggerberg', '1'),
+('3942', 'Raron', '9'),
+('3942', 'Niedergesteln', '9'),
+('3943', 'Eischoll', '9'),
+('3945', 'Niedergampel', '6'),
+('3946', 'Turtmann', '6'),
+('3946', 'Gruben', '6'),
+('3951', 'Agarn', '6'),
+('3953', 'Leuk Stadt', '6'),
+('3953', 'Varen', '6'),
+('3953', 'Inden', '6'),
+('3955', 'Albinen', '6'),
+('3957', 'Erschmatt', '6'),
+('3957', 'Bratsch', '6'),
+('3961', 'Chandolin', '11'),
+('3961', 'Ayer', '11'),
+('3961', 'Vissoie', '11'),
+('3961', 'St-Luc', '11'),
+('3961', 'Zinal', '11'),
+('3965', 'Chippis', '11'),
+('3966', 'Chalais', '11'),
+('3967', 'Vercorin', '11'),
+('3971', 'Chermignon', '11'),
+('3972', 'Miège', '11'),
+('3975', 'Randogne', '11'),
+('3979', 'Grône', '11'),
+('3982', 'Bitsch', '9'),
+('3983', 'Mörel', '9'),
+('3983', 'Goppisberg', '9'),
+('3988', 'Ulrichen', '4'),
+('3989', 'Blitzingen', '4'),
+('3989', 'Ritzingen', '4'),
+('3991', 'Betten', '9'),
+('3993', 'Grengiols', '9'),
+('3994', 'Lax', '4'),
+('3995', 'Ausserbinn', '4'),
+('3996', 'Binn', '4'),
+('1869', 'Massongex', '10'),
+('1871', 'Choëx', '8'),
+('1873', 'Les Crosets', '8'),
+('1898', 'St-Gingolph', '8'),
+('1899', 'Torgon', '8'),
+('1929', 'Trient', '7'),
+('1934', 'Le Châble VS', '3'),
+('1934', 'Bruson', '3'),
+('1941', 'Vollèges', '3'),
+('1943', 'Praz-de-Fort', '3'),
+('1946', 'Bourg-St-Pierre', '3'),
+('1947', 'Versegères', '3'),
+('1948', 'Lourtier', '3'),
+('1948', 'Fionnay', '3'),
+('1955', 'St-Pierre-de-Clages', '2'),
+('1958', 'St-Léonard', '11'),
+('1961', 'Vernamiège', '5'),
+('1968', 'Mase', '5'),
+('1976', 'Aven', '2'),
+('1977', 'Icogne', '11'),
+('1985', 'La Sage', '5'),
+('1991', 'Salins', '12'),
+('1992', 'Les Agettes', '12'),
+('1994', 'Aproz (Nendaz)', '2'),
+('1996', 'Beuson (Nendaz)', '2'),
+('1997', 'Siviez (Nendaz)', '2'),
+('3914', 'Blatten b. Naters', '1'),
+('3919', 'Blatten (Lötschen)', '9'),
+('3922', 'Stalden VS', '13'),
+('3924', 'St. Niklaus VS', '13'),
+('3930', 'Eyholz', '13'),
+('3938', 'Ausserberg', '9'),
+('3940', 'Steg VS', '9'),
+('3963', 'Montana', '11'),
+('3968', 'Veyras', '11'),
+('3973', 'Venthône', '11'),
+('3976', 'Noës', '11'),
+('3977', 'Granges VS', '11'),
+('3978', 'Flanthey', '11'),
+('3983', 'Filet', '9'),
+('3985', 'Münster VS', '4'),
+('3986', 'Ried-Mörel', '9'),
+('3988', 'Obergesteln', '4'),
+('3997', 'Bellwald', '4'),
+('3998', 'Gluringen', '4'),
+('3999', 'Oberwald', '4'),
+('1871', 'Les Giettes', '8'),
+('1873', 'Champoussin', '8'),
+('1891', 'Vérossaz', '10'),
+('1896', 'Miex', '8'),
+('1897', 'Les Evouettes', '8'),
+('1922', 'Les Granges (Salvan)', '10'),
+('1925', 'Le Châtelard VS', '10'),
+('1928', 'Ravoire', '7'),
+('1942', 'Levron', '3'),
+('1944', 'La Fouly VS', '3'),
+('1948', 'Sarreyer', '3'),
+('1962', 'Pont-de-la-Morge (Sion)', '12'),
+('1969', 'Suen (St-Martin)', '5'),
+('1969', 'St-Martin VS', '5'),
+('1971', 'Champlan (Grimisuat)', '12'),
+('1975', 'St-Séverin', '2'),
+('1976', 'Daillon', '2'),
+('1988', 'Les Collons', '5'),
+('1992', 'Les Mayens-de-Sion', '12'),
+('1996', 'Fey (Nendaz)', '2');
 
-INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, EmailAddress, IdLogin, IdLocation) VALUES
-('Thomas', 'Cheseaux', '0792839183', 'thomas.cheseaux@students.hevs.ch', NULL, NULL),
-('Nicolas', 'Devanthéry', '0793943812', 'nicolas.devanthery@students.hevs.ch', NULL, NULL);
+INSERT [dbo].[Login] (Username, Password, IdLoginType) VALUES
+('benjamin@morel.ch',	'password', '1'),
+('hugo@vouillamoz.ch',	'password', '4'),
+('Daniel@Coimbra.ch',	'password', '4'),
+('thomas@cheseaux.ch',	'password', '4'),
+('vouillamoz@hugo.ch',	'password', '4'),
+('theo@choffat.ch',		'password', '4'),
+('nathan@dely.ch',		'password', '4'),
+('megane@solliard.ch',	'password', '4'),
+('doriane@papilloud.ch', 'password', '4'),
+('abdullah@binjos.ch',	'password', '4'),
+('nicolas@devanthery.ch','passowrd', '3'),
+('morel@benjamin.ch',	'password',	'3'),
+('nathan@gaillard',		'password', '3'),
+('carlos@coimbra.ch',	'password',	'3'),
+('simon@beaud.ch',		'password',	'3'),
+('Inglewood@gmail.com', 'password', '2');
 
-INSERT [dbo].[Restaurant] (RestaurantName, RestaurantAddress) VALUES
-('StarKebab', 'Chemin du kebab 12'),
-('Pizza Express', 'Chemin de la pizza 93');
+INSERT [dbo].[User] (FirstName, LastName, PhoneNumber, Address, IdLogin, IdLocation) VALUES
+('Benjamin',	'Morel',		'0799811254', 'chemin de vionn 12',					'1', '110'),
+('Hugo',		'Vouillamoz',	'0799872542', 'route du flipreset 7',				'2', '59'),
+('Daniel',		'Coimbra',		'0791565814', 'avenue du scex 27',					'3', '40'),
+('Thomas',		'Cheseaux',		'0792839183', 'chemin du comptoir 5',				'4', '88'),
+('Vouillamoz',	'Hugo',			'0792147863', 'Chemin des fontaines 10',			'5', '56'),
+('Theo',		'Choffat',		'0394587425', 'Chemin du Lac 21',					'6','3'),
+('Nathan',		'Dely',			'0745841247', 'Place du village 12',				'7','24'),
+('Mégane',		'Solliard',		'0241454879', 'Rue du pré 12',						'8','54'),
+('Doriane',		'Papilloud',	'0472575458', 'Rue des châteaux 45',				'9', '67'),
+('Abdullah',	'Binjos',		'0264587854', 'Rue des vélo 19',					'10', '78'); 
 
-INSERT [dbo].[ProductType] (ProductType) VALUES
-('Petit'),
-('Moyen'),
-('Grand'),
-('Famille');
+INSERT [dbo].[RestaurantType] (NomRestaurantType) VALUES 
+('Burger'),
+('Pizza'),
+('Asiatique'); 
 
-INSERT [dbo].[Product] (ProductName, Description, Price, Picture, Disponibility) VALUES
-('CheeseBurger', 'Burger avec fromage', '15.00', 'cheeseBurger.png', 1),
-('Pizza Margarita', 'tomate, mozzarella', '10.00', 'margarita.png', 1);
+INSERT [dbo].[Restaurant] (RestaurantName, RestaurantAddress,Picture, IdLogin, IdLocation, IdRestaurantType) VALUES
+('Pizza Express',			'Chemin de la pizza 93',	'/Images/Restaurants/PizzaEx.jpg',		'1',	'3',	'2'),
+('Le Bistrot d''Italie',	'Rue d''Oche 10',			'/Images/Restaurants/Bistrot.jpg',		'1',	'2',	'2'),
+('La Dixence',				'Place du Midi 35',			'/Images/Restaurants/Dixence.jpg',		'1',	'3',	'2'),
+('Inglewood',				'Cr de la gare 27',			'/Images/Restaurants/Ingelwood.jpg',		'16',	'3',	'1'),
+('Gourmnadises d''Asie',	'Av. de France 6',			'/Images/Restaurants/gourmandises.jpg',		'1',	'3',	'3'),
+('Chez Chou',				'Espace des Remparts 25',	'/Images/Restaurants/chezChou.jpg',				'1',	'3',	'3'),
+('Samui Thai Food',			'Av. de Tourbillon 28',		'/Images/Restaurants/Samui.jpg',				'1',	'3',	'3'),
+('Coucou shushi',			'Place du midi 37',			'/Images/Restaurants/CoucouShushi.jpg',			'1',	'3',	'3'),
+('La Tonnella',				'Place du Midi 29',			'/Images/Restaurants/Tonnella.jpg',				'1',	'3',	'2'),
+('Luigia',					'Cr de la gare 29',			'/Images/Restaurants/Luigia.jpg',				'1',	'3',	'2'),
+('Holy Cow',				'Av. de France 8',			'/Images/Restaurants/HolyCow.jpg',				'1',	'3',	'1'),
+('Burger House',			'Place du Midi 10',			'/Images/Restaurants/BurgerHouse.jpg',			'1',	'3',	'1');
 
-INSERT [dbo].[DeliveryStaff] (FirstNameDeliveryStaff, NameDeliveryStaff) VALUES
-('Eric', 'Gallati'),
-('Doriane', 'Papilloud');
 
-INSERT [dbo].[Order] (OrderNumber, OrderDate, Freight, DeliveryAddress, Free, Finished, Archived) VALUES
-('123', DEFAULT, '2.00', 'Rue de la faim 3', DEFAULT, DEFAULT, DEFAULT);
 
-INSERT [dbo].[OrderDetails] (UnitPrice, Quantity) VALUES
-('10.50', '2'),
-('15.90', '5');
+INSERT [dbo].[Product] (ProductName, Description, Price, Picture, Disponibility, Vegetarian, IdRestaurant) VALUES
+
+('Cheesburger',				'Beef burger with cheese and fries',	'10.50', '/Images/Products/Burger/cheeseburger.jpg',			'1', '0', '4'), 
+('Cheesburger',				'Beef burger with cheese and fries',	'10.50', '/Images/Products/Burger/cheeseburger.jpg',			'1', '0', '11'), 
+('Cheesburger',				'Beef burger with cheese and fries',	'10.50', '/Images/Products/Burger/cheeseburger.jpg',			'1', '0', '12'),
+
+('beefBurger',				'Beef burger with fries',				'11.50', '/Images/Products/Burger/beefburger.jpg',			'1', '0', '4'), 
+('beefBurger',				'Beef burger with fries',				'11.50', '/Images/Products/Burger/beefburger.jpg',			'1', '0', '11'), 
+('beefBurger',				'Beef burger whith fries',				'11.50', '/Images/Products/Burger/beefburger.jpg',			'1', '0', '12'), 
+
+('Big Burger',			'double beef burger with fries',		'20.50',	 '/Images/Products/Burger/bigBurger.jpg',		'1', '0', '4'),
+('Big Burger',			'double beef burger with fries',		'20.50', '/Images/Products/Burger/bigBurger.jpg',		'1', '0', '11'),
+('Big Burger',			'double beef burger with fries',		'20.50', '/Images/Products/Burger/bigBurger.jpg',		'1', '0', '12'),
+
+('chicken Burger',			'chicken burger with salad and fries',	'10.50', '/Images/Products/Burger/chicken.jpg',	'1', '0', '4'),
+('chicken Burger',			'chicken burger with salad and fries',	'10.50', '/Images/Products/Burger/chicken.jpg',	'1', '0', '11'),
+('chicken Burger',			'chicken burger with salad and fries',	'10.50', '/Images/Products/Burger/chicken.jpg',	'1', '0', '12'),
+
+('Vegie Burger',			'Vegetarian burger with fries',		'9.50',	'/Images/Products/Burger/vegie.jpg',			'1', '1', '4'),
+('Vegie Burger',			'Vegetarian burger with fries',		'9.50',	'/Images/Products/Burger/vegie.jpg',			'1', '1', '11'),
+('Vegie Burger',			'Vegetarian burger with fries',		'9.50',	'/Images/Products/Burger/vegie.jpg',			'1', '1', '12'),
+
+('Boscaiola',				'Pizza with tomatoes and mozzarela',	'11.00',	'/Images/Products/Pizza/Boscaiola.jpg',		'1',	'1',	'1'),
+('Boscaiola',				'Pizza with tomatoes and mozzarela',	'11.00',	'/Images/Products/Pizza/Boscaiola.jpg',		'1',	'1',	'2'),
+('Boscaiola',				'Pizza with tomatoes and mozzarela',	'11.00',	'/Images/Products/Pizza/Boscaiola.jpg',		'1',	'1',	'3'),
+('Boscaiola',				'Pizza with tomatoes and mozzarela',	'11.00',	'/Images/Products/Pizza/Boscaiola.jpg',		'1',	'1',	'9'),
+('Boscaiola',				'Pizza with tomatoes and mozzarela',	'11.00',	'/Images/Products/Pizza/Boscaiola.jpg',		'1',	'1',	'10'),
+
+('Diavola',					'Pizza with chorizo and tomatoes',		'12.00',	'/Images/Products/Pizza/Diavola.jpg',		'1',	'0',	'1'),
+('Diavola',					'Pizza with chorizo and tomatoes',		'12.00',	'/Images/Products/Pizza/Diavola.jpg',		'1',	'0',	'2'),
+('Diavola',					'Pizza with chorizo and tomatoes',		'12.00',	'/Images/Products/Pizza/Diavola.jpg',		'1',	'0',	'3'),
+('Diavola',					'Pizza with chorizo and tomatoes',		'12.00',	'/Images/Products/Pizza/Diavola.jpg',		'1',	'0',	'9'),
+('Diavola',					'Pizza with chorizo and tomatoes',		'12.00',	'/Images/Products/Pizza/Diavola.jpg',		'1',	'0',	'10'),
+
+('Hawaï',					'Pizza with ananas',					'13.00',	'/Images/Products/Pizza/Hawai.jpg',			'1',	'0',	'1'),
+('Hawaï',					'Pizza with ananas',					'13.00',	'/Images/Products/Pizza/Hawai.jpg',			'1',	'0',	'2'),
+('Hawaï',					'Pizza with ananas',					'13.00',	'/Images/Products/Pizza/Hawai.jpg',			'1',	'0',	'3'),
+('Hawaï',					'Pizza with ananas',					'13.00',	'/Images/Products/Pizza/Hawai.jpg',			'1',	'0',	'9'),
+('Hawaï',					'Pizza with ananas',					'13.00',	'/Images/Products/Pizza/Hawai.jpg',			'1',	'0',	'10'),
+
+('Marguerita',				'Simple pizza with ham and mozzarela',		'9.00',	'/Images/Products/Pizza/margerita.jpg',		'1',	'0',	'1'),
+('Marguerita',				'Simple pizza with ham and mozzarela',		'9.00',	'/Images/Products/Pizza/margerita.jpg',		'1',	'0',	'2'),
+('Marguerita',				'Simple pizza with ham and mozzarela',		'9.00',	'/Images/Products/Pizza/margerita.jpg',		'1',	'0',	'3'),
+('Marguerita',				'Simple pizza with ham and mozzarela',		'9.00',	'/Images/Products/Pizza/margerita.jpg',		'1',	'0',	'9'),
+('Marguerita',				'Simple pizza with ham and mozzarela',		'9.00',	'/Images/Products/Pizza/margerita.jpg',		'1',	'0',	'10'),
+
+('Prosciutto',				'Pizza with mushroom and ham',				'11.00', '/Images/Products/Pizza/Prosciutto.jpg',	'1',	'0',	'1'),
+('Prosciutto',				'Pizza with mushroom and ham',				'11.00', '/Images/Products/Pizza/Prosciutto.jpg',	'1',	'0',	'2'),
+('Prosciutto',				'Pizza with mushroom and ham',				'11.00', '/Images/Products/Pizza/Prosciutto.jpg',	'1',	'0',	'3'),
+('Prosciutto',				'Pizza with mushroom and ham',				'11.00', '/Images/Products/Pizza/Prosciutto.jpg',	'1',	'0',	'9'),
+('Prosciutto',				'Pizza with mushroom and ham',				'11.00', '/Images/Products/Pizza/Prosciutto.jpg',	'1',	'0',	'10'),
+
+('Quatre Fromage',			'Pizza with four different cheeses',		'10.00', '/Images/Products/Pizza/QuatreFrom.jpg',	'1',	'1',	'1'),
+('Quatre Fromage',			'Pizza with four different cheeses',		'10.00', '/Images/Products/Pizza/QuatreFrom.jpg',	'1',	'1',	'2'),
+('Quatre Fromage',			'Pizza with four different cheeses',		'10.00', '/Images/Products/Pizza/QuatreFrom.jpg',	'1',	'1',	'3'),
+('Quatre Fromage',			'Pizza with four different cheeses',		'10.00', '/Images/Products/Pizza/QuatreFrom.jpg',	'1',	'1',	'9'),
+('Quatre Fromage',			'Pizza with four different cheeses',		'10.00', '/Images/Products/Pizza/QuatreFrom.jpg',	'1',	'1',	'10'),
+
+('Boeuf piquant',			'Beef with spicy sauce',					'10.00', '/Images/Products/Asiatique/boeuf.jpg',	'1',	'0',	'5'),
+('Boeuf piquant',			'Beef with spicy sauce',					'10.00', '/Images/Products/Asiatique/boeuf.jpg',	'1',	'0',	'6'),
+('Boeuf piquant',			'Beef with spicy sauce',					'10.00', '/Images/Products/Asiatique/boeuf.jpg',	'1',	'0',	'7'),
+('Boeuf piquant',			'Beef with spicy sauce',					'10.00', '/Images/Products/Asiatique/boeuf.jpg',	'1',	'0',	'8'),
+
+('Boeuf aux Légumes',		'Beef with vegetables',						'11.00', '/Images/Products/Asiatique/boeufLegume.jpg', '1', '0',	'5'),
+('Boeuf aux Légumes',		'Beef with vegetables',						'11.00', '/Images/Products/Asiatique/boeufLegume.jpg', '1', '0',	'6'),
+('Boeuf aux Légumes',		'Beef with vegetables',						'11.00', '/Images/Products/Asiatique/boeufLegume.jpg', '1', '0',	'7'),
+('Boeuf aux Légumes',		'Beef with vegetables',						'11.00', '/Images/Products/Asiatique/boeufLegume.jpg', '1', '0',	'8'),
+
+('Canard à l''orange',		'Duck with orange sauce',					'16.00', '/Images/Products/Asiatique/canard.jpg',		'1', '0',	'5'),
+('Canard à l''orange',		'Duck with orange sauce',					'16.00', '/Images/Products/Asiatique/canard.jpg',		'1', '0',	'6'),
+('Canard à l''orange',		'Duck with orange sauce',					'16.00', '/Images/Products/Asiatique/canard.jpg',		'1', '0',	'7'),
+('Canard à l''orange',		'Duck with orange sauce',					'16.00', '/Images/Products/Asiatique/canard.jpg',		'1', '0',	'8'),
+
+('Poulet au légume',		'Chicken with vegetables',					'8.50', '/Images/Products/Asiatique/poulet.jpg',		'1', '0',	'5'),
+('Poulet au légume',		'Chicken with vegetables',					'8.50', '/Images/Products/Asiatique/poulet.jpg',		'1', '0',	'6'),
+('Poulet au légume',		'Chicken with vegetables',					'8.50', '/Images/Products/Asiatique/poulet.jpg',		'1', '0',	'7'),
+('Poulet au légume',		'Chicken with vegetables',					'8.50', '/Images/Products/Asiatique/poulet.jpg',		'1', '0',	'8'),
+
+('Nouilles aux légumes', 'Noodles with vegtables',				'9.00',	'/Images/Products/Asiatique/salade.jpg',		'1', '1',	'5'),
+('Nouilles aux légumes', 'Noodles with vegtables',				'9.00',	'/Images/Products/Asiatique/salade.jpg',		'1', '1',	'6'),
+('Nouilles aux légumes', 'Noodles with vegtables',				'9.00',	'/Images/Products/Asiatique/salade.jpg',		'1', '1',	'7'),
+('Nouilles aux légumes', 'Noodles with vegtables',				'9.00',	'/Images/Products/Asiatique/salade.jpg',		'1', '1',	'8'),
+
+('Shushi',					'Shushi (30 pieces)',						'30.00', '/Images/Products/Asiatique/shushi.jpg',		'1', '0',	'5'),
+('Shushi',					'Shushi (30 pieces)',						'30.00', '/Images/Products/Asiatique/shushi.jpg',		'1', '0',	'6'),
+('Shushi',					'Shushi (30 pieces)',						'30.00', '/Images/Products/Asiatique/shushi.jpg',		'1', '0',	'7'),
+('Shushi',					'Shushi (30 pieces)',						'30.00', '/Images/Products/Asiatique/shushi.jpg',		'1', '0',	'8');
+
+
+INSERT [dbo].[DeliveryStaffType] (DeliveryStaffType) VALUES
+('Inactive'),
+('Employable'),
+('Former');
+
+INSERT [dbo].[DeliveryStaff] (FirstName, LastName, PhoneNumber, Address, IdLogin, IdLocation, IdDeliveryStaffType, IdWorkingRegion) VALUES
+('Nicolas',		'Devanthéry',	'0785842426', 'chemin de vionn 12', '11', '24', '1', '2'),
+('Morel',		'Benjamin',		'0783695412', 'chemin de vionn 12', '12', '59', '1', '2'),
+('Nathan',		'Gaillard',		'0247851245', 'chemin de vionn 12', '13', '45', '1', '2'), 
+('Carlos',		'Coimbra',		'0245257512', 'chemin de vionn 12', '14', '48', '1', '2'),
+('Simon',		'Beaud',		'0245212545', 'chemin de vionn 12', '15', '20', '1', '2');
+
+INSERT [dbo].[OrderStatus] (Status) VALUES
+('Created'),
+('Ready to be delivered'),
+('Out for delivery'),
+('Archived'),
+('Canceled');
+
+/**
+INSERT [dbo].[Order] (OrderDate, DeliveryTime, DeliveryAddress, Freight, TotalPrice, IdOrderStatus, IdUser, IdDeliveryStaff, IdLocation, IdRestaurant) VALUES
+(DEFAULT,'18:30:00', 'Rue de la faim 3',	'4.00', '24.00', '5', '2', '2', '40', '1'),
+(DEFAULT,'17:15:00', 'Rue de la faim 12',	'8.00', '68.00', '5', '2', '2', '88', '1');
+
+INSERT [dbo].[OrderDetails] (UnitPrice, Quantity, IdProduct, IdOrder) VALUES
+('10.00', '2', '1', '2'),
+('15.00', '2', '5', '2'),
+('15.00', '2', '10', '2');
+**/
+
+INSERT [dbo].[Review] (IdRestaurant,Stars,Comment) VALUES
+('5','5','Super burger !'),
+('1','2',NULL),
+('5','3',NULL); 

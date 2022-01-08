@@ -1,0 +1,114 @@
+﻿@model WebApplication.Models.RestaurantToDisplay; 
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/restaurant.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+<body>
+    <br />
+
+    <div class="searchPanel">
+        <form method="post">
+            <select name="regionName">
+                <option selected disabled>Choose a region to display !</option>
+                @foreach (var region in Model.RegionName)
+                {
+                    <option> @Html.DisplayFor(modelItem => region.RegionName)</option>
+
+                }
+            </select>
+                <p>
+                @foreach (var restaurantType in Model.AllRestaurantType)
+                {
+
+
+                    @if (Model.AllTypeToDisplay.Contains(restaurantType.NomRestaurantType))
+                    {
+
+                        <input type="checkbox" name="restaurantType" value=@restaurantType.NomRestaurantType checked class="checkbox-round" /> @restaurantType.NomRestaurantType
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="restaurantType" value=@restaurantType.NomRestaurantType class="checkbox-round" /> @restaurantType.NomRestaurantType
+                        }
+                    }
+                </p>
+                <br />
+                <input type="submit" value="search" />
+            </form>
+    </div>
+    <h1>Restaurant for Region @Model.myRegion.RegionName</h1>
+    <div class="grid_parent">
+        <!-- Column -->
+        @if (Model.allRestaurant.Count == 0)
+        {
+            <h1>Sorry for the moment we have no restaurant in this region !</h1>
+        }
+        else
+        {
+            @foreach (var item in Model.allRestaurant)
+            {
+
+                <div class="grid_parent">
+
+                    <div>
+                        <a href=@Url.Action("ShowAllProductFromRestaurant", new { id = item.IdRestaurant })>
+
+                            <img src="~/@item.Picture" width="300" height="200" />
+
+                        </a>
+                        <tr>
+                            <td>
+                                <h2 class="titleRestaurant">
+                                    @Html.DisplayFor(modelItem => item.RestaurantName)
+                                </h2>
+                            </td>
+                            @foreach (var review in Model.AllReview)
+                            {
+                                @if (review.IdRestaurant == item.IdRestaurant)
+                                {
+                                    <div>
+                                        @for (int i = 0; i < 5; i++)
+                                        {
+                                            @if (i < review.average)
+                                            {
+                                                <span class="fa fa-star checked"></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="fa fa-star"></span>
+                                            }
+                                        }
+
+                                        <p class="reviewText">
+                                            (@Html.DisplayFor(modelItem => review.numberOfReview) reviews | @review.Comment.Count() Comments)
+                                        </p>
+                                    </div>
+                                }
+                            }
+                        </tr>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</body>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+</html>

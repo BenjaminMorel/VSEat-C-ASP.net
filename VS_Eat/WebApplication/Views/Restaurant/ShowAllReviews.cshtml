@@ -1,0 +1,35 @@
+﻿@model IEnumerable<DTO.Review>
+
+@{
+    ViewData["Title"] = "ShowAllReviews";
+    Layout = "~/Views/Shared/_LayoutRestaurant.cshtml";
+}
+
+<h2 class="mainButton">All my reviews</h2>
+<hr/>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Stars)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stars)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

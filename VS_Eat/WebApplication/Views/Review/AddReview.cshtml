@@ -1,0 +1,39 @@
+﻿@model WebApplication.Models.AddReview
+
+@{
+    ViewData["Title"] = "AddReview";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2 class="mainButton">Leave a review for @Model.RestaurantName</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddReview">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+          
+            <div class="form-group">
+                <label asp-for="Stars" class="control-label"></label>
+                <input asp-for="Stars" type="range"  min="1" max="5"  value="3" class="form-control" />
+                <span asp-validation-for="Stars" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comment" class="control-label"></label>
+                <input asp-for="Comment" class="form-control" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <form method="post">
+                    <input type="hidden" value=@Model.IdRestaurant name="IdRestaurant"/>
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </form>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

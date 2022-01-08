@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Valais Eat</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/Restaurant.css" />
+    <link rel="stylesheet" href="~/css/product.css" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <img src="~/Images/Logo.jpg" height="60" width="60"/>
+                <a class="navbar-brand" asp-area="" asp-controller="Restaurant" asp-action="Index">Valais Eat</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="AccountInformation">Account details</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ShowAllOrders">My orders</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="ContactForm">Contact us</a>
+                        </li>
+                        <li>
+                            <a class="red nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Disconnect</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ConfirmOrder"><img src="~/Images/panier.png" width="35" height="35"/></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <a asp-area="" asp-controller="Restaurant" asp-action="Index">Home</a><a>   &copy; Copyright 2022 Valais Eat - Hugo Vouillamoz & Benjamin Morel</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

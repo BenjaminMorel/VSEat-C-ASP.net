@@ -1,0 +1,48 @@
+﻿@model IEnumerable<DTO.OrderDetails>
+
+@{
+    ViewData["Title"] = "ShowOrderDetail";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2 class="mainButton">Show Order Detail</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdOrder)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdOrder)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

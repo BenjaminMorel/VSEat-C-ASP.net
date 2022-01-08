@@ -1,14 +1,17 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DAL.Interfaces;
+using DTO;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class LoginDB
+    public class LoginDB : ILoginDB
     {
         private IConfiguration Configuration { get; }
         public LoginDB(IConfiguration configuration)
@@ -16,8 +19,13 @@ namespace DAL
             Configuration = configuration;
         }
 
-        public void ShowLogin()
+        /// <summary>
+        /// Method which returns a list of all the logins of the database
+        /// </summary>
+        /// <returns> list of all the logins</returns>
+        public List<Login> GetAllLogins()
         {
+            List<Login> AllLogin = new List<Login>(); 
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
@@ -35,22 +43,260 @@ namespace DAL
                             Login MyLogin = new Login();
 
                             MyLogin.IdLogin = (int)dataReader["IdLogin"];
-                            MyLogin.Username = (string)dataReader["Login"];
+                            MyLogin.Username = (string)dataReader["Username"];
                             MyLogin.Password = (string)dataReader["Password"];
-
-                            Console.Write(MyLogin.ToString()); 
+                            MyLogin.IdLoginType = (int)dataReader["IdLoginType"];
+                            
+                            AllLogin.Add(MyLogin);
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.Write("ERROR\n");
+                Console.Write("ERROR DURING SHOW ALL LOGIN\n");
                 Console.Write(e.Message);
                 Console.Write(e.StackTrace);
                 Console.Write(e.Source);
                 Console.Write("ERROR\n");
             }
+
+            return AllLogin; 
         }
+
+        /// <summary>
+        /// Method that allows you to find a login by passing an email and a password
+        /// </summary>
+        /// <param name="Email"> Email of the login we want to find </param>
+        /// <param name="Password"> Password of the login we want to find </param>
+        /// <returns> Returns an integer, the id of the corresponding login </returns>
+        public Login GetLoginWithCredentials(string Email, string Password)
+        {
+            Login MyLogin = null;
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using(SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Select * from [dbo].[Login] WHERE Username=@Email AND Password=@Password";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Email", Email);
+                    command.Parameters.AddWithValue("@Password", Password);
+                    connection.Open();
+      
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            MyLogin = new Login();
+
+                            MyLogin.IdLogin = (int)dataReader["IdLogin"];
+                            MyLogin.Username = (string)dataReader["Username"];
+                            MyLogin.Password = (string)dataReader["Password"];
+                            MyLogin.IdLoginType = (int)dataReader["IdLoginType"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN GET LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyLogin; 
+        }
+
+        public Login GetLoginByID(int IdLogin)
+        {
+            Login MyLogin = null;
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Select * from [dbo].[Login] WHERE IdLogin=@IdLogin";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdLogin", IdLogin);
+        
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            MyLogin = new Login();
+
+                            MyLogin.IdLogin = (int)dataReader["IdLogin"];
+                            MyLogin.Username = (string)dataReader["Username"];
+                            MyLogin.Password = (string)dataReader["Password"];
+                            MyLogin.IdLoginType = (int)dataReader["IdLoginType"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN GET LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyLogin;
+        }
+
+        public Login GetLoginByUsername(string Username)
+        {
+            Login MyLogin = null;
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Select * from [dbo].[Login] WHERE Username=@Username";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Username", Username);
+
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            MyLogin = new Login();
+
+                            MyLogin.IdLogin = (int)dataReader["IdLogin"];
+                            MyLogin.Username = (string)dataReader["Username"];
+                            MyLogin.Password = (string)dataReader["Password"];
+                            MyLogin.IdLoginType = (int)dataReader["IdLoginType"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN GET LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyLogin;
+        }
+
+
+        /// <summary>
+        /// Method which add a new Login into the database
+        /// </summary>
+        /// <param name="MyLogin"></param>
+        /// <returns> returns an Object Login</returns>
+        public Login AddNewLogin(Login MyLogin)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Insert into Login(Username,Password,IdLoginType) values(@Username,@Password,@IdLoginType); SELECT SCOPE_IDENTITY()";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Username",MyLogin.Username);
+                    command.Parameters.AddWithValue("@Password",MyLogin.Password);
+                    command.Parameters.AddWithValue("@IdLoginType",MyLogin.IdLoginType);
+                    connection.Open();
+                    MyLogin.IdLogin = Convert.ToInt32(command.ExecuteScalar()); 
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN ADD NEW LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyLogin; 
+        }
+
+        /// <summary>
+        /// Method which verify if the email is already in our database
+        /// </summary>
+        /// <param name="Email"> string Email to be verified</param>
+        /// <returns> returns an Object Login if the login already exists</returns>
+        public Login EmailVerification(string Email)
+        {
+            Login MyLogin = null; 
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Select * from [dbo].[Login] WHERE Username=@Email";
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Email", Email); 
+                    connection.Open();
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+                            MyLogin = new Login();
+
+                            MyLogin.IdLogin = (int)dataReader["IdLogin"];
+                            MyLogin.Username = (string)dataReader["Username"];
+                            MyLogin.Password = (string)dataReader["Password"];
+                            MyLogin.IdLoginType = (int)dataReader["IdLoginType"];
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN GET LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyLogin; 
+        }
+
+        /// <summary>
+        /// Method which update the details of the login in parameter
+        /// </summary>
+        /// <param name="MyLogin"></param>
+        /// <returns> Returns an Object Login</returns>
+        public Login UpdateLogin(Login MyLogin)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "Update [dbo].[Login] Set Username=@Username, Password=@Password WHERE IdLogin=@IdLogin";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Username", MyLogin.Username);
+                    command.Parameters.AddWithValue("@Password", MyLogin.Password);
+                    command.Parameters.AddWithValue("@IdLogin",MyLogin.IdLogin);
+                    connection.Open();
+
+                    command.ExecuteScalar(); 
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("ERROR IN ADD UPDATE LOGIN\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyLogin;
+        }
+
     }
 }
