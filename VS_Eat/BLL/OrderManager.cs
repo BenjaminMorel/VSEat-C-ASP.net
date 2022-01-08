@@ -65,7 +65,6 @@ namespace BLL
         public Order AssignStaffToAnOrder(Order MyOrder)
         {
 
-            //TODO trouver le staff qui livrera l'order 
             return OrderDb.AssignStaffToAnOrder(MyOrder); 
         }
     }

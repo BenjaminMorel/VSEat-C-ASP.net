@@ -313,7 +313,6 @@ namespace DAL
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    //TODO finir la query pour trouver le livreur 
                     string query = "SELECT * FROM [dbo].[DeliveryStaff] WHERE IdWorkingRegion=@IdRegion AND IdDeliveryStaffType=2"; 
          
                         
