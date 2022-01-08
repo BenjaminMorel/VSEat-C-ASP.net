@@ -13,7 +13,9 @@ namespace BLL.Interfaces
 
         User GetUserByCredentials(string Email, string Password);
 
-        User GetUserByID(int IdLogin); 
+        User GetUserByID(int IdLogin);
+
+        User GetUserByIDUser(int IdUser);
 
         User CreateNewUser(string FirstName, string LastName, string PhoneNumber, string Address, string Email,
             string Password,

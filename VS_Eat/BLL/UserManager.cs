@@ -41,6 +41,10 @@ namespace BLL
             return UserDb.GetUserByID(IdLogin); 
         }
 
+        public User GetUserByIDUser(int IdUser)
+        {
+            return UserDb.GetUserByIDUser(IdUser);
+        }
 
         public User CreateNewUser(string FirstName, string LastName, string PhoneNumber, string Address, string Email, string Password,
              int PostCode, string City)

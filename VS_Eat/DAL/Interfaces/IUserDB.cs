@@ -10,6 +10,8 @@ namespace DAL.Interfaces
 
         User GetUserByID(int IdUser);
 
+        User GetUserByIDUser(int IdUser);
+
         User AddUser(User MyUser);
 
         User UpdateUser(User MyUser);
