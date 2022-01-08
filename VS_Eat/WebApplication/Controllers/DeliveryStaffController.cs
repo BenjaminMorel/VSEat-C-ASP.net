@@ -46,9 +46,8 @@ namespace WebApplication.Controllers
 
             foreach (var order in allOrders)
             {
-            
                 var myLocation = locationManager.GetLocationByID(order.IdLocation);
-                var myUser = userManager.GetUserByID(order.IdUser);      
+                var myUser = userManager.GetUserByIDUser(order.IdUser);      
                 var myStatus = orderStatusManager.GetOrderStatus(order.IdOrder);
                 var myRestaurant = restaurantManager.GetRestaurantByID(order.IdRestaurant);
 
@@ -85,7 +84,7 @@ namespace WebApplication.Controllers
             {
  
                 var myLocation = locationManager.GetLocationByID(order.IdLocation);
-                var myUser = userManager.GetUserByID(order.IdUser);
+                var myUser = userManager.GetUserByIDUser(order.IdUser);
                 var myStatus = orderStatusManager.GetOrderStatus(order.IdOrder);
                 var myRestaurant = restaurantManager.GetRestaurantByID(order.IdRestaurant);
                 OrdersList myOrderList = new OrdersList(order.IdOrder, order.OrderDate, order.DeliveryTime, order.DeliveryAddress, myUser.FirstName, myUser.LastName, myLocation.PostCode, myLocation.City,

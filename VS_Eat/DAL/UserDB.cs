@@ -121,6 +121,61 @@ namespace DAL
         }
 
         /// <summary>
+        /// Method which returns a user according to an id user given in parameter
+        /// </summary>
+        /// <param name="IdUser"> integer of the user we want to find</param>
+        /// <returns> Returns an object User</returns>
+        public User GetUserByIDUser(int IdUser)
+        {
+            User MyUser = null;
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+
+                    string query = "Select * from [dbo].[User] WHERE IdUser=@IdUser";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdUser", IdUser);
+
+                    connection.Open();
+
+
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+
+                            MyUser = new User();
+
+                            MyUser.IdUser = (int)dataReader["IdUser"];
+                            MyUser.FirstName = (string)dataReader["FirstName"];
+                            MyUser.LastName = (string)dataReader["LastName"];
+                            MyUser.PhoneNumber = (string)dataReader["PhoneNumber"];
+                            MyUser.Address = (string)dataReader["Address"];
+
+                            MyUser.IdLogin = (int)dataReader["IdLogin"];
+
+                            MyUser.IdLocation = (int)dataReader["IdLocation"];
+
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MyUser.IdUser = 999;
+                Console.Write("ERROR IN GET USER BY ID\n");
+                Console.Write(e.Message);
+                Console.Write(e.StackTrace);
+                Console.Write(e.Source);
+                Console.Write("ERROR\n");
+            }
+            return MyUser;
+        }
+
+        /// <summary>
         /// Method which add a new user in the database
         /// </summary>
         /// <param name="MyUser"></param>
