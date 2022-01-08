@@ -1,5 +1,7 @@
 # Guide - How To Use ValaisEat
 
+Website Link : http://153.109.124.35:81/Vouillamoz_Morel_ValaisEat/Account/Login
+
 ## User stories : 
 
 ### (LOGIN) : 
@@ -43,22 +45,22 @@
 - You can also change your working region. For example you can decide that this week you will work in the region of "Sierre" instead of "Sion".
 - You can also disconnect to your account by using the "disconnect" red button.
 
-### Administrator - Credential: EMAIL admin@valaiseat.ch PASSWORD password
+### Administrator - Credentials: EMAIL admin@valaiseat.ch PASSWORD password
 - The administrator is an employee of the valais eat company which can access his account to see all the delivery staff.
-- The first list is used for registrations, all the staff that would like to join the company. You can see their information and the region where they would like to work. You can validate their account by clicking on the button. The delivery staff type will pass from "inactive" to "employable".
+- The first list is used for registrations, all the staff that would like to join the company. You can see their information and the region where they would like to work. You can validate their account by clicking on the button. The delivery staff type will pass from "Inactive" to "Employable".
 - The second list is used to see all the active staff. You can also see their information and the region where they work.
-- If you decide to fire an employee you can do it by clicking on the button. The delivery staff type will pass from "employable" to "Former".
+- If you decide to fire an employee you can do it by clicking on the button. The delivery staff type will pass from "Employable" to "Former".
 - The third and last list is used to see all the former staff valais eat had. There are no interaction with them.
 
 ### Restaurant - Credentials: EMAIL Inglewood@gmail.com PASSWORD password 
 - You will have two differents table, the first one show you all commands that need to be prepared, you can change the status on an order by pressing the button on the right of each line (READY TO BE DELIVERD). 
-- The second show you the historic of all order you finished. You also have a link in the layout ( Products) to display all products your restaurants has with all detials about every products. The other link in the layout shows you all the review that have been left for you, with the number of stars on the left and the comment on the right.
+- The second show you the historic of all order you finished. You also have a link in the layout (Products) to display all products your restaurants has with all detials about every products. The other link in the layout shows you all the review that have been left for you, with the number of stars on the left and the comment on the right.
 
 
 ## IMPORTANT METHODS :
 
-- WebApplication/Controllers/AccountController => [HttpPost] public IActionResult Login(Login myLogin)  => method that handle login.
+- WebApplication/Controllers/AccountController => [HttpPost] public IActionResult Login(Login myLogin)  => method that handle logins connections.
 
-- WebApplication/Controllers/RestaurantController => [HttpPost] public IActionResult MainPageRestaurant(int IdOrder) => method that is called when a restaurant check an order as ready to be send and a delivery need to be found, the method check the number of order a delivery staff has in the same 30 minutes as the new order.
+- WebApplication/Controllers/RestaurantController => [HttpPost] public IActionResult MainPageRestaurant(int IdOrder) => method that is called when a restaurant checks an order as ready to be send and a delivery need to be found, the method checks the number of orders a delivery staff has in the same 30 minutes as the new order.
 
-- WebApplication/Controllers/OrderController => [HttpPost] public IActionResult ConfirmOrder(string DeliveryAddress, string city, int PostCode, int IdCartDetails,DateTime deliveryTime) => method that verified if the delivery address correspond to the region of the restaurant and if the time is not already passed for today and if it's in more thant 30 minutes.
+- WebApplication/Controllers/OrderController => [HttpPost] public IActionResult ConfirmOrder(string DeliveryAddress, string city, int PostCode, int IdCartDetails,DateTime deliveryTime) => method that verify if the delivery address corresponds to the region of the restaurant, if the time is not already passed for today, and also if it is in more than 30 minutes.
