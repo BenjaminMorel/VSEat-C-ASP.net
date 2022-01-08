@@ -12,7 +12,7 @@
 - When a user confirmed his order, the newly created order is send to the concerning restaurant, when the restaurant has finished to prepared it he will change the order status. At this moment we will look into the database to find a staff member that worked in the same region as the restaurant and next we will check if the staff member doesn't have than 5 order to delivery in the same 30 minutes as the new order. If it's not the case the method will assign the order to the first staff member who matched all restriction. 
 - For the delivery address we checked it when the user try to valid the order. If the delivery address region is different from the restaurant region the page won't valid the order and it will display an error message asking the user to choose a delivery adress in the same region. 
 
-### (Delivery Interface ) : 
+### (Delivery Interface) : 
 - A staff member can connect to his account from the login page, it will then set his Session ID (ID_STAFF) to his staff member and the website will let him see his main page. The main page of the delivery display two tables, one with the order that he still need to deliver and an other one that is his historic. 
 - When the staff member delivered an order he can go to this page to change the status of the order from "To be delivered" to "Finished". The page allow him to see the details of every command he has made.  
 
@@ -31,7 +31,7 @@
 - The first part of the page display all product that were in your cart with their price and quantity.
 - From this page you can delete on product or remove all product of your cart. In the second part of the page you need to choose a delivery time (the page will force you to choose a time that is a quarter (15,30,45,00) and that is between) 9:00 and 22:00, the code will then check that the time has not already pass today and that it's in more than 30 minutes) you then need to choose a delivery address (the code will also check that this address is in the same region as the one where the restaurant is, if it's not the case the page will reload with an error message explaining you your mistake).
 - Finally, if everything is correct the order will be added to the database and the concerning restaurant will now see it in his page).
-- You also have a contact us button on the layout that let you send us a comment about the website or any other problem, you can enter your information and send the form. We used a backend platform that will notify us that we received a new feedback (you can try it and we will respond you ;) ) 
+- You also have a contact us button on the layout that let you send us a comment about the website or any other problem, you can enter your information (not mandatory to have a real email address, the one used for the account works fine) and send the form. We used a backend platform that will notify us that we received a new feedback and send it to our real address (you can try it and we will respond you ;) ) 
 
 
 ### Delivery staff - Credentials: EMAIL staff@valaiseat.ch PASSWORD password
