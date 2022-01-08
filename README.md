@@ -1,14 +1,16 @@
 # Guide - How To Use ValaisEat
 
-Website Link : http://153.109.124.35:81/Vouillamoz_Morel_ValaisEat/Account/Login
+**Website Link :** http://153.109.124.35:81/Vouillamoz_Morel_ValaisEat/Account/Login
+**Database name :** Vouillamoz_Morel_ValaisEat
+**Connection string :** Data Source=153.109.124.35;Initial Catalog=Vouillamoz_Morel_ValaisEat;Persist Security Info=True;User ID=6231db;Password=***********
 
 ## User stories : 
 
-### (LOGIN) : 
+### (Login) : 
 - The default page of the website is the login page that ask you for your credentials, you can enter them or you can sign up if you haven't create an account yet. All other pages on the website check for the ID session before the display of the page, if the ID session is null the page will redirect you to the login page. 
 - This security avoids the possibilty of redirecting yourself to a specific page, which you know the name, without entering valid credential first. This verification exist for type of connection, for example you can't show the main page of the staff if your ID session (ID_STAFF) is set to null. We used a different ID session for every different type of connecion (Staff, User, Restaurant and Admin) like that it's impossible for a user to see the content of an admin page. 
 
-### (ORDER) : 
+### (Order) : 
 - A logged customer can see all diferent restaurants in the main page, he can choose to filter this view by region or by restaurant type (Burger, pizza or asiatique) after that he can choose a restaurant and display all dishes the restaurant propose. 
 - He can add product to the cart (the cart verified that the product inside him, all came from the same restaurant otherwise it will not let you add it) when the user is done with his choice he can redirect himself to the confirmation page where all of his products are display and he need to choose the hours of the delivery (every 15min between 9:00 and 22:00) he also need to choose the delivery address. 
 
@@ -23,7 +25,7 @@ Website Link : http://153.109.124.35:81/Vouillamoz_Morel_ValaisEat/Account/Login
 
 ## MAIN FEATURES : 
 
-### USER - Credentials: EMAIL user@valaiseat.ch PASSWORD password
+### User - Credentials: EMAIL user@valaiseat.ch PASSWORD password
 - You will be redirected to the main page which shows you all restaurant in the same region as the one where your post code is (in your case 1950 Sion will point to the region Sion). 
 - On this first page you have on the top a search bar where you can choose an other region to display or you have the choice to check/uncheck three different restaurant types. 
 - The search button will post your parameters and reload the page with the restaurant that correspond to your needs. Each restaurant has an image, his name and the ratio of his rates with the number of review/comment he has. 
