@@ -65,14 +65,14 @@ namespace DAL
         }
 
 
-        public void AddNewCartDetails(CartDetails myCartDetails)
+        public CartDetails AddNewCartDetails(CartDetails myCartDetails)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "Insert into [dbo].[CartDetails](IdLogin,IdProduct,IdRestaurant,ProductName,ProductImage,Quantity,UnitPrice) values(@IdLogin,@IdProduct,@IdRestaurant,@ProductName,@ProductImage,@Quantity,@UnitPrice);";
+                    string query = "Insert into [dbo].[CartDetails](IdLogin,IdProduct,IdRestaurant,ProductName,ProductImage,Quantity,UnitPrice) values(@IdLogin,@IdProduct,@IdRestaurant,@ProductName,@ProductImage,@Quantity,@UnitPrice);SELECT SCOPE_IDENTITY()";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@IdLogin", myCartDetails.IdLogin);
                     command.Parameters.AddWithValue("@IdProduct", myCartDetails.IdProduct);
@@ -84,7 +84,8 @@ namespace DAL
 
                     connection.Open();
 
-                    command.ExecuteReader(); 
+                    myCartDetails.IdCartDetails = Convert.ToInt32(command.ExecuteScalar());
+         
 
                 }
             }
@@ -96,7 +97,7 @@ namespace DAL
                 Console.Write(e.Source);
                 Console.Write("ERROR\n");
             }
-           
+            return myCartDetails;   
         }
 
         public void DeleteOneEntry(int IdCartDetails)

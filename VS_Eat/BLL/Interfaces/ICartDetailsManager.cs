@@ -11,7 +11,7 @@ namespace BLL.Interfaces
     {
         List<CartDetails> GetAllCartDetailsFromLogin(int IdLogin);
 
-        void AddNewCartDetails(CartDetails myCartDetails);
+        CartDetails AddNewCartDetails(CartDetails myCartDetails);
 
         void DeleteOneEntry(int IdProduct);
 

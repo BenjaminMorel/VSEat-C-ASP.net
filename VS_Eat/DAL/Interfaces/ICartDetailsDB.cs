@@ -11,7 +11,7 @@ namespace DAL.Interfaces
     {
         List<CartDetails> GetAllCartDetailsFromLogin(int Idlogin);
 
-        void AddNewCartDetails(CartDetails myCartDetails);
+        CartDetails AddNewCartDetails(CartDetails myCartDetails);
 
         void DeleteOneEntry(int IdProduct);
 

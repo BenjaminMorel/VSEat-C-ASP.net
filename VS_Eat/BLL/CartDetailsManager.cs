@@ -23,9 +23,9 @@ namespace BLL
            return CartDetailsDB.GetAllCartDetailsFromLogin(IdLogin); 
         }
 
-        public void AddNewCartDetails(CartDetails myChartDetails)
+        public CartDetails AddNewCartDetails(CartDetails myChartDetails)
         {
-            CartDetailsDB.AddNewCartDetails(myChartDetails); 
+          return  CartDetailsDB.AddNewCartDetails(myChartDetails); 
         }
 
         public void DeleteOneEntry(int IdProduct)

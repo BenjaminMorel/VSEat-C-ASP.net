@@ -281,7 +281,7 @@ namespace WebApplication.Controllers
                 //Création d'une nouvelle ligne dans la base de donnée avec la nouvelle information du panier 
                 if (!(ISCartUpdate))
                 {
-                    CartDetailsManager.AddNewCartDetails(myCartDetails);
+                    myCartDetails = CartDetailsManager.AddNewCartDetails(myCartDetails);
                     allExistingCartDetail.Add(myCartDetails);
                 }
 
