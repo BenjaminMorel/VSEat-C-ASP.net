@@ -24,24 +24,22 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ConfirmOrder"><img src="~/Images/panier.png" width="35" height="35"/></a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="AccountInformation">Account details</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ShowAllOrders">My orders</a>
                         </li>
                         <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="ContactForm">Contact us</a>
                         </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Disconnect</a>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <div class="btn-group">
-                            <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="~/Images/Profile.png" width="30" height="30"/>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="AccountInformation">Account details</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Order" asp-action="ShowAllOrders">My orders</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="red dropdown-item" asp-area="" asp-controller="Account" asp-action="Login">Disconnect</a>
-                            </div>
-                        </div>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ConfirmOrder"><img src="~/Images/panier.png" width="35" height="35"/></a>
+                        </li>
                     </ul>
                 </div>
             </div>
